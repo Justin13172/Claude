@@ -10,8 +10,6 @@ export const openrouter = createOpenAI({
   },
 })
 
-// 主力模型：Claude Opus 4.6（最强推理）
-export const primaryModel = openrouter('anthropic/claude-opus-4')
-
-// 轻量模型：Claude Sonnet 4.6（生成场景用，速度快）
-export const fastModel = openrouter('anthropic/claude-sonnet-4-5')
+// 两个场景都用 Claude Opus 4.6
+export const primaryModel = openrouter('anthropic/claude-opus-4.6')
+export const fastModel = openrouter('anthropic/claude-opus-4.6')
