@@ -265,29 +265,19 @@ export function SessionOrchestrator({ method }: SessionOrchestratorProps) {
 
         const reader = res.body.getReader()
         const decoder = new TextDecoder()
-        let buffer = ''
 
         while (true) {
           const { done, value } = await reader.read()
           if (done || cancelled) break
 
-          // The AI SDK streams Server-Sent Events; extract text tokens
-          buffer += decoder.decode(value, { stream: true })
-          const lines = buffer.split('\n')
-          buffer = lines.pop() ?? ''
-
-          for (const line of lines) {
-            if (!line.startsWith('0:')) continue
-            try {
-              const token = JSON.parse(line.slice(2)) as string
-              setState(prev =>
-                prev.phase === 'evaluating'
-                  ? { ...prev, evaluationText: prev.evaluationText + token }
-                  : prev
-              )
-            } catch {
-              // skip malformed lines
-            }
+          // toTextStreamResponse sends raw text chunks — append directly
+          const chunk = decoder.decode(value, { stream: true })
+          if (chunk) {
+            setState(prev =>
+              prev.phase === 'evaluating'
+                ? { ...prev, evaluationText: prev.evaluationText + chunk }
+                : prev
+            )
           }
         }
       } catch (err) {
