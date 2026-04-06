@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateText } from 'ai'
-import { createAnthropic } from '@ai-sdk/anthropic'
 import { MethodId, ReferenceAnswer } from '@/types'
+import { primaryModel } from '@/lib/ai-client'
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,12 +11,9 @@ export async function POST(req: NextRequest) {
       questions: string[]
     }
 
-    const apiKey = process.env.ANTHROPIC_API_KEY
-    if (!apiKey) {
-      return NextResponse.json({ error: '未配置 ANTHROPIC_API_KEY' }, { status: 500 })
+    if (!process.env.OPENROUTER_API_KEY) {
+      return NextResponse.json({ error: '未配置 OPENROUTER_API_KEY' }, { status: 500 })
     }
-
-    const anthropic = createAnthropic({ apiKey })
 
     const prompt = `你是一位有15年经验的顶级产品总监，正在为产品经理训练系统提供参考答案。
 
@@ -55,7 +52,7 @@ ${questions.map((q, i) => `${i + 1}. ${q}`).join('\n')}
 \`\`\``
 
     const { text } = await generateText({
-      model: anthropic('claude-opus-4-5'),
+      model: primaryModel,
       prompt,
       maxOutputTokens: 2000,
     })

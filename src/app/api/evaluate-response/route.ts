@@ -1,8 +1,8 @@
 import { NextRequest } from 'next/server'
 import { streamText } from 'ai'
-import { createAnthropic } from '@ai-sdk/anthropic'
 import { MethodId } from '@/types'
 import { getEvaluationPrompt } from '@/lib/prompts'
+import { primaryModel } from '@/lib/ai-client'
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,19 +14,17 @@ export async function POST(req: NextRequest) {
       referenceAnswerText: string
     }
 
-    const apiKey = process.env.ANTHROPIC_API_KEY
-    if (!apiKey) {
-      return new Response(JSON.stringify({ error: '未配置 ANTHROPIC_API_KEY' }), {
+    if (!process.env.OPENROUTER_API_KEY) {
+      return new Response(JSON.stringify({ error: '未配置 OPENROUTER_API_KEY' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       })
     }
 
-    const anthropic = createAnthropic({ apiKey })
     const prompt = getEvaluationPrompt(method, scenarioText, questions, userAnswer, referenceAnswerText)
 
     const result = streamText({
-      model: anthropic('claude-opus-4-5'),
+      model: primaryModel,
       prompt,
       maxOutputTokens: 1500,
     })
