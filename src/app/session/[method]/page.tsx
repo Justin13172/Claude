@@ -1,7 +1,12 @@
-import { MethodId } from '@/types'
-import { SessionOrchestrator } from '@/components/session/SessionOrchestrator'
-import { METHOD_META } from '@/lib/utils'
+'use client'
+
+import { use } from 'react'
 import { notFound } from 'next/navigation'
+import { MethodId } from '@/types'
+import { METHOD_META } from '@/lib/utils'
+import { useLayout } from '@/context/LayoutContext'
+import { SessionOrchestrator } from '@/components/session/SessionOrchestrator'
+import { MobileSessionOrchestrator } from '@/components/session/MobileSessionOrchestrator'
 
 const VALID_METHODS: MethodId[] = [
   'requirement-translation',
@@ -16,15 +21,18 @@ interface Props {
   params: Promise<{ method: string }>
 }
 
-export default async function SessionPage({ params }: Props) {
-  const { method } = await params
+export default function SessionPage({ params }: Props) {
+  const { method } = use(params)
+  const { isMobile } = useLayout()
 
-  if (!VALID_METHODS.includes(method as MethodId)) {
-    notFound()
-  }
+  if (!VALID_METHODS.includes(method as MethodId)) notFound()
 
   const methodId = method as MethodId
   const meta = METHOD_META[methodId]
+
+  if (isMobile) {
+    return <MobileSessionOrchestrator method={methodId} />
+  }
 
   return (
     <div>
@@ -37,12 +45,7 @@ export default async function SessionPage({ params }: Props) {
         <h1 className="text-2xl font-bold text-gray-900">{meta.label}</h1>
         <p className="text-gray-600 mt-1">{meta.description}</p>
       </div>
-
       <SessionOrchestrator method={methodId} />
     </div>
   )
-}
-
-export async function generateStaticParams() {
-  return VALID_METHODS.map(method => ({ method }))
 }

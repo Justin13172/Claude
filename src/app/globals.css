@@ -128,3 +128,16 @@
     @apply font-sans;
   }
 }
+/* iOS safe-area 适配 */
+.pt-safe-top    { padding-top: env(safe-area-inset-top); }
+.pb-safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+/* 移动端底部固定操作区 */
+.mobile-action-bar {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  border-top: 1px solid #f3f4f6;
+  padding: 1rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+}

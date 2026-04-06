@@ -1,5 +1,10 @@
+'use client'
+
+import { useLayout } from '@/context/LayoutContext'
 import { HistoryPage } from '@/components/history/HistoryPage'
+import { MobileHistoryPage } from '@/components/history/MobileHistoryPage'
 
 export default function Page() {
-  return <HistoryPage />
+  const { isMobile } = useLayout()
+  return isMobile ? <MobileHistoryPage /> : <HistoryPage />
 }
