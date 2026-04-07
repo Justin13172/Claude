@@ -79,12 +79,19 @@ export function TodayCard({ schedule }: TodayCardProps) {
           </div>
 
           {/* Right: action area */}
-          <div className="flex flex-shrink-0 items-center sm:justify-end">
+          <div className="flex flex-shrink-0 items-center gap-3 sm:justify-end">
             {schedule.isCompleted ? (
-              <div className="flex items-center gap-2 rounded-xl bg-green-50 px-4 py-2.5">
-                <span className="text-lg">✅</span>
-                <span className="text-sm font-semibold text-green-700">今日已完成</span>
-              </div>
+              <>
+                <div className="flex items-center gap-2 rounded-xl bg-green-50 px-4 py-2.5">
+                  <span className="text-lg">✅</span>
+                  <span className="text-sm font-semibold text-green-700">今日已完成</span>
+                </div>
+                <Link href={`/session/${schedule.method}`}>
+                  <Button variant="outline" size="sm" className="h-9 px-4 text-sm">
+                    再练一次 →
+                  </Button>
+                </Link>
+              </>
             ) : (
               <Link href={`/session/${schedule.method}`}>
                 <Button size="lg" className="h-10 px-6 text-sm font-semibold">

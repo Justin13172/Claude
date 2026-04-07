@@ -106,9 +106,17 @@ function HeroCard({ schedule }: { schedule: TodaySchedule }) {
 
         {/* 底部：完成状态 or 开始按钮 */}
         {schedule.isCompleted ? (
-          <div className="flex items-center gap-2 self-start rounded-xl bg-white/20 px-4 py-2.5 backdrop-blur-sm">
-            <span className="text-lg">✅</span>
-            <span className="text-sm font-semibold">今日已完成</span>
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-2 rounded-xl bg-white/20 px-4 py-2.5 backdrop-blur-sm">
+              <span className="text-lg">✅</span>
+              <span className="text-sm font-semibold">今日已完成</span>
+            </div>
+            <Link
+              href={`/session/${schedule.method}`}
+              className="rounded-xl border border-white/50 bg-white/10 px-4 py-2.5 text-sm font-medium text-white backdrop-blur-sm active:bg-white/20 transition-colors"
+            >
+              再练一次 →
+            </Link>
           </div>
         ) : (
           <Link
@@ -224,6 +232,39 @@ function MethodGrid({ sessions }: { sessions: CompletedSession[] }) {
   )
 }
 
+/** 全部训练方法入口（可随时训练） */
+function AllMethodsGrid({ todayCompleted }: { todayCompleted: Set<MethodId> }) {
+  return (
+    <div className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
+      <h3 className="mb-3 text-sm font-semibold text-gray-600">全部训练方法</h3>
+      <div className="grid grid-cols-2 gap-2">
+        {METHOD_IDS.map((id) => {
+          const meta = METHOD_META[id]
+          const done = todayCompleted.has(id)
+          return (
+            <Link
+              key={id}
+              href={`/session/${id}`}
+              className="flex items-center gap-2.5 rounded-xl bg-gray-50 px-3 py-3 active:bg-gray-100 transition-colors"
+            >
+              <span className="text-2xl leading-none flex-shrink-0">{meta.icon}</span>
+              <div className="flex min-w-0 flex-1 flex-col">
+                <span className="truncate text-xs font-medium text-gray-800">{meta.shortLabel}</span>
+                {done ? (
+                  <span className="text-[10px] text-green-500 font-medium">✓ 今日已练</span>
+                ) : (
+                  <span className="text-[10px] text-gray-400">点击开始训练</span>
+                )}
+              </div>
+              <span className="text-gray-300 text-xs flex-shrink-0">›</span>
+            </Link>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 /** 最近3条记录 */
 function RecentRecords({ sessions }: { sessions: CompletedSession[] }) {
   const recent = [...sessions]
@@ -283,15 +324,18 @@ function RecentRecords({ sessions }: { sessions: CompletedSession[] }) {
 // ─── 主组件 ───────────────────────────────────────────────────────────────────
 
 export function MobileDashboard() {
-  const [todaySchedule, setTodaySchedule] = useState<TodaySchedule | null>(null)
-  const [sessions,      setSessions]      = useState<CompletedSession[]>([])
-  const [loaded,        setLoaded]        = useState(false)
+  const [todaySchedule,  setTodaySchedule]  = useState<TodaySchedule | null>(null)
+  const [sessions,       setSessions]       = useState<CompletedSession[]>([])
+  const [todayCompleted, setTodayCompleted] = useState<Set<MethodId>>(new Set())
+  const [loaded,         setLoaded]         = useState(false)
 
   useEffect(() => {
     const schedule    = getTodaySchedule()
     const allSessions = getSessions()
+    const completed   = getTodayCompletedMethods()
     setTodaySchedule(schedule)
     setSessions(allSessions)
+    setTodayCompleted(completed)
     setLoaded(true)
   }, [])
 
@@ -314,10 +358,14 @@ export function MobileDashboard() {
       {/* 2. 连续打卡条 */}
       <StreakBar sessions={sessions} />
 
-      {/* 3. 方法覆盖快览 */}
+      {/* 3. 全部训练方法入口 */}
+      <AllMethodsGrid todayCompleted={todayCompleted} />
+
+      {/* 4. 连续打卡 + 方法覆盖 */}
+      <StreakBar sessions={sessions} />
       <MethodGrid sessions={sessions} />
 
-      {/* 4. 最近3条记录 */}
+      {/* 5. 最近3条记录 */}
       <RecentRecords sessions={sessions} />
     </div>
   )

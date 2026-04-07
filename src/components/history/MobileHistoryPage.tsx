@@ -133,6 +133,27 @@ function SessionCard({ session }: { session: CompletedSession }) {
               用时：{formatDuration(session.durationSeconds)}
             </p>
 
+            {/* 训练题目 */}
+            <section>
+              <h4 className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-gray-400">
+                训练题目
+              </h4>
+              <div className="rounded-xl bg-gray-50 p-3 space-y-2">
+                <p className="text-[13px] leading-relaxed text-gray-600 line-clamp-4">
+                  {session.scenarioText}
+                </p>
+                {session.questions && session.questions.length > 0 && (
+                  <div className="border-t border-gray-200 pt-2 space-y-1">
+                    {session.questions.map((q, i) => (
+                      <p key={i} className="text-[13px] font-medium text-gray-700">
+                        {i + 1}. {q}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </section>
+
             {/* 我的作答 */}
             <section>
               <h4 className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-gray-400">

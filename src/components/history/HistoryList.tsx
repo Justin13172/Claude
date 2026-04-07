@@ -124,6 +124,27 @@ function SessionRow({ session }: { session: CompletedSession }) {
               用时：{formatDuration(session.durationSeconds)}
             </p>
 
+            {/* Scenario + questions */}
+            <section>
+              <h4 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                训练题目
+              </h4>
+              <div className="rounded-lg bg-gray-50 p-3 space-y-2">
+                <p className="text-sm leading-relaxed text-gray-600 line-clamp-4">
+                  {session.scenarioText}
+                </p>
+                {session.questions && session.questions.length > 0 && (
+                  <div className="border-t border-gray-200 pt-2 space-y-1">
+                    {session.questions.map((q, i) => (
+                      <p key={i} className="text-sm font-medium text-gray-700">
+                        {i + 1}. {q}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </section>
+
             {/* User answer */}
             <section>
               <h4 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-gray-500">
