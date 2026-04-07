@@ -42,8 +42,18 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '忽略撤回功能对信息接收方的体验影响'
       ],
       furtherReading: [
-        { title: 'Competing Against Luck', author: 'Clayton Christensen' },
-        { title: '需求的本质：从用户故事到产品设计', author: '梁宁' }
+        {
+          title: 'Competing Against Luck',
+          author: 'Clayton Christensen',
+          url: 'https://www.amazon.com/dp/B01DOFEAYK',
+          description: 'JTBD理论奠基之作，用"雇佣产品完成任务"视角重新定义用户需求'
+        },
+        {
+          title: '需求的本质：从用户故事到产品设计',
+          author: '梁宁',
+          url: 'https://book.douban.com/subject/27599593/',
+          description: '中文语境下理解用户需求与JTBD实践的最佳入门读物'
+        }
       ]
     },
     difficulty: 'foundation',
@@ -87,7 +97,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '将运营VP的优先级等同于用户优先级'
       ],
       furtherReading: [
-        { title: 'The Mom Test', author: 'Rob Fitzpatrick' }
+        {
+          title: 'The Mom Test',
+          author: 'Rob Fitzpatrick',
+          url: 'https://www.amazon.com/dp/B01H4G2J1U',
+          description: '教你问出真实用户反馈而非"礼貌性谎言"，避免需求调研的最常见误区'
+        }
       ]
     },
     difficulty: 'advanced',
@@ -135,7 +150,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '改进建议过于笼统，如"优化引导流程"而不说具体怎么做'
       ],
       furtherReading: [
-        { title: 'Hooked: How to Build Habit-Forming Products', author: 'Nir Eyal' }
+        {
+          title: 'Hooked: How to Build Habit-Forming Products',
+          author: 'Nir Eyal',
+          url: 'https://www.amazon.com/dp/B00NW01MKM',
+          description: '详解触发-行动-奖励-投入四步循环，Notion等工具型产品留存设计的理论基础'
+        }
       ]
     },
     difficulty: 'advanced',
@@ -179,7 +199,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '对比分析时只说优劣而不分析适用条件'
       ],
       furtherReading: [
-        { title: '推荐系统实践', author: '项亮' }
+        {
+          title: '推荐系统实践',
+          author: '项亮',
+          url: 'https://book.douban.com/subject/10769749/',
+          description: '系统讲解推荐算法工程实践，帮助PM理解冷启动与个性化的技术边界与取舍'
+        }
       ]
     },
     difficulty: 'expert',
@@ -227,7 +252,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '没有设定重新考虑的条件，让决策变成一锤子买卖'
       ],
       furtherReading: [
-        { title: 'Inspired: How to Create Tech Products Customers Love', author: 'Marty Cagan' }
+        {
+          title: 'Inspired: How to Create Tech Products Customers Love',
+          author: 'Marty Cagan',
+          url: 'https://www.amazon.com/dp/B077NRB36N',
+          description: '产品管理圣经，系统讲解科技产品的优先级决策与路线图制定方法论'
+        }
       ]
     },
     difficulty: 'advanced',
@@ -271,7 +301,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '没考虑私信带来的运营成本（反骚扰、内容审核等隐性成本）'
       ],
       furtherReading: [
-        { title: 'Shape Up', author: 'Ryan Singer (Basecamp)' }
+        {
+          title: 'Shape Up',
+          author: 'Ryan Singer (Basecamp)',
+          url: 'https://basecamp.com/shapeup',
+          description: '免费在线书，提供"赌注式"功能立项框架，解决功能规模与产品阶段的匹配问题'
+        }
       ]
     },
     difficulty: 'foundation',
@@ -319,7 +354,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '复盘时自我辩护多于真实反思'
       ],
       furtherReading: [
-        { title: 'Thinking in Bets', author: 'Annie Duke' }
+        {
+          title: 'Thinking in Bets',
+          author: 'Annie Duke',
+          url: 'https://www.amazon.com/dp/B074DG9KBY',
+          description: '用扑克思维分析决策质量，帮助区分"决策过程好坏"与"结果好坏"的核心工具'
+        }
       ]
     },
     difficulty: 'advanced',
@@ -363,7 +403,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '教训停留在"下次要更谨慎"的层面，缺乏可操作性'
       ],
       furtherReading: [
-        { title: 'Predictably Irrational', author: 'Dan Ariely' }
+        {
+          title: 'Predictably Irrational',
+          author: 'Dan Ariely',
+          url: 'https://www.amazon.com/dp/B002C949KE',
+          description: '揭示损失厌恶等行为偏见，直接解释用户对功能缩减产生强烈反应的心理根源'
+        }
       ]
     },
     difficulty: 'expert',
@@ -411,7 +456,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '直接从用户反馈跳到解决方案而跳过验证步骤'
       ],
       furtherReading: [
-        { title: 'Lean Analytics', author: 'Alistair Croll & Benjamin Yoskovitz' }
+        {
+          title: 'Lean Analytics',
+          author: 'Alistair Croll & Benjamin Yoskovitz',
+          url: 'https://www.amazon.com/dp/B00AG66LTM',
+          description: '数据驱动产品决策实践指南，教你选对核心指标并区分信号与噪声'
+        }
       ]
     },
     difficulty: 'foundation',
@@ -455,7 +505,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '只说"需要调研"但不给出具体的验证方法和时间表'
       ],
       furtherReading: [
-        { title: 'The Five Dysfunctions of a Team', author: 'Patrick Lencioni' }
+        {
+          title: 'The Five Dysfunctions of a Team',
+          author: 'Patrick Lencioni',
+          url: 'https://www.amazon.com/dp/B006960LQW',
+          description: 'B2B产品团队协作必读，理解企业客户内部分歧如何导致产品失败的根本原因'
+        }
       ]
     },
     difficulty: 'expert',
@@ -503,7 +558,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '只关注Julie的结论（Reactions是个好产品）而不学习她的思考过程'
       ],
       furtherReading: [
-        { title: 'The Making of a Manager', author: 'Julie Zhuo' }
+        {
+          title: 'The Making of a Manager',
+          author: 'Julie Zhuo',
+          url: 'https://www.amazon.com/dp/B079WNPRL2',
+          description: 'Julie Zhuo亲述Facebook成长经历，PPE问题法等产品思维工具的完整实践上下文'
+        }
       ]
     },
     difficulty: 'foundation',
@@ -547,7 +607,12 @@ export const CURATED_SCENARIOS: Scenario[] = [
         '学完后只做加法（我要做更多L类）而不做减法（我要降低O类的质量标准）'
       ],
       furtherReading: [
-        { title: 'Shreyas Doshi Twitter/X Thread on LNO Framework', author: 'Shreyas Doshi' }
+        {
+          title: 'Shreyas Doshi: The LNO Prioritization Framework',
+          author: 'Shreyas Doshi',
+          url: 'https://twitter.com/shreyas/status/1511774680716046341',
+          description: 'LNO框架原帖，含大量真实案例与回复讨论，帮助识别自己当前任务类别'
+        }
       ]
     },
     difficulty: 'advanced',

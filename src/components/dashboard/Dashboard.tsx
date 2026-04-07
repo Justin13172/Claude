@@ -10,6 +10,7 @@ import { WeeklyProgress }  from '@/components/dashboard/WeeklyProgress'
 import { MethodCoverage }  from '@/components/dashboard/MethodCoverage'
 import { RecentSessions }  from '@/components/dashboard/RecentSessions'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { SyncPanel } from '@/components/sync/SyncPanel'
 import Link from 'next/link'
 
 const ALL_METHODS: MethodId[] = [
@@ -107,6 +108,9 @@ export function Dashboard() {
 
       {/* 4. Recent sessions — full width */}
       <RecentSessions sessions={sessions} />
+
+      {/* 5. Cross-device sync */}
+      <SyncPanel onSynced={(merged) => setSessions(merged)} />
     </div>
   )
 }

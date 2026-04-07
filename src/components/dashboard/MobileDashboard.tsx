@@ -6,6 +6,7 @@ import { getTodaySchedule } from '@/lib/schedule'
 import { METHOD_META, formatDuration, formatDateTimeCN, cn } from '@/lib/utils'
 import { CompletedSession, MethodId, TodaySchedule } from '@/types'
 import Link from 'next/link'
+import { SyncPanel } from '@/components/sync/SyncPanel'
 
 // ─── 方法颜色映射 ─────────────────────────────────────────────────────────────
 
@@ -368,6 +369,9 @@ export function MobileDashboard() {
 
       {/* 5. 最近3条记录 */}
       <RecentRecords sessions={sessions} />
+
+      {/* 6. 跨设备同步 */}
+      <SyncPanel onSynced={(merged) => setSessions(merged)} />
     </div>
   )
 }
