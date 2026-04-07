@@ -97,14 +97,30 @@ export function EvaluationPanel({ evaluationText, isStreaming, onComplete }: Eva
   return (
     <div className="max-w-3xl mx-auto space-y-5">
       {/* ── 标题区 ── */}
-      <div className="text-center space-y-1">
+      <div className="text-center space-y-2">
         <h2 className="text-xl font-bold">🤖 AI 深度评估</h2>
         {isStreaming && (
-          <p className="text-sm text-muted-foreground animate-pulse">
-            正在生成评估报告，请稍候…
-          </p>
+          <div className="space-y-1.5">
+            <p className="text-sm text-blue-500 animate-pulse">
+              {evaluationText.length === 0 ? '正在连接 AI…' : `分析中… 已生成 ${evaluationText.length} 字`}
+            </p>
+            <div className="h-1 bg-muted rounded-full overflow-hidden mx-auto max-w-xs">
+              <div
+                className="h-full bg-blue-400 rounded-full transition-all duration-300"
+                style={{ width: `${Math.min(100, (evaluationText.length / 800) * 100)}%` }}
+              />
+            </div>
+          </div>
         )}
       </div>
+
+      {/* ── 等待连接动画 ── */}
+      {isStreaming && evaluationText.length === 0 && (
+        <div className="flex flex-col items-center justify-center py-16 gap-4">
+          <div className="w-10 h-10 rounded-full border-4 border-blue-400 border-t-transparent animate-spin" />
+          <p className="text-sm text-muted-foreground">正在连接 AI，请稍候…</p>
+        </div>
+      )}
 
       {/* ── 流式原始文本（评估中显示） ── */}
       {(isStreaming || (!parsedEval && !parseError)) && evaluationText && (

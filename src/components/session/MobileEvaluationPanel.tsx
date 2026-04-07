@@ -103,12 +103,30 @@ export function MobileEvaluationPanel({
       <div className="px-4 pt-4 pb-3 border-b border-gray-100 text-center">
         <h2 className="text-lg font-bold text-gray-900">🤖 AI 深度评估</h2>
         {isStreaming && (
-          <p className="text-sm text-gray-400 animate-pulse mt-1">正在生成评估报告，请稍候…</p>
+          <div className="mt-1 space-y-1">
+            <p className="text-sm text-blue-500 animate-pulse">
+              {evaluationText.length === 0 ? '正在连接 AI…' : `分析中… 已生成 ${evaluationText.length} 字`}
+            </p>
+            <div className="h-1 bg-gray-100 rounded-full overflow-hidden mx-8">
+              <div
+                className="h-full bg-blue-400 rounded-full transition-all duration-300"
+                style={{ width: `${Math.min(100, (evaluationText.length / 800) * 100)}%` }}
+              />
+            </div>
+          </div>
         )}
       </div>
 
       {/* 滚动内容区 */}
       <div className="flex-1 overflow-y-auto px-4 py-5 space-y-6">
+        {/* 串流中且尚无内容：显示等待动画 */}
+        {isStreaming && evaluationText.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-16 gap-4">
+            <div className="w-10 h-10 rounded-full border-4 border-blue-400 border-t-transparent animate-spin" />
+            <p className="text-sm text-gray-400">正在连接 AI，请稍候…</p>
+          </div>
+        )}
+
         {/* 串流中：显示原始文字 */}
         {(isStreaming || (!parsedEval && !parseError)) && evaluationText && (
           <div className="rounded-xl bg-gray-50 border border-gray-100 p-4">

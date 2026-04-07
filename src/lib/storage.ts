@@ -36,6 +36,16 @@ export function saveSession(session: CompletedSession): void {
   localStorage.setItem(KEYS.sessions, JSON.stringify(sessions))
 }
 
+export function updateSession(id: string, updates: Partial<CompletedSession>): void {
+  if (!isClient()) return
+  const sessions = getSessions()
+  const idx = sessions.findIndex(s => s.id === id)
+  if (idx >= 0) {
+    sessions[idx] = { ...sessions[idx], ...updates }
+    localStorage.setItem(KEYS.sessions, JSON.stringify(sessions))
+  }
+}
+
 // ─── Derived queries ──────────────────────────────────────────────────────────
 
 export function getTodayCompletedMethods(): Set<MethodId> {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import { Scenario, CompletedSession, MethodId, AIEvaluation } from '@/types'
-import { saveSession, getSessions } from '@/lib/storage'
+import { saveSession, updateSession, getSessions } from '@/lib/storage'
 import { generateId, getISOWeekNumber, METHOD_META, VERDICT_LABELS } from '@/lib/utils'
 import { ScenarioCard } from './ScenarioCard'
 import { ThinkingGate } from './ThinkingGate'
@@ -22,7 +22,7 @@ type SessionState =
   | { phase: 'question_revealed'; scenario: Scenario; answer: string }
   | { phase: 'answer_submitted'; scenario: Scenario; answer: string }
   | { phase: 'reference_revealed'; scenario: Scenario; answer: string; selfRating: number | null }
-  | { phase: 'evaluating'; scenario: Scenario; answer: string; selfRating: number; evaluationText: string }
+  | { phase: 'evaluating'; scenario: Scenario; answer: string; selfRating: number; evaluationText: string; savedSessionId: string }
   | { phase: 'complete'; session: CompletedSession }
 
 // ── Progress steps (for the top bar) ──────────────────────────────────────────
@@ -152,17 +152,17 @@ export function SessionOrchestrator({ method }: SessionOrchestratorProps) {
       setState(prev => {
         if (prev.phase !== 'evaluating') return prev
 
-        const durationSeconds = Math.round(
-          (Date.now() - startTimeRef.current.getTime()) / 1000
-        )
-        const meta = METHOD_META[prev.scenario.method]
-        const now = new Date().toISOString()
+        // Update the already-saved session with AI evaluation result
+        updateSession(prev.savedSessionId, { aiEvaluation: evaluation, retrospectiveNote })
 
-        const session: CompletedSession = {
-          id: generateId(),
+        // Reconstruct the session object for the complete phase
+        const sessions = getSessions()
+        const saved = sessions.find(s => s.id === prev.savedSessionId)
+        const session = saved ?? {
+          id: prev.savedSessionId,
           scenarioId: prev.scenario.id,
           method: prev.scenario.method,
-          methodLabel: meta.label,
+          methodLabel: METHOD_META[prev.scenario.method].label,
           scenarioTitle: prev.scenario.title,
           scenarioText: prev.scenario.scenarioText,
           questions: prev.scenario.questions,
@@ -171,12 +171,11 @@ export function SessionOrchestrator({ method }: SessionOrchestratorProps) {
           selfRating: prev.selfRating as 1 | 2 | 3 | 4 | 5,
           aiEvaluation: evaluation,
           retrospectiveNote,
-          durationSeconds,
-          completedAt: now,
+          durationSeconds: Math.round((Date.now() - startTimeRef.current.getTime()) / 1000),
+          completedAt: new Date().toISOString(),
           weekNumber: getISOWeekNumber(new Date()),
-        }
+        } as CompletedSession
 
-        saveSession(session)
         return { phase: 'complete', session }
       })
     },
@@ -216,16 +215,41 @@ export function SessionOrchestrator({ method }: SessionOrchestratorProps) {
     })
   }, [])
 
-  // Start AI evaluation — open streaming connection
+  // Start AI evaluation — save session immediately so refresh won't lose it
   const handleStartEvaluate = useCallback(() => {
     setState(prev => {
       if (prev.phase !== 'reference_revealed' || prev.selfRating === null) return prev
+
+      const sessionId = generateId()
+      const durationSeconds = Math.round((Date.now() - startTimeRef.current.getTime()) / 1000)
+      const meta = METHOD_META[prev.scenario.method]
+
+      const partialSession: CompletedSession = {
+        id: sessionId,
+        scenarioId: prev.scenario.id,
+        method: prev.scenario.method,
+        methodLabel: meta.label,
+        scenarioTitle: prev.scenario.title,
+        scenarioText: prev.scenario.scenarioText,
+        questions: prev.scenario.questions,
+        userAnswer: prev.answer,
+        referenceAnswer: prev.scenario.referenceAnswer,
+        selfRating: prev.selfRating as 1 | 2 | 3 | 4 | 5,
+        aiEvaluation: null,
+        retrospectiveNote: '',
+        durationSeconds,
+        completedAt: new Date().toISOString(),
+        weekNumber: getISOWeekNumber(new Date()),
+      }
+      saveSession(partialSession)
+
       return {
         phase: 'evaluating',
         scenario: prev.scenario,
         answer: prev.answer,
         selfRating: prev.selfRating,
         evaluationText: '',
+        savedSessionId: sessionId,
       }
     })
   }, [])
