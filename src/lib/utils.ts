@@ -27,6 +27,13 @@ export function formatDateCN(dateStr: string): string {
   return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
 }
 
+export function formatDateTimeCN(dateStr: string): string {
+  const date = new Date(dateStr)
+  const h = date.getHours().toString().padStart(2, '0')
+  const m = date.getMinutes().toString().padStart(2, '0')
+  return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${h}:${m}`
+}
+
 // 格式化秒数为可读时间
 export function formatDuration(seconds: number): string {
   if (seconds < 60) return `${seconds}秒`

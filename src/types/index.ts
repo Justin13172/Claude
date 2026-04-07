@@ -42,6 +42,7 @@ export interface ReferenceAnswer {
     title: string
     author: string
     url?: string
+    description?: string  // 核心价值简介
   }[]
 }
 

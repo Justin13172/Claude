@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { getSessions, getTodayCompletedMethods, getCompletedSessionDates } from '@/lib/storage'
 import { getTodaySchedule } from '@/lib/schedule'
-import { METHOD_META, formatDuration, formatDateCN, cn } from '@/lib/utils'
+import { METHOD_META, formatDuration, formatDateTimeCN, cn } from '@/lib/utils'
 import { CompletedSession, MethodId, TodaySchedule } from '@/types'
 import Link from 'next/link'
 
@@ -292,7 +292,7 @@ function RecentRecords({ sessions }: { sessions: CompletedSession[] }) {
             return (
               <Link
                 key={session.id}
-                href="/history"
+                href={`/history/${session.id}`}
                 className="flex min-h-[56px] items-center gap-3 rounded-xl bg-gray-50 px-3 py-2.5 active:bg-gray-100 transition-colors"
               >
                 <span className="flex-shrink-0 text-2xl leading-none">{meta?.icon ?? '📝'}</span>
@@ -301,7 +301,7 @@ function RecentRecords({ sessions }: { sessions: CompletedSession[] }) {
                     {session.scenarioTitle}
                   </span>
                   <span className="text-[11px] text-gray-400">
-                    {formatDateCN(session.completedAt)}
+                    {formatDateTimeCN(session.completedAt)}
                   </span>
                 </div>
                 <div className="flex flex-shrink-0 flex-col items-end gap-0.5">

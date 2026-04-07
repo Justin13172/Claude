@@ -4,8 +4,7 @@ import Link from 'next/link'
 import { CompletedSession } from '@/types'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { formatDateCN } from '@/lib/utils'
-import { cn } from '@/lib/utils'
+import { formatDateTimeCN, cn } from '@/lib/utils'
 
 const VERDICT_STYLE: Record<string, string> = {
   strength:   'border-green-200  bg-green-50  text-green-700',
@@ -60,15 +59,15 @@ export function RecentSessions({ sessions }: RecentSessionsProps) {
               return (
                 <li key={session.id}>
                   <Link
-                    href="/history"
+                    href={`/history/${session.id}`}
                     className="flex flex-col gap-1.5 py-3 sm:flex-row sm:items-center sm:justify-between hover:bg-gray-50 rounded-lg px-2 -mx-2 transition-colors"
                   >
                     {/* Left: icon + meta */}
                     <div className="flex min-w-0 items-start gap-3 sm:items-center">
                       <div className="flex min-w-0 flex-col gap-0.5">
-                        {/* Date */}
+                        {/* Date + time */}
                         <span className="text-[11px] text-gray-400">
-                          {formatDateCN(session.completedAt)}
+                          {formatDateTimeCN(session.completedAt)}
                         </span>
                         {/* Method + title */}
                         <span className="truncate text-sm font-medium text-gray-800">

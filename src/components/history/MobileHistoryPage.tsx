@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react'
 import { getSessions, exportSessionsAsJSON } from '@/lib/storage'
 import { CompletedSession } from '@/types'
-import { METHOD_META, formatDateCN, formatDuration, VERDICT_LABELS, cn } from '@/lib/utils'
+import { METHOD_META, formatDateTimeCN, formatDuration, VERDICT_LABELS, cn } from '@/lib/utils'
 import Link from 'next/link'
+import { SessionDetail } from './SessionDetail'
 
 // ─── 工具函数 ─────────────────────────────────────────────────────────────────
 
@@ -88,178 +89,47 @@ function SessionCard({ session }: { session: CompletedSession }) {
         expanded ? 'shadow-md' : 'shadow-sm',
       )}
     >
-      {/* 折叠态：始终可见 */}
-      <button
-        type="button"
-        onClick={() => setExpanded((v) => !v)}
-        aria-expanded={expanded}
-        className="flex min-h-[56px] w-full items-center gap-3 px-4 py-3 text-left active:bg-gray-50"
-      >
-        {/* 方法 emoji */}
-        <span className="flex-shrink-0 text-2xl leading-none">{meta?.icon ?? '📝'}</span>
-
-        {/* 场景信息 */}
-        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <span className="truncate text-[14px] font-medium leading-snug text-gray-800">
-            {session.scenarioTitle}
-          </span>
-          <span className="text-[12px] text-gray-400">
-            {meta?.shortLabel ?? session.methodLabel} · {formatDateCN(session.completedAt)}
-          </span>
-        </div>
+      {/* 折叠态头部 */}
+      <div className="flex min-h-[56px] items-center gap-3 px-4 py-3">
+        {/* 点标题区跳转详情页 */}
+        <Link
+          href={`/history/${session.id}`}
+          className="flex min-w-0 flex-1 items-center gap-3 active:opacity-70"
+        >
+          <span className="flex-shrink-0 text-2xl leading-none">{meta?.icon ?? '📝'}</span>
+          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="truncate text-[14px] font-medium leading-snug text-gray-800">
+              {session.scenarioTitle}
+            </span>
+            <span className="text-[12px] text-gray-400">
+              {meta?.shortLabel ?? session.methodLabel} · {formatDateTimeCN(session.completedAt)}
+            </span>
+          </div>
+        </Link>
 
         {/* 右侧：评分 + 展开箭头 */}
         <div className="flex flex-shrink-0 flex-col items-end gap-1">
           <span className="text-[13px]">
             <StarRating rating={session.selfRating} />
           </span>
-          <span
-            className={cn(
-              'text-gray-300 text-xs transition-transform duration-200',
-              expanded ? 'rotate-180' : 'rotate-0',
-            )}
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => !v)}
+            aria-expanded={expanded}
+            className="p-1"
           >
-            ▾
-          </span>
+            <span className={cn(
+              'block text-gray-300 text-xs transition-transform duration-200',
+              expanded ? 'rotate-180' : 'rotate-0',
+            )}>▾</span>
+          </button>
         </div>
-      </button>
+      </div>
 
-      {/* 展开态：详细内容 */}
+      {/* 展开态：使用完整 SessionDetail */}
       {expanded && (
         <div className="border-t border-gray-100 px-4 py-4">
-          <div className="flex flex-col gap-4">
-            {/* 用时 */}
-            <p className="text-[12px] text-gray-400">
-              用时：{formatDuration(session.durationSeconds)}
-            </p>
-
-            {/* 训练题目 */}
-            <section>
-              <h4 className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-gray-400">
-                训练题目
-              </h4>
-              <div className="rounded-xl bg-gray-50 p-3 space-y-2">
-                <p className="text-[13px] leading-relaxed text-gray-600 line-clamp-4">
-                  {session.scenarioText}
-                </p>
-                {session.questions && session.questions.length > 0 && (
-                  <div className="border-t border-gray-200 pt-2 space-y-1">
-                    {session.questions.map((q, i) => (
-                      <p key={i} className="text-[13px] font-medium text-gray-700">
-                        {i + 1}. {q}
-                      </p>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </section>
-
-            {/* 我的作答 */}
-            <section>
-              <h4 className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-gray-400">
-                我的作答
-              </h4>
-              <p className="whitespace-pre-wrap rounded-xl bg-gray-50 p-3 text-[14px] leading-relaxed text-gray-700">
-                {session.userAnswer || '（未记录）'}
-              </p>
-            </section>
-
-            {/* 参考框架 */}
-            <section>
-              <h4 className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-gray-400">
-                参考框架
-              </h4>
-              <div className="flex flex-col gap-2 rounded-xl bg-blue-50 p-3">
-                <p className="text-[13px] font-semibold text-blue-700">
-                  {session.referenceAnswer.frameworkUsed}
-                </p>
-                {session.referenceAnswer.sections.slice(0, 3).map((sec, i) => (
-                  <div key={i} className="flex flex-col gap-0.5">
-                    <p className="text-[13px] font-medium text-gray-700">{sec.title}</p>
-                    <p className="text-[12px] leading-snug text-gray-500 line-clamp-2">
-                      {sec.content}
-                    </p>
-                  </div>
-                ))}
-                {session.referenceAnswer.sections.length > 3 && (
-                  <p className="text-[11px] text-gray-400">
-                    …还有 {session.referenceAnswer.sections.length - 3} 个要点
-                  </p>
-                )}
-              </div>
-            </section>
-
-            {/* AI 评级 */}
-            {session.aiEvaluation ? (
-              <section>
-                <h4 className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-gray-400">
-                  AI 评级
-                </h4>
-                <div className="flex flex-col gap-2 rounded-xl bg-gray-50 p-3">
-                  {/* 总体结论 */}
-                  <div className="flex items-start gap-2">
-                    {verdictStyle && (
-                      <span
-                        className={cn(
-                          'flex-shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold',
-                          verdictStyle.color,
-                        )}
-                      >
-                        {verdictStyle.label}
-                      </span>
-                    )}
-                    <p className="text-[13px] leading-snug text-gray-600">
-                      {session.aiEvaluation.overallSummary}
-                    </p>
-                  </div>
-                  {/* 各维度 */}
-                  <div className="grid grid-cols-2 gap-1.5">
-                    {session.aiEvaluation.dimensions.map((dim) => (
-                      <div
-                        key={dim.name}
-                        className="rounded-xl border border-gray-100 bg-white px-2.5 py-2"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-[12px] font-medium text-gray-700 truncate">
-                            {dim.name}
-                          </span>
-                          <span className="ml-1 flex-shrink-0 text-[12px] font-bold text-gray-500">
-                            {dim.score}/5
-                          </span>
-                        </div>
-                        <p className="mt-0.5 text-[11px] text-gray-400 line-clamp-2">
-                          {dim.rationale}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
-            ) : (
-              <p className="text-[12px] text-gray-400">暂无 AI 评估</p>
-            )}
-
-            {/* 复盘笔记 */}
-            {session.retrospectiveNote ? (
-              <section>
-                <h4 className="mb-1.5 text-[12px] font-semibold uppercase tracking-wide text-gray-400">
-                  复盘笔记
-                </h4>
-                <p className="whitespace-pre-wrap rounded-xl bg-yellow-50 p-3 text-[14px] leading-relaxed text-gray-700">
-                  {session.retrospectiveNote}
-                </p>
-              </section>
-            ) : null}
-
-            {/* 再练此题 */}
-            <Link
-              href={`/session/${session.method}?replay=${session.id}`}
-              className="flex items-center justify-center gap-2 rounded-xl bg-blue-50 border border-blue-100 px-4 py-3 text-[14px] font-semibold text-blue-600 active:bg-blue-100 transition-colors"
-            >
-              <span>🔄</span>
-              <span>用此题再练一次</span>
-            </Link>
-          </div>
+          <SessionDetail session={session} showReplay />
         </div>
       )}
     </div>
