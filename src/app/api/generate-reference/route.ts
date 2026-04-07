@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { generateText } from 'ai'
 import { MethodId, ReferenceAnswer } from '@/types'
-import { primaryModel } from '@/lib/ai-client'
+
+export const maxDuration = 60
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,7 +11,8 @@ export async function POST(req: NextRequest) {
       questions: string[]
     }
 
-    if (!process.env.OPENROUTER_API_KEY) {
+    const apiKey = process.env.OPENROUTER_API_KEY
+    if (!apiKey) {
       return NextResponse.json({ error: '未配置 OPENROUTER_API_KEY' }, { status: 500 })
     }
 
@@ -51,11 +52,28 @@ ${questions.map((q, i) => `${i + 1}. ${q}`).join('\n')}
 }
 \`\`\``
 
-    const { text } = await generateText({
-      model: primaryModel,
-      prompt,
-      maxOutputTokens: 2000,
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://product-sense-trainer-xi.vercel.app',
+        'X-Title': 'Product Sense Trainer',
+      },
+      body: JSON.stringify({
+        model: 'anthropic/claude-opus-4.6',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 2000,
+      }),
     })
+
+    if (!res.ok) {
+      const errText = await res.text()
+      return NextResponse.json({ error: `OpenRouter error ${res.status}: ${errText}` }, { status: 500 })
+    }
+
+    const data = await res.json()
+    const text = data.choices?.[0]?.message?.content ?? ''
 
     const jsonMatch = text.match(/```json\n?([\s\S]*?)\n?```/) || text.match(/(\{[\s\S]*\})/)
     if (!jsonMatch) {
@@ -65,7 +83,8 @@ ${questions.map((q, i) => `${i + 1}. ${q}`).join('\n')}
     const referenceAnswer: ReferenceAnswer = JSON.parse(jsonMatch[1])
     return NextResponse.json({ referenceAnswer })
   } catch (error) {
-    console.error('generate-reference error:', error)
-    return NextResponse.json({ error: '生成参考答案失败' }, { status: 500 })
+    const msg = error instanceof Error ? error.message : String(error)
+    console.error('generate-reference error:', msg)
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }

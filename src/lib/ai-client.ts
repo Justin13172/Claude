@@ -7,7 +7,7 @@ export const openrouter = createOpenAI({
   apiKey: process.env.OPENROUTER_API_KEY ?? '',
   headers: {
     'HTTP-Referer': 'https://product-sense-trainer-xi.vercel.app',
-    'X-Title': '产品Sense训练系统',
+    'X-Title': 'Product Sense Trainer',
   },
 })
 

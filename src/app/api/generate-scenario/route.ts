@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { generateText } from 'ai'
 import { MethodId, Scenario } from '@/types'
 import { CURATED_SCENARIOS } from '@/lib/scenarios'
 import { getAIScenarioPrompt } from '@/lib/prompts'
-import { fastModel } from '@/lib/ai-client'
+
+export const maxDuration = 60
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,7 +23,8 @@ export async function POST(req: NextRequest) {
     }
 
     // 精选案例已全部完成，使用 AI 动态生成
-    if (!process.env.OPENROUTER_API_KEY) {
+    const apiKey = process.env.OPENROUTER_API_KEY
+    if (!apiKey) {
       return NextResponse.json(
         { error: '未配置 OPENROUTER_API_KEY，且精选案例已全部完成' },
         { status: 500 }
@@ -31,11 +32,28 @@ export async function POST(req: NextRequest) {
     }
 
     const prompt = getAIScenarioPrompt(method, difficulty)
-    const { text } = await generateText({
-      model: fastModel,
-      prompt,
-      maxOutputTokens: 2000,
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://product-sense-trainer-xi.vercel.app',
+        'X-Title': 'Product Sense Trainer',
+      },
+      body: JSON.stringify({
+        model: 'anthropic/claude-opus-4.6',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 2000,
+      }),
     })
+
+    if (!res.ok) {
+      const errText = await res.text()
+      return NextResponse.json({ error: `OpenRouter error ${res.status}: ${errText}` }, { status: 500 })
+    }
+
+    const data = await res.json()
+    const text = data.choices?.[0]?.message?.content ?? ''
 
     const jsonMatch = text.match(/```json\n?([\s\S]*?)\n?```/) || text.match(/(\{[\s\S]*\})/)
     if (!jsonMatch) {
@@ -51,8 +69,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ scenario })
   } catch (error) {
-    console.error('generate-scenario error:', error)
-    return NextResponse.json({ error: '生成场景失败，请稍后重试' }, { status: 500 })
+    const msg = error instanceof Error ? error.message : String(error)
+    console.error('generate-scenario error:', msg)
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }
 
