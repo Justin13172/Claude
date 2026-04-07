@@ -290,9 +290,10 @@ function RecentRecords({ sessions }: { sessions: CompletedSession[] }) {
           {recent.map((session) => {
             const meta = METHOD_META[session.method]
             return (
-              <div
+              <Link
                 key={session.id}
-                className="flex min-h-[56px] items-center gap-3 rounded-xl bg-gray-50 px-3 py-2.5"
+                href="/history"
+                className="flex min-h-[56px] items-center gap-3 rounded-xl bg-gray-50 px-3 py-2.5 active:bg-gray-100 transition-colors"
               >
                 <span className="flex-shrink-0 text-2xl leading-none">{meta?.icon ?? '📝'}</span>
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -312,7 +313,7 @@ function RecentRecords({ sessions }: { sessions: CompletedSession[] }) {
                     {formatDuration(session.durationSeconds)}
                   </span>
                 </div>
-              </div>
+              </Link>
             )
           })}
         </div>

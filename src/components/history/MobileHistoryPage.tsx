@@ -250,6 +250,15 @@ function SessionCard({ session }: { session: CompletedSession }) {
                 </p>
               </section>
             ) : null}
+
+            {/* 再练此题 */}
+            <Link
+              href={`/session/${session.method}?replay=${session.id}`}
+              className="flex items-center justify-center gap-2 rounded-xl bg-blue-50 border border-blue-100 px-4 py-3 text-[14px] font-semibold text-blue-600 active:bg-blue-100 transition-colors"
+            >
+              <span>🔄</span>
+              <span>用此题再练一次</span>
+            </Link>
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { CompletedSession } from '@/types'
 import { formatDateCN, formatDuration, METHOD_META } from '@/lib/utils'
 import { Card, CardContent } from '@/components/ui/card'
@@ -237,6 +238,14 @@ function SessionRow({ session }: { session: CompletedSession }) {
                 </p>
               </section>
             )}
+
+            {/* 再练此题 */}
+            <Link
+              href={`/session/${session.method}?replay=${session.id}`}
+              className="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-600 hover:bg-blue-100 transition-colors"
+            >
+              🔄 用此题再练一次
+            </Link>
           </div>
         </div>
       )}

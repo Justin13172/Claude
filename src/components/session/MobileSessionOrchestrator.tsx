@@ -54,6 +54,7 @@ function currentStepIndex(phase: SessionState['phase']): number {
 
 interface MobileSessionOrchestratorProps {
   method: MethodId
+  replaySessionId?: string
 }
 
 // ── 完成界面 ──────────────────────────────────────────────────────────────────
@@ -150,18 +151,40 @@ function MobileCompletionScreen({
 
 // ── 主组件 ────────────────────────────────────────────────────────────────────
 
-export function MobileSessionOrchestrator({ method }: MobileSessionOrchestratorProps) {
+export function MobileSessionOrchestrator({ method, replaySessionId }: MobileSessionOrchestratorProps) {
   const [state, setState] = useState<SessionState>({ phase: 'loading' })
   const [fetchError, setFetchError] = useState<string | null>(null)
   const startTimeRef = useRef<Date>(new Date())
   const totalSessions = getSessions().length
 
-  // ── 加载场景 ──────────────────────────────────────────────────────────────
+  // ── 加载场景（回放或全新） ────────────────────────────────────────────────
   useEffect(() => {
-    async function fetchScenario() {
-      setFetchError(null)
-      startTimeRef.current = new Date()
+    setFetchError(null)
+    startTimeRef.current = new Date()
 
+    // 回放模式：从本地存储重建 Scenario
+    if (replaySessionId) {
+      const sessions = getSessions()
+      const prev = sessions.find(s => s.id === replaySessionId)
+      if (prev) {
+        const scenario: Scenario = {
+          id: prev.scenarioId,
+          method: prev.method,
+          tier: 'curated',
+          source: '',
+          title: prev.scenarioTitle,
+          scenarioText: prev.scenarioText,
+          questions: prev.questions,
+          referenceAnswer: prev.referenceAnswer,
+          difficulty: 'advanced',
+          tags: [],
+        }
+        setState({ phase: 'scenario_displayed', scenario })
+        return
+      }
+    }
+
+    async function fetchScenario() {
       try {
         const sessions = getSessions()
         const completedScenarioIds = sessions.map(s => s.scenarioId)
@@ -186,7 +209,7 @@ export function MobileSessionOrchestrator({ method }: MobileSessionOrchestratorP
 
     fetchScenario()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [method])
+  }, [method, replaySessionId])
 
   // ── 状态转换 ──────────────────────────────────────────────────────────────
 

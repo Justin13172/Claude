@@ -58,42 +58,38 @@ export function RecentSessions({ sessions }: RecentSessionsProps) {
             {recent.map((session) => {
               const verdict = session.aiEvaluation?.overallVerdict
               return (
-                <li
-                  key={session.id}
-                  className="flex flex-col gap-1.5 py-3 sm:flex-row sm:items-center sm:justify-between"
-                >
-                  {/* Left: icon + meta */}
-                  <div className="flex min-w-0 items-start gap-3 sm:items-center">
-                    <span
-                      className="mt-0.5 flex-shrink-0 text-xl leading-none sm:mt-0"
-                      aria-hidden
-                    >
-                      {/* icon is stored in methodLabel but we can derive it from method */}
-                    </span>
-                    <div className="flex min-w-0 flex-col gap-0.5">
-                      {/* Date */}
-                      <span className="text-[11px] text-gray-400">
-                        {formatDateCN(session.completedAt)}
-                      </span>
-                      {/* Method + title */}
-                      <span className="truncate text-sm font-medium text-gray-800">
-                        {session.methodLabel} · {session.scenarioTitle}
-                      </span>
+                <li key={session.id}>
+                  <Link
+                    href="/history"
+                    className="flex flex-col gap-1.5 py-3 sm:flex-row sm:items-center sm:justify-between hover:bg-gray-50 rounded-lg px-2 -mx-2 transition-colors"
+                  >
+                    {/* Left: icon + meta */}
+                    <div className="flex min-w-0 items-start gap-3 sm:items-center">
+                      <div className="flex min-w-0 flex-col gap-0.5">
+                        {/* Date */}
+                        <span className="text-[11px] text-gray-400">
+                          {formatDateCN(session.completedAt)}
+                        </span>
+                        {/* Method + title */}
+                        <span className="truncate text-sm font-medium text-gray-800">
+                          {session.methodLabel} · {session.scenarioTitle}
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Right: rating + verdict */}
-                  <div className="flex flex-shrink-0 items-center gap-2 pl-0 sm:pl-4">
-                    <StarRating rating={session.selfRating} />
-                    {verdict && (
-                      <Badge
-                        variant="outline"
-                        className={cn('text-[10px]', VERDICT_STYLE[verdict])}
-                      >
-                        {VERDICT_LABEL[verdict]}
-                      </Badge>
-                    )}
-                  </div>
+                    {/* Right: rating + verdict */}
+                    <div className="flex flex-shrink-0 items-center gap-2 pl-0 sm:pl-4">
+                      <StarRating rating={session.selfRating} />
+                      {verdict && (
+                        <Badge
+                          variant="outline"
+                          className={cn('text-[10px]', VERDICT_STYLE[verdict])}
+                        >
+                          {VERDICT_LABEL[verdict]}
+                        </Badge>
+                      )}
+                    </div>
+                  </Link>
                 </li>
               )
             })}

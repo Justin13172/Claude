@@ -56,22 +56,46 @@ function currentStepIndex(phase: SessionState['phase']): number {
 
 interface SessionOrchestratorProps {
   method: MethodId
+  replaySessionId?: string
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export function SessionOrchestrator({ method }: SessionOrchestratorProps) {
+export function SessionOrchestrator({ method, replaySessionId }: SessionOrchestratorProps) {
   const [state, setState] = useState<SessionState>({ phase: 'loading' })
   const [fetchError, setFetchError] = useState<string | null>(null)
   const startTimeRef = useRef<Date>(new Date())
   const totalSessions = getSessions().length
 
-  // ── Fetch scenario on mount ──────────────────────────────────────────────────
+  // ── Load scenario on mount (replay or fresh) ─────────────────────────────────
   useEffect(() => {
-    async function fetchScenario() {
-      setFetchError(null)
-      startTimeRef.current = new Date()
+    setFetchError(null)
+    startTimeRef.current = new Date()
 
+    // Replay mode: reconstruct scenario from stored session
+    if (replaySessionId) {
+      const sessions = getSessions()
+      const prev = sessions.find(s => s.id === replaySessionId)
+      if (prev) {
+        const scenario: Scenario = {
+          id: prev.scenarioId,
+          method: prev.method,
+          tier: 'curated',
+          source: '',
+          title: prev.scenarioTitle,
+          scenarioText: prev.scenarioText,
+          questions: prev.questions,
+          referenceAnswer: prev.referenceAnswer,
+          difficulty: 'advanced',
+          tags: [],
+        }
+        setState({ phase: 'scenario_displayed', scenario })
+        return
+      }
+      // Fallback: if session not found, proceed with normal fetch
+    }
+
+    async function fetchScenario() {
       try {
         const sessions = getSessions()
         const completedScenarioIds = sessions.map(s => s.scenarioId)
@@ -96,7 +120,7 @@ export function SessionOrchestrator({ method }: SessionOrchestratorProps) {
 
     fetchScenario()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [method])
+  }, [method, replaySessionId])
 
   // ── Transition helpers (strict forward-only) ─────────────────────────────────
 

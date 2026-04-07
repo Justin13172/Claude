@@ -1,6 +1,7 @@
 'use client'
 
 import { use } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { notFound } from 'next/navigation'
 import { MethodId } from '@/types'
 import { METHOD_META } from '@/lib/utils'
@@ -24,6 +25,8 @@ interface Props {
 export default function SessionPage({ params }: Props) {
   const { method } = use(params)
   const { isMobile } = useLayout()
+  const searchParams = useSearchParams()
+  const replaySessionId = searchParams.get('replay') ?? undefined
 
   if (!VALID_METHODS.includes(method as MethodId)) notFound()
 
@@ -31,7 +34,7 @@ export default function SessionPage({ params }: Props) {
   const meta = METHOD_META[methodId]
 
   if (isMobile) {
-    return <MobileSessionOrchestrator method={methodId} />
+    return <MobileSessionOrchestrator method={methodId} replaySessionId={replaySessionId} />
   }
 
   return (
@@ -45,7 +48,8 @@ export default function SessionPage({ params }: Props) {
         <h1 className="text-2xl font-bold text-gray-900">{meta.label}</h1>
         <p className="text-gray-600 mt-1">{meta.description}</p>
       </div>
-      <SessionOrchestrator method={methodId} />
+      <SessionOrchestrator method={methodId} replaySessionId={replaySessionId} />
     </div>
   )
 }
+
