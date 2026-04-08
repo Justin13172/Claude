@@ -28,14 +28,14 @@ async function redisGet(key: string): Promise<CompletedSession[] | null> {
 
 async function redisSet(key: string, value: CompletedSession[]): Promise<boolean> {
   if (!REDIS_URL || !REDIS_TOKEN) return false
-  // Use SET with EX 90 days (7776000 seconds)
-  const res = await fetch(`${REDIS_URL}/set/${encodeURIComponent(key)}`, {
+  // Upstash REST API: send command as JSON array ["SET", key, value, "EX", seconds]
+  const res = await fetch(REDIS_URL, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${REDIS_TOKEN}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ value: JSON.stringify(value), ex: 7776000 }),
+    body: JSON.stringify(['SET', key, JSON.stringify(value), 'EX', 7776000]),
   })
   return res.ok
 }
