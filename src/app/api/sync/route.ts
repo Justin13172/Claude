@@ -20,7 +20,10 @@ async function redisGet(key: string): Promise<CompletedSession[] | null> {
   const data = await res.json()
   if (data.result == null) return null
   try {
-    return JSON.parse(data.result) as CompletedSession[]
+    const parsed = JSON.parse(data.result)
+    // Guard: must be an array (old corrupted format was an object)
+    if (!Array.isArray(parsed)) return null
+    return parsed as CompletedSession[]
   } catch {
     return null
   }
@@ -70,22 +73,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: '无效的同步码' }, { status: 400 })
   }
 
-  const key = redisKey(syncId)
-  const remote = await redisGet(key) ?? []
+  try {
+    const key = redisKey(syncId)
+    const remote = await redisGet(key) ?? []
 
-  // Merge: union by session ID, prefer local version for conflicts
-  const merged = new Map<string, CompletedSession>()
-  for (const s of remote) merged.set(s.id, s)
-  for (const s of sessions) merged.set(s.id, s)  // local overwrites remote
+    // Merge: union by session ID, prefer local version for conflicts
+    const merged = new Map<string, CompletedSession>()
+    for (const s of remote) merged.set(s.id, s)
+    for (const s of sessions) merged.set(s.id, s)  // local overwrites remote
 
-  const mergedArr = Array.from(merged.values()).sort(
-    (a, b) => b.completedAt.localeCompare(a.completedAt)
-  )
+    const mergedArr = Array.from(merged.values()).sort(
+      (a, b) => b.completedAt.localeCompare(a.completedAt)
+    )
 
-  const saved = await redisSet(key, mergedArr)
-  if (!saved) {
-    return NextResponse.json({ error: '同步写入失败，请稍后重试' }, { status: 500 })
+    const saved = await redisSet(key, mergedArr)
+    if (!saved) {
+      return NextResponse.json({ error: '同步写入失败，请稍后重试' }, { status: 500 })
+    }
+
+    return NextResponse.json({ sessions: mergedArr, count: mergedArr.length })
+  } catch (e) {
+    console.error('sync error', e)
+    return NextResponse.json({ error: '服务器内部错误，请稍后重试' }, { status: 500 })
   }
-
-  return NextResponse.json({ sessions: mergedArr, count: mergedArr.length })
 }
