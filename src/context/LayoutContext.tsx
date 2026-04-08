@@ -20,6 +20,7 @@ const STORAGE_KEY = 'pst_layout_mode'
 
 export function LayoutProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<LayoutMode>('desktop')
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     // 默认：屏幕宽度 < 640px 自动切移动端
@@ -29,6 +30,7 @@ export function LayoutProvider({ children }: { children: React.ReactNode }) {
     } else {
       setMode(window.innerWidth < 640 ? 'mobile' : 'desktop')
     }
+    setMounted(true)
   }, [])
 
   function toggle() {
@@ -41,7 +43,9 @@ export function LayoutProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <LayoutContext.Provider value={{ mode, toggle, isMobile: mode === 'mobile' }}>
-      {children}
+      <div style={mounted ? undefined : { visibility: 'hidden' }}>
+        {children}
+      </div>
     </LayoutContext.Provider>
   )
 }
