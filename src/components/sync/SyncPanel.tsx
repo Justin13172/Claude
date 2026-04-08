@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { getSyncId, setSyncId, generateSyncId, syncSessions } from '@/lib/sync'
-import { getSessions, saveSession } from '@/lib/storage'
+import { getSessions } from '@/lib/storage'
 import { CompletedSession } from '@/types'
 import { cn } from '@/lib/utils'
 
