@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>看懂商业模式 · 真实财报深度版（Costco / 茅台 / Visa / 苹果）</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --bull:#2f7d57;--bull-bg:#e9f4ee;--bear:#c0392b;--bear-bg:#fbecea;--purple:#6a4c93;
+    --radius:14px;--maxw:820px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1220px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:284px;flex:0 0 284px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.4px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--buffett);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:60px 0 28px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:32px;line-height:1.32;margin:0 0 14px;letter-spacing:.3px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.b{border-color:#bcd6e8;color:var(--buffett);background:var(--buffett-bg)}
+  .pill.d{border-color:#bfe0cd;color:var(--duan);background:var(--duan-bg)}
+  section{padding:40px 0 8px;scroll-margin-top:18px}
+  h2{font-size:26px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:20px;margin:30px 0 8px;line-height:1.4}
+  h4{font-size:16.5px;margin:20px 0 6px;color:var(--ink)}
+  p{margin:12px 0}
+  a.ref{color:var(--buffett);text-decoration:none;font-size:11px;vertical-align:super;padding:0 1px}
+  a.ref:hover{text-decoration:underline}
+  .lead{font-size:18.5px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .concept{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;margin:20px 0;box-shadow:var(--shadow)}
+  .concept .ctag{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--gold);padding:2px 11px;border-radius:999px;margin-bottom:8px}
+  .memo{margin-top:12px;padding:11px 14px;background:var(--gold-bg);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;font-size:15px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px;color:var(--ink)}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft);font-style:normal}
+  blockquote.b{border-left-color:var(--buffett)}blockquote.d{border-left-color:var(--duan)}
+  .tablewrap{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);vertical-align:top}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:#f3eee2;font-size:13px;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.hl td{background:#fbf6ea;font-weight:700}
+  td.b{color:var(--buffett);font-weight:600}td.d{color:var(--duan);font-weight:600}
+  .neg{color:var(--danger);font-weight:700}.pos{color:var(--duan);font-weight:700}
+  figure{margin:22px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  /* 案例 */
+  .case{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:30px 0;box-shadow:var(--shadow);background:#fff}
+  .case .top{padding:16px 22px;color:#fff;background:var(--buffett)}
+  .case.green .top{background:var(--duan)}.case.gold .top{background:#a9760a}.case.purple .top{background:var(--purple)}
+  .case .top h4{margin:0;color:#fff;font-size:21px}
+  .case .top .arch{font-size:13px;opacity:.92;margin-top:3px}
+  .case .body{padding:18px 24px}
+  .kpis{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 16px}
+  .kpi{flex:1 1 130px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:center}
+  .kpi .n{display:block;font-size:18px;font-weight:800;color:var(--buffett)}
+  .case.green .kpi .n{color:var(--duan)}.case.gold .kpi .n{color:#a9760a}.case.purple .kpi .n{color:var(--purple)}
+  .kpi .l{font-size:11.5px;color:var(--ink-soft);line-height:1.35}
+  .sech{font-weight:800;font-size:15px;margin:18px 0 6px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .sech::before{content:"";width:5px;height:16px;border-radius:3px;background:var(--buffett);display:inline-block}
+  .case.green .sech::before{background:var(--duan)}.case.gold .sech::before{background:#a9760a}.case.purple .sech::before{background:var(--purple)}
+  /* 多空 */
+  .bullbear{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  .bullbear .col{border-radius:12px;padding:12px 15px;font-size:14px}
+  .bullbear .bull{background:var(--bull-bg);border:1px solid #bfe0cd}
+  .bullbear .bear{background:var(--bear-bg);border:1px solid #e6a99f}
+  .bullbear h5{margin:0 0 6px;font-size:14.5px}
+  .bullbear .bull h5{color:var(--bull)}.bullbear .bear h5{color:var(--bear)}
+  .bullbear ul{margin:0;padding-left:18px}.bullbear li{margin:5px 0}
+  .riskbox{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:12px;padding:14px 18px;margin:14px 0}
+  .riskbox .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  .riskbox ul{margin:6px 0;padding-left:20px}.riskbox li{margin:5px 0;font-size:14.3px}
+  .takeaway{margin-top:14px;padding:12px 14px;background:#f4f8e9;border-left:4px solid #8aa84b;border-radius:0 8px 8px 0;font-size:14.5px}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  .danger{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .danger .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  ul.cross li::before{content:"✕";color:var(--danger)}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 44px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--buffett);color:#fff;text-align:center;line-height:28px;font-weight:800;font-size:14px}
+  .sources{font-size:13px;color:var(--ink-soft)}
+  .sources li{margin:6px 0;word-break:break-all}.sources a{color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:14px 18px;margin:24px 0}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:18px 0;color:var(--buffett)}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}
+    main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    .bullbear{grid-template-columns:1fr}
+    header.hero h1{font-size:25px}header.hero{padding:32px 0 22px}body{font-size:16px}
+    th,td{padding:7px 8px;font-size:12.5px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.case,.concept,figure svg{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 看懂商业模式（真实财报深度版）</summary>
+    <a href="#ch0">序章 · 真实远比模型复杂</a>
+    <a href="#ch1">第一章 · 解剖法 + 怎么读真财报</a>
+    <a href="#ch2">第二章 · 四个真实财报深度拆解</a>
+    <a href="#case-costco">① Costco</a>
+    <a href="#case-moutai">② 贵州茅台</a>
+    <a href="#case-visa">③ Visa</a>
+    <a href="#case-apple">④ 苹果</a>
+    <a href="#ch3">第三章 · 综合启示与清单</a>
+    <a href="#sources">参考来源</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">看懂商业模式 · 真实财报深度版
+      <small>基于 FY2025 / 2025 年报最新数据<br>Costco｜茅台｜Visa｜苹果</small>
+    </div>
+    <div class="grp">正文</div>
+    <a href="#ch0">序章 · 真实远比模型复杂</a>
+    <a href="#ch1">第一章 · 解剖法 + 读真财报</a>
+    <a href="#ch2">第二章 · 四个深度拆解</a>
+    <a href="#case-costco" class="sub">① Costco · 会员制零售</a>
+    <a href="#case-moutai" class="sub">② 茅台 · 周期下行中的高端白酒</a>
+    <a href="#case-visa" class="sub">③ Visa · 支付网络</a>
+    <a href="#case-apple" class="sub">④ 苹果 · 硬件+服务生态</a>
+    <a href="#ch3">第三章 · 综合启示与清单</a>
+    <div class="grp">参考</div>
+    <a href="#sources">参考来源</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">REAL FINANCIALS · DEEP DIVE</span>
+    <h1>看懂商业模式 · 真实财报深度版<br><span style="font-size:.58em;color:var(--ink-soft);font-weight:600">Costco｜贵州茅台｜Visa｜苹果（基于最新真实财报）</span></h1>
+    <p class="sub">上一版把案例讲得太"干净"了。真实的公司有多条业务线、有周期起落、有正在发生的危机与多空激辩。这一版用真实财报，把复杂度还原回来。</p>
+    <div class="pillrow">
+      <span class="pill">系列进阶 · 重制版</span>
+      <span class="pill b">真实财报 + 五年数据表</span>
+      <span class="pill d">多空之争 + 真实风险</span>
+    </div>
+    <div class="crosslink">📎 本篇承接前几篇（入门 / 难点 / 方法论）。方法论框架不变，但这一版的重点是：<b>用真实财务数据，诚实地呈现每家公司的复杂性、争议与风险</b>，而不是只讲漂亮的一面。</div>
+    <div class="disclaimer"><b>重要提示：</b>本文仅为投资<b>分析方法的学习与科普</b>，<b>绝不构成任何投资建议或个股推荐</b>。财务数据来自各公司公开财报（Costco / Visa / 苹果为 FY2025 财年，截至 2025 年 9 月前后；贵州茅台为 2025 自然年年报），均为公开披露的近似值，可能因口径、汇率、修订而与最新数据存在差异，<b>请务必以公司原始财报为准</b>。文中"多空观点"是对市场不同看法的中立呈现，不代表任何立场。投资有风险，独立判断、量力而行。</div>
+  </header>
+
+  <!-- 序章 -->
+  <section id="ch0">
+    <span class="chapnum">序章</span>
+    <h2>为什么真实，远比"模型"复杂</h2>
+    <p class="lead">上一版用"飞轮""收费站"这类模型讲清了机理——这对入门是必要的。但真实世界里，再好的公司也同时在经历挑战、争议和不确定。看真实财报，要多盯紧四件事。</p>
+    <div class="fp">
+      <div class="lab">看真实公司，必须额外做的四件事</div>
+      <p style="margin:8px 0"><b>① 拆分部门看，别只看总数。</b>一家公司往往有好几条业务线，增长的、萎缩的、高毛利的、低毛利的混在一起。只看总营收会掩盖真相（如苹果的服务在涨、大中华区在跌）。</p>
+      <p style="margin:8px 0"><b>② 看多年趋势，识别周期与拐点。</b>单一年份会骗人。要看 3–5 年趋势：是持续向上，还是刚刚出现拐点？（茅台 2025 年就出现了上市以来首次下滑。）</p>
+      <p style="margin:8px 0"><b>③ 读懂会计口径与"一次性"项目。</b>毛收入 ≠ 净收入（Visa 要扣巨额返佣）；某年利润暴增/暴跌可能只是一次性税费（苹果 FY2024 有约 100 亿美元欧盟补税）。不读懂口径，就会误判。</p>
+      <p style="margin:8px 0"><b>④ 正视多空分歧与真实风险。</b>每家好公司都有人看空，且理由往往很硬（监管、诉讼、地缘、需求拐点）。把空头逻辑也搞懂，才算真看懂。</p>
+    </div>
+    <p>下面先快速回顾方法论与"如何对照真实财报"，再进入四个真实拆解。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第一章 -->
+  <section id="ch1">
+    <span class="chapnum">第一章</span>
+    <h2>解剖七步法 + 如何对照真实财报</h2>
+    <p class="lead">方法论的骨架不变（详见上一篇），这里浓缩成一张表；关键是右栏——每一步对应去财报的<b>哪里</b>找证据。</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>步骤</th><th>核心问题</th><th>去真实财报的哪里找</th></tr></thead>
+      <tbody>
+        <tr><td class="b">① 怎么赚钱</td><td>谁付钱、为什么、靠什么收</td><td>年报"业务概述"、收入确认附注</td></tr>
+        <tr><td class="b">② 单位经济</td><td>一笔生意赚多少、成本结构</td><td>利润表、毛利率、分部毛利</td></tr>
+        <tr><td class="b">③ 现金流</td><td>利润能否变现金</td><td>现金流量表、资本开支、营运资本</td></tr>
+        <tr><td class="d">④ 护城河+验证</td><td>能否持续赚、ROIC 高不高</td><td>多年毛利率/ROE/ROIC、市占率</td></tr>
+        <tr><td class="d">⑤ 什么杀死它</td><td>护城河的弱点</td><td>年报"风险因素"、诉讼与监管附注</td></tr>
+        <tr><td style="color:#b9770f;font-weight:600">⑥ 确定性</td><td>未来现金流可预测吗</td><td>分部趋势、合同负债/递延收入、指引</td></tr>
+        <tr><td style="color:#6a4c93;font-weight:600">⑦ 折现</td><td>综合值多少、够便宜吗</td><td>股东盈余 × 持续性 × 确定性 + 安全边际</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="memo">🧠 <b>三张表怎么配合看：</b><b>利润表</b>告诉你"赚没赚钱"，<b>现金流量表</b>告诉你"赚的是不是真现金"，<b>资产负债表</b>告诉你"家底厚不厚、靠不靠借钱、是否被上下游占款"。三张表 + <b>分部数据</b> + <b>风险因素附注</b>，才是一家公司的真实全貌。下面四个案例，都会带你看这些真实数字。</div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第二章 -->
+  <section id="ch2">
+    <span class="chapnum">第二章 · 深度拆解</span>
+    <h2>四个真实财报深度拆解</h2>
+    <p class="lead">四家公司，四种护城河，也是四种不同的"当下处境"：有的稳健扩张但估值高企，有的正经历上市以来首次下滑，有的面对监管与诉讼围剿，有的核心利润被一纸判决悬在头上。</p>
+
+    <!-- ============ Costco ============ -->
+    <div class="case" id="case-costco">
+      <div class="top"><h4>① Costco（开市客）</h4><div class="arch">护城河：成本优势 + 会员黏性 · 财年截至 2025/8</div></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">$2752亿</span><span class="l">FY2025 总营收<a href="#sources" class="ref">[1]</a></span></div>
+          <div class="kpi"><span class="n">$81.0亿</span><span class="l">净利润 (+10%)<a href="#sources" class="ref">[1]</a></span></div>
+          <div class="kpi"><span class="n">$53.2亿</span><span class="l">会员费收入 (+10.3%)<a href="#sources" class="ref">[1]</a></span></div>
+          <div class="kpi"><span class="n">89.8%</span><span class="l">全球续费率 / 美加 92.3%<a href="#sources" class="ref">[1]</a></span></div>
+          <div class="kpi"><span class="n">~8100万</span><span class="l">付费会员户数<a href="#sources" class="ref">[1]</a></span></div>
+        </div>
+
+        <div class="sech">五年财务趋势（财年，单位：亿美元）</div>
+        <div class="tablewrap">
+        <table>
+          <thead><tr><th>财年</th><th>总营收</th><th>净利润</th><th>会员费</th><th>净利率</th></tr></thead>
+          <tbody>
+            <tr><td>FY2021</td><td>1959</td><td>50.1</td><td>38.8</td><td>2.6%</td></tr>
+            <tr><td>FY2022</td><td>2270</td><td>58.4</td><td>42.2</td><td>2.6%</td></tr>
+            <tr><td>FY2023</td><td>2423</td><td>62.9</td><td>45.8</td><td>2.6%</td></tr>
+            <tr><td>FY2024</td><td>2545</td><td>73.7</td><td>48.3</td><td>2.9%</td></tr>
+            <tr class="hl"><td>FY2025</td><td>2752</td><td>81.0</td><td>53.2</td><td>2.9%</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p style="font-size:13px;color:var(--ink-soft)">数据来源：Costco 财报 / macrotrends / stockanalysis<a href="#sources" class="ref">[1]</a>。注：FY2021–2023 为公开整理近似值。</p>
+
+        <div class="sech">真实的利润结构（破除"会员费=全部利润"的简化）</div>
+        <p>上一版说"利润几乎全来自会员费"——这<b>夸张了</b>。真实数字是：FY2025 营业利润约 <b>103.8 亿美元</b>，会员费收入约 <b>53.2 亿</b>，占营业利润约 <b>一半（~51%）</b>，而非全部<a href="#sources" class="ref">[1]</a>。准确的说法是：<b>商品销售贡献了另一半营业利润，但商品业务的净利率极薄</b>（整体净利率仅约 2.9%），所以会员费是"利润的稳定器和放大器"，而不是唯一来源。</p>
+        <p>另一个常被误读的点：Costco 的<b>整体毛利率约 12.8%</b>（含会员费）<a href="#sources" class="ref">[1]</a>——这是<b>全行业最低之一</b>，但<b>低毛利正是它的护城河</b>：它故意把省下的钱让利给会员，用"全网最低价"换取近 90% 的超高续费率。低毛利在这里不是弱点，是武器。</p>
+
+        <div class="sech">护城河 + 财务验证</div>
+        <p>成本优势（极致供应链效率 + 巨量采购 + Kirkland 自有品牌）叠加会员黏性。铁证：续费率常年 ~90%、付费会员持续增长到约 8100 万户、ROIC 长期处于高位。它还能"敢于涨价"——2024 年 9 月将高级会员费从 $120 上调至 $130（七年来首次），续费率未受明显冲击<a href="#sources" class="ref">[2]</a>，这是定价权的直接体现。</p>
+
+        <div class="sech">多空之争（真实分歧）</div>
+        <div class="bullbear">
+          <div class="col bull"><h5>▲ 看多逻辑</h5><ul>
+            <li>会员费=高确定性的"预收+经常性"收入，可见度极高</li>
+            <li>近 90% 续费率证明客户极度黏性，提价空间仍在</li>
+            <li>线下仓储体验 + 极致低价，电商难以完全替代</li>
+            <li>海外（尤其亚洲）门店仍有长期开店空间</li>
+          </ul></div>
+          <div class="col bear"><h5>▼ 看空 / 担忧</h5><ul>
+            <li><b>估值过高</b>：市盈率长期高达 50 倍上下，已"price in"多年完美增长</li>
+            <li>体量已大，同店与开店增速难免放缓</li>
+            <li>商品业务净利率极薄，对成本/关税/工资上涨敏感</li>
+            <li>电商（亚马逊/沃尔玛）持续蚕食部分品类</li>
+          </ul></div>
+        </div>
+
+        <div class="riskbox">
+          <div class="lab">⚠️ 会侵蚀未来现金流的真实风险</div>
+          <ul>
+            <li><b>估值风险</b>：即便生意不变坏，过高的买入价也可能导致长期回报平庸（参见"好公司也要好价格"）。</li>
+            <li>会员费提价节奏若过激，可能侵蚀续费率这一核心资产。</li>
+            <li>关税与供应链成本上升，挤压本就微薄的商品利润。</li>
+          </ul>
+        </div>
+        <div class="takeaway">🎯 <b>它教会你：</b>(1) 要用真实数字校准模型——会员费占营业利润约一半，而非全部；(2) <b>低毛利可以是护城河</b>，关键看它换来了什么（续费率、客流）；(3) 一家无可挑剔的好公司，最大的风险常常是<b>买得太贵</b>。</div>
+      </div>
+    </div>
+
+    <!-- ============ 茅台 ============ -->
+    <div class="case green" id="case-moutai">
+      <div class="top"><h4>② 贵州茅台</h4><div class="arch">护城河：品牌 / 无形资产 + 定价权 · 2025 自然年（行业下行期）</div></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">1720.5亿</span><span class="l">2025 营收 <span class="neg">−1.2%</span><a href="#sources" class="ref">[3]</a></span></div>
+          <div class="kpi"><span class="n">823.2亿</span><span class="l">归母净利 <span class="neg">−4.5%</span><a href="#sources" class="ref">[3]</a></span></div>
+          <div class="kpi"><span class="n">~92%</span><span class="l">毛利率<a href="#sources" class="ref">[3]</a></span></div>
+          <div class="kpi"><span class="n">650.3亿</span><span class="l">全年分红 (79%)<a href="#sources" class="ref">[3]</a></span></div>
+          <div class="kpi"><span class="n">~1485元</span><span class="l">飞天批价(年末·跌破指导价)<a href="#sources" class="ref">[5]</a></span></div>
+        </div>
+
+        <div class="sech">五年财务趋势（自然年，单位：亿元人民币）</div>
+        <div class="tablewrap">
+        <table>
+          <thead><tr><th>年度</th><th>营业总收入</th><th>归母净利润</th><th>同比(净利)</th></tr></thead>
+          <tbody>
+            <tr><td>2021</td><td>1094.6</td><td>524.6</td><td class="pos">+12.3%</td></tr>
+            <tr><td>2022</td><td>1275.5</td><td>627.2</td><td class="pos">+19.6%</td></tr>
+            <tr><td>2023</td><td>1505.6</td><td>747.3</td><td class="pos">+19.2%</td></tr>
+            <tr><td>2024</td><td>1741.4</td><td>862.3</td><td class="pos">+15.4%</td></tr>
+            <tr class="hl"><td>2025</td><td>1720.5</td><td>823.2</td><td class="neg">−4.5%</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p style="font-size:13px;color:var(--ink-soft)">来源：公司年报 / 东方财富 / 新华网<a href="#sources" class="ref">[3]</a>。<b>2025 年是茅台 2001 年上市以来首次营收、净利双双下滑</b>——这正是上一版"完美印钞机"叙事没讲的真实一面。</p>
+
+        <div class="sech">收入结构与"渠道再平衡"</div>
+        <p>2025 年的真实结构里藏着一场博弈：</p>
+        <ul class="clean">
+          <li><b>茅台酒</b>营收 1465.0 亿（+0.39%），仍是绝对主力；<b>系列酒</b> 222.75 亿。<a href="#sources" class="ref">[3]</a></li>
+          <li><b>直销渠道</b>（含"i茅台"）845.4 亿（<span class="pos">+12.96%</span>），<b>批发代理</b>渠道 842.3 亿（<span class="neg">−12.05%</span>）。<a href="#sources" class="ref">[3]</a> 公司在主动把货从经销商手里收回、转向自营直销——这能拿走原本经销商赚的价差、提高毛利，但<b>也在动经销商的蛋糕</b>，加剧渠道紧张。</li>
+        </ul>
+
+        <div class="sech">现金流与"先收钱"模式的裂缝</div>
+        <p>茅台依然是"别人求着买"的负营运资本生意——但<b>2025 年这块出现了警示信号</b>：合同负债（经销商预收款）<b>减少约 18.13 亿、同比下降约 16.5%</b><a href="#sources" class="ref">[4]</a>。合同负债是需求的"先行指标"，它的萎缩说明经销商打款意愿下降、终端动销转弱。尽管如此，公司账上现金极其充裕、几乎无有息负债，仍把分红比例提升到 <b>79%</b>（全年派现 650.3 亿）来回报股东。<a href="#sources" class="ref">[3]</a></p>
+
+        <div class="sech">护城河还在不在？看价格</div>
+        <p>飞天茅台的<b>批发价</b>是品牌力最直接的"温度计"。2025 年它从年初 2200 元以上，<b>一路跌破 2000、1700、1499（官方指导价），年末约 1485 元，两年累计下跌约 43%</b><a href="#sources" class="ref">[5]</a>。这说明：<b>护城河（品牌）还在，但行业正处于深度去库存与需求收缩的周期低谷</b>。社会库存据估算高达年销量的 2–3 倍<a href="#sources" class="ref">[5]</a>。批价跌破出厂价（约 1169 元）以上的指导价，挤压了经销商利润，动摇了"持有茅台稳赚"的信仰。</p>
+
+        <div class="sech">多空之争（真实分歧）</div>
+        <div class="bullbear">
+          <div class="col bull"><h5>▲ 看多逻辑</h5><ul>
+            <li>92% 毛利、强品牌、负营运资本的生意本质未变</li>
+            <li>批价虽跌，仍显著高于出厂价，公司提价空间仍在</li>
+            <li>主动降速 + 高分红，被视为"为长期蓄力"</li>
+            <li>稀缺产能（基酒需多年储存）构成长期供给约束</li>
+          </ul></div>
+          <div class="col bear"><h5>▼ 看空 / 担忧</h5><ul>
+            <li><b>首次双降</b>：20 余年增长神话终结，增长中枢下移</li>
+            <li>批价崩、合同负债缩——需求与渠道双重转弱</li>
+            <li>政策压制（"工作餐不上酒"）冲击商务/政务消费</li>
+            <li><b>消费税改革</b>：征收环节后移试点，市场测算或使茅台年税负增加约 45 亿、侵蚀约 3 个百分点税后利润<a href="#sources" class="ref">[6]</a></li>
+            <li>年轻一代白酒消费习惯弱化的长期隐忧</li>
+          </ul></div>
+        </div>
+
+        <div class="riskbox">
+          <div class="lab">⚠️ 会侵蚀未来现金流的真实风险</div>
+          <ul>
+            <li><b>需求周期</b>：高端白酒与宏观经济、商务活动高度相关，去库存可能持续数年。</li>
+            <li><b>政策与税收</b>：消费税征收环节后移若全面落地，直接减少净利；禁酒类规定压制场景。</li>
+            <li><b>渠道改革反噬</b>：直销提速若处理不当，可能损害经销商体系稳定性。</li>
+            <li><b>品牌透支</b>：金融化/囤货属性过强，价格大起大落反而伤害"稀缺信仰"。</li>
+          </ul>
+        </div>
+        <div class="takeaway">🎯 <b>它教会你：</b>再强的护城河也逃不开<b>行业周期</b>。看茅台不能只背"92% 毛利"，要追踪<b>批价、合同负债、渠道结构、政策</b>这些真实的领先指标。一家好公司进入下行周期时，恰恰最考验你第②篇讲的"区分'生意变坏'还是'暂时遇冷'"的功力。</div>
+      </div>
+    </div>
+
+    <!-- ============ Visa ============ -->
+    <div class="case" id="case-visa">
+      <div class="top"><h4>③ Visa</h4><div class="arch">护城河：网络效应（双边网络）· 财年截至 2025/9</div></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">$400亿</span><span class="l">FY2025 净收入 (+11%)<a href="#sources" class="ref">[7]</a></span></div>
+          <div class="kpi"><span class="n">$201亿</span><span class="l">GAAP 净利润 / EPS $10.20<a href="#sources" class="ref">[7]</a></span></div>
+          <div class="kpi"><span class="n">2575亿笔</span><span class="l">年处理交易 (+10%)<a href="#sources" class="ref">[7]</a></span></div>
+          <div class="kpi"><span class="n">$158亿</span><span class="l">客户返佣 (+14%)<a href="#sources" class="ref">[7]</a></span></div>
+          <div class="kpi"><span class="n">$216亿</span><span class="l">自由现金流<a href="#sources" class="ref">[7]</a></span></div>
+        </div>
+
+        <div class="sech">五年财务趋势（财年，单位：亿美元）</div>
+        <div class="tablewrap">
+        <table>
+          <thead><tr><th>财年</th><th>净收入</th><th>净利润</th><th>处理交易(亿笔)</th></tr></thead>
+          <tbody>
+            <tr><td>FY2022</td><td>293</td><td>~160</td><td>~1925</td></tr>
+            <tr><td>FY2023</td><td>327</td><td>~183</td><td>~2125</td></tr>
+            <tr><td>FY2024</td><td>359</td><td>~197</td><td>~2336</td></tr>
+            <tr class="hl"><td>FY2025</td><td>400</td><td>201</td><td>2575</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p style="font-size:13px;color:var(--ink-soft)">来源：Visa 财报 / SEC 10-K / macrotrends<a href="#sources" class="ref">[7]</a>。利润为 GAAP 口径近似值。</p>
+
+        <div class="sech">真实的"毛收入 vs 净收入"（最容易被忽略的会计口径）</div>
+        <p>这是初学者最该补的一课：Visa 报表上的 <b>400 亿"净收入"</b>，其实是<b>毛收入约 558 亿，减去给银行的客户返佣（client incentives）约 158 亿</b>后的结果<a href="#sources" class="ref">[7]</a>。这笔返佣是 Visa 为了争取发卡行、维系网络付出的代价，而且<b>它增长(+14%)比净收入(+11%)还快</b>——意味着 Visa 为维持竞争地位，正在让渡越来越多的利益给银行。<b>只看"净收入很漂亮"，会错过这条暗线。</b></p>
+
+        <div class="sech">商业模式真实机理（澄清最常见误解）</div>
+        <p>很多人以为"刷卡手续费都被 Visa 赚了"——<b>错</b>。刷卡费里最大的一块叫<b>交换费（interchange），归发卡银行</b>，不归 Visa；Visa 赚的是<b>网络服务费与清算处理费（network/processing fee）</b>，只是其中一小部分。它的收入由三大块构成：服务费（按支付额）、数据处理费（按交易笔数）、跨境交易费（利润率最高）。<b>跨境交易（旅游、跨境电商）是它增长与利润的关键引擎</b>，FY2025 跨境交易额（除欧洲内部）增长约 13%。<a href="#sources" class="ref">[7]</a></p>
+
+        <div class="sech">多空之争（真实分歧）</div>
+        <div class="bullbear">
+          <div class="col bull"><h5>▲ 看多逻辑</h5><ul>
+            <li>双边网络近乎不可复制，与万事达形成"双寡头"</li>
+            <li>极致轻资产，净利率约 50%、FCF 极强（FY25 约 216 亿）</li>
+            <li>"现金→电子支付"长期渗透 + 跨境增长仍有空间</li>
+            <li>持续大额回购+分红（新授权 300 亿回购）</li>
+          </ul></div>
+          <div class="col bear"><h5>▼ 看空 / 担忧</h5><ul>
+            <li><b>监管/诉讼</b>：商户集体诉讼和解方案 2025 年再被拒（已是第三次），《信用卡竞争法案》立法威胁<a href="#sources" class="ref">[8]</a></li>
+            <li><b>本土实时支付绕过卡组织</b>：巴西 Pix、印度 UPI 等快速崛起</li>
+            <li>客户返佣逐年攀升，侵蚀净收入增速</li>
+            <li>稳定币 / 新型支付的长期颠覆可能</li>
+          </ul></div>
+        </div>
+
+        <div class="riskbox">
+          <div class="lab">⚠️ 会侵蚀未来现金流的真实风险</div>
+          <ul>
+            <li><b>费率监管</b>：各国压低交换费/网络费（欧盟、美国 Durbin 修正案、CCCA 立法），直接压缩费率。<a href="#sources" class="ref">[8]</a></li>
+            <li><b>去中介化</b>：账户到账户（A2A）实时支付系统在新兴市场绕开卡网络。</li>
+            <li><b>返佣军备竞赛</b>：为留住发卡行不断加大返佣，长期摊薄盈利。</li>
+          </ul>
+        </div>
+        <div class="takeaway">🎯 <b>它教会你：</b>(1) 一定要分清<b>毛收入与净收入</b>，并追踪"返佣"这类抵减项的趋势；(2) 搞清楚一笔钱<b>到底谁赚走了</b>（交换费归银行、不归 Visa）；(3) 即便是顶级网络生意，<b>监管与去中介化</b>也是真实且持续的长期威胁。</div>
+      </div>
+    </div>
+
+    <!-- ============ Apple ============ -->
+    <div class="case green" id="case-apple">
+      <div class="top"><h4>④ 苹果（Apple）</h4><div class="arch">护城河：转换成本 + 生态系统 · 财年截至 2025/9</div></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">$4162亿</span><span class="l">FY2025 总营收<a href="#sources" class="ref">[9]</a></span></div>
+          <div class="kpi"><span class="n">$1120亿</span><span class="l">净利润<a href="#sources" class="ref">[9]</a></span></div>
+          <div class="kpi"><span class="n">>$1000亿</span><span class="l">服务收入 (+14%)<a href="#sources" class="ref">[9]</a></span></div>
+          <div class="kpi"><span class="n">$643.8亿</span><span class="l">大中华区收入(承压)<a href="#sources" class="ref">[9]</a></span></div>
+          <div class="kpi"><span class="n">~47%</span><span class="l">整体毛利率<a href="#sources" class="ref">[9]</a></span></div>
+        </div>
+
+        <div class="sech">五年财务趋势（财年，单位：亿美元）</div>
+        <div class="tablewrap">
+        <table>
+          <thead><tr><th>财年</th><th>总营收</th><th>净利润</th><th>备注</th></tr></thead>
+          <tbody>
+            <tr><td>FY2021</td><td>3658</td><td>947</td><td>疫情后大反弹</td></tr>
+            <tr><td>FY2022</td><td>3943</td><td>998</td><td>历史高点</td></tr>
+            <tr><td>FY2023</td><td>3833</td><td>970</td><td>营收小幅下滑</td></tr>
+            <tr><td>FY2024</td><td>3910</td><td>937</td><td>含约 100 亿欧盟补税(一次性)</td></tr>
+            <tr class="hl"><td>FY2025</td><td>4162</td><td>1120</td><td>创纪录(净利受益于去年低基数)</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p style="font-size:13px;color:var(--ink-soft)">来源：Apple 10-K / 8-K / CNBC<a href="#sources" class="ref">[9]</a>。<b>关键口径提醒：</b>FY2024 净利润被约 100 亿美元的<b>一次性欧盟补税</b>（爱尔兰 130 亿欧元税案）压低，所以 FY2025 净利"暴涨"有相当部分是低基数错觉，<b>不能简单当成 +20% 的真实增长</b>。<a href="#sources" class="ref">[9]</a></p>
+
+        <div class="sech">收入结构：增长的引擎换了</div>
+        <p>苹果早已不是"靠 iPhone 单条腿走路"，但也远没到"摆脱硬件"。真实结构是：</p>
+        <ul class="clean">
+          <li><b>iPhone</b> 仍贡献约一半营收，是基本盘，但增长平缓。</li>
+          <li><b>服务（Services）</b>是真正的增长与利润引擎：FY2025 收入突破 <b>1000 亿美元、增长约 14%</b>，且<b>毛利率约 76%</b>（远高于硬件约 36%）<a href="#sources" class="ref">[9]</a>。服务占比提升，是苹果整体毛利率升到约 47% 的关键。</li>
+          <li><b>分地区</b>：美洲、欧洲增长，但<b>大中华区收入约 643.8 亿、持续承压下滑</b><a href="#sources" class="ref">[9]</a>——这是被本土竞争（华为复苏）、需求与地缘因素共同拖累的真实软肋。</li>
+        </ul>
+
+        <div class="sech">两个必须知道的"财务真相"</div>
+        <p><b>真相一：巨额回购的"财务工程"。</b>苹果常年用千亿级回购注销股票（FY2024 回购约 950 亿美元；2025 年又新授权约 1000 亿）<a href="#sources" class="ref">[9]</a>。这会<b>推高每股收益(EPS)和 ROE</b>——苹果 ROE 高得失真（股东权益被回购大幅压低），<b>不能简单用 ROE 跨公司对比</b>。</p>
+        <p><b>真相二：来自谷歌的"白捡利润"正被悬在头上。</b>谷歌每年付给苹果约 <b>200 亿美元</b>，买断 iPhone 上的默认搜索位置——这笔钱几乎是<b>纯利润，约占苹果服务收入的 21%</b><a href="#sources" class="ref">[10]</a>。2025 年 9 月，美国法官在谷歌反垄断案中<b>裁定允许这笔付款继续</b>（苹果暂时"躲过一劫"），但<b>禁止独家排他、且协议每年须重签</b><a href="#sources" class="ref">[10]</a>——这意味着这块高利润长期仍存在不确定性。</p>
+
+        <div class="sech">多空之争（真实分歧）</div>
+        <div class="bullbear">
+          <div class="col bull"><h5>▲ 看多逻辑</h5><ul>
+            <li>22–25 亿活跃设备 + 极高转换成本 = 稳固生态</li>
+            <li>服务高毛利、经常性，持续推升整体盈利质量</li>
+            <li>恐怖的现金流与回购，长期增厚每股价值</li>
+            <li>潜在的 AI/新硬件（穿戴、空间计算）期权价值</li>
+          </ul></div>
+          <div class="col bear"><h5>▼ 看空 / 担忧</h5><ul>
+            <li><b>谷歌付款风险</b>：约 200 亿/年纯利受反垄断长期威胁<a href="#sources" class="ref">[10]</a></li>
+            <li><b>App Store 抽成</b>受欧盟 DMA、Epic 诉讼围剿（"苹果税"承压）</li>
+            <li><b>大中华区</b>需求与地缘/供应链风险，本土竞争加剧</li>
+            <li><b>AI 落后</b>、Siri 升级延迟，换机周期拉长，硬件创新乏力</li>
+            <li>增长温和但估值不低，对"完美执行"容错率低</li>
+          </ul></div>
+        </div>
+
+        <div class="riskbox">
+          <div class="lab">⚠️ 会侵蚀未来现金流的真实风险</div>
+          <ul>
+            <li><b>监管侵蚀服务利润</b>：谷歌默认搜索付款 + App Store 抽成，是服务板块两大高利润来源，同时面临全球监管。</li>
+            <li><b>地缘与供应链</b>：对中国市场（需求）和中国制造（供应）双向依赖。</li>
+            <li><b>创新/AI 风险</b>：若错过下一个计算平台，安装基数的长期黏性会被削弱。</li>
+          </ul>
+        </div>
+        <div class="takeaway">🎯 <b>它教会你：</b>(1) 看苹果要<b>拆服务 vs 硬件、拆地区</b>，总数掩盖了"服务在涨、大中华在跌"的真实张力；(2) 警惕<b>会计错觉</b>——一次性税费让利润失真、巨额回购让 ROE 失真；(3) 最赚钱的业务（高利润服务）往往也是<b>监管风险最集中</b>的地方。看懂苹果，必须把这些"水下的复杂性"一起看。</div>
+      </div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第三章 -->
+  <section id="ch3">
+    <span class="chapnum">第三章</span>
+    <h2>从真实案例里，学到什么</h2>
+    <p class="lead">四个真实拆解放在一起，能提炼出几条"模型版"学不到的硬道理。</p>
+
+    <div class="concept">
+      <span class="ctag">硬道理</span>
+      <ol class="steps" style="margin-top:6px">
+        <li><b>没有"永远完美"的公司。</b>茅台首次下滑、苹果大中华承压、Visa 被诉讼缠身、Costco 估值高企——再强的护城河也有当下的烦恼。看懂 = 同时看懂它的强与弱。</li>
+        <li><b>会计口径决定你看到的是真相还是错觉。</b>Visa 的"净收入"已扣返佣、苹果利润被一次性税费和回购扭曲、Costco 会员费只占营业利润一半。不读口径，数字会骗你。</li>
+        <li><b>护城河活在"领先指标"里。</b>茅台的批价与合同负债、Costco 的续费率、Visa 的返佣率与跨境量、苹果的服务收入与装机量——盯住这些，比盯股价有用得多。</li>
+        <li><b>最赚钱的地方，往往风险最集中。</b>苹果的高利润服务、Visa 的费率，都是监管的靶心。高回报从来和风险同在。</li>
+        <li><b>好公司 + 好价格，缺一不可。</b>Costco 是好公司，但 50 倍 PE 是另一回事。看懂生意只是第一步，价格与安全边际是第二步。</li>
+      </ol>
+    </div>
+
+    <div class="danger">
+      <div class="lab">⚠️ 比上一版更新的"陷阱清单"</div>
+      <ul class="clean cross">
+        <li>用单一年份/单一指标下结论（忽略多年趋势与拐点）。</li>
+        <li>把"净收入/净利润"当成未经调整的真实赚钱能力（忽略返佣、一次性项目、回购对 EPS/ROE 的扭曲）。</li>
+        <li>只看总数、不拆分部门与地区（错过结构性的此消彼长）。</li>
+        <li>只听多头故事、不认真理解空头逻辑（监管、诉讼、周期、地缘）。</li>
+        <li>把"好公司"直接等同于"好投资"（无视价格）。</li>
+      </ul>
+    </div>
+
+    <h3>升级版检查清单（加入"真实财报"维度）</h3>
+    <ol class="steps">
+      <li><b>分部门/分地区：</b>各业务线的收入、增速、毛利分别如何？谁在涨、谁在跌？</li>
+      <li><b>多年趋势：</b>近 3–5 年是持续向上，还是出现拐点？现在处于周期的哪一段？</li>
+      <li><b>会计口径：</b>有没有毛/净口径差异、一次性损益、回购对 EPS/ROE 的扭曲？</li>
+      <li><b>三张表交叉：</b>利润能不能变成现金（现金流量表）？家底厚不厚、是否被占款（资产负债表）？</li>
+      <li><b>领先指标：</b>这门生意的"温度计"是什么（批价/续费率/装机量/合同负债）？现在指向哪？</li>
+      <li><b>空头逻辑：</b>最强的看空理由是什么？监管/诉讼/周期/地缘，发生概率多大？</li>
+      <li><b>价格与安全边际：</b>综合估值后，现在的价格留出足够缓冲了吗？</li>
+    </ol>
+
+    <blockquote class="d">"投资很简单，但不容易。你一定要看公司、看懂生意、看懂未来的现金流。"<span class="who">— 段永平</span></blockquote>
+    <p>真实的财报是繁琐的，但<b>正是这些繁琐里，藏着别人看不到、也懒得看的真相</b>。当你能把一家公司的强项、隐忧、领先指标、空头逻辑都摆上桌，并诚实地说出"它值多少、现在贵不贵"——你就真的在"看懂一家公司"了。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 来源 -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考来源</h2>
+    <p style="font-size:14px;color:var(--ink-soft)">财务数据来自各公司公开财报与主流财经数据源，为近似值，可能随修订/汇率/口径而变化，请以原始财报为准。本文为方法论科普、非投资建议；"多空观点"为中立呈现。</p>
+    <ol class="sources">
+      <li>[1] Costco FY2025：总营收约 2752 亿美元、净利润约 81.0 亿（+10%）、会员费约 53.2 亿（+10.3%）、营业利润约 103.8 亿、全球续费率 89.8%/美加 92.3%、约 8100 万付费会员、整体毛利率约 12.84%、净利率约 2.9%：Costco 8-K(FY2025)、macrotrends、stockanalysis — <a href="https://www.sec.gov/Archives/edgar/data/0000909832/000090983225000093/costex9928-k92525.htm">sec.gov（Costco FY25 8-K）</a>；<a href="https://stockanalysis.com/stocks/cost/financials/">stockanalysis.com</a>；<a href="https://www.macrotrends.net/stocks/charts/COST/costco/revenue">macrotrends.net</a></li>
+      <li>[2] Costco 2024 年 9 月会员费上调（高级会员 $120→$130，7 年来首次）：The Motley Fool — <a href="https://www.fool.com/investing/2026/04/12/costco-raised-membership-fees-for-the-first-time-i/">fool.com</a></li>
+      <li>[3] 贵州茅台 2025 年报：营收 1720.54 亿（−1.20%）、归母净利 823.20 亿（−4.53%，上市以来首次双降）、茅台酒 1465.00 亿、系列酒 222.75 亿、直销 845.43 亿（+12.96%）、批发 842.32 亿（−12.05%）、分红 650.33 亿（约 79%）：新华网、东方财富、雪球年报摘要 — <a href="http://www.news.cn/enterprise/20260417/98403a5a2cb443d3af21723d0a800b28/c.html">news.cn</a>；<a href="https://finance.eastmoney.com/a/202604163707897561.html">finance.eastmoney.com</a></li>
+      <li>[4] 贵州茅台 2025 年合同负债减少约 18.13 亿元（同比约 −16.5%）：新浪财经 — <a href="https://finance.sina.com.cn/wm/2026-04-17/doc-inhuvkwu2105730.shtml">finance.sina.com.cn</a></li>
+      <li>[5] 飞天茅台 2025 年批价从 2200 元以上跌破 1499 元官方指导价、年末约 1485 元、两年累计约 −43%、社会库存高企：澎湃、每日经济新闻、证券时报 — <a href="https://www.nbd.com.cn/articles/2025-12-09/4174526.html">nbd.com.cn</a>；<a href="https://m.thepaper.cn/newsDetail_forward_32162078">thepaper.cn</a></li>
+      <li>[6] 白酒消费税征收环节后移试点扩大、市场测算对茅台年税负影响（约 45 亿、约 3 个百分点税后利润，为机构测算非公司披露）、2025 年"工作餐不上酒"规定：新浪财经 — <a href="https://finance.sina.com.cn/roll/observe/baijiu/2025-02-26/doc-inemvnmi4048305.shtml">finance.sina.com.cn</a></li>
+      <li>[7] Visa FY2025：净收入约 400 亿美元（+11%）、GAAP 净利约 201 亿/EPS $10.20、处理交易 2575 亿笔（+10%）、客户返佣约 158 亿（+14%）、毛收入约 558 亿、跨境量（除欧洲内部）+13%、自由现金流约 216 亿、新授权 300 亿回购：Visa Q4/全年财报、SEC 10-K — <a href="https://www.sec.gov/Archives/edgar/data/0001403161/000140316125000077/q42025earningsrelease.htm">sec.gov（Visa FY25 Q4）</a>；<a href="https://acquirersmultiple.com/2025/11/visa-v-q4-2025-earnings-revenue-up-12-full-year-net-income-tops-20-billion/">acquirersmultiple.com</a></li>
+      <li>[8] Visa/万事达商户交换费集体诉讼：2025 年 11 月新和解方案（降交换费 0.1 个百分点 5 年、允许加价等）再遭商户/NRF 反对（第三次），《信用卡竞争法案（CCCA）》立法威胁：American Bar Association、Payments Dive、PYMNTS — <a href="https://www.americanbar.org/groups/antitrust_law/resources/newsletters/in-re-payment-card-interchange-fee-merchant-discount-antitrust-litigation/">americanbar.org</a>；<a href="https://www.paymentsdive.com/news/how-the-visa-mastercard-card-fee-case-may-end/817852/">paymentsdive.com</a></li>
+      <li>[9] Apple FY2025：总营收约 4162 亿美元、净利约 1120 亿（FY2024 约 937 亿含约 100 亿一次性欧盟补税）、服务收入突破 1000 亿（+14%）、服务毛利率约 76% vs 硬件约 36%、大中华区约 643.8 亿、整体毛利率约 47%、FY2024 回购约 950 亿/2025 新授权约 1000 亿：Apple 8-K(FY2025 Q4)、CNBC（欧盟税案）、MacRumors — <a href="https://www.sec.gov/Archives/edgar/data/0000320193/000032019325000077/a8-kex991q4202509272025.htm">sec.gov（Apple FY25 Q4）</a>；<a href="https://www.cnbc.com/2024/09/10/apple-loses-eu-court-battle-over-13-billion-euro-tax-bill-in-ireland.html">cnbc.com（欧盟税案）</a></li>
+      <li>[10] 谷歌每年付苹果约 200 亿美元买默认搜索位（约占苹果服务收入 21%）、2025 年 9 月 Mehta 法官裁定允许付款继续但禁止独家排他、协议须每年重签：Yahoo Finance、TUAW、CNBC — <a href="https://finance.yahoo.com/news/apple-dodged-a-20-billion-hit-thanks-to-google-antitrust-ruling-163056806.html">finance.yahoo.com</a>；<a href="https://www.cnbc.com/2025/12/05/judge-finalize-remedies-in-google-antitrust-case.html">cnbc.com</a></li>
+    </ol>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>
