@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>腾讯控股（HKEX 00700）· 价值投资深度拆解（基于 HKEX 一手业绩公告）</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --bull:#2f7d57;--bull-bg:#e9f4ee;--bear:#c0392b;--bear-bg:#fbecea;--purple:#6a4c93;
+    --tx:#1577c2;--tx-bg:#e8f2fa;--wx:#10a64a;--wx-bg:#e7f5ec;--pdd:#e02e24;
+    --radius:14px;--maxw:820px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1200px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:290px;flex:0 0 290px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.4px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--tx);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:58px 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:31px;line-height:1.32;margin:0 0 14px;letter-spacing:.3px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.b{border-color:#bcd6e8;color:var(--tx);background:var(--tx-bg)}
+  .pill.g{border-color:#a9dcc0;color:var(--wx);background:var(--wx-bg)}
+  .pill.o{border-color:#f3c79a;color:#c25e10;background:#fdf0e4}
+  section{padding:38px 0 8px;scroll-margin-top:18px}
+  h2{font-size:26px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:20px;margin:30px 0 8px;line-height:1.4}
+  h4{font-size:16.5px;margin:18px 0 6px;color:var(--ink)}
+  p{margin:12px 0}
+  a.ref{color:var(--tx);text-decoration:none;font-size:11px;vertical-align:super;padding:0 1px}
+  .lead{font-size:18.5px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  .concept{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;margin:20px 0;box-shadow:var(--shadow)}
+  .concept .ctag{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--tx);padding:2px 11px;border-radius:999px;margin-bottom:8px}
+  .concept.g .ctag{background:var(--wx)}.concept.b .ctag{background:var(--buffett)}.concept.gold .ctag{background:var(--gold)}
+  .memo{margin-top:12px;padding:11px 14px;background:var(--tx-bg);border-left:4px solid var(--tx);border-radius:0 8px 8px 0;font-size:15px}
+  .concept.g .memo{background:var(--wx-bg);border-left-color:var(--wx)}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px;color:var(--ink)}
+  blockquote.src{border-left-color:var(--tx);background:var(--tx-bg);font-size:15px}
+  blockquote.src cite{display:block;margin-top:6px;font-size:12.5px;color:var(--ink-soft);font-style:normal}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft);font-style:normal}
+  .tablewrap{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);vertical-align:top}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:#f3eee2;font-size:13px;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.hl td{background:#fbf6ea;font-weight:700}
+  .neg{color:var(--danger);font-weight:700}.pos{color:var(--duan);font-weight:700}
+  figure{margin:22px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  .kpis{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+  .kpi{flex:1 1 120px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:center}
+  .kpi .n{display:block;font-size:18px;font-weight:800;color:var(--tx)}
+  .kpi .l{font-size:11.5px;color:var(--ink-soft);line-height:1.35}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+  .twocol .box{border-radius:12px;padding:14px 16px;font-size:14.3px}
+  .box.a{background:var(--tx-bg);border:1px solid #bcd9ef}
+  .box.b{background:var(--wx-bg);border:1px solid #a9dcc0}
+  .box h5{margin:0 0 8px;font-size:15px}.box.a h5{color:var(--tx)}.box.b h5{color:var(--wx)}
+  .anchor{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:24px 0;box-shadow:var(--shadow);background:#fff}
+  .anchor .top{padding:13px 20px;color:#fff;font-weight:700;font-size:17px}
+  .anchor.peak .top{background:var(--bear)}
+  .anchor.trough .top{background:var(--bull)}
+  .anchor .body{padding:16px 22px}
+  .bullbear{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  .bullbear .col{border-radius:12px;padding:12px 15px;font-size:14px}
+  .bullbear .bull{background:var(--bull-bg);border:1px solid #bfe0cd}
+  .bullbear .bear{background:var(--bear-bg);border:1px solid #e6a99f}
+  .bullbear h5{margin:0 0 6px;font-size:14.5px}.bullbear .bull h5{color:var(--bull)}.bullbear .bear h5{color:var(--bear)}
+  .bullbear ul{margin:0;padding-left:18px}.bullbear li{margin:5px 0}
+  .riskbox{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:12px;padding:14px 18px;margin:14px 0}
+  .riskbox .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  .riskbox ul{margin:6px 0;padding-left:20px}.riskbox li{margin:5px 0;font-size:14.3px}
+  .takeaway{margin-top:14px;padding:12px 14px;background:#f4f8e9;border-left:4px solid #8aa84b;border-radius:0 8px 8px 0;font-size:14.5px}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  .calc{background:#f7f4ec;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:14px 0;font-size:13.5px;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;line-height:1.7;overflow-x:auto}
+  .calc b{font-family:inherit;color:var(--tx)}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 44px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--tx);color:#fff;text-align:center;line-height:28px;font-weight:800;font-size:14px}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:14px 18px;margin:24px 0}
+  .crosslink{font-size:13.5px;background:var(--tx-bg);border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:18px 0;color:var(--tx)}
+  .srcnote{font-size:13px;background:var(--duan-bg);border:1px solid #bcdcc9;border-radius:10px;padding:12px 16px;margin:18px 0;color:#26603f}
+  .sources{font-size:13px;color:var(--ink-soft)}.sources li{margin:8px 0;word-break:break-all}.sources a{color:var(--tx)}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--tx);text-decoration:none}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    .twocol,.bullbear{grid-template-columns:1fr}
+    header.hero h1{font-size:25px}header.hero{padding:30px 0 20px}body{font-size:16px}
+    th,td{padding:7px 8px;font-size:12.5px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.concept,.anchor,figure svg{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 腾讯控股 价值投资深度拆解</summary>
+    <a href="#ch0">序章 · 一句话讲清它怎么赚钱</a>
+    <a href="#ch1">第一章 · 三个第一性问题</a>
+    <a href="#ch2">第二章 · 三大收入引擎（5年数据）</a>
+    <a href="#ch3">第三章 · 单位经济学与现金流</a>
+    <a href="#ch4">第四章 · 护城河（定性+财务铁证）</a>
+    <a href="#ch5">第五章 · 庞大投资组合的处理</a>
+    <a href="#ch6">第六章 · 反向思考（什么会毁掉它）</a>
+    <a href="#ch7">第七章 · 未来现金流的确定性</a>
+    <a href="#ch8">第八章 · 估值（DCF三情景+反向）</a>
+    <a href="#ch9">第九章 · 多空之争</a>
+    <a href="#ch10">第十章 · 真实风险</a>
+    <a href="#ch11">第十一章 · 会计与口径陷阱</a>
+    <a href="#ch12">第十二章 · 一页纸总结</a>
+    <a href="#sources">参考来源</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">腾讯控股 · 价值投资深度拆解
+      <small>HKEX 00700 / 80700 · 基于公司一手业绩公告<br>每个关键数字都可回溯到原始申报文件</small>
+    </div>
+    <div class="grp">正文</div>
+    <a href="#ch0">序章 · 一句话讲清</a>
+    <a href="#ch1">第一章 · 三个第一性问题</a>
+    <a href="#ch2">第二章 · 三大收入引擎</a>
+    <a href="#c2-table" class="sub">五年分部数据表</a>
+    <a href="#c2-vas" class="sub">增值服务（游戏+社交）</a>
+    <a href="#c2-ad" class="sub">营销服务（广告）</a>
+    <a href="#c2-fbs" class="sub">金融科技与企业服务</a>
+    <a href="#ch3">第三章 · 单位经济学与现金流</a>
+    <a href="#c3-margin" class="sub">毛利率四年扩张</a>
+    <a href="#c3-cash" class="sub">现金流 vs 利润 / 回购分红</a>
+    <a href="#ch4">第四章 · 护城河</a>
+    <a href="#c4-moat" class="sub">网络效应 / 转换成本</a>
+    <a href="#c4-proof" class="sub">财务铁证 ROIC&gt;WACC</a>
+    <a href="#ch5">第五章 · 投资组合的处理</a>
+    <a href="#ch6">第六章 · 反向思考</a>
+    <a href="#ch7">第七章 · 现金流确定性</a>
+    <a href="#ch8">第八章 · 估值</a>
+    <a href="#c8-sop" class="sub">分部加总框架</a>
+    <a href="#c8-scen" class="sub">三情景 DCF</a>
+    <a href="#c8-sens" class="sub">敏感性表</a>
+    <a href="#c8-rev" class="sub">反向 DCF</a>
+    <a href="#ch9">第九章 · 多空之争</a>
+    <a href="#ch10">第十章 · 真实风险</a>
+    <a href="#ch11">第十一章 · 会计陷阱</a>
+    <a href="#ch12">第十二章 · 一页纸总结</a>
+    <div class="grp">参考</div>
+    <a href="#sources">参考来源（一手为主）</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">VALUE INVESTING · DEEP DIVE · HKEX FILINGS</span>
+    <h1>腾讯控股（HKEX 00700）· 价值投资深度拆解<br><span style="font-size:.56em;color:var(--ink-soft);font-weight:600">谁付钱、为什么付、靠什么收 —— 逐条对照公司一手业绩公告</span></h1>
+    <p class="sub">不背名词、不讲故事。从"谁付钱、为什么付、怎么收"三个最底层问题出发，把腾讯这台机器一层层拆开。每一个关键数字，都直接取自腾讯发布的<b>一手业绩公告</b>（与香港交易所披露易同源）。</p>
+    <div class="pillrow">
+      <span class="pill g">微信+WeChat 合并 MAU 14.18 亿</span>
+      <span class="pill b">三大引擎：游戏 / 广告 / 金融科技与云</span>
+      <span class="pill o">FY2025 营收 7,518 亿元（+14%）</span>
+    </div>
+    <div class="srcnote">📑 <b>口径说明：本版全部年度财务数据取自腾讯官方业绩公告原文</b>（与 HKEX 披露易同源）：FY2025/FY2024 取自《腾讯公布二零二五年全年及第四季度业绩》（2026-03-18 发布，含经审计对比数）<a href="#sources" class="ref">[1]</a>；FY2023 取自 FY2024 公告<a href="#sources" class="ref">[2]</a>；FY2022/FY2021 取自 FY2022 公告<a href="#sources" class="ref">[3]</a>。本文"亿元"为对原文百万元数四舍五入（1 亿 = 100 百万）；如有差异以原始申报文件为准。货币为人民币（RMB），股价/市值为港元（HKD），换算按约 1 港元 ≈ 0.92 元人民币。文末逐份给出链接并标注"一手 / 二手"。</div>
+    <div class="disclaimer"><b>⚠️ 重要声明：</b>本文是<b>价值投资分析的学习/研究材料</b>，<b>不构成任何投资建议或买卖推荐</b>。所有财务数字以腾讯<b>原始申报文件</b>为准；凡涉及估值的增长率、折现率、控股折价、净现金、股数、汇率等<b>均为示意性假设</b>，不同假设会得出截然不同的结果——<b>这恰恰是本文要演示的重点</b>。腾讯为开曼群岛注册、采用合约/VIE 类安排、主板在香港上市的中概股，含监管、地缘（美国 1260H 涉军清单）、投资组合波动等重大风险（见第六、十章）。投资有风险，决策需独立。</div>
+  </header>
+
+  <!-- 序章 -->
+  <section id="ch0">
+    <span class="chapnum">序章</span>
+    <h2>一句话讲清腾讯怎么赚钱</h2>
+    <div class="fp">
+      <div class="lab">第一性原理 · 腾讯的本质</div>
+      <p style="margin:8px 0;font-size:17px"><b>腾讯本质上是"中国人在线时间的收费站"。</b>它先用<b>微信 + QQ</b> 两张几乎覆盖全体网民的社交网络，把<b>14 亿人的注意力和关系链</b>沉淀下来（这一步几乎不收钱）；再把这群人的时间和信任，分三条管道变现：① 让他们为<b>娱乐与身份</b>付费（游戏、会员、直播——增值服务）；② 把他们的注意力<b>卖给广告主</b>（营销服务）；③ 在他们的交易与生活里<b>抽一道</b>（支付、理财、云、电商技术服务——金融科技与企业服务）。</p>
+      <p style="margin:8px 0">腾讯对自己的描述很直白：<i>"我们的通信与社交服务微信及 QQ 连接用户与彼此、以及数字内容与服务……我们的精准营销服务帮助广告主触达中国数以亿计的消费者……我们的金融科技及企业服务支持伙伴的业务增长与数字化升级。"</i><a href="#sources" class="ref">[1]</a></p>
+      <p style="margin:8px 0">所以它的赚钱链条是：<b>免费社交聚拢全民流量与关系链 → 极高的用户时长与转换成本 → 在时长之上叠加游戏/广告/支付/云三层变现 → 现金流再投回内容、AI 与对外股权投资 → 巩固生态。</b>一个被网络效应锁死、且越做越宽的飞轮。</p>
+    </div>
+    <p>与拼多多"卖流量"的单引擎不同，腾讯是<b>一个超级流量入口 + 三台变现机器 + 一个庞大对外投资组合</b>的复合体。看懂它，要分别看清这三台机器的单位经济学，再单独处理它账上那笔比许多公司市值还大的投资组合。下面逐层拆开，每一步都对照原始财报。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第一章 -->
+  <section id="ch1">
+    <span class="chapnum">第一章</span>
+    <h2>三个第一性问题</h2>
+    <p class="lead">看懂任何生意，先回答这三个最底层的问题。腾讯的答案，可以直接用它业绩公告的原话与数字来佐证。</p>
+    <div class="concept">
+      <span class="ctag">问题一</span>
+      <h4 style="margin-top:2px">谁给腾讯付钱？—— 三类人，不是一类</h4>
+      <p>① <b>玩家与会员用户</b>：为游戏道具、视频/音乐会员、直播打赏付费（增值服务，FY2025 收入 <b>3,693 亿元</b>）。② <b>广告主</b>：为触达微信/视频号/朋友圈的用户买广告（营销服务，<b>1,450 亿元</b>）。③ <b>商户、机构与企业</b>：为支付、理财代销、云与电商技术服务付费（金融科技与企业服务，<b>2,294 亿元</b>）。<a href="#sources" class="ref">[1]</a> ——三类付款人对应三套完全不同的单位经济学（见第二、三章）。</p>
+    </div>
+    <div class="concept g">
+      <span class="ctag">问题二</span>
+      <h4 style="margin-top:2px">他们为什么愿意付？—— 因为离不开微信</h4>
+      <p>因为腾讯握着中国人<b>最高频、转换成本最高的两个入口</b>：微信不仅是聊天工具，更是<b>身份、支付、关系链、小程序、公众号、视频号的合集</b>——一个"操作系统"级的超级 App。截至 2025-12-31，<b>微信及 WeChat 合并月活 14.18 亿</b>（同比 +2%），<b>QQ 移动端月活 5.08 亿</b>，<b>收费增值服务会员 2.67 亿</b><a href="#sources" class="ref">[1]</a>。离开微信的代价（社交关系、支付习惯、小程序生态）高到几乎不可承受——这就是付费意愿的根基。</p>
+    </div>
+    <div class="concept">
+      <span class="ctag">问题三</span>
+      <h4 style="margin-top:2px">具体怎么把钱收进来？—— 三条管道叠在同一群人身上</h4>
+      <p>腾讯的精妙之处在于：<b>同一个微信用户，可以被三台机器反复变现</b>。他白天用微信支付买菜（金融科技抽佣），刷视频号看到一条广告（营销服务计费），晚上打《王者荣耀》充点券（增值服务）。一份流量，三层收割，且彼此加强——这是单引擎公司做不到的。三条管道在 FY2025 的占比约为 <b>增值服务 49% / 金融科技与企业服务 31% / 营销服务 19%</b>（下一章用审计数字详解）。</p>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第二章 -->
+  <section id="ch2">
+    <span class="chapnum">第二章</span>
+    <h2>三大收入引擎（用审计口径拆开看真实数字）</h2>
+    <p class="lead">下面这张表，直接从腾讯历年业绩公告的合并收入表抄出——它一眼讲清过去五年腾讯发生了什么：一段"低谷—复苏—再加速"的曲线。</p>
+
+    <h3 id="c2-table">五年分部收入（合并口径，单位：人民币百万元）</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>年度</th><th>增值服务 VAS</th><th>营销服务/广告</th><th>金融科技与企业服务</th><th>其他</th><th>总收入</th><th>同比</th></tr></thead>
+      <tbody>
+        <tr><td>FY2021</td><td>291,572</td><td>88,666</td><td>172,195</td><td>7,685</td><td>560,118</td><td class="pos">+16%</td></tr>
+        <tr><td>FY2022</td><td>287,565</td><td>82,729</td><td>177,064</td><td>7,194</td><td>554,552</td><td class="neg">−1%</td></tr>
+        <tr><td>FY2023</td><td>298,375</td><td>101,482</td><td>203,763</td><td>5,395</td><td>609,015</td><td class="pos">+10%</td></tr>
+        <tr><td>FY2024</td><td>319,168</td><td>121,374</td><td>211,956</td><td>7,759</td><td>660,257</td><td class="pos">+8%</td></tr>
+        <tr class="hl"><td>FY2025</td><td>369,281 <span class="pos">(+16%)</span></td><td>144,973 <span class="pos">(+19%)</span></td><td>229,435 <span class="pos">(+8%)</span></td><td>8,077</td><td>751,766</td><td class="pos">+14%</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:13px;color:var(--ink-soft)">来源：腾讯 FY2025 / FY2024 / FY2022 业绩公告合并收入表（经审计）<a href="#sources" class="ref">[1][2][3]</a>。注：2022 年及以前"营销服务"在公告中名为"网络广告/Online Advertising"，口径一致。<b>三个关键看点：</b>① <b>2022 是低谷</b>——游戏版号停发、广告大盘走弱、宏观疲软，营收罕见地<b>同比 −1%</b>；② <b>2023 起逐级复苏</b>，2025 重新加速到 <b>+14%</b>，由广告（视频号+AI）和云（规模盈利）带动；③ 结构稳定：增值服务始终是基本盘（约一半），金融科技与企业服务是第二大块，广告增速最快。</p>
+
+    <figure>
+      <svg viewBox="0 0 700 230" role="img" aria-label="腾讯 FY2025 三大引擎收入结构">
+        <text x="350" y="22" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">FY2025 三大引擎收入（人民币亿元 / 占比）</text>
+        <!-- bars -->
+        <g font-size="12.5">
+          <text x="20" y="62" fill="#1577c2" font-weight="700">增值服务</text>
+          <rect x="120" y="48" width="492" height="22" fill="#e8f2fa" stroke="#1577c2"/><rect x="120" y="48" width="492" height="22" fill="#1577c2" opacity="0.85"/><text x="624" y="64" fill="#1577c2" font-weight="700">3,693 / 49%</text>
+          <text x="20" y="112" fill="#10a64a" font-weight="700">金融科技与企业服务</text>
+          <rect x="120" y="98" width="306" height="22" fill="#e7f5ec" stroke="#10a64a"/><rect x="120" y="98" width="306" height="22" fill="#10a64a" opacity="0.85"/><text x="438" y="114" fill="#10a64a" font-weight="700">2,294 / 31%</text>
+          <text x="20" y="162" fill="#c25e10" font-weight="700">营销服务（广告）</text>
+          <rect x="120" y="148" width="193" height="22" fill="#fdf0e4" stroke="#c25e10"/><rect x="120" y="148" width="193" height="22" fill="#e08a32" opacity="0.9"/><text x="325" y="164" fill="#c25e10" font-weight="700">1,450 / 19%</text>
+          <text x="20" y="200" fill="#888" font-weight="700">其他</text>
+          <rect x="120" y="188" width="11" height="16" fill="#bbb"/><text x="140" y="200" fill="#888">81 / 1%</text>
+        </g>
+        <text x="350" y="224" text-anchor="middle" font-size="11" fill="#666">条形长度 ∝ 收入。一个微信用户，被这三台机器反复变现。</text>
+      </svg>
+      <figcaption>三台变现机器叠在同一群人（14 亿微信用户）身上。增值服务是利润基本盘，广告是增速与高毛利的引擎，金融科技与企业服务规模最易放大但毛利较低。</figcaption>
+    </figure>
+
+    <h3 id="c2-vas">引擎①：增值服务（游戏 + 社交网络）—— 利润基本盘</h3>
+    <div class="concept">
+      <span class="ctag">VAS = 游戏 + 社交</span>
+      <p>FY2025 增值服务收入 <b>3,693 亿元（+16%）</b>，内部拆成三块<a href="#sources" class="ref">[1]</a>：</p>
+      <ul class="clean">
+        <li><b>本土市场游戏 1,642 亿元（+18%）</b>：靠《无畏契约/VALORANT》、长青游戏《王者荣耀》《和平精英》，以及新爆款<b>《三角洲行动》</b>。</li>
+        <li><b>国际市场游戏 774 亿元（+33%）</b>：Supercell、PUBG MOBILE、《鸣潮》带动，全年国际游戏收入<b>首次突破 100 亿美元</b><a href="#sources" class="ref">[1]</a>。</li>
+        <li><b>社交网络 1,277 亿元（+5%）</b>：视频号直播、音乐订阅、虚拟道具。</li>
+      </ul>
+      <div class="memo">🧠 游戏是腾讯的"现金奶牛"：玩家<b>预先充值</b>买点券/道具，钱先进账、服务后交付——形成大额<b>递延收入（负营运资本，见第三章）</b>；且头部长青游戏边际成本极低、生命周期极长（《王者荣耀》已运营 10 年仍是顶流）。"长青游戏"门槛是季度 DAU 超 500 万（手游）且年流水超 40 亿元<a href="#sources" class="ref">[1]</a>——这类资产的现金流可预测性，是估值确定性的来源。</div>
+    </div>
+
+    <h3 id="c2-ad">引擎②：营销服务（广告）—— 增速最快、毛利最高</h3>
+    <div class="concept">
+      <span class="ctag">广告 = 卖注意力</span>
+      <p>FY2025 营销服务收入 <b>1,450 亿元（+19%）</b>，是三台机器里增速最快的。公司原话点明了驱动力：<i>"主要由<b>广告单价</b>与<b>广告曝光量</b>增长带动。单价受益于 <b>AI 驱动的广告定向</b>、广告主用 AI 制作更多广告，以及<b>闭环广告</b>（用户点击直达小程序、小店、小游戏等原生交易场景）占比上升。"</i><a href="#sources" class="ref">[1]</a></p>
+      <div class="memo">🧠 这是典型的"卖注意力"生意——<b>几乎零边际成本、毛利极高</b>。更关键的是腾讯特别强调："我们的<b>广告加载率仍远低于同业</b>"<a href="#sources" class="ref">[1]</a>——意味着哪怕不增加用户，只要把广告位密度往行业平均靠拢，就还有可观的变现空间。<b>视频号 + 微信搜一搜 + AI 定向</b>，是这条线未来几年最确定的增长源。</div>
+    </div>
+
+    <h3 id="c2-fbs">引擎③：金融科技与企业服务 —— 规模最大、最考验毛利</h3>
+    <div class="concept g">
+      <span class="ctag">FinTech & 云 = 抽佣 + 卖算力</span>
+      <p>FY2025 收入 <b>2,294 亿元（+8%）</b>，含两块<a href="#sources" class="ref">[1]</a>：① <b>金融科技</b>（商业支付、理财通代销、消费信贷）高单位数增长；② <b>企业服务</b>（腾讯云、电商技术服务费）高双位数增长，4Q 单季更<b>加速到 +22%</b>。公司明确披露：<b>"腾讯云实现规模盈利"</b>（profit at scale），得益于企业 AI 工作负载需求、PaaS/SaaS 占比提升与供应链优化<a href="#sources" class="ref">[1]</a>。</p>
+      <div class="memo">🧠 这条线的单位经济学最复杂：支付是<b>走量、薄抽佣</b>；理财/信贷是<b>与持牌机构分成</b>（腾讯做导流和风控，不自己承担信用风险）；云早年是<b>烧钱抢份额、毛利低</b>，如今转向"规模盈利"是重要拐点。它贡献了腾讯近三分之一的收入，却是<b>把整体毛利率往下拉</b>的那一块——理解它，才理解腾讯毛利率的结构（第三、十一章）。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第三章 -->
+  <section id="ch3">
+    <span class="chapnum">第三章</span>
+    <h2>单位经济学与现金流：利润 ≠ 现金，务必区分</h2>
+    <p class="lead">好的商业模式会在财报上留下独特的"指纹"。腾讯的指纹有三个：毛利率持续扩张、负营运资本、以及强劲且开始大额回流股东的自由现金流。</p>
+    <div class="kpis">
+      <div class="kpi"><span class="n">56.2%</span><span class="l">FY2025 毛利率(4年前仅43%)</span></div>
+      <div class="kpi"><span class="n">1,826 亿</span><span class="l">FY2025 自由现金流(+18%)</span></div>
+      <div class="kpi"><span class="n">负营运资本</span><span class="l">游戏预充值/递延收入</span></div>
+      <div class="kpi"><span class="n">792 亿</span><span class="l">资本开支(AI数据中心)</span></div>
+      <div class="kpi"><span class="n">~880 亿港元</span><span class="l">FY2025 回购+分红回流</span></div>
+    </div>
+
+    <h3 id="c3-margin">指纹一 · 毛利率四年从 43% 升到 56%（结构在变好）</h3>
+    <figure>
+      <svg viewBox="0 0 680 250" role="img" aria-label="腾讯毛利率五年趋势">
+        <text x="340" y="22" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">毛利率：FY2021 43.9% → FY2025 56.2%</text>
+        <line x1="60" y1="200" x2="650" y2="200" stroke="#999"/>
+        <line x1="60" y1="40" x2="60" y2="200" stroke="#999"/>
+        <!-- y gridlines 40-60% -->
+        <text x="40" y="200" font-size="10" fill="#888">40%</text>
+        <text x="40" y="120" font-size="10" fill="#888">50%</text>
+        <text x="40" y="56" font-size="10" fill="#888">58%</text>
+        <!-- points: map 40%->200, 58%->48  (1% = 8.44px) -->
+        <polyline points="110,167 230,174 350,131 470,98 600,65" fill="none" stroke="#1577c2" stroke-width="3"/>
+        <g font-size="11" fill="#1577c2" font-weight="700">
+          <circle cx="110" cy="167" r="5" fill="#1577c2"/><text x="110" y="156" text-anchor="middle">43.9%</text>
+          <circle cx="230" cy="174" r="5" fill="#c0392b"/><text x="230" y="190" text-anchor="middle" fill="#c0392b">43.1%</text>
+          <circle cx="350" cy="131" r="5" fill="#1577c2"/><text x="350" y="120" text-anchor="middle">48.1%</text>
+          <circle cx="470" cy="98" r="5" fill="#1577c2"/><text x="470" y="87" text-anchor="middle">52.9%</text>
+          <circle cx="600" cy="65" r="5" fill="#2f7d57"/><text x="600" y="54" text-anchor="middle" fill="#2f7d57">56.2%</text>
+        </g>
+        <g font-size="11" fill="#666"><text x="110" y="216" text-anchor="middle">FY21</text><text x="230" y="216" text-anchor="middle">FY22</text><text x="350" y="216" text-anchor="middle">FY23</text><text x="470" y="216" text-anchor="middle">FY24</text><text x="600" y="216" text-anchor="middle">FY25</text></g>
+      </svg>
+      <figcaption>毛利率连升 3 年共 +13 个百分点。背后是收入结构向<b>高毛利</b>倾斜：视频号广告、小游戏分成、长青游戏、云从亏损转向规模盈利——"赚更贵的钱"。这是质量改善的硬证据。<a href="#sources" class="ref">[1][2]</a></figcaption>
+    </figure>
+    <p>对照五年损益（百万元）：毛利从 FY2021 的 <b>245,944</b> 增到 FY2025 的 <b>422,593</b>；同期收入只从 56.0 万亿分→75.2 万亿分（增 34%），<b>毛利却增了 72%</b>——收入每涨 1 元，落到毛利的越来越多。这说明腾讯的增长<b>不是靠低质走量，而是变现效率与产品结构在提升</b>。</p>
+
+    <h3 id="c3-cash">指纹二、三 · 负营运资本 + 强自由现金流，并开始大额回流股东</h3>
+    <div class="concept b">
+      <span class="ctag">为什么经营现金流常年高于会计利润</span>
+      <p><b>负营运资本（用别人的钱经营）：</b>玩家买游戏点券、用户买视频/音乐会员，都是<b>先付钱、后消费</b>——这笔钱以"递延收入/合约负债"沉淀在表上，是无息的经营浮存。叠加微信支付的资金周转，腾讯长期处于<b>负营运资本</b>状态，这是它<b>经营现金流持续高于净利润</b>的底层原因。</p>
+      <p style="margin-top:8px"><b>自由现金流（FCF）：</b>FY2025 自由现金流 <b>1,826 亿元，同比 +18%</b><a href="#sources" class="ref">[1]</a>；调整后 EBITDA <b>3,364 亿元，利润率 45%</b><a href="#sources" class="ref">[1]</a>。注意：FCF 是在已经扣除 <b>792 亿元资本开支</b>（主要是 AI 数据中心、服务器、GPU）之后的数字——而当前资本开支处于<b>历史高位、且偏"成长性"投入</b>（为 AI 扩产能），所以"维持性资本开支"其实更低，真实"股东盈余"口径下的造血能力可能高于报表 FCF。</p>
+      <p style="margin-top:8px"><b>开始大额回流股东（这是腾讯近年最重要的变化）：</b></p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>年度</th><th>每股股息(港元)</th><th>股息总额(约)</th><th>当年回购(约)</th></tr></thead>
+        <tbody>
+          <tr><td>FY2023</td><td>3.40</td><td>~320 亿港元</td><td>2024 年回购 ~1,120 亿港元（约 3.07 亿股）</td></tr>
+          <tr><td>FY2024</td><td>4.50 <span class="pos">(+32%)</span></td><td>~410 亿港元</td><td>2025 年回购 ~800 亿港元（1.534 亿股）</td></tr>
+          <tr class="hl"><td>FY2025</td><td>5.30 <span class="pos">(+18%)</span>（拟派）</td><td>—</td><td>2026 年回购规模或低于 800 亿港元（让位 AI 投入）</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-soft)">来源：FY2025 公告（FY2025 全年回购约 1.534 亿股、约 800 亿港元；拟派末期息每股 5.30 港元，待 2026-05-13 股东大会批准）<a href="#sources" class="ref">[1][6]</a>；FY2024 公告（2024 年回购约 3.07 亿股 / 约 1,120 亿港元，每股息 3.40→4.50 港元）<a href="#sources" class="ref">[2]</a>。<b>看点：</b>腾讯已从"只投资、少回报"转向<b>持续加码分红 + 大额回购注销</b>——回购注销会<b>减少股本、增厚每股价值</b>，对长期股东是实打实的回报。但 2026 年管理层明确表示回购可能让位于<b>高回报的 AI 投资</b><a href="#sources" class="ref">[6]</a>，这是资本配置取向的一个转折信号（中性偏需观察）。</p>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第四章 -->
+  <section id="ch4">
+    <span class="chapnum">第四章</span>
+    <h2>护城河：定性判断 + 财务铁证交叉验证</h2>
+    <p class="lead">护城河不能只靠讲故事。先定性判断它属于哪一类，再用财报上"长期稳定的高毛利、高回报"来交叉验证——ROIC 长期高于资金成本（WACC），才算真创造价值。</p>
+
+    <h3 id="c4-moat">定性：以网络效应为核心的复合护城河</h3>
+    <figure>
+      <svg viewBox="0 0 520 330" role="img" aria-label="微信超级App网络效应">
+        <text x="260" y="24" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">微信：一个"操作系统"级的超级 App</text>
+        <circle cx="260" cy="175" r="58" fill="#10a64a" opacity="0.92"/>
+        <text x="260" y="170" text-anchor="middle" font-size="15" font-weight="800" fill="#fff">微信/WeChat</text>
+        <text x="260" y="190" text-anchor="middle" font-size="12" fill="#eafaef">14.18 亿 MAU</text>
+        <g font-size="11.5" font-weight="700" fill="#1577c2">
+          <g><rect x="40" y="70" width="92" height="34" rx="17" fill="#e8f2fa" stroke="#1577c2"/><text x="86" y="92" text-anchor="middle">支付/钱包</text></g>
+          <g><rect x="388" y="70" width="92" height="34" rx="17" fill="#e8f2fa" stroke="#1577c2"/><text x="434" y="92" text-anchor="middle">小程序</text></g>
+          <g><rect x="20" y="158" width="92" height="34" rx="17" fill="#e8f2fa" stroke="#1577c2"/><text x="66" y="180" text-anchor="middle">公众号</text></g>
+          <g><rect x="408" y="158" width="92" height="34" rx="17" fill="#e8f2fa" stroke="#1577c2"/><text x="454" y="180" text-anchor="middle">视频号</text></g>
+          <g><rect x="40" y="246" width="92" height="34" rx="17" fill="#e8f2fa" stroke="#1577c2"/><text x="86" y="268" text-anchor="middle">小店/电商</text></g>
+          <g><rect x="388" y="246" width="92" height="34" rx="17" fill="#e8f2fa" stroke="#1577c2"/><text x="434" y="268" text-anchor="middle">搜一搜/AI</text></g>
+        </g>
+        <g stroke="#10a64a" stroke-width="2" opacity="0.7">
+          <line x1="132" y1="92" x2="210" y2="150"/><line x1="388" y1="92" x2="312" y2="150"/>
+          <line x1="112" y1="175" x2="202" y2="175"/><line x1="408" y1="175" x2="318" y2="175"/>
+          <line x1="132" y1="258" x2="210" y2="202"/><line x1="388" y1="258" x2="312" y2="202"/>
+        </g>
+        <text x="260" y="312" text-anchor="middle" font-size="11" fill="#666">关系链 + 支付 + 内容 + 交易闭环，环环相扣 → 转换成本极高</text>
+      </svg>
+      <figcaption>微信不是一个 App，而是一个生态。用户的社交关系、支付习惯、小程序服务全锁在里面，<b>切换成本高到几乎不可承受</b>——这是腾讯最深的护城河。</figcaption>
+    </figure>
+    <ul class="clean">
+      <li><b>网络效应（最强）</b>：微信/QQ 是中国事实上的社交基础设施，用的人越多越不可替代——关系链是单向锁定。</li>
+      <li><b>转换成本（极高）</b>：支付绑定、聊天记录、小程序、公众号订阅、群关系，迁移成本是"全社会级"的。</li>
+      <li><b>无形资产</b>：长青游戏 IP（《王者荣耀》《和平精英》）、Supercell/Riot 等顶级工作室、海量内容版权、支付与金融牌照。</li>
+      <li><b>成本优势 / 规模</b>：14 亿用户摊薄研发与基础设施成本；自有数据中心 + 自研大模型（混元）降低 AI 边际成本。</li>
+    </ul>
+
+    <h3 id="c4-proof">财务铁证：长期高毛利 + 高 ROE，且 ROIC 远高于 WACC</h3>
+    <div class="concept gold">
+      <span class="ctag">用数字给护城河"验真"</span>
+      <p><b>① 长期且稳定的高毛利：</b>毛利率即便在 2022 低谷也有 43%，如今升至 <b>56%</b>——只有真有定价权/低边际成本的生意才能做到。</p>
+      <p><b>② 高 ROE：</b>FY2025 归母净利（IFRS）2,248 亿元 ÷ 期间平均归母权益约 10,639 亿元 ≈ <b>ROE 约 21%</b>；用 Non-IFRS 归母净利 2,596 亿元算约 <b>24%</b><a href="#sources" class="ref">[1]</a>。</p>
+      <p><b>③ ROIC 远高于 WACC（关键）：</b>腾讯的<b>核心经营业务</b>（游戏/广告/支付/云）是<b>轻资产 + 负营运资本</b>——投入的有形经营资本很小，却产出近 2,800 亿元 Non-IFRS 经营利润。哪怕保守估算，核心业务的<b>投入资本回报率（ROIC）远在 30% 以上</b>，<b>显著高于其约 10% 的 WACC</b>——这就是"创造价值"的铁证。</p>
+      <div class="warn" style="margin-top:12px">
+        <div class="lab">⚠️ 一个必须诚实指出的口径陷阱</div>
+        <p style="margin:6px 0">用<b>合并报表</b>算 ROIC/ROE 会<b>低估</b>核心业务的真实回报，因为腾讯账上压着<b>超过 1 万亿元的对外投资组合</b>（联营企业、上市/未上市股权，见第五章）。这笔钱回报率低、波动大，会<b>稀释</b>合并口径的资本回报率。所以正确的看法是：<b>把高 ROIC 的核心业务，和低回报的投资组合，分开来看</b>（这也是第八章用"分部加总"估值的原因）。</p>
+      </div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第五章 -->
+  <section id="ch5">
+    <span class="chapnum">第五章</span>
+    <h2>庞大投资组合的处理：账面价值 ≪ 市场价值的"隐藏资产"</h2>
+    <p class="lead">腾讯不只是经营公司，还是中国最大的科技投资机构之一。这笔投资组合在估值里必须<b>单独处理</b>——否则你既看不清核心业务，也看不清这部分的隐藏价值与风险。</p>
+
+    <div class="concept">
+      <span class="ctag">投资组合有多大？（截至 2025-12-31）</span>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>口径</th><th>金额(人民币)</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>上市被投企业股权<b>公允价值</b>（不含子公司）</td><td><b>6,727 亿元</b></td><td>按市价计；2025-09-30 时为 8,008 亿元，季度内随市场回落</td></tr>
+          <tr><td>非上市被投企业<b>账面价值</b>（不含子公司）</td><td><b>3,631 亿元</b></td><td>按成本/账面计，通常远低于真实公允价值</td></tr>
+          <tr class="hl"><td>合计（粗略）</td><td><b>≈ 1.04 万亿元</b></td><td>比许多上市公司的整个市值还大</td></tr>
+          <tr><td>资产负债表"对联营公司投资"（权益法账面）</td><td>3,424 亿元</td><td>2024 年为 2,903 亿元</td></tr>
+          <tr><td>按公允价值计入损益的金融资产(FVPL，非流动)</td><td>2,072 亿元</td><td>—</td></tr>
+          <tr><td>按公允价值计入其他综合收益(FVOCI，非流动)</td><td>3,566 亿元</td><td>—</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-soft)">来源：FY2025 业绩公告"财务摘要"及合并资产负债表<a href="#sources" class="ref">[1]</a>。被投企业含美团、拼多多、快手、Sea、Spotify、Epic Games 等数十家，多为参股不控股。</p>
+    </div>
+
+    <div class="concept b">
+      <span class="ctag">关键洞察一 · 账面价值严重低估了市场价值</span>
+      <p>注意一个对比：资产负债表上"对联营公司投资"的<b>权益法账面价值只有 3,424 亿元</b>，但仅<b>上市</b>被投企业的<b>公允价值就有 6,727 亿元</b>——<b>账面价值远低于市价</b>。这意味着腾讯账上藏着大量<b>未被报表充分反映的隐藏价值</b>。价值投资者评估腾讯时，应当用<b>公允价值（市价）+ 对非上市部分给一个合理折扣</b>来重估这块资产，而不是简单用账面价值。</p>
+    </div>
+
+    <div class="concept">
+      <span class="ctag">关键洞察二 · 这块资产怎么处理（以及为什么会扭曲利润）</span>
+      <p><b>① 处理方式：分部加总。</b>正确做法是把腾讯拆成"<b>高 ROIC 的核心经营业务</b>"+"<b>净现金</b>"+"<b>投资组合（按市价、打控股折扣并扣潜在税）</b>"三块分别估值，再加总（见第八章）。</p>
+      <p><b>② 为什么会扭曲利润（极重要）：</b>这块投资组合通过两条路径搅动报表——一是<b>"share of profit of associates"（应占联营盈利）</b>，FY2025 贡献 <b>237 亿元</b>；二是<b>处置/重估收益</b>计入"投资净收益"。历史上更夸张：<b>FY2021/FY2022 腾讯把京东、美团等股票作为<u>实物特别股息</u>分给股东，确认了上千亿的一次性账面收益</b>，把当年 IFRS 净利"撑"得虚高（见第十一章）。所以看腾讯利润，<b>必须用剔除投资影响的 Non-IFRS 口径</b>才看得清核心。</p>
+      <div class="memo">🧠 一句话：这笔万亿投资组合，既是<b>被低估的隐藏价值（资产端）</b>，又是<b>利润表的"噪音源"（损益端）</b>。看资产看市价、看利润看 Non-IFRS——两套口径分开用，才不会被骗。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第六章 反向思考 -->
+  <section id="ch6">
+    <span class="chapnum">第六章 · 芒格 Invert</span>
+    <h2>反向思考：什么会摧毁腾讯的护城河？</h2>
+    <p class="lead">"反过来想，总是反过来想。"——不去问"它为什么会赢"，而是逐条列出"什么会让它输"，并给一个发生概率的直觉判断（非精确预测）。</p>
+
+    <div class="riskbox">
+      <div class="lab">🔻 摧毁护城河的候选清单（按"杀伤力 × 概率"排序）</div>
+      <ul>
+        <li><b>① 监管重拳（中等概率 / 高杀伤）：</b>游戏是命门。2018 年版号<b>停发约 9 个月</b>、2021 年<b>未成年人每周限玩 3 小时</b>、2023 年底《网络游戏管理办法（草案）》拟限制充值/诱导消费，公告当日游戏股暴跌（后该草案被撤回淡化）。监管可一夜改变游戏与金融科技的变现规则。</li>
+        <li><b>② AI 技术颠覆（中等概率 / 中高杀伤）：</b>双刃剑。若 AI 助手/智能体成为新入口，可能<b>绕过微信的"超级 App"地位</b>与搜索/广告变现；但腾讯也在重金自研混元大模型、把 AI 嵌入广告定向与游戏——它<b>既是潜在受害者，也是参与者</b>。颠覆与受益，取决于它跑得够不够快。</li>
+        <li><b>③ 竞争分流时长（高概率 / 中杀伤）：</b>字节跳动（抖音）持续抢占用户<b>时长与广告预算</b>；电商支付上有支付宝、拼多多、抖音电商。腾讯的应对是视频号 + 小店 + 小游戏，把电商/短视频"补回"微信生态内。</li>
+        <li><b>④ 地缘政治（中等概率 / 尾部杀伤）：</b>美国 2025 年 1 月把腾讯列入国防部<b>1260H"中国军工企业"清单</b>（腾讯称系"误列"），虽以"点名"为主、非制裁，但叠加 AI 芯片出口管制、潜在投资限制，构成真实的尾部风险（见第十章）。</li>
+        <li><b>⑤ 关键人物 / 资本配置（低概率 / 中杀伤）：</b>创始人马化腾、总裁刘炽平的战略与克制是腾讯的隐性资产；若未来资本配置失当（如高位乱投资、或 AI 投入回报不及预期）会侵蚀价值。</li>
+      </ul>
+    </div>
+    <div class="takeaway">🎯 <b>反向思考的结论：</b>腾讯护城河最可能被<b>"监管 + AI 颠覆"</b>这一组合侵蚀，而非被单一竞争对手正面击穿。它的社交护城河极宽（短期几乎无解），但<b>变现规则（游戏/金融监管）和入口形态（AI）这两件事不在它完全掌控之内</b>——这正是它估值要打折扣、要留安全边际的根本原因。</div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第七章 现金流确定性 -->
+  <section id="ch7">
+    <span class="chapnum">第七章</span>
+    <h2>未来现金流的确定性：可预测性来自哪里？</h2>
+    <p class="lead">价值 = 未来现金流的折现。所以先问：腾讯的收入有多"可预测"？可预测性越高，估值越敢给、安全边际要求越低。</p>
+    <div class="twocol">
+      <div class="box a"><h5>✅ 高确定性的部分（能力圈之内）</h5>
+        <ul style="margin:6px 0 0;padding-left:18px">
+          <li><b>社交基本盘</b>：微信 14 亿 MAU、+2% 稳态，关系链锁定，几乎不会流失</li>
+          <li><b>长青游戏</b>：《王者》《和平精英》运营多年仍顶流，现金流像"订阅"一样稳定</li>
+          <li><b>会员订阅</b>：2.67 亿收费会员，重复消费、惯性强</li>
+          <li><b>广告</b>：低广告加载率 + 视频号 + AI 定向 = 还有明确的变现空间</li>
+        </ul>
+      </div>
+      <div class="box b"><h5>⚠️ 较难预测的部分（需打折扣）</h5>
+        <ul style="margin:6px 0 0;padding-left:18px">
+          <li><b>新游戏爆款</b>：能否持续产出《三角洲行动》级爆款，本质有运气成分</li>
+          <li><b>AI 回报</b>：每年数百亿资本开支+研发，回报路径与时点不确定</li>
+          <li><b>云的盈利曲线</b>：刚到"规模盈利"，长期利润率仍待验证</li>
+          <li><b>监管/地缘</b>：折现率 r 装不下的尾部变量</li>
+        </ul>
+      </div>
+    </div>
+    <p>综合判断：腾讯<b>核心现金流的可预测性，在中国互联网公司里属于最高一档</b>——重复消费（游戏/会员）、品牌惯性（微信）、转换成本（支付/关系链）三者俱全。这让它<b>落在能力圈之内、可以做 DCF</b>（不同于纯私营 AI 公司那种"太难、不可估"）。但"可估"不等于"好估"——增长率、AI 回报、监管这些变量仍会让估值区间很宽（第八章会看到）。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第八章 估值 -->
+  <section id="ch8">
+    <span class="chapnum">第八章 · 估值</span>
+    <h2>估值：分部加总 + 三情景 DCF + 反向 DCF</h2>
+    <p class="lead">腾讯的正确估法不是"一个 DCF 算到底"，而是<b>分部加总（Sum-of-the-Parts）</b>：核心经营业务（做 DCF）+ 净现金 + 投资组合（按市价打折）。下面全程演算，结论是<b>价值区间</b>，不是一个数。</p>
+
+    <div class="warn">
+      <div class="lab">📌 统一假设（均为示意性，非精确值，便于复算）</div>
+      <ul style="margin:6px 0;padding-left:20px;font-size:14.5px">
+        <li><b>核心业务起点"股东盈余"</b>：取 <b>FCF₀ ≈ 2,000 亿元</b>。说明——FY2025 报表 FCF 为 1,826 亿元，但当前资本开支偏"成长性"（AI 扩产能）、维持性资本开支更低，故略上调；同时它低于 Non-IFRS 归母净利 2,596 亿元（后者加回了股权激励这一真实成本）。<b>2,000 亿是一个保守—中性的折中。</b></li>
+        <li><b>两阶段模型</b>：显式 10 年（增速 g₁）+ 永续终值（g₂ ≤ 长期名义经济增速）。</li>
+        <li><b>折现率 r</b>：核心取 <b>10%</b>（高于美股大盘股的 9%——补偿中国监管/地缘风险；但低于拼多多的 12%——腾讯更稳、更分散、有真金分红回购）。悲观情景上调到 12%。</li>
+        <li><b>净现金</b>：单独加 <b>1,071 亿元</b>（FY2025 净现金）。</li>
+        <li><b>投资组合</b>：上市公允 6,727 亿 + 非上市账面 3,631 亿 ≈ 1.04 万亿元，<b>打控股折价/潜在税后</b>计入（中性打 35 折→约 6,733 亿；悲观打 50 折；乐观打 20 折）。</li>
+        <li><b>股数 ≈ 90.5 亿股</b>（由 EPS 反推）；汇率 <b>1 元人民币 ≈ 1.087 港元</b>。</li>
+      </ul>
+    </div>
+
+    <h3 id="c8-sop">分部加总框架（一张图看懂腾讯"值多少"由什么组成）</h3>
+    <figure>
+      <svg viewBox="0 0 700 220" role="img" aria-label="腾讯分部加总估值结构">
+        <text x="350" y="22" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">腾讯股权价值 = 核心业务(DCF) + 净现金 + 投资组合(按市价打折)</text>
+        <rect x="60" y="60" width="300" height="60" fill="#1577c2" opacity="0.9"/><text x="210" y="86" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">核心经营业务</text><text x="210" y="105" text-anchor="middle" font-size="11" fill="#eaf4fc">游戏+广告+金融科技+云 · 做 DCF</text>
+        <rect x="360" y="60" width="80" height="60" fill="#2f7d57" opacity="0.9"/><text x="400" y="86" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">净现金</text><text x="400" y="104" text-anchor="middle" font-size="10" fill="#e7f5ec">1,071亿</text>
+        <rect x="440" y="60" width="200" height="60" fill="#b8860b" opacity="0.88"/><text x="540" y="83" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">投资组合(打折后)</text><text x="540" y="101" text-anchor="middle" font-size="10" fill="#fdf3e7">上市6,727+非上市3,631→打折</text>
+        <text x="350" y="150" text-anchor="middle" font-size="12" fill="#444">↓ 三块相加 ÷ 90.5 亿股 ÷ 汇率 → 每股内在价值</text>
+        <text x="350" y="185" text-anchor="middle" font-size="11.5" fill="#888">注意：净现金 + 投资组合(中性打折后)就约值 <tspan font-weight="700" fill="#b8860b">每股 94 港元</tspan>——占现价约 1/5，是向下的缓冲垫</text>
+      </svg>
+      <figcaption>这个框架的好处：把"高 ROIC 的核心生意"和"低回报但有隐藏价值的投资组合"分开估，避免互相污染。</figcaption>
+    </figure>
+
+    <h3 id="c8-scen">三情景 DCF（每股内在价值，港元）</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>情景</th><th>核心 g₁(10年)</th><th>终值 g₂</th><th>折现率 r</th><th>投资组合折价</th><th>每股价值(约)</th><th>对比现价 ~440</th></tr></thead>
+      <tbody>
+        <tr><td class="neg">悲观</td><td>+3%/年</td><td>1%</td><td>12%</td><td>−50%</td><td><b>~HKD 300</b></td><td class="neg">−32%</td></tr>
+        <tr class="hl"><td>中性</td><td>+9%/年</td><td>3%</td><td>10%</td><td>−35%</td><td><b>~HKD 645</b></td><td class="pos">+47%</td></tr>
+        <tr><td class="pos">乐观</td><td>+14%/年</td><td>4%</td><td>9%</td><td>−20%</td><td><b>~HKD 1,315</b></td><td class="pos">+199%</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:13px;color:var(--ink-soft)">注：以上为示意性测算（核心 DCF + 净现金 + 投资组合打折后 ÷ 90.5 亿股 × 汇率 1.087），目的是展示区间与敏感性，<b>非价格预测</b>。每个数字都可用左侧假设复算。</p>
+
+    <figure>
+      <svg viewBox="0 0 700 250" role="img" aria-label="腾讯三情景估值与现价对比">
+        <text x="350" y="22" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">三情景内在价值 vs 现价（港元/股）</text>
+        <line x1="70" y1="205" x2="660" y2="205" stroke="#999"/>
+        <line x1="70" y1="170" x2="660" y2="170" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+        <text x="600" y="163" font-size="11" fill="#c0392b">现价 ~HKD440</text>
+        <!-- scale: 1315->~150px tall; 1px ~ 8.77 unit; base y=205 -->
+        <rect x="130" y="171" width="90" height="34" fill="#fbecea" stroke="#c0392b" stroke-width="2"/><text x="175" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">悲观 300</text>
+        <rect x="305" y="131" width="90" height="74" fill="#fbf6ea" stroke="#b9770f" stroke-width="2"/><text x="350" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#b9770f">中性 645</text>
+        <rect x="480" y="55" width="90" height="150" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2"/><text x="525" y="46" text-anchor="middle" font-size="12" font-weight="700" fill="#2f7d57">乐观 1,315</text>
+        <text x="350" y="230" text-anchor="middle" font-size="11.5" fill="#666">区间从略低于现价，到现价的 3 倍——区间宽，是腾讯"AI 回报+监管"双重不确定的真实写照</text>
+      </svg>
+      <figcaption>注意区间之宽：悲观情景已低于现价，给你"它可能不便宜"的警示；中性/乐观则指向可观空间。模型不是算命，是把"你在赌什么"摆清楚。</figcaption>
+    </figure>
+
+    <h3 id="c8-sens">敏感性表：每股价值（港元）对 g₁ 与 r 的敏感度</h3>
+    <p>固定 FCF₀=2,000 亿、g₂=3%、并加上"净现金 + 投资组合(中性 35 折)≈ 每股 94 港元"。可见结论对假设<b>极其敏感</b>：</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>g₁ ＼ r</th><th>9%</th><th>10%</th><th>11%</th><th>12%</th></tr></thead>
+      <tbody>
+        <tr><td>+3%/年</td><td>506</td><td>447</td><td>403</td><td class="neg">369</td></tr>
+        <tr><td>+6%/年</td><td>612</td><td>535</td><td>477</td><td>432</td></tr>
+        <tr class="hl"><td>+9%/年</td><td>746</td><td>645</td><td>569</td><td>511</td></tr>
+        <tr><td>+12%/年</td><td>915</td><td>783</td><td>684</td><td>609</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:13px;color:var(--ink-soft)">现价约 HKD 440 落在表格<b>左下角偏外</b>——只有当你同时相信"核心增长仅 3% + 折现率高达 12%"（最悲观一角）时，内在价值才低于现价（369）。绝大多数合理假设组合都<b>高于</b>现价。这是"统计上不贵"的直观体现。</p>
+
+    <h3 id="c8-rev">反向 DCF：现价 HKD 440 隐含了什么？</h3>
+    <div class="calc">
+      市值 ≈ 90.5 亿股 × HKD 440 ≈ HKD 3.98 万亿 ÷ 1.087 ≈ RMB <b>3.66 万亿</b>（约 36,600 亿）<br>
+      减 净现金 1,071 亿 + 投资组合(中性 35 折后) 6,733 亿 = <b>7,804 亿</b>（约 0.78 万亿）<br>
+      → 市场为<b>核心经营业务</b>付的价 ≈ 3.66 万亿 − 0.78 万亿 = <b>RMB 2.88 万亿</b><br>
+      对比核心盈利：÷ Non-IFRS 归母净利 2,596 亿 ≈ <b>11.1 倍</b>；÷ 股东盈余 2,000 亿 ≈ <b>14.4 倍</b><br>
+      反解隐含增长（r=10%、g₂=3%、FCF₀=2,000）→ 现价只隐含核心<b>长期约 3%/年</b>的增长
+    </div>
+    <p><b>这才是腾讯的真相</b>：当前价格，市场只给核心业务约 <b>11 倍 Non-IFRS 市盈率</b>、且<b>只隐含约 3% 的长期增长</b>——而这门生意 FY2025 收入 +14%、Non-IFRS 净利 +17%、毛利率还在扩张。换句话说，<b>市场为这台高质量、宽护城河的机器，只支付了"近乎停滞"的增长预期</b>。剩下的，是它对监管、AI 回报、地缘这些<b>DCF 装不下的尾部风险</b>收取的风险溢价。<b>买腾讯的本质，不是"算它值多少"，而是"你是否认为这些尾部风险被市场高估了、而它的增长与造血会延续"。</b></p>
+
+    <div class="takeaway">🎯 <b>安全边际：</b>① 净现金 + 投资组合(打折后)≈ 每股 94 港元，先垫了约 1/5 的"硬资产底"；② 现价隐含增长仅 ~3%，留出了容错空间——若核心能维持中高个位数增长，安全边际是充足的；③ 但<b>安全边际不能覆盖"监管/地缘黑天鹅"</b>这类离散风险，这部分只能靠"看不懂就别下重注"的纪律来管理。</div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第九章 多空 -->
+  <section id="ch9">
+    <span class="chapnum">第九章</span>
+    <h2>多空之争：把看空逻辑讲到比空头还有力</h2>
+    <p class="lead">芒格：不懂反方论据，就没资格持有观点。下面把多空双方<b>最强</b>的逻辑都摆上桌——尤其把看空一方讲足。</p>
+    <div class="bullbear">
+      <div class="col bull"><h5>▲ 看多（最强逻辑）</h5><ul>
+        <li><b>护城河极宽</b>：微信 14 亿 MAU，转换成本"全社会级"，短期几乎无解</li>
+        <li><b>质量在变好</b>：毛利率 43%→56%，云转规模盈利，赚的钱越来越"贵"</li>
+        <li><b>统计上不贵</b>：核心仅约 11x Non-IFRS PE，现价只隐含 ~3% 长期增长</li>
+        <li><b>隐藏资产</b>：万亿投资组合账面≪市价 + 净现金，提供向下缓冲</li>
+        <li><b>资本回流</b>：股息连年提升（5.30 港元/股）+ 大额回购注销，增厚每股</li>
+        <li><b>AI 已变现</b>：AI 提升广告定向与游戏留存，是"看得见回报"的投入</li>
+      </ul></div>
+      <div class="col bear"><h5>▼ 看空（讲到最足）</h5><ul>
+        <li><b>增长天花板</b>：14 亿用户已近全体网民，用户增长见顶，未来只能靠"每用户多榨"——而这正是监管最敏感的地带</li>
+        <li><b>监管是结构性悬剑</b>：游戏版号、未成年人限玩、2023 充值新规草案——变现规则可被一纸文件改写，且不可预测、不可对冲</li>
+        <li><b>AI 可能颠覆入口</b>：若 AI 智能体成为新的人机入口，微信"超级 App"的中枢地位与广告/搜索变现可能被绕过；腾讯重金投入 AI，但<b>回报路径与时点都不确定</b>，资本开支却是真金白银的现金流出</li>
+        <li><b>时长被字节持续蚕食</b>：抖音抢用户时长与广告预算，视频号是"防守反击"而非无忧增长</li>
+        <li><b>地缘尾部</b>：1260H 涉军清单 + AI 芯片管制 + 潜在投资限制，海外资金对中概的风险溢价长期偏高</li>
+        <li><b>投资组合是双刃</b>：既被减持/退出受市场与监管制约，又会在利润表制造大幅波动；"隐藏价值"也可能因市场下跌而蒸发（季度内就从 8,008 亿缩到 6,727 亿）</li>
+        <li><b>"便宜"可能是估值陷阱</b>：低 PE 反映的或许不是错杀，而是市场对"中国互联网利润长期被监管/地缘压制"的理性定价</li>
+      </ul></div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第十章 风险 -->
+  <section id="ch10">
+    <span class="chapnum">第十章</span>
+    <h2>真实风险：会侵蚀未来现金流的硬风险</h2>
+    <div class="riskbox">
+      <div class="lab">⚠️ 结构性 / 监管 / 地缘风险（中概股必查项）</div>
+      <ul>
+        <li><b>VIE / 开曼架构</b>：腾讯为开曼群岛注册公司，境内增值电信、支付、游戏运营等牌照资产通过<b>境内子公司 + 合约安排</b>持有/控制。投资者持有的是离岸公司股权，对境内牌照资产的控制依赖合约与监管容忍——这是所有中概股共有的底层结构性风险。</li>
+        <li><b>与拼多多/美股 ADR 不同：HFCAA 退市风险较低</b>。腾讯<b>主板在香港上市</b>（00700 港元柜台 / 80700 人民币柜台），其美国 ADR 仅在 OTC 粉单交易（TCEHY），并非纽交所/纳斯达克挂牌。因此《外国公司问责法》（HFCAA）那种"PCAOB 不能检查→强制退市"的路径，对腾讯的<b>冲击远小于</b>美国主板上市的中概股。但这不消除<b>中国监管</b>本身的风险。</li>
+        <li><b>中国行业监管（最核心）</b>：游戏版号节奏、未成年人保护、防沉迷、金融科技（支付/理财/信贷）持牌与合规、反垄断与平台治理——任何一项收紧都会<b>直接改变变现规则</b>。2018、2021、2023 均有先例。</li>
+        <li><b>地缘政治</b>：2025-01 美国国防部将腾讯列入 <b>1260H"中国军工企业"清单</b>（腾讯称"误列"、将与国防部沟通）<a href="#sources" class="ref">[7]</a>；叠加 AI 芯片（GPU）出口管制、潜在的对华投资限制——影响 AI 算力获取与海外资金估值溢价。</li>
+        <li><b>AI 资本开支与回报错配</b>：每年数百亿元资本开支 + 857 亿元级研发投入（据公司/媒体），若 AI 商业回报不及预期，会侵蚀自由现金流与回购能力（2026 年回购已可能为此让位）<a href="#sources" class="ref">[6][8]</a>。</li>
+        <li><b>投资组合波动 / 减值</b>：万亿组合随市场与监管波动，可能产生大额减值或公允价值损失（季度内已从 8,008 亿降至 6,727 亿）。</li>
+      </ul>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第十一章 会计陷阱 -->
+  <section id="ch11">
+    <span class="chapnum">第十一章</span>
+    <h2>会计与口径陷阱：不懂这些，会被报表误导</h2>
+    <ol class="steps">
+      <li><b>IFRS 净利被投资收益严重扭曲，必须看 Non-IFRS。</b>FY2021 IFRS 归母净利 <b>2,248 亿</b>、FY2022 <b>1,882 亿</b>，看似辉煌——但其中含<b>把京东、美团等股票作为实物特别股息派发</b>产生的上千亿一次性账面收益。剔除后，FY2021/FY2022 的 Non-IFRS 归母净利只有 <b>1,238 亿 / 1,156 亿</b>。<b>用 IFRS 净利做同比，会得出完全错误的趋势判断。</b></li>
+      <li><b>"经营利润"口径在年份间不可比。</b>2022 年及以前的损益表把巨额"其他收益净额"（投资相关）放在<b>经营利润之上</b>，导致 FY2022 报表"经营利润"虚高（含 1,243 亿其他收益）；2023 年起改为放在经营利润<b>之下</b>。所以本文五年表<b>刻意不横向比"经营利润"行</b>，只比收入、毛利、IFRS/Non-IFRS 归母净利——这是为了可比。</li>
+      <li><b>Non-IFRS 调整项要看懂。</b>腾讯的 Non-IFRS 剔除：<b>股权激励(SBC)、被投企业相关的净损益、收购无形资产摊销、减值、SSV&CPP（公益/共同富裕开支）、相关所得税影响</b>等<a href="#sources" class="ref">[1]</a>。⚠️ 注意：SBC 是<b>真实的股东成本</b>（会稀释股权），Non-IFRS 把它加回会<b>高估</b>"真股东盈余"——这也是本文 DCF 起点用 2,000 亿（低于 Non-IFRS 2,596 亿）的原因之一。</li>
+      <li><b>毛收入 vs 净收入。</b>金融科技的支付流水是天量，但腾讯入账的是<b>抽佣/服务费（净额性质）</b>，不是流水；云与电商技术服务亦然。别拿 GMV/流水当收入看。</li>
+      <li><b>资产端用市价、损益端用 Non-IFRS。</b>投资组合在资产负债表上"对联营投资"是<b>权益法账面（3,424 亿）</b>，远低于上市部分公允价值（6,727 亿）——<b>资产端要按市价重估</b>；而它在利润表的贡献波动巨大——<b>损益端要用 Non-IFRS 剔除</b>。两套口径分开用。</li>
+      <li><b>回购对每股指标的影响。</b>大额回购注销<b>减少股本、增厚 EPS/每股价值</b>，是真实的股东回报；但分析增长时要意识到"部分 EPS 增长来自股本缩减"，而非全是经营增长。</li>
+    </ol>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第十二章 总结 -->
+  <section id="ch12">
+    <span class="chapnum">第十二章</span>
+    <h2>第一性原理总结：一页纸看懂腾讯</h2>
+    <ol class="steps">
+      <li><b>本质：</b>"中国人在线时间的收费站"——用免费社交（微信 14 亿 MAU）聚拢全民流量与关系链，再用<b>游戏/广告/金融科技与云</b>三台机器，对同一群人反复变现。</li>
+      <li><b>怎么赚：</b>FY2025 收入 7,518 亿元（+14%），增值服务 49% / 金融科技与企业服务 31% / 营销服务 19%；毛利率四年从 43% 升到 <b>56%</b>，质量在变好。</li>
+      <li><b>护城河：</b>网络效应 + 转换成本（微信生态）为主，叠加长青游戏 IP 与牌照；财务铁证是<b>长期高毛利、ROE ~21–24%、核心业务 ROIC 远高于 WACC</b>。</li>
+      <li><b>投资组合：</b>账上 1 万亿+ 对外投资（上市公允 6,727 亿 + 非上市账面 3,631 亿），<b>账面≪市价的隐藏资产</b>，但也是利润表的噪音源——<b>资产看市价、利润看 Non-IFRS</b>。</li>
+      <li><b>现金与回报：</b>FY2025 FCF 1,826 亿、净现金 1,071 亿；已转向<b>持续加码分红（5.30 港元/股）+ 大额回购注销</b>回报股东。</li>
+      <li><b>估值：</b>分部加总下，三情景每股价值约 <b>HKD 300 / 645 / 1,315</b>（现价 ~440）；反向 DCF 显示现价只隐含核心<b>~3% 的长期增长</b>——<b>统计上不贵，前提是你判断监管/AI/地缘的尾部风险被高估、且增长与造血会延续。</b></li>
+      <li><b>最大的不确定：</b>不是竞争，而是<b>监管（变现规则）+ AI（入口形态）</b>这两件不完全在它掌控之内的事。看不清，就别下重注；看得清且有安全边际，它是少见的"宽护城河 + 合理价格"标的。</li>
+    </ol>
+    <blockquote>"买股票就是买公司，看懂公司就是看懂它未来现金流的折现。"——对腾讯，要看懂的是：<b>三台变现机器的可持续性</b>、<b>一笔万亿投资组合的真实价值</b>、以及<b>监管与 AI 这两个它装不进 DCF 的变量</b>。三者都想清楚了，价格自然有了锚。<span class="who">— 本系列价值投资方法论的一贯结论</span></blockquote>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 来源 -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考来源（一手申报文件为主）</h2>
+    <p style="font-size:14px;color:var(--ink-soft)">本文<b>全部关键年度财务数字与引文，均取自腾讯发布的官方业绩公告原文</b>（与香港交易所"披露易"同源的"For Immediate Release / 业绩公布"）。币种主要为人民币；"亿元"为对原文百万元数四舍五入，如有差异以原始申报文件为准。下方逐条标明"<b>一手（公司申报文件）</b>"或"<b>二手（媒体/数据源）</b>"。</p>
+    <ol class="sources">
+      <li>[1] <b>【一手】腾讯控股 — 2025 年全年及第四季度业绩公告</b>（"TENCENT ANNOUNCES 2025 ANNUAL AND FOURTH QUARTER RESULTS"，2026-03-18 发布，财年截至 2025-12-31，经审计）。本文引用其中：总收入 751,766、VAS 369,281、营销服务 144,973、金融科技与企业服务 229,435、其他 8,077（百万元）；毛利 422,593（毛利率 56%）；IFRS 经营利润 241,562、归母净利 224,842；Non-IFRS 经营利润 280,656、归母净利 259,626；EPS；FCF 1,826 亿、净现金 1,071 亿、资本开支 792 亿、调整后 EBITDA 336,427；上市被投公允 6,727 亿 / 非上市账面 3,631 亿；对联营投资 342,409；微信 MAU 14.18 亿、QQ 5.08 亿、收费会员 2.67 亿；2025 回购约 1.534 亿股 / 约 800 亿港元；游戏分项与广告/云定性原话 — <a href="https://static.www.tencent.com/uploads/2026/03/18/e6a646796d0d869acc76271c9ee1a6a5.pdf">tencent.com · FY2025 业绩公告 PDF</a></li>
+      <li>[2] <b>【一手】腾讯控股 — 2024 年全年及第四季度业绩公告</b>（2025-03-19 发布，含 FY2024/FY2023 经审计对比）。本文引用其中：FY2023 总收入 609,015、VAS 298,375、广告 101,482、金融科技与企业服务 203,763；毛利 293,109（48%）；IFRS 归母净利 115,216、Non-IFRS 归母净利 157,688；FY2024 各项对比数；FY2023 每股息 3.40 港元、2024 年回购约 3.07 亿股/约 1,120 亿港元、2025 拟派息 4.50 港元 — <a href="https://static.www.tencent.com/uploads/2025/03/19/81cb1f36bec218d27d6e0b24eec012b6.pdf">tencent.com · FY2024 业绩公告 PDF</a></li>
+      <li>[3] <b>【一手】腾讯控股 — 2022 年全年及第四季度业绩公告</b>（2023-03-22 发布，含 FY2022/FY2021 经审计对比）。本文引用其中：FY2022 总收入 554,552、VAS 287,565、网络广告 82,729、金融科技与企业服务 177,064；毛利 238,746（43%）；IFRS 归母净利 188,243、Non-IFRS 归母净利 115,649；FY2021 总收入 560,118、VAS 291,572、广告 88,666、金融科技与企业服务 172,195、毛利 245,944、IFRS 归母净利 224,822、Non-IFRS 归母净利 123,788 — <a href="https://static.www.tencent.com/uploads/2023/03/22/3b5431187fdc8a053d9fee3a4c031aa6.pdf">tencent.com · FY2022 业绩公告 PDF</a></li>
+      <li>[4] <b>【一手】腾讯投资者关系页（可自行核验全部公告与年报）</b> — <a href="https://www.tencent.com/en-us/investors.html">tencent.com/en-us/investors.html</a>；香港交易所披露易（00700 全部正式申报）— <a href="https://www1.hkexnews.hk/search/titlesearch.xhtml">hkexnews.hk · 披露易检索</a></li>
+      <li>[5] 【二手】FY2025 业绩新闻稿（PR Newswire 转发，便于快速核对要点）— <a href="https://www.prnewswire.com/apac/news-releases/tencent-announces-2025-annual-and-fourth-quarter-results-302717280.html">prnewswire.com</a></li>
+      <li>[6] 【二手】FY2025 拟派末期息每股 5.30 港元（+17.8%）、2026 年回购或低于 800 亿港元（让位 AI 投资）— <a href="https://www.theglobeandmail.com/investing/markets/stocks/TCTZF/pressreleases/836072/tencent-declares-hkd-53-final-dividend-for-2025/">theglobeandmail.com</a>；<a href="https://www.minichart.com.sg/2026/03/18/tencent-holdings-limited-2025-annual-results-financial-performance-ai-growth-and-business-highlights/">minichart.com.sg</a>（股息分派细节最终以公司正式公告/股东大会决议为准）</li>
+      <li>[7] 【二手】美国国防部 2025-01 将腾讯列入 1260H"中国军工企业"清单、腾讯称"误列"— <a href="https://www.cnn.com/2025/01/07/tech/tencent-catl-us-list-china-military-companies-intl-hnk">cnn.com</a>；法律分析 — <a href="https://www.morganlewis.com/pubs/2025/01/dods-expanding-list-of-chinese-military-companies">morganlewis.com</a></li>
+      <li>[8] 【二手】FY2025 资本开支 792 亿、研发投入约 857.5 亿元等中文要点整理（研发投入金额以公司年报为准）— <a href="https://www.cls.cn/detail/2317702">cls.cn</a>；<a href="https://finance.sina.com.cn/tech/roll/2026-03-19/doc-inhrpspp8591221.shtml">finance.sina.com.cn</a></li>
+      <li>[9] 【二手】当前股价/市值快照（约 2026-06-19：~HKD 440、市值约 HKD 3.96 万亿、52 周区间 420.40–683.00），随行情实时变动，仅供估值参照 — <a href="https://www.investing.com/equities/tencent-holdings-hk">investing.com</a>；<a href="https://www.morningstar.com/stocks/xhkg/00700/quote">morningstar.com</a></li>
+    </ol>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>
