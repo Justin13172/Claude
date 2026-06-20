@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>货币的诞生与流动 · 从"印钞"到"发到你手里"</title>
+<style>
+  :root{
+    --navy:#0f2747; --navy2:#1b3a5e; --gold:#c9a24b; --gold-soft:#f3e6c4;
+    --teal:#1f8a86; --teal-soft:#e2f1f0; --red:#c0504d; --red-soft:#f7e4e3;
+    --ink:#23303f; --muted:#5d6b7a; --line:#e2e7ee; --bg:#f6f8fb; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+    line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:900px; margin:0 auto; padding:0 20px 80px;}
+  /* HERO */
+  header.hero{
+    background:linear-gradient(135deg,var(--navy),var(--navy2));
+    color:#fff; padding:56px 20px 48px; text-align:center;
+    border-bottom:4px solid var(--gold);
+  }
+  header.hero .kicker{letter-spacing:.3em; font-size:12px; color:var(--gold); margin-bottom:14px;}
+  header.hero h1{margin:0 0 12px; font-size:30px; line-height:1.35;}
+  header.hero p{margin:0 auto; max-width:640px; color:#cdd8e6; font-size:15px;}
+  /* SECTION */
+  section{background:var(--card); margin-top:26px; border:1px solid var(--line);
+    border-radius:16px; padding:30px 30px 34px; box-shadow:0 2px 14px rgba(15,39,71,.05);}
+  .sec-num{display:inline-flex; align-items:center; justify-content:center;
+    width:30px; height:30px; border-radius:8px; background:var(--navy); color:var(--gold);
+    font-weight:700; font-size:15px; margin-right:10px;}
+  h2{font-size:22px; color:var(--navy); margin:0 0 8px; display:flex; align-items:center;}
+  .lead{color:var(--muted); margin:0 0 22px; font-size:14.5px;}
+  h3{font-size:16.5px; color:var(--navy2); margin:26px 0 10px;}
+  p{margin:10px 0;}
+  strong{color:var(--navy);}
+  .em{color:var(--gold); font-weight:700;}
+  /* BIG MYTH */
+  .myth{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:8px 0;}
+  .myth>div{border-radius:12px; padding:18px 20px;}
+  .myth .wrong{background:var(--red-soft); border:1px solid #e6c4c2;}
+  .myth .right{background:var(--teal-soft); border:1px solid #bfe0dd;}
+  .myth h4{margin:0 0 8px; font-size:15px;}
+  .myth .wrong h4{color:var(--red);}
+  .myth .right h4{color:var(--teal);}
+  .myth p{font-size:14px; margin:6px 0; color:var(--ink);}
+  /* MONEY LAYERS */
+  .layers{margin:14px 0;}
+  .layer{display:flex; align-items:center; gap:14px; margin:8px 0; padding:14px 18px;
+    border-radius:12px; border:1px solid var(--line); position:relative;}
+  .layer .tag{font-weight:700; color:#fff; padding:3px 11px; border-radius:20px; font-size:12.5px; white-space:nowrap;}
+  .layer .desc{font-size:14px;}
+  .layer.m0{background:#fff8ec; border-color:#f0e0bd;}
+  .layer.m0 .tag{background:var(--gold);}
+  .layer.base{background:var(--teal-soft); border-color:#bfe0dd;}
+  .layer.base .tag{background:var(--teal);}
+  .layer.m2{background:#eef3fb; border-color:#cfdcf0;}
+  .layer.m2 .tag{background:var(--navy2);}
+  .layer .size{margin-left:auto; font-size:12px; color:var(--muted); text-align:right; white-space:nowrap;}
+  /* T-ACCOUNT */
+  .taccount{border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:16px 0;}
+  .taccount .t-title{background:var(--navy); color:#fff; padding:10px 16px; font-weight:700; font-size:14.5px;}
+  .taccount .t-body{display:grid; grid-template-columns:1fr 1fr;}
+  .taccount .t-col{padding:14px 18px;}
+  .taccount .t-col.assets{background:#f0f7f6; border-right:2px dashed var(--teal);}
+  .taccount .t-col.liab{background:#fbf7ec;}
+  .taccount .t-col h5{margin:0 0 8px; font-size:13px; letter-spacing:.05em;}
+  .t-col.assets h5{color:var(--teal);}
+  .t-col.liab h5{color:var(--gold);}
+  .t-item{display:flex; justify-content:space-between; font-size:14px; padding:4px 0;}
+  .t-item .plus{font-weight:700;}
+  .t-col.assets .plus{color:var(--teal);}
+  .t-col.liab .plus{color:#b9892f;}
+  .t-caption{background:#fff; padding:12px 16px; font-size:13.5px; color:var(--muted); border-top:1px solid var(--line);}
+  .t-caption b{color:var(--navy);}
+  /* FLOW PIPELINE */
+  .pipe{margin:18px 0;}
+  .pstep{position:relative; padding:16px 18px 16px 60px; border:1px solid var(--line);
+    border-radius:12px; margin:0 0 10px; background:#fff;}
+  .pstep .n{position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    width:32px; height:32px; border-radius:50%; background:var(--navy); color:var(--gold);
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px;}
+  .pstep h4{margin:0 0 3px; font-size:15px; color:var(--navy);}
+  .pstep p{margin:0; font-size:13.5px; color:var(--muted);}
+  .pstep .arrow{position:absolute; left:28px; bottom:-13px; color:var(--gold); font-size:18px; z-index:2;}
+  .pstep.born{border-left:4px solid var(--teal);}
+  .pstep.flow{border-left:4px solid var(--navy2);}
+  .pstep.die{border-left:4px solid var(--red);}
+  /* MULTIPLIER INTERACTIVE */
+  .mult{background:#f0f4fa; border:1px solid #cfdcf0; border-radius:14px; padding:20px; margin:16px 0;}
+  .mult .ctrl{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px;}
+  .mult label{font-size:14px; font-weight:600; color:var(--navy);}
+  .mult input[type=range]{flex:1; min-width:160px; accent-color:var(--gold);}
+  .mult .readout{font-size:14px; color:var(--ink);}
+  .mult .readout b{color:var(--gold); font-size:18px;}
+  .cascade{margin-top:8px;}
+  .crow{display:flex; align-items:center; gap:8px; margin:5px 0; font-size:12.5px;}
+  .crow .lbl{width:54px; color:var(--muted); flex-shrink:0;}
+  .bar{height:20px; border-radius:5px; background:linear-gradient(90deg,var(--teal),var(--navy2));
+    color:#fff; font-size:11px; display:flex; align-items:center; padding:0 8px; min-width:34px;
+    transition:width .35s ease; white-space:nowrap;}
+  .mtotal{margin-top:12px; padding:12px 16px; background:#fff; border:1px dashed var(--navy2);
+    border-radius:10px; font-size:14.5px;}
+  .mtotal b{color:var(--navy); font-size:17px;}
+  /* CONSTRAINTS */
+  .cons{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .cons .cbox{border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
+  .cons .cbox h4{margin:0 0 10px; font-size:15px; color:var(--navy);}
+  .cons ul{margin:0; padding-left:18px; font-size:13.5px; color:var(--ink);}
+  .cons li{margin:6px 0;}
+  .cons .e1{background:var(--teal-soft); border-color:#bfe0dd;}
+  .cons .e2{background:#eef3fb; border-color:#cfdcf0;}
+  /* COMPARE TABLE */
+  table.cmp{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.5px;}
+  table.cmp th,table.cmp td{border:1px solid var(--line); padding:11px 13px; text-align:left; vertical-align:top;}
+  table.cmp thead th{background:var(--navy); color:#fff; font-size:14px;}
+  table.cmp th.dim{background:#eef3fb; color:var(--navy); width:118px;}
+  table.cmp .cny{background:#fff8ec;}
+  table.cmp .usd{background:#f0f7f6;}
+  /* CALLOUT */
+  .callout{background:linear-gradient(135deg,var(--navy),var(--navy2)); color:#fff;
+    border-radius:14px; padding:22px 26px; margin:18px 0;}
+  .callout .c-k{color:var(--gold); letter-spacing:.2em; font-size:12px; margin-bottom:8px;}
+  .callout p{margin:6px 0; color:#e8eef6; font-size:15px;}
+  .callout b{color:#fff;}
+  .tieback{border-left:4px solid var(--gold); background:var(--gold-soft);
+    padding:12px 16px; border-radius:0 10px 10px 0; font-size:13.5px; margin:16px 0;}
+  .tieback b{color:#8a6d24;}
+  .footer{text-align:center; color:var(--muted); font-size:12.5px; margin-top:34px;}
+  @media(max-width:680px){
+    .myth,.cons{grid-template-columns:1fr;}
+    header.hero h1{font-size:24px;}
+    section{padding:24px 18px;}
+    .taccount .t-body{grid-template-columns:1fr;}
+    .taccount .t-col.assets{border-right:none; border-bottom:2px dashed var(--teal);}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">宏观入门 · 第一性原理</div>
+  <h1>货币的诞生与流动<br>从"印钞"到"发到你手里"的完整链路</h1>
+  <p>一句话先记住：现代社会绝大部分的钱，<b style="color:#f3e6c4">不是"印"出来的，是"贷"出来的</b>。央行只造"第一层的钱"，商业银行放贷才是把钱真正发到实体的主力。</p>
+</header>
+
+<div class="wrap">
+
+  <!-- 0 颠覆认知 -->
+  <section>
+    <h2><span class="sec-num">0</span>先颠覆一个画面</h2>
+    <p class="lead">几乎所有人脑子里"印钞→发钱"的画面，都是错的。先把它换掉。</p>
+    <div class="myth">
+      <div class="wrong">
+        <h4>✗ 你以为的</h4>
+        <p>央行开动印钞机 → 印出一堆钞票 → 发给大家花。</p>
+        <p>钱 = 纸；造钱 = 印纸。</p>
+      </div>
+      <div class="right">
+        <h4>✓ 真实的</h4>
+        <p>钱 99% 是银行电脑里的<b>数字</b>，从没被印过。</p>
+        <p>造钱 = <b>记一笔账</b>。印纸币只是你取现时的下游小动作，<b>不是源头</b>。</p>
+      </div>
+    </div>
+    <div class="tieback">📌 <b>记住这把钥匙：</b>钱分两层造——第一层<b>基础货币</b>由央行造，第二层<b>广义货币 M2</b>由商业银行放贷造。后者才是绝大多数。下面一层层拆。</div>
+  </section>
+
+  <!-- 1 三种钱 -->
+  <section>
+    <h2><span class="sec-num">1</span>先分清三种"钱"</h2>
+    <p class="lead">混着说就永远讲不清。它们是包含关系，一层套一层。</p>
+    <div class="layers">
+      <div class="layer m0">
+        <span class="tag">现金 M0</span>
+        <span class="desc">流通中的纸币硬币——你能摸到的钱</span>
+        <span class="size">最小<br>占 M2 几个 %</span>
+      </div>
+      <div class="layer base">
+        <span class="tag">基础货币</span>
+        <span class="desc">流通现金 + 商业银行存在央行的<b>准备金</b>。这是"<b>央行的钱</b>"</span>
+        <span class="size">央行直接造<br>"高能货币"</span>
+      </div>
+      <div class="layer m2">
+        <span class="tag">广义货币 M2</span>
+        <span class="desc">现金 + 企业居民在银行的各种<b>存款</b>。社会上绝大多数的钱</span>
+        <span class="size">最大<br>银行放贷派生</span>
+      </div>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted)">关系：<b>M2 ≈ 基础货币 × 货币乘数</b>。央行造出基础货币这颗"种子"，商业银行用放贷把它放大成 M2 这棵"大树"。</p>
+  </section>
+
+  <!-- 2 凭空记账 -->
+  <section>
+    <h2><span class="sec-num">2</span>核心机密：钱是"记账"记出来的</h2>
+    <p class="lead">为什么能"无中生有"？秘密在<b>资产负债表的双分录</b>——一记账，两边同时凭空增加。看两张图就懂。</p>
+
+    <h3>① 央行造基础货币：买一张国债</h3>
+    <div class="taccount">
+      <div class="t-title">🏛️ 央行的资产负债表</div>
+      <div class="t-body">
+        <div class="t-col assets">
+          <h5>资产（它拥有什么）</h5>
+          <div class="t-item"><span>国债</span><span class="plus">+100</span></div>
+        </div>
+        <div class="t-col liab">
+          <h5>负债（它欠谁的钱）</h5>
+          <div class="t-item"><span>银行的准备金</span><span class="plus">+100</span></div>
+        </div>
+      </div>
+      <div class="t-caption">央行<b>没动用任何已有的钱</b>。它买入 100 的国债，同时在负债端给银行记上 100 的准备金——两边凭空同时多出 100。<b>这 100，就是新造出来的"基础货币"。</b></div>
+    </div>
+
+    <h3>② 商业银行造 M2：放一笔贷款</h3>
+    <div class="taccount">
+      <div class="t-title">🏦 商业银行的资产负债表</div>
+      <div class="t-body">
+        <div class="t-col assets">
+          <h5>资产（它拥有什么）</h5>
+          <div class="t-item"><span>对你的贷款</span><span class="plus">+100</span></div>
+        </div>
+        <div class="t-col liab">
+          <h5>负债（它欠谁的钱）</h5>
+          <div class="t-item"><span>你的存款</span><span class="plus">+100</span></div>
+        </div>
+      </div>
+      <div class="t-caption">银行<b>没把别人的存款转给你</b>。它给你放 100 贷款，直接在你账上记出 100 存款——<b>"贷款创造存款"</b>，M2 就这么凭空诞生了。</div>
+    </div>
+    <div class="tieback">💡 <b>这就是"无中生有"的真相：</b>不是变魔术，而是会计的双分录。钱的本质是一种"<b>记在账上的信用/债权债务关系</b>"，背后由国家信用兜底。</div>
+  </section>
+
+  <!-- 3 第一层引擎 -->
+  <section>
+    <h2><span class="sec-num">3</span>第一层引擎：央行造基础货币（"锚"是什么）</h2>
+    <p class="lead">央行造钱的"依据"，就是它<b>资产端买了什么</b>。买入的东西，就是发出去的钱的抵押与背书。</p>
+    <div class="pipe">
+      <div class="pstep flow"><div class="n">A</div><h4>收外汇 → 放人民币（外汇占款）</h4><p>赚到美元才放人民币。中国过去 20 年的主渠道。</p></div>
+      <div class="pstep flow"><div class="n">B</div><h4>买/抵押债券</h4><p>逆回购、MLF、PSL、买国债、QE——拿债券作抵押或直接买入，吐出基础货币。</p></div>
+      <div class="pstep flow"><div class="n">C</div><h4>给银行再贷款</h4><p>直接借钱给商业银行。</p></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted)">现代信用货币不挂钩黄金了，它的"锚"= <b>央行资产端的外汇/国债等"真东西" + 国家信用 + 通胀纪律</b>。</p>
+  </section>
+
+  <!-- 4 第二层引擎 互动 -->
+  <section>
+    <h2><span class="sec-num">4</span>第二层引擎：商业银行把它放大（货币乘数）</h2>
+    <p class="lead">最初的 100 基础货币，怎么变成社会上好几倍的 M2？拖动滑块，亲眼看它"长大"。</p>
+    <div class="mult">
+      <div class="ctrl">
+        <label>存款准备金率：<span id="rVal" style="color:var(--gold)">10%</span></label>
+        <input type="range" id="rSlider" min="5" max="25" step="1" value="10">
+      </div>
+      <div class="readout">货币乘数 = 1 ÷ 准备金率 = <b id="multVal">10</b> 倍</div>
+      <div class="cascade" id="cascade"></div>
+      <div class="mtotal">最初 <b>100</b> 元基础货币，最终派生出约 <b id="totalVal">1000</b> 元 M2 ✦ 准备金率越低，乘数越大、放水越猛——<b>这就是"降准"为什么是放水</b>。</div>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted)">机制：你贷到 100 花出去→对方存进另一家银行→那家留 10% 准备金、把 90 再贷出去→层层派生……加总 = 100 ÷ 准备金率。</p>
+  </section>
+
+  <!-- 5 完整链路 -->
+  <section>
+    <h2><span class="sec-num">5</span>完整链路：钱从诞生到流到你手里</h2>
+    <p class="lead">把前面拼成一条端到端的流水线。注意它会"<b>呼吸</b>"——有生，也有灭。</p>
+    <div class="pipe">
+      <div class="pstep born"><div class="n">1</div><h4>国家信用兜底</h4><p>不再挂钩黄金，钱的最终背书是国家信用。</p><span class="arrow">▼</span></div>
+      <div class="pstep born"><div class="n">2</div><h4>央行买资产、记账 → 造基础货币</h4><p>投放给银行体系，变成银行的"准备金"。</p><span class="arrow">▼</span></div>
+      <div class="pstep born"><div class="n">3</div><h4>商业银行放贷 → 贷款创造存款（M2）</h4><p>这是把钱真正"发"到实体的主力，绝大多数的钱在这一步诞生。</p><span class="arrow">▼</span></div>
+      <div class="pstep flow"><div class="n">4</div><h4>存款在企业、居民间流转</h4><p>就是你日常用的钱。需要现金时，去银行取现——<b>这时印钞厂印的纸币才登场</b>，只是把电子存款换成纸的形态。</p><span class="arrow">▼</span></div>
+      <div class="pstep die"><div class="n">5</div><h4>还贷 → 货币"消灭"</h4><p>你把贷款还掉，那笔当初凭空记出的存款就<b>从账上消失了</b>。货币有生有灭。</p></div>
+    </div>
+    <div class="callout">
+      <div class="c-k">货币会呼吸</div>
+      <p><b>放贷 = 货币诞生；还贷 = 货币消灭。</b></p>
+      <p>所以当全社会一起去杠杆、抢着还债（资产负债表衰退），货币就在<b>净消灭</b>、M2 增长熄火——这正是前几课"<b>推绳子 / 宽货币≠宽信用</b>"的货币面真相：央行第一层拼命放水，第二层却在收缩。</p>
+    </div>
+  </section>
+
+  <!-- 6 边界 -->
+  <section>
+    <h2><span class="sec-num">6</span>凭什么印？有没有边界？</h2>
+    <p class="lead">钱不是想造多少就造多少。两层引擎，各有各的"刹车"。</p>
+    <div class="cons">
+      <div class="cbox e1">
+        <h4>第一层（央行）的约束</h4>
+        <ul>
+          <li>政策决定 + 愿意买什么资产</li>
+          <li>最硬的刹车：<b>通胀</b>（放太多→物价失控）</li>
+          <li><b>汇率</b>稳定与货币<b>信誉</b>（滥发→货币贬值、信用崩塌）</li>
+        </ul>
+      </div>
+      <div class="cbox e2">
+        <h4>第二层（银行）的约束</h4>
+        <ul>
+          <li><b>存款准备金率</b>（限制乘数）</li>
+          <li><b>资本充足率</b>（银行自有资本不够就放不动）</li>
+          <li>最关键：<b>得有合格、愿意借的借款人</b>——没人借，乘数就失灵</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tieback">⚠️ <b>恶性通胀的教训：</b>魏玛德国、津巴布韦，正是第一层的刹车（通胀纪律）失灵、为财政赤字无限印钱的结果。这也是各国立法<b>禁止"财政赤字货币化"</b>的原因。</div>
+  </section>
+
+  <!-- 7 中美差异 -->
+  <section>
+    <h2><span class="sec-num">7</span>人民币 vs 美元：同一套原理，不同的玩法</h2>
+    <p class="lead">机制相同（都是央行记账造基础货币 + 银行派生），但"锚"、地位、约束差别很大。</p>
+    <table class="cmp">
+      <thead>
+        <tr><th class="dim">维度</th><th>🇨🇳 人民币</th><th>🇺🇸 美元</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="dim">基础货币的"锚"</th>
+          <td class="cny">过去靠<b>外汇占款</b>（某种程度"以美元为锚"）；近年转向逆回购/MLF/PSL，2024 起<b>重启买卖国债</b></td>
+          <td class="usd">一直靠美联储<b>买卖美国国债</b>（"以美国国债为锚"，背后是政府征税能力）</td>
+        </tr>
+        <tr>
+          <th class="dim">国际地位</th>
+          <td class="cny">主要是<b>国内货币</b>，国际化程度低，有<b>资本管制</b></td>
+          <td class="usd"><b>全球储备货币</b>，可"印美元向全世界买东西"，享铸币税与"嚣张特权"</td>
+        </tr>
+        <tr>
+          <th class="dim">财政—央行关系</th>
+          <td class="cny">法律<b>禁止</b>央行向财政透支、一级市场买国债，只能<b>二级市场</b>操作</td>
+          <td class="usd">美联储法律独立，但实际为巨额赤字"接盘"，联系紧密</td>
+        </tr>
+        <tr>
+          <th class="dim">利率 / 汇率</th>
+          <td class="cny">利率仍在市场化（LPR）；汇率<b>有管理的浮动</b>，干预力强</td>
+          <td class="usd">利率高度市场化；汇率<b>自由浮动</b></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <div class="c-k">一句话抓总</div>
+      <p><b>美元</b>以"美国国债 + 全球信用"为锚、是世界货币、能向全球扩张；</p>
+      <p><b>人民币</b>过去以"外汇(美元)"为锚、现转向国债、主要是国内货币、用<b>资本管制</b>做缓冲——它既是约束，也让中国货币政策能相对独立。</p>
+    </div>
+  </section>
+
+  <div class="footer">宏观经济入门系列 · 货币创造篇　|　第一性原理 · 结构化拆解</div>
+
+</div>
+
+<script>
+  const slider=document.getElementById('rSlider');
+  const rVal=document.getElementById('rVal');
+  const multVal=document.getElementById('multVal');
+  const totalVal=document.getElementById('totalVal');
+  const cascade=document.getElementById('cascade');
+
+  function render(){
+    const r=parseInt(slider.value)/100;
+    rVal.textContent=(r*100)+'%';
+    const mult=(1/r);
+    multVal.textContent=mult.toFixed(1).replace(/\.0$/,'');
+    totalVal.textContent=Math.round(100/r);
+    // cascade: first 6 rounds
+    let html=''; let dep=100; const maxBarVal=100;
+    for(let i=1;i<=6;i++){
+      const w=Math.max(6,(dep/maxBarVal)*100);
+      html+=`<div class="crow"><span class="lbl">第${i}轮</span>`+
+            `<div class="bar" style="width:${w}%">派生存款 ${dep.toFixed(dep<1?2:0)}</div></div>`;
+      dep=dep*(1-r);
+    }
+    html+=`<div class="crow"><span class="lbl">……</span><span style="color:#5d6b7a;font-size:12px">无限派生下去，加总趋近 100 ÷ ${ (r*100) }% </span></div>`;
+    cascade.innerHTML=html;
+  }
+  slider.addEventListener('input',render);
+  render();
+</script>
+</body>
+</html>
