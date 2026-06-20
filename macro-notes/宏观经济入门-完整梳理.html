@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宏观经济入门 · 一次完整对话的沉淀</title>
+<style>
+  :root{
+    --navy:#0f2747; --navy2:#1b3a5e; --gold:#c9a24b; --gold-soft:#f3e6c4;
+    --teal:#1f8a86; --teal-soft:#e2f1f0; --red:#c0504d; --red-soft:#f7e4e3;
+    --green:#3f7d52; --green-soft:#e6f0e8;
+    --ink:#23303f; --muted:#5d6b7a; --line:#e2e7ee; --bg:#f6f8fb; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+    line-height:1.75;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 90px;}
+  /* progress + nav */
+  #bar{position:fixed;top:0;left:0;height:4px;background:var(--gold);width:0;z-index:99;transition:width .1s;}
+  .topnav{position:sticky;top:0;background:rgba(15,39,71,.97);backdrop-filter:blur(6px);
+    z-index:50;display:flex;gap:4px;overflow-x:auto;padding:9px 12px;border-bottom:1px solid #24405f;}
+  .topnav a{color:#b9c6d8;font-size:12.5px;text-decoration:none;white-space:nowrap;
+    padding:5px 10px;border-radius:7px;transition:.2s;flex-shrink:0;}
+  .topnav a:hover{background:#1b3a5e;color:var(--gold);}
+  /* hero */
+  header.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;
+    padding:54px 20px 46px;text-align:center;border-bottom:4px solid var(--gold);}
+  header.hero .kicker{letter-spacing:.3em;font-size:12px;color:var(--gold);margin-bottom:14px;}
+  header.hero h1{margin:0 0 12px;font-size:29px;line-height:1.4;}
+  header.hero p{margin:0 auto;max-width:660px;color:#cdd8e6;font-size:14.5px;}
+  /* knowledge map */
+  .kmap{background:var(--card);margin-top:26px;border:1px solid var(--line);border-radius:16px;
+    padding:26px 28px;box-shadow:0 2px 14px rgba(15,39,71,.05);}
+  .kmap h2{font-size:20px;color:var(--navy);margin:0 0 6px;}
+  .kmap .sub{color:var(--muted);font-size:13.5px;margin:0 0 18px;}
+  .thread{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;}
+  .thread .node{background:var(--navy);color:#fff;padding:6px 11px;border-radius:20px;}
+  .thread .node.k{background:var(--gold);color:#3a2c08;font-weight:700;}
+  .thread .ar{color:var(--gold);font-weight:700;}
+  .toc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;}
+  .toc a{display:block;text-decoration:none;border:1px solid var(--line);border-radius:11px;
+    padding:11px 13px;color:var(--ink);transition:.2s;background:#fbfcfe;}
+  .toc a:hover{border-color:var(--gold);box-shadow:0 3px 10px rgba(201,162,75,.15);transform:translateY(-2px);}
+  .toc .mn{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.05em;}
+  .toc .mt{font-size:13.5px;color:var(--navy);font-weight:600;margin-top:2px;}
+  /* module */
+  section.mod{background:var(--card);margin-top:24px;border:1px solid var(--line);border-radius:16px;
+    padding:30px 30px 34px;box-shadow:0 2px 14px rgba(15,39,71,.05);scroll-margin-top:60px;}
+  .mhead{display:flex;align-items:flex-start;gap:14px;margin-bottom:6px;}
+  .mbadge{flex-shrink:0;width:46px;height:46px;border-radius:12px;background:var(--navy);color:var(--gold);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:19px;}
+  .mhead h2{font-size:21px;color:var(--navy);margin:2px 0 0;line-height:1.35;}
+  .qbox{background:#eef3fb;border-left:4px solid var(--navy2);border-radius:0 10px 10px 0;
+    padding:11px 16px;margin:14px 0 18px;font-size:13.5px;color:var(--navy2);}
+  .qbox b{color:var(--navy);}
+  /* essence callout */
+  .essence{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:13px;
+    padding:18px 22px;margin:16px 0;}
+  .essence .e-k{color:var(--gold);letter-spacing:.18em;font-size:11px;margin-bottom:7px;}
+  .essence p{margin:0;color:#eaf0f7;font-size:14.5px;}
+  .essence b{color:#f3e6c4;}
+  h3{font-size:16px;color:var(--navy2);margin:24px 0 9px;}
+  p{margin:9px 0;}
+  strong{color:var(--navy);}
+  /* layered cards */
+  .stack{margin:12px 0;}
+  .scard{display:flex;gap:13px;align-items:flex-start;border:1px solid var(--line);border-left:4px solid var(--gold);
+    border-radius:10px;padding:13px 16px;margin:8px 0;background:#fffdf8;}
+  .scard .ico{font-size:20px;flex-shrink:0;}
+  .scard h4{margin:0 0 3px;font-size:14.5px;color:var(--navy);}
+  .scard p{margin:0;font-size:13px;color:var(--muted);}
+  /* chain flow */
+  .chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:14px 0;}
+  .chain .ch{flex:1;min-width:120px;background:var(--teal-soft);border:1px solid #bfe0dd;border-radius:10px;
+    padding:12px;text-align:center;font-size:13px;}
+  .chain .ch b{color:var(--teal);display:block;font-size:14px;margin-bottom:2px;}
+  .chain .char{display:flex;align-items:center;color:var(--gold);font-weight:700;font-size:20px;padding:0 6px;}
+  /* table */
+  table.t{width:100%;border-collapse:collapse;margin:13px 0;font-size:13px;}
+  table.t th,table.t td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+  table.t thead th{background:var(--navy);color:#fff;font-size:13.5px;}
+  table.t th.dim{background:#eef3fb;color:var(--navy);width:104px;font-size:13px;}
+  .cny{background:#fff8ec;} .usd{background:#f0f7f6;}
+  /* two-col compare */
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0;}
+  .cbox{border-radius:12px;padding:15px 17px;font-size:13px;}
+  .cbox h4{margin:0 0 8px;font-size:14.5px;}
+  .cbox.a{background:var(--red-soft);border:1px solid #e6c4c2;} .cbox.a h4{color:var(--red);}
+  .cbox.b{background:var(--teal-soft);border:1px solid #bfe0dd;} .cbox.b h4{color:var(--teal);}
+  .cbox.c{background:#fff8ec;border:1px solid #f0e0bd;} .cbox.c h4{color:#b9892f;}
+  .cbox.d{background:#eef3fb;border:1px solid #cfdcf0;} .cbox.d h4{color:var(--navy);}
+  .cbox p{margin:5px 0;}
+  /* grid cards */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:12px 0;}
+  .gcard{border:1px solid var(--line);border-radius:11px;padding:13px 15px;background:#fbfcfe;}
+  .gcard .gn{font-size:11px;color:var(--gold);font-weight:700;}
+  .gcard h4{margin:3px 0 5px;font-size:14px;color:var(--navy);}
+  .gcard p{margin:0;font-size:12.5px;color:var(--muted);}
+  /* timeline waves */
+  .waves{display:flex;gap:7px;overflow-x:auto;margin:14px 0;padding-bottom:6px;}
+  .wave{flex:1;min-width:108px;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fbfcfe;}
+  .wave .yr{font-size:11px;color:var(--muted);}
+  .wave .tech{font-size:13.5px;color:var(--navy);font-weight:600;margin-top:3px;}
+  .wave.now{background:var(--gold-soft);border-color:var(--gold);}
+  .wave.now .tech{color:#8a6d24;}
+  /* phases */
+  .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0;}
+  .ph{border-radius:10px;padding:12px;text-align:center;color:#fff;font-size:13px;}
+  .ph b{display:block;font-size:14.5px;margin-bottom:2px;}
+  .ph.spring{background:#5a9e6f;} .ph.summer{background:#c0504d;}
+  .ph.autumn{background:#c9a24b;} .ph.winter{background:#4a6b8a;}
+  /* formula */
+  .formula{background:#fbf7ec;border:1px dashed var(--gold);border-radius:11px;padding:15px;
+    text-align:center;font-size:15px;color:var(--navy);margin:14px 0;}
+  .formula b{color:#b9892f;}
+  /* ribbon tie-back */
+  .ribbon{border-left:4px solid var(--gold);background:var(--gold-soft);padding:11px 15px;
+    border-radius:0 10px 10px 0;font-size:13px;margin:14px 0;}
+  .ribbon b{color:#8a6d24;}
+  .warn{border-left:4px solid var(--red);background:var(--red-soft);padding:11px 15px;
+    border-radius:0 10px 10px 0;font-size:13px;margin:14px 0;}
+  .warn b{color:var(--red);}
+  /* balance flip */
+  .flip{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:14px 0;}
+  .bsheet{border:1px solid var(--line);border-radius:11px;padding:14px;font-size:13px;}
+  .bsheet h5{margin:0 0 8px;font-size:13px;text-align:center;}
+  .bsheet.before{background:var(--green-soft);} .bsheet.before h5{color:var(--green);}
+  .bsheet.after{background:var(--red-soft);} .bsheet.after h5{color:var(--red);}
+  .bsheet .row{display:flex;justify-content:space-between;padding:3px 0;}
+  .bsheet .net{border-top:1px dashed #aaa;margin-top:6px;padding-top:6px;font-weight:700;}
+  .flip .mid{font-size:24px;color:var(--gold);text-align:center;}
+  /* risk ladder */
+  .ladder{margin:12px 0;}
+  .rung{display:flex;align-items:center;gap:11px;border:1px solid var(--line);border-radius:10px;
+    padding:11px 14px;margin:7px 0;font-size:13px;}
+  .rung .risk{font-size:11px;font-weight:700;padding:2px 9px;border-radius:14px;color:#fff;flex-shrink:0;}
+  .rung.r1 .risk{background:var(--red);} .rung.r2 .risk{background:var(--gold);}
+  .rung.r3 .risk{background:var(--teal);} .rung.r4 .risk{background:var(--navy2);}
+  .rung b{color:var(--navy);}
+  /* footer */
+  .endcard{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:16px;
+    padding:28px 30px;margin-top:26px;}
+  .endcard h2{color:#fff;margin:0 0 10px;font-size:20px;}
+  .endcard p{color:#dbe4f0;font-size:14px;margin:8px 0;}
+  .endcard b{color:var(--gold);}
+  .toTop{position:fixed;right:18px;bottom:18px;background:var(--navy);color:var(--gold);
+    width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    text-decoration:none;font-size:20px;box-shadow:0 4px 14px rgba(15,39,71,.3);opacity:0;transition:.3s;z-index:60;}
+  .toTop.show{opacity:1;}
+  .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;}
+  @media(max-width:680px){
+    .toc,.grid3,.phases{grid-template-columns:1fr 1fr;}
+    .cols2,.grid2,.flip{grid-template-columns:1fr;}
+    .flip .mid{transform:rotate(90deg);}
+    header.hero h1{font-size:23px;} section.mod{padding:24px 18px;}
+  }
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<nav class="topnav">
+  <a href="#map">🗺 知识地图</a>
+  <a href="#m1">1 美联储</a>
+  <a href="#m2">2 社融·CPI</a>
+  <a href="#m3">3 资产负债表衰退</a>
+  <a href="#m4">4 康波·中美利率</a>
+  <a href="#m5">5 名义实际·通胀通缩</a>
+  <a href="#m6">6 康波落地</a>
+  <a href="#m7">7 利率·大宗商品</a>
+  <a href="#m8">8 逆回购·MLF</a>
+  <a href="#m9">9 货币创造</a>
+</nav>
+
+<header class="hero">
+  <div class="kicker">宏观经济入门 · 第一性原理</div>
+  <h1>一次完整对话的沉淀<br>从美联储到货币创造，9 个问题打通宏观骨架</h1>
+  <p>这是一份把零散追问重新梳理、去重、补强后的结构化笔记。每个模块 = 你的一次提问，配"一句话本质"+可视化拆解+连回前文的主线。</p>
+</header>
+
+<div class="wrap">
+
+  <!-- KNOWLEDGE MAP -->
+  <div class="kmap" id="map">
+    <h2>🗺 先看一张知识地图</h2>
+    <p class="sub">9 个问题不是孤立的，它们由一条主线串起来——全部围绕"<b style="color:#c9a24b">钱的价格、数量与温度</b>"。</p>
+    <div class="thread">
+      <span class="node k">钱的价格=利率</span><span class="ar">→</span>
+      <span class="node">美联储(1)</span><span class="ar">→</span>
+      <span class="node">怎么读经济 社融·CPI(2)</span><span class="ar">→</span>
+      <span class="node">中国的病 资产负债表衰退(3)</span><span class="ar">→</span>
+      <span class="node">长周期 康波(4·6)</span><span class="ar">→</span>
+      <span class="node">底层概念 名义实际·通胀通缩(5)</span><span class="ar">→</span>
+      <span class="node">工具 利率·大宗(7)·逆回购MLF(8)</span><span class="ar">→</span>
+      <span class="node k">总原理 货币创造(9)</span>
+    </div>
+    <div class="toc">
+      <a href="#m1"><div class="mn">MODULE 1</div><div class="mt">美联储为何能撼动全球</div></a>
+      <a href="#m2"><div class="mn">MODULE 2</div><div class="mt">社融、CPI 的本质</div></a>
+      <a href="#m3"><div class="mn">MODULE 3</div><div class="mt">资产负债表衰退</div></a>
+      <a href="#m4"><div class="mn">MODULE 4</div><div class="mt">康波周期 + 中美利率差</div></a>
+      <a href="#m5"><div class="mn">MODULE 5</div><div class="mt">名义/实际·通胀/通缩</div></a>
+      <a href="#m6"><div class="mn">MODULE 6</div><div class="mt">康波落地：真浪 vs 裸泳</div></a>
+      <a href="#m7"><div class="mn">MODULE 7</div><div class="mt">加息降息 + 大宗商品</div></a>
+      <a href="#m8"><div class="mn">MODULE 8</div><div class="mt">逆回购与 MLF</div></a>
+      <a href="#m9"><div class="mn">MODULE 9</div><div class="mt">货币创造（总原理）</div></a>
+    </div>
+  </div>
+
+  <!-- M1 -->
+  <section class="mod" id="m1">
+    <div class="mhead"><div class="mbadge">1</div><h2>美联储的一举一动，为何能撼动全球资本市场？</h2></div>
+    <div class="qbox">💬 <b>你的提问：</b>为什么美联储每次动作都能对全球资本市场产生那么大影响，连发言人的表情、节奏都被解读？</div>
+    <div class="essence"><div class="e-k">一句话本质</div>
+      <p>美联储控制的是<b>全世界的钱（美元）的价格</b>，而钱的价格，是地球上每一个资产定价的<b>地心引力</b>。</p></div>
+    <div class="stack">
+      <div class="scard"><div class="ico">🌍</div><div><h4>① 美元是世界货币</h4><p>大宗商品、国际贸易、全球美元债都以美元计价，美元价格是全球变量，不只是美国的事。</p></div></div>
+      <div class="scard"><div class="ico">⚓</div><div><h4>② 利率是给所有资产定价的"折现之锚"（最深）</h4><p>资产价值=未来现金流折现回今天，折现力度由利率定。利率一动，股债房金币全被重新定价。</p></div></div>
+      <div class="scard"><div class="ico">💧</div><div><h4>③ 牵动全球资本流动</h4><p>加息→美元回报变高→资本回流美国→抽走新兴市场流动性。它是全球资金的总闸门。</p></div></div>
+      <div class="scard"><div class="ico">🎭</div><div><h4>④ 市场交易的是"预期差"</h4><p>决定本身常被price in，真正波动来自"超不超预期"。所以每个字、点阵图、语气都被当情报挖——这是理性，不是过度反应。</p></div></div>
+    </div>
+    <h3>为什么利率一点点变化能撼动一切？看折现</h3>
+    <div class="chain">
+      <div class="ch"><b>明年的 100 元</b>利率 2% 时</div>
+      <div class="char">→</div>
+      <div class="ch"><b>今天值 ≈98</b></div>
+      <div class="char">⚡</div>
+      <div class="ch"><b>利率升到 5%</b></div>
+      <div class="char">→</div>
+      <div class="ch"><b>今天只值 ≈95</b>越远期的现金流被撬动越狠</div>
+    </div>
+    <div class="ribbon">📌 <b>巴菲特金句：</b>"利率之于资产价格，就像地心引力之于万物。"引力变重，所有东西一起下沉——这就是为什么"赚钱在遥远未来"的科技/成长股，加息时跌得最猛。</div>
+  </section>
+
+  <!-- M2 -->
+  <section class="mod" id="m2">
+    <div class="mhead"><div class="mbadge">2</div><h2>社融、CPI…… 这些指标的本质是什么？</h2></div>
+    <div class="qbox">💬 <b>你的提问：</b>常听到的社融、CPI 等概念，本质是什么，对经济和投资有什么影响？</div>
+    <div class="essence"><div class="e-k">一句话本质</div>
+      <p>所有宏观指标，本质是在给经济做"体检"——<b>量血（钱够不够）、测心跳（活动旺不旺）、量体温（物价热不热）</b>。社融是"造血量"，CPI 是"体温计"。</p></div>
+    <table class="t">
+      <thead><tr><th>测什么</th><th>比喻</th><th>代表指标</th></tr></thead>
+      <tbody>
+        <tr><td>钱/信用的<b>量</b></td><td>血液、燃料</td><td><b>社融</b>、M2、信贷</td></tr>
+        <tr><td>真实<b>活动</b></td><td>心跳、体力</td><td>GDP、PMI、社零、固投</td></tr>
+        <tr><td><b>价格</b>/温度</td><td>体温</td><td><b>CPI</b>、PPI</td></tr>
+      </tbody>
+    </table>
+    <h3>三者由一条因果链串起来</h3>
+    <div class="chain">
+      <div class="ch"><b>央行放水</b></div><div class="char">→</div>
+      <div class="ch"><b>社融扩张</b>钱流进实体</div><div class="char">→</div>
+      <div class="ch"><b>投资消费</b>活动上升</div><div class="char">→</div>
+      <div class="ch"><b>CPI/PPI</b>物价上行</div>
+    </div>
+    <p style="font-size:13px;color:var(--muted)">这条链<b>在哪一环断了，就说明经济病在哪</b>。</p>
+    <div class="cols2">
+      <div class="cbox b"><h4>社融 = 实体的造血量</h4><p>比"贷款"更宽：含债券、政府债、影子银行。是<b>领先指标</b>。</p><p>👉 看<b>结构</b>比看总量重要：全靠政府债撑、居民房贷萎缩=内需真实偏弱。</p></div>
+      <div class="cbox c"><h4>CPI = 体温计</h4><p>温和通胀(~2%)=健康；<b>通缩</b>=失温、最危险（接 M3）。中国受猪价扰动大，看<b>核心CPI</b>更准。</p></div>
+    </div>
+    <div class="ribbon">📈 <b>对投资：</b>社融见底回升常领先股市；经济弱+社融弱→利率下行→债牛（股弱债强）。学会"看结构"是散户进阶的分水岭。</div>
+  </section>
+
+  <!-- M3 -->
+  <section class="mod" id="m3">
+    <div class="mhead"><div class="mbadge">3</div><h2>中国为何陷入"低通胀 + 放水也不灵"？</h2></div>
+    <div class="qbox">💬 <b>你的提问（本质层）：</b>为什么同样时间，央行放水却传导不畅、物价起不来？</div>
+    <div class="essence"><div class="e-k">一句话本质</div>
+      <p>当多数家庭企业因<b>资产（房）暴跌、债务没变</b>，集体从"想赚钱"切换成"想还债"时，央行再放水也没人借——这就是<b>资产负债表衰退</b>。</p></div>
+    <h3>① 一张表的"水下"：净资产由正转负</h3>
+    <div class="flip">
+      <div class="bsheet before"><h5>买房前</h5>
+        <div class="row"><span>资产(房)</span><span>100</span></div>
+        <div class="row"><span>负债(房贷)</span><span>70</span></div>
+        <div class="row net"><span>净资产</span><span>+30 ✓</span></div></div>
+      <div class="mid">→</div>
+      <div class="bsheet after"><h5>房价腰斩</h5>
+        <div class="row"><span>资产(房)</span><span>50</span></div>
+        <div class="row"><span>负债(房贷)</span><span>70 不变</span></div>
+        <div class="row net"><span>净资产</span><span>−20 ✗</span></div></div>
+    </div>
+    <p style="font-size:13px;color:var(--muted)">魔鬼细节：<b>资产会跌，债务名义数额纹丝不动。</b></p>
+    <h3>② 行为暗中切换 → ③ 个体理性变集体灾难</h3>
+    <div class="cols2">
+      <div class="cbox a"><h4>行为切换</h4><p>目标从"利润最大化"变成"<b>负债最小化</b>"。利率再低也只想还债、不想借——这就是"<b>推绳子</b>"。</p></div>
+      <div class="cbox d"><h4>合成谬误</h4><p>一个人省吃俭用是对的；<b>所有人同时还债</b>→一人支出=别人收入→总收入塌方→越通缩越要还债，螺旋下行。</p></div>
+    </div>
+    <div class="ribbon">🔗 <b>接 M5：</b>债是<b>名义固定</b>的，而通缩让它的<b>实际负担越来越重</b>——这就是衰退如此凶险的根，也是大家拼命还债的深层动机。</div>
+    <div class="essence"><div class="e-k">药方</div>
+      <p>货币（放水）几乎无效。当私人部门都在还债，只有<b>政府逆势加杠杆、发债花钱</b>才能填上需求窟窿——这正是"社融全靠政府债撑"的原因。<b>看财政，别只看货币。</b></p></div>
+    <div class="warn">⚠️ <b>日本警告：</b>这种衰退会拖很久（失去的二三十年），还留下"借贷创伤"心理——一代人长期厌恶借贷。这就是"日本化"。</div>
+  </section>
+
+  <!-- M4 -->
+  <section class="mod" id="m4">
+    <div class="mhead"><div class="mbadge">4</div><h2>康波周期是什么？为何中美利率差这么大？</h2></div>
+    <div class="qbox">💬 <b>你的提问：</b>(A) 什么是康波，为何说"人生发财靠康波"？(B) 为何美债能 4-5%，中国存款/国债只有 1-2%？</div>
+
+    <h3>4A · 康波周期</h3>
+    <div class="essence"><div class="e-k">一句话本质</div>
+      <p>康波 = 一轮<b>技术革命</b>从诞生→普及→饱和→淘汰的完整生命周期，约 <b>50-60 年</b>。而你能赚钱的黄金岁月也就 30-40 年——<b>一生只经历一个完整康波</b>。</p></div>
+    <div class="waves">
+      <div class="wave"><div class="yr">1780s+</div><div class="tech">蒸汽机·纺织</div></div>
+      <div class="wave"><div class="yr">1840s+</div><div class="tech">铁路·钢铁</div></div>
+      <div class="wave"><div class="yr">1890s+</div><div class="tech">电力·化工</div></div>
+      <div class="wave"><div class="yr">1940s+</div><div class="tech">汽车·电子</div></div>
+      <div class="wave"><div class="yr">1990s+</div><div class="tech">信息·互联网</div></div>
+      <div class="wave now"><div class="yr">现在</div><div class="tech">AI·新能源(第6波?)</div></div>
+    </div>
+    <div class="phases">
+      <div class="ph spring"><b>回升 春</b>新技术萌芽</div>
+      <div class="ph summer"><b>繁荣 夏</b>大投资·新产业</div>
+      <div class="ph autumn"><b>衰退 秋</b>饱和·过剩</div>
+      <div class="ph winter"><b>萧条 冬</b>危机·出清</div>
+    </div>
+    <div class="ribbon">💡 <b>"人生发财靠康波"=</b> 个人努力决定下限(能否上车)，长周期决定上限(车能开多远)。改变命运的财富，<b>你站在周期哪个位置(β) 常压倒你多努力(α)</b>。<b>诚实提醒：</b>康波非主流共识、样本太少、不能精确择时，只当"长周期思维的眼镜"。</div>
+
+    <h3>4B · 为何美债 4-5%、中国只有 1-2%？</h3>
+    <div class="formula"><b>名义利率 ≈ 实际经济回报（增长）＋ 通胀补偿 ＋ 风险溢价</b></div>
+    <div class="cols2">
+      <div class="cbox a"><h4>🇺🇸 美国 高</h4><p>经济过热、通胀高→需补偿；政府巨额发债+储蓄少→借钱需求旺。钱<b>抢手又贵</b>。</p></div>
+      <div class="cbox b"><h4>🇨🇳 中国 低</h4><p>低通胀近通缩、没人借钱(衰退)→央行压低利率刺激；高储蓄"资产荒"→钱多人少。钱<b>便宜</b>。</p></div>
+    </div>
+    <div class="warn">⚠️ <b>别被名义数字骗（杀手锏认知）：</b>① 比<b>实际利率</b>：美国 5%−3%通胀≈2%，中国 1.7%−0%≈1.7%，差距远没那么悬殊。② <b>汇率</b>会吃掉利差（利率平价）：高息货币倾向贬值，世上没有白捡的高息。</div>
+  </section>
+
+  <!-- M5 -->
+  <section class="mod" id="m5">
+    <div class="mhead"><div class="mbadge">5</div><h2>名义/实际、通胀/通缩，以及中美为何不同季节</h2></div>
+    <div class="qbox">💬 <b>你的提问：</b>为什么同一时间中美处在不同周期与通胀/通缩？再讲清名义与实际、通胀与通缩。</div>
+
+    <h3>地基一 · 名义 vs 实际：挤掉"物价的水分"</h3>
+    <div class="formula"><b>实际 ≈ 名义 − 通胀率</b>　（名义=账面数字，实际=真实购买力）</div>
+    <table class="t">
+      <thead><tr><th class="dim">用在哪</th><th>名义</th><th>实际（挤水分后）</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">利率</td><td>存款写 3%</td><td>通胀 5% → 实际 <b>−2%</b>，你在变穷</td></tr>
+        <tr><td class="dim">工资</td><td>涨 5%</td><td>物价涨 8% → 购买力<b>降了</b>（"涨薪却更穷"）</td></tr>
+        <tr><td class="dim">债务</td><td>房贷固定 100万</td><td>通胀→变轻；<b>通缩→越来越重</b>（接 M3）</td></tr>
+      </tbody>
+    </table>
+
+    <h3>地基二 · 通胀 vs 通缩：钱和货的拔河</h3>
+    <div class="cols2">
+      <div class="cbox c"><h4>通胀＝需求过剩</h4><p>钱>货，太多钱追太少货→涨价。买手机心理："明年涨价，<b>现在买！</b>"→促消费=健康体温。</p></div>
+      <div class="cbox d"><h4>通缩＝需求不足</h4><p>货>钱→跌价。"再等等，<b>明年更便宜</b>"→推迟消费→裁员降薪→螺旋下行，最危险。</p></div>
+    </div>
+
+    <h3>正题 · 为何中美同时却是不同季节？</h3>
+    <div class="essence"><div class="e-k">关键对比</div>
+      <p>面对同一场冲击（疫情），<b>美国把钱发给"消费者"，中国把钱投给"工厂"</b>——一个造出需求过剩(通胀)，一个造出供给过剩(通缩)。</p></div>
+    <div class="grid2">
+      <div class="gcard"><div class="gn">原因①</div><h4>刺激方式相反</h4><p>美国直升机撒钱给居民→需求爆棚+供给跟不上→通胀；中国投生产端→产能强、需求弱→通缩。</p></div>
+      <div class="gcard"><div class="gn">原因②</div><h4>房地产周期错位</h4><p>中国撞上地产顶部回落(内需收缩)；美国地产已出清+财富效应→敢消费。</p></div>
+      <div class="gcard"><div class="gn">原因③</div><h4>储蓄文化</h4><p>美国低储蓄爱花钱→钱发下去就花掉；中国高储蓄→钱被存起来，形不成需求。</p></div>
+      <div class="gcard"><div class="gn">原因④</div><h4>生产国 vs 消费国</h4><p>中国强产能在内需不足时→产能过剩压低物价(PPI负)→通缩压力。</p></div>
+    </div>
+    <div class="ribbon">🔗 政策于是必然相反：美国加息退烧、中国降息升温——闭环回 M1 的<b>中美利差</b>与资本流动。周期<b>不全球同步</b>，加上中国有资本管制，能走自己的季节。</div>
+  </section>
+
+  <!-- M6 -->
+  <section class="mod" id="m6">
+    <div class="mhead"><div class="mbadge">6</div><h2>康波落地：普通人怎么参与技术大浪？</h2></div>
+    <div class="qbox">💬 <b>你的提问：</b>若第6波是 AI+新能源，怎么不追高又不踏空？怎么分辨"真浪"和"裸泳"？</div>
+    <div class="essence"><div class="e-k">一句话本质</div>
+      <p>"追高"和"踏空"是<b>同一个错误</b>——都想精准踩点。真正的敌人不是"买贵一点"，而是<b>扛不过中途那场必然的崩盘</b>。目标从"抓住浪"换成"活着穿过浪"。</p></div>
+    <h3>历史铁律：每场革命都分两段，中间夹崩盘</h3>
+    <div class="chain">
+      <div class="ch"><b>安装期</b>疯狂·泡沫·超建</div><div class="char">→</div>
+      <div class="ch" style="background:var(--red-soft);border-color:#e6c4c2;"><b style="color:var(--red)">崩盘</b>投机者团灭<br>但基建留下来了</div><div class="char">→</div>
+      <div class="ch"><b>拓展期</b>黄金期·真财富(20-30年)</div>
+    </div>
+    <div class="warn"><b>技术是真的 ≠ 公司和价格是真的。</b>互联网是真的，但 Pets.com 归零；连<b>思科</b>这种真赢家，2000 顶点买入也被套 17 年——<b>价格本身就是风险</b>。</div>
+    <h3>怎么分辨真浪 vs 裸泳？拆成两个独立问题</h3>
+    <div class="cols2">
+      <div class="cbox b"><h4>A. 这股浪真吗？(看技术)</h4><p>有没有<b>持续向下的成本曲线</b>？被真实用起来产生营收了吗？是否<b>通用</b>(渗进千行百业)？</p></div>
+      <div class="cbox c"><h4>B. 这家公司扛得住吗？</h4><p><b>真赚钱</b>还是烧钱讲故事？"<b>卖铲子</b>"还是"挖金子赌局"？价格贵不贵？崩盘能否幸存？</p></div>
+    </div>
+    <div class="warn">🔆 <b>反直觉悖论：</b>技术大获全胜≠造它的公司能赚钱。光伏征服世界，组件厂却打价格战破产。价值常归"卖铲子的"或"廉价用上技术的人"。</div>
+    <h3>普通人的 6 条落地原则</h3>
+    <div class="grid3">
+      <div class="gcard"><div class="gn">原则1</div><h4>买一篮子</h4><p>选不出赢家→用指数/ETF拥有整条浪，不押单一公司。</p></div>
+      <div class="gcard"><div class="gn">原则2</div><h4>分批定投</h4><p>同时治好"追高"和"踏空"，崩盘还能越买越便宜。</p></div>
+      <div class="gcard"><div class="gn">原则3</div><h4>仓位</h4><p>只投"跌80%也不被迫卖"的钱。幸存>优化。</p></div>
+      <div class="gcard"><div class="gn">原则4</div><h4>杠铃</h4><p>核心求稳(红利/债)+小块博高弹性。亏有底、赢无顶。</p></div>
+      <div class="gcard"><div class="gn">原则5</div><h4>卖铲子</h4><p>偏向基础设施/使能环节(芯片·电力·电网)。</p></div>
+      <div class="gcard"><div class="gn">原则6</div><h4>拓展期是主场</h4><p>错过泡沫≠错过浪。崩盘后买幸存者，赚更多风险更小。</p></div>
+    </div>
+    <div class="warn">🛟 <b>三条保命铁律：</b>① 不用杠杆　② 不投生活必需的钱　③ 不All in单一标的。违反任何一条，前面全白学。</div>
+  </section>
+
+  <!-- M7 -->
+  <section class="mod" id="m7">
+    <div class="mhead"><div class="mbadge">7</div><h2>加息降息调的是哪个利率？大宗商品又是什么？</h2></div>
+    <div class="qbox">💬 <b>你的提问：</b>为什么加息降息说的是存款利率而非贷款利率？大宗商品是什么，普通人为何也能参与？</div>
+
+    <h3>7A · 加息降息，其实调的是"政策利率"</h3>
+    <div class="essence"><div class="e-k">先纠一个误解</div>
+      <p>央行调的<b>既不是你的存款利率、也不是贷款利率</b>，而是更上游的<b>政策利率</b>（银行间的"批发价"）。存款和贷款利率，是被它拖着<b>一起动</b>的。</p></div>
+    <div class="chain">
+      <div class="ch"><b>政策利率</b>逆回购/MLF</div><div class="char">→</div>
+      <div class="ch"><b>引导 LPR</b>贷款端</div><div class="char">→</div>
+      <div class="ch"><b>房贷·企业贷</b></div><div class="char">＋</div>
+      <div class="ch"><b>带动存款利率</b>下行</div>
+    </div>
+    <div class="ribbon">🔑 <b>你困惑的真相（净息差）：</b>近年"存款降息"常常是<b>为了能继续给贷款降息</b>——央行压低 LPR 刺激经济→银行息差被挤→只好也降存款利率自保。两者是一对，常一前一后出现。</div>
+
+    <h3>7B · 大宗商品 = 标准化的基础原材料</h3>
+    <p style="font-size:13px;color:var(--muted)">四大特征：<b>标准化</b>(同质可交易)·<b>基础原材料</b>·<b>大批量</b>·<b>全球定价</b>。</p>
+    <div class="grid3">
+      <div class="gcard"><div class="gn">能源</div><h4>原油·天然气</h4><p>经济的"血液"</p></div>
+      <div class="gcard"><div class="gn">金属</div><h4>铜·铁·铝/黄金</h4><p>工业骨架 / 避险("铜博士")</p></div>
+      <div class="gcard"><div class="gn">农产品</div><h4>大豆·玉米·糖</h4><p>餐桌与软商品</p></div>
+    </div>
+    <p style="font-size:13px;"><b>普通人为何能参与？</b>你不碰实物，交易的是"<b>追踪价格的金融工具</b>"。标准化→上交易所→期货→ETF，把"一吨铜"变成账户里能买的数字。四条路径（风险高→低）：</p>
+    <div class="ladder">
+      <div class="rung r1"><span class="risk">最高</span><div><b>商品期货</b>　自带杠杆、会爆仓。新手勿碰。</div></div>
+      <div class="rung r2"><span class="risk">中</span><div><b>相关股票</b>　石油/矿业/金矿股，间接但混进个体风险。</div></div>
+      <div class="rung r3"><span class="risk">低</span><div><b>实物黄金</b>　金条/积存金，少数能拿实物的品种。</div></div>
+      <div class="rung r4"><span class="risk">最友好</span><div><b>商品 ETF/基金</b>　像买股票，不带杠杆、最多亏本金。<b>新手首选</b>。</div></div>
+    </div>
+    <div class="warn">⚠️ <b>风险铁律：</b>大宗商品<b>不下蛋</b>(无分红利息，回报纯靠价差)；远离期货杠杆；小心"移仓损耗"(长期未必跟住现货)；仓位要小，当"调味料"不当"主菜"。<b>价值：</b>抗通胀、避险分散（黄金随实际利率反向走）。</div>
+  </section>
+
+  <!-- M8 -->
+  <section class="mod" id="m8">
+    <div class="mhead"><div class="mbadge">8</div><h2>逆回购和 MLF 是什么，有什么作用？</h2></div>
+    <div class="qbox">💬 <b>你的提问：</b>逆回购、MLF 是什么，起什么作用？</div>
+    <div class="essence"><div class="e-k">一句话本质</div>
+      <p>两者都是"<b>央行借钱给商业银行</b>"的工具——一个借短钱、一个借中钱。央行借此同时干两件事：<b>调钱的量（放水/抽水）</b>和<b>定钱的价（政策利率）</b>。</p></div>
+    <table class="t">
+      <thead><tr><th class="dim">　</th><th>逆回购（7天为主）</th><th>MLF（麻辣粉）</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">期限</td><td>短（7/14天）</td><td>中（1年为主）</td></tr>
+        <tr><td class="dim">解决</td><td>临时短期钱荒（"应急水"）</td><td>中期稳定资金（"口粮"）</td></tr>
+        <tr><td class="dim">利率角色</td><td><b>主要政策利率</b>（2024后确立）</td><td>中期流动性工具（政策色彩已淡化）</td></tr>
+      </tbody>
+    </table>
+    <h3>三大作用 + 与"降准"的区别</h3>
+    <div class="grid3">
+      <div class="gcard"><div class="gn">作用1</div><h4>调"量"</h4><p>投放/回笼银行体系流动性，管"水位"。</p></div>
+      <div class="gcard"><div class="gn">作用2</div><h4>定"价"</h4><p>动 7天逆回购利率=中国版"降息"的核心动作。</p></div>
+      <div class="gcard"><div class="gn">作用3</div><h4>传导实体</h4><p>政策利率→LPR→房贷企业贷（接 M7）。</p></div>
+    </div>
+    <div class="cols2">
+      <div class="cbox d"><h4>逆回购/MLF＝"借钱式"放水</h4><p>有期限、要还、要抵押、要付息。临时的水。</p></div>
+      <div class="cbox b"><h4>降准＝"释放式"放水</h4><p>把冻结的准备金直接解冻，不用还、近乎免费、长期。力度更猛。</p></div>
+    </div>
+    <div class="ribbon">🔗 这些都是"<b>宽货币</b>"端的工具。但在 M3 的衰退里，钱放到银行间却放不出贷款——央行手柄按得很勤，链条却卡在下游。</div>
+  </section>
+
+  <!-- M9 -->
+  <section class="mod" id="m9">
+    <div class="mhead"><div class="mbadge">9</div><h2>货币创造：从"印钞"到"发到你手里"</h2></div>
+    <div class="qbox">💬 <b>你的提问：</b>货币从印钞到发放的依据与链路？中美差异？QE / 无限QE？PSL、买卖国债？<br><span style="color:var(--muted)">（本模块有独立的可视化深度版，这里是浓缩骨架）</span></div>
+    <div class="essence"><div class="e-k">一句话本质</div>
+      <p>绝大部分钱<b>不是"印"的，是"贷"的</b>。央行造"第一层(基础货币)"，<b>商业银行放贷</b>造"第二层(M2)"——后者才是绝大多数。QE/PSL/买国债，只是造第一层时的不同"水龙头"。</p></div>
+    <div class="cols2">
+      <div class="cbox b"><h4>第一层：央行</h4><p>买资产+记账→造基础货币。<b>凭空双分录</b>：资产、负债两边同时+100。</p></div>
+      <div class="cbox d"><h4>第二层：银行</h4><p>"贷款创造存款"，靠<b>货币乘数</b>(由准备金率定)层层放大成 M2。</p></div>
+    </div>
+    <div class="chain">
+      <div class="ch"><b>放贷</b>货币诞生</div><div class="char">↔</div>
+      <div class="ch"><b>还贷</b>货币消灭</div><div class="char">＝</div>
+      <div class="ch"><b>货币会"呼吸"</b>去杠杆=净消灭→接 M3</div>
+    </div>
+    <div class="grid2">
+      <div class="gcard"><div class="gn">非常规</div><h4>QE / 无限QE</h4><p>利率降到0后，央行直接大规模买长债压长端利率。"无限"=不设上限买到市场稳，2020美国用过。</p></div>
+      <div class="gcard"><div class="gn">中国特色</div><h4>PSL / 买卖国债</h4><p>PSL=定向中长期(棚改)；买卖国债=2024新主渠道(二级市场、双向)，不等于QE。</p></div>
+    </div>
+    <table class="t">
+      <thead><tr><th class="dim">维度</th><th>🇨🇳 人民币</th><th>🇺🇸 美元</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">"锚"</td><td class="cny">过去外汇占款，现转向国债</td><td class="usd">一直是美国国债</td></tr>
+        <tr><td class="dim">地位</td><td class="cny">国内货币+资本管制</td><td class="usd">全球储备货币，可向全球扩张</td></tr>
+        <tr><td class="dim">财政纪律</td><td class="cny">禁止直接给财政透支(二级市场操作)</td><td class="usd">事实上为巨额赤字接盘</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- END -->
+  <div class="endcard">
+    <h2>🎯 把 9 个模块连成一句话</h2>
+    <p>宏观的骨架，就是<b>钱的价格（利率）、数量（货币/社融）、温度（通胀通缩）</b>三者如何互相作用：</p>
+    <p>美联储定全球钱的价格(1) → 我们用社融/CPI读经济(2) → 中国正困在资产负债表衰退里(3) → 拉到康波看是旧浪退潮、新浪萌芽(4·6) → 底层靠名义/实际、通胀/通缩看穿名义假象(5) → 央行用利率与逆回购/MLF等工具(7·8)调节 → 而这一切的总源头，是货币如何被创造与消灭(9)。</p>
+    <p style="margin-top:14px;color:#fff;"><b>下一步可深挖：</b>流动性陷阱、金本位→信用货币演变史、财政与货币的分工、个人资产配置实战。点方向，继续。</p>
+  </div>
+
+  <div class="footer">宏观经济入门系列 · 全对话梳理版　|　第一性原理 · 结构化拆解 · 持续追问</div>
+</div>
+
+<a href="#" class="toTop" id="toTop">↑</a>
+<script>
+  const bar=document.getElementById('bar'), toTop=document.getElementById('toTop');
+  window.addEventListener('scroll',()=>{
+    const h=document.documentElement, st=h.scrollTop, sh=h.scrollHeight-h.clientHeight;
+    bar.style.width=(st/sh*100)+'%';
+    toTop.classList.toggle('show', st>500);
+  });
+</script>
+</body>
+</html>
