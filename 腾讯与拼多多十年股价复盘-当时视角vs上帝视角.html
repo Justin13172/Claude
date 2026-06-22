@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>腾讯 & 拼多多 十年股价复盘 · 当时视角 vs 上帝视角</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --tx:#1f6fb2;--tx-bg:#e9f2fa;--pdd:#e02e24;--pdd-bg:#fdeeed;--purple:#6a4c93;
+    --when:#b9770f;--god:#2f7d57;--lesson:#1f5f8b;
+    --radius:14px;--maxw:830px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1200px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:284px;flex:0 0 284px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.4px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--tx);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:56px 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:30px;line-height:1.32;margin:0 0 14px;letter-spacing:.3px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.t{border-color:#bcd6e8;color:var(--tx);background:var(--tx-bg)}
+  .pill.p{border-color:#f0b3b0;color:var(--pdd);background:var(--pdd-bg)}
+  section{padding:36px 0 8px;scroll-margin-top:18px}
+  h2{font-size:25px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h2.tx{border-color:#bcd6e8}h2.pdd{border-color:#f0b3b0}
+  h3{font-size:19px;margin:26px 0 6px;line-height:1.4}
+  p{margin:11px 0}
+  .lead{font-size:18px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  figure{margin:22px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  /* phase card */
+  .phase{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:22px 0;box-shadow:var(--shadow);background:#fff}
+  .phase .ph{padding:12px 18px;color:#fff;background:var(--tx)}
+  .phase.p .ph{background:var(--pdd)}
+  .phase .ph .t{font-weight:700;font-size:16.5px}
+  .phase .ph .px{font-size:13px;opacity:.93;margin-top:2px}
+  .phase .bd{padding:14px 20px}
+  .layer{padding:9px 0;border-bottom:1px dashed var(--line)}
+  .layer:last-child{border-bottom:none}
+  .layer .lb{display:inline-block;font-size:11.5px;font-weight:800;padding:1px 9px;border-radius:6px;margin-right:8px;vertical-align:1px}
+  .layer.when .lb{background:var(--gold-bg);color:var(--when)}
+  .layer.god .lb{background:var(--duan-bg);color:var(--god)}
+  .layer.lesson .lb{background:var(--buffett-bg);color:var(--lesson)}
+  .layer .tx-body{font-size:15px}
+  .tablewrap{overflow-x:auto;margin:16px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:8px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#f3eee2;font-size:12.5px;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  .neg{color:var(--danger);font-weight:700}.pos{color:var(--duan);font-weight:700}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px;color:var(--ink)}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft);font-style:normal}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  .danger{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .danger .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 44px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--buffett);color:#fff;text-align:center;line-height:28px;font-weight:800;font-size:14px}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:18px 0;color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:14px 18px;margin:24px 0}
+  .sources{font-size:12.8px;color:var(--ink-soft)}.sources li{margin:6px 0;word-break:break-all}.sources a{color:var(--buffett)}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    header.hero h1{font-size:24px}header.hero{padding:30px 0 18px}body{font-size:16px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.phase,figure svg{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 腾讯&拼多多十年股价复盘</summary>
+    <a href="#ch0">序章 · 两个视角的方法</a>
+    <a href="#tx">腾讯（00700）十年复盘</a>
+    <a href="#pdd">拼多多（PDD）复盘</a>
+    <a href="#lessons">综合 · 普通投资者的硬道理</a>
+    <a href="#sources">参考来源</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">腾讯 & 拼多多 · 十年股价复盘
+      <small>当时有限视角 vs 事后上帝视角<br>每次波动的原因 · 验证 · 教训</small>
+    </div>
+    <div class="grp">正文</div>
+    <a href="#ch0">序章 · 两个视角</a>
+    <a href="#tx">一、腾讯（00700）</a>
+    <a href="#tx-p1" class="sub">2015–18初 牛市</a>
+    <a href="#tx-p2" class="sub">2018 版号冻结 −45%</a>
+    <a href="#tx-p3" class="sub">2019–21初 到泡沫顶</a>
+    <a href="#tx-p4" class="sub">2021–22 监管+退市 −74%</a>
+    <a href="#tx-p5" class="sub">2022底–24 复苏</a>
+    <a href="#tx-p6" class="sub">2025 AI 重估</a>
+    <a href="#pdd">二、拼多多（PDD）</a>
+    <a href="#pdd-p1" class="sub">2018–19 质疑中起步</a>
+    <a href="#pdd-p2" class="sub">2020 暴涨</a>
+    <a href="#pdd-p3" class="sub">2021 峰值→暴跌</a>
+    <a href="#pdd-p4" class="sub">2022 谷底 $25.5</a>
+    <a href="#pdd-p5" class="sub">2023 反弹超阿里</a>
+    <a href="#pdd-p6" class="sub">2024–25 拐点</a>
+    <a href="#lessons">三、综合 · 硬道理</a>
+    <div class="grp">参考</div>
+    <a href="#sources">参考来源</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">A 10-YEAR REPLAY · TWO LENSES</span>
+    <h1>腾讯 &amp; 拼多多 · 十年股价复盘<br><span style="font-size:.6em;color:var(--ink-soft);font-weight:600">当时的"有限视角" vs 事后的"上帝视角"</span></h1>
+    <p class="sub">每一次大涨大跌，当时为什么发生、事后被验证成什么样、一个普通投资者能从中学到什么——逐段拆。</p>
+    <div class="pillrow">
+      <span class="pill t">腾讯 00700 · 完整十年</span>
+      <span class="pill p">拼多多 PDD · 2018 上市至今</span>
+      <span class="pill">真实价位 + 确切事件日期</span>
+    </div>
+    <div class="crosslink">📎 本篇是价值投资系列的"实战复盘"篇，把前面所有概念（价格 vs 价值、市场有效性三漏洞、安全边际、能力圈、价值陷阱、时间维度优势）放到两家真实公司的十年 K 线上检验。</div>
+    <div class="disclaimer"><b>重要提示：</b>本文为<b>投资认知的学习材料，非投资建议</b>。股价点位与事件日期来自公开财经媒体报道（见文末来源），为<b>近似值</b>，个别数字不同来源略有出入（如腾讯 2021 历史高点在 HK$740–775 区间、拼多多 2021 高点在 \$203–212 区间），<b>精确数据请以行情软件/原始公告为准</b>。腾讯为港股、拼多多为美股 ADR（含 VIE/退市等风险）。</div>
+  </header>
+
+  <!-- 序章 -->
+  <section id="ch0">
+    <span class="chapnum">序章</span>
+    <h2>用"两个视角"看同一条 K 线</h2>
+    <p class="lead">复盘最大的陷阱是"事后诸葛亮"——回看时一切都显得理所当然。为对抗它，本篇每段都强制分成两个视角。</p>
+    <div class="fp">
+      <div class="lab">方法：当时视角 ✕ 上帝视角</div>
+      <p style="margin:8px 0"><b>① 当时·有限视角：</b>把自己放回那个时点，只用当时能看到的信息和当时的恐惧/贪婪——你会发现很多"事后看显然的机会"，在当时是真的可怕、真的不确定。</p>
+      <p style="margin:8px 0"><b>② 事后·上帝视角：</b>用今天已知的结果回看，判断当时的价格到底是"情绪错杀"还是"看对了基本面"。</p>
+      <p style="margin:8px 0"><b>③ 普通投资者的教训/机会：</b>这两个视角的差，就是可学习的经验。</p>
+    </div>
+    <p>贯穿全篇你会反复看到一个事实（也是前几篇的核心）：<b>这十年里两家公司的股价摆幅高达 5–8 倍，而它们的"生意价值"从没这样剧烈地变过。</b>价格 ≠ 价值，在这两条 K 线上被演绎得淋漓尽致。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ===================== 腾讯 ===================== -->
+  <section id="tx">
+    <span class="chapnum">第一部分</span>
+    <h2 class="tx">腾讯控股（00700.HK）· 完整十年</h2>
+    <figure>
+      <svg viewBox="0 0 720 280" role="img" aria-label="腾讯十年股价示意">
+        <text x="360" y="22" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">腾讯股价十年示意（港元，近似）</text>
+        <line x1="55" y1="245" x2="700" y2="245" stroke="#999"/><line x1="55" y1="40" x2="55" y2="245" stroke="#999"/>
+        <!-- y ticks -->
+        <text x="48" y="60" text-anchor="end" font-size="10" fill="#888">~750</text>
+        <text x="48" y="150" text-anchor="end" font-size="10" fill="#888">~400</text>
+        <text x="48" y="230" text-anchor="end" font-size="10" fill="#888">~150</text>
+        <!-- path: 2015~120, 2018/1 476, 2018/10 265, 2021/1 748, 2022/10 198, 2024 ~430, 2025 ~517 -->
+        <polyline points="75,225 175,118 245,178 360,57 470,222 560,140 640,108 690,100" fill="none" stroke="#1f6fb2" stroke-width="2.5"/>
+        <circle cx="175" cy="118" r="4.5" fill="#c0392b"/><text x="175" y="110" text-anchor="middle" font-size="10" fill="#c0392b">'18/1 ~476</text>
+        <circle cx="245" cy="178" r="4.5" fill="#2f7d57"/><text x="245" y="196" text-anchor="middle" font-size="10" fill="#2f7d57">'18/10 ~265</text>
+        <circle cx="360" cy="57" r="5" fill="#c0392b"/><text x="360" y="49" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c0392b">'21/1 ~748 历史高</text>
+        <circle cx="470" cy="222" r="5" fill="#2f7d57"/><text x="470" y="240" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2f7d57">'22/10 ~198 谷底</text>
+        <circle cx="640" cy="108" r="4.5" fill="#1f6fb2"/><text x="660" y="95" text-anchor="middle" font-size="10" fill="#1f6fb2">'25 ~517</text>
+        <text x="75" y="238" font-size="9" fill="#888">'15</text><text x="360" y="238" font-size="9" fill="#888">'21</text><text x="685" y="238" font-size="9" fill="#888">'25</text>
+      </svg>
+      <figcaption>从 2018 顶到 2018 底（−45%）、再到 2021 历史高、再崩到 2022 谷底（−74%）、再到 2024–25 复苏——十年走了一个巨大的"过山车 + 创新高"。</figcaption>
+    </figure>
+
+    <!-- TX P1 -->
+    <div class="phase" id="tx-p1">
+      <div class="ph"><div class="t">阶段 1 · 2015–2018 初：移动游戏 + 微信变现的大牛市</div><div class="px">约 HK$120 → HK$475.72（2018/1 见顶）</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">《王者荣耀》引爆手游、微信开始放广告，业绩连年高增；2017 年底市值逼近 5000 亿美元，"中国最强互联网公司"的信仰达到顶点，人人都在追。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">增长是真金白银的，但到 2018 年初，估值已被推到极高——这是典型的"好生意 + 为完美定价"。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">牛市顶点的"信仰"，往往是最大风险的起点。再好的公司，买在这种价位，未来几年大概率先还债。</span></div>
+      </div>
+    </div>
+
+    <!-- TX P2 -->
+    <div class="phase" id="tx-p2">
+      <div class="ph"><div class="t">阶段 2 · 2018：游戏版号冻结 + 贸易战（−45%）</div><div class="px">HK$475.72 → 约 HK$265（2018/10）</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">监管机构改组导致<b>游戏版号暂停审批（约 2018 年 3 月–12 月）</b>，腾讯出现约 13 年来<b>首次单季利润下滑</b>，叠加中美贸易战与美股科技股回调，市场弥漫"腾讯增长见顶"的恐慌，股价连跌、一度创史上最长连跌。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">版号 2018 年底恢复审批，游戏业务重回正轨——这是一次<b>"暂时受伤"，不是结构性崩坏</b>。HK$265 事后看是黄金坑。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">把"暂时的政策冲击"误读成"永久的终结"，是恐慌的典型。但要诚实：<b>当时你并不知道版号一定会恢复</b>——能不能在底部出手，取决于你判断"生意没坏"的能力，而不是"跌多了就买"。</span></div>
+      </div>
+    </div>
+
+    <!-- TX P3 -->
+    <div class="phase" id="tx-p3">
+      <div class="ph"><div class="t">阶段 3 · 2019–2021 初：复苏到泡沫顶</div><div class="px">约 HK$265 → HK$748.5（2021/1/25 历史最高，市值破 7 万亿港元）</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">版号恢复 + 疫情宅经济（游戏、广告、金融科技、云全面爆发），2021 年 1 月 25 日盘中冲到约 HK$741、收 HK$748.5，市值突破 7 万亿港元，被誉为"封神"。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">第二次"为完美定价"，而这次顶部紧接着的是史上最猛的监管风暴——顶买入者将面对约 74% 的回撤。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">同一种错误（顶部 FOMO）在三年里重演。<b>市值/估值越是创纪录、舆论越是狂热，越要警惕。</b></span></div>
+      </div>
+    </div>
+
+    <!-- TX P4 -->
+    <div class="phase" id="tx-p4">
+      <div class="ph"><div class="t">阶段 4 · 2021–2022/10：监管整顿 + 退市恐慌 + 大股东减持 + 首次营收下滑（−74%）</div><div class="px">HK$748.5 → 约 HK$198（2022/10）</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">连环重击：平台反垄断、"<b>精神鸦片</b>"檄文、<b>未成年人每周仅 3 小时游戏新规（2021/8/30）</b>、版号再度冻结、<b>大股东 Prosus 宣布有序减持（2022/6/27）</b>带来巨大抛压、零 COVID 封控、<b>HFCAA 退市恐慌</b>导致中概被无差别抛售；腾讯还录得<b>上市以来首次年度营收下滑（2022 全年营收 5545 亿元，−1%；归母净利 1882 亿元，−16%）</b>。最悲观时，市场在认真讨论"中国互联网模式是否终结"。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">这是一次<b>严厉但可生还的监管重置</b>：版号 2022 年底恢复、反垄断告一段落、退市框架于 2022/12 缓解。生意被打伤，但没被打死。HK$198 是十年大底。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">这是检验"别人恐惧我贪婪"的真实战场——但当时的恐惧（监管/退市/地缘）<b>是真实且不可预测的尾部风险，不是纯情绪噪音</b>。正确姿态：①判断生意没被结构性摧毁且能说清理由；②留足安全边际；③绝不押身家。同时这里把<b>"漏洞②③"</b>演到极致：定价的是被迫减持的大股东、被赎回的中概基金、无差别砸盘的 ADR 卖盘——<b>都不是在估值的人</b>。</span></div>
+      </div>
+    </div>
+
+    <!-- TX P5 -->
+    <div class="phase" id="tx-p5">
+      <div class="ph"><div class="t">阶段 5 · 2022底–2024：反转与高质量复苏</div><div class="px">约 HK$198 → HK$400+（含 2023/12 单日 −12% 虚惊）</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">重开 + 版号恢复点燃反弹；但 2023 年中国复苏不及预期、股价反复；<b>2023/12/22 网游新规草案</b>（限制每日登录/充值诱导）令腾讯<b>单日暴跌约 12.3%</b>（网易跌更惨），市场又一次恐慌"行业寒冬重来"。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">那份草案随后被监管<b>软化/搁置</b>，股价收复；2024 成为强劲复苏年——<b>全年回购 1120 亿港元（注销式，总股本降至十年最低）</b>、视频号高毛利广告放量、<b>《DNF 手游》2024/5/21 上线即爆款</b>，盈利质量显著提升。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">①2023/12 的单日 −12% 又是一次"政策虚惊"——边际恐慌盘定价、事后回归；②<b>巨额注销式回购</b>＝"价值无感的持续买盘" + 管理层"我自己都觉得便宜"的信号，是普通投资者该重视的强信号。</span></div>
+      </div>
+    </div>
+
+    <!-- TX P6 -->
+    <div class="phase" id="tx-p6">
+      <div class="ph"><div class="t">阶段 6 · 2025：AI 重估</div><div class="px">约 HK$365（2024/1 低）→ HK$517（2025/2 近四年新高）</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">2025 年 2 月，<b>微信灰度测试接入 DeepSeek</b>，引爆"中国资产重估"情绪，腾讯股价站上 HK$500、2/21 达约 HK$517，创近四年新高，市值约 4.75 万亿港元。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">（仍在进行）AI 叙事 + 持续回购 + 游戏/广告复苏共同驱动；但"重估"里也掺着新一轮的乐观情绪，需警惕是否又在为"完美的 AI 前景"提前定价。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">叙事（这次是 AI）再次成为边际情绪的放大器。方向也许对，但"好故事"从不豁免"好价格"这一条。</span></div>
+      </div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ===================== 拼多多 ===================== -->
+  <section id="pdd">
+    <span class="chapnum">第二部分</span>
+    <h2 class="pdd">拼多多（PDD，NASDAQ）· 2018 上市至今</h2>
+    <figure>
+      <svg viewBox="0 0 720 280" role="img" aria-label="拼多多股价示意">
+        <text x="360" y="22" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">拼多多股价示意（美元/ADS，近似）</text>
+        <line x1="55" y1="245" x2="700" y2="245" stroke="#999"/><line x1="55" y1="40" x2="55" y2="245" stroke="#999"/>
+        <text x="48" y="58" text-anchor="end" font-size="10" fill="#888">~205</text>
+        <text x="48" y="150" text-anchor="end" font-size="10" fill="#888">~110</text>
+        <text x="48" y="232" text-anchor="end" font-size="10" fill="#888">~20</text>
+        <!-- 2018 19, 2020 180~ , 2021/2 203, 2022/10 25.5, 2023 150, 2024/8 drop, 2025 86 -->
+        <polyline points="80,228 150,222 250,78 300,57 430,235 520,98 560,150 620,170 690,175" fill="none" stroke="#e02e24" stroke-width="2.5"/>
+        <circle cx="80" cy="228" r="4" fill="#888"/><text x="80" y="220" text-anchor="middle" font-size="9.5" fill="#888">'18 IPO $19</text>
+        <circle cx="300" cy="57" r="5" fill="#c0392b"/><text x="300" y="49" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c0392b">'21/2 ~$203 历史高</text>
+        <circle cx="430" cy="235" r="5" fill="#2f7d57"/><text x="430" y="232" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2f7d57">'22/10 ~$25.5 谷底</text>
+        <circle cx="520" cy="98" r="4.5" fill="#1f6fb2"/><text x="520" y="90" text-anchor="middle" font-size="10" fill="#1f6fb2">'23 ~$150</text>
+        <circle cx="690" cy="175" r="4.5" fill="#e02e24"/><text x="675" y="167" text-anchor="middle" font-size="10" fill="#e02e24">'25 ~$86</text>
+        <text x="80" y="238" font-size="9" fill="#888">'18</text><text x="430" y="258" font-size="9" fill="#888">'22</text><text x="685" y="238" font-size="9" fill="#888">'25</text>
+      </svg>
+      <figcaption>从 IPO \$19 → 2021 顶 ~\$203 → 2022 底 ~\$25.5 → 2023 ~\$150 → 现 ~\$86。3 年内 8 倍区间的剧烈摆动。</figcaption>
+    </figure>
+
+    <!-- PDD P1 -->
+    <div class="phase p" id="pdd-p1">
+      <div class="ph"><div class="t">阶段 1 · 2018–2019：质疑中起步</div><div class="px">2018/7/26 IPO \$19 → 约 \$17–40 震荡</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">顶着"假货、巨额亏损、烧钱补贴"的质疑上市，主流不信它能盈利、能活。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">下沉市场 + 拼团 + 农产品的模式被严重低估，GMV 与用户高速增长，为日后盈利爆发埋下伏笔。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">被主流"看不上/看不懂"的公司，常是错价富矿——但也最难判断真伪（大量类似公司确实死了）。这正是"能力圈"该出场的地方。</span></div>
+      </div>
+    </div>
+
+    <!-- PDD P2 -->
+    <div class="phase p" id="pdd-p2">
+      <div class="ph"><div class="t">阶段 2 · 2020：暴涨</div><div class="px">约 \$30 → 约 \$180</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">疫情宅经济 + 农产品上行 + 用户爆发，叙事从"低质"翻转为"增长神话"，资金疯狂涌入。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">增长是真的，但估值被推入泡沫区——又一个"基本面真好 + 价格冲过头"。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">叙事反转期，价格最容易脱离价值。增长越快，市场越倾向线性外推到永远。</span></div>
+      </div>
+    </div>
+
+    <!-- PDD P3 -->
+    <div class="phase p" id="pdd-p3">
+      <div class="ph"><div class="t">阶段 3 · 2021/2：历史峰值 → 暴跌</div><div class="px">~\$203（2021/2，盘中一度约 \$212）一路下行</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">除了行业监管风暴，<b>2021/8/24 拼多多自己宣布设立"百亿农研专项"</b>，董事长陈磊称"本季度全部利润及以后几个季度的利润将优先投入，直至 100 亿"——市场读成"盈利遥遥无期"，叠加中概恐慌，开始崩。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">那笔"主动放弃短期利润"的重投入，从长期看是在加固护城河、并配合后来的高质量增长；但短期市场只按"投票机"反应，狠狠惩罚。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">管理层着眼长期的决策，常被短期市场惩罚——这正是<b>时间维度差异</b>制造错价的来源，也是有耐心的人能利用的地方。</span></div>
+      </div>
+    </div>
+
+    <!-- PDD P4 -->
+    <div class="phase p" id="pdd-p4">
+      <div class="ph"><div class="t">阶段 4 · 2022/10：谷底 ~\$25.5</div><div class="px">较 2021 峰值跌约 87%</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">HFCAA 退市恐慌顶点 + 零 COVID，中概被无差别抛售；PDD 被当成"快退市的中国公司"在卖，跌到约 \$25.5。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">而财报显示它<b>利润正在爆发（2022 净利约 315 亿元，同比 +306%）</b>，且 <b>Temu 已于 2022/9 在美国上线</b>——价值与价格极致背离，剔除现金后经营业务估值低到离谱。这是十年级别的黄金坑。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">教科书级的"好公司 + 暂时恐慌 + 厚安全边际"。但退市这个尾部风险当时<b>真实且不可知</b>——抄底者是在"赔率极好但有真实尾部风险"的赌局上下注，靠独立判断 + 安全边际，不是"跌多了就买"。</span></div>
+      </div>
+    </div>
+
+    <!-- PDD P5 -->
+    <div class="phase p" id="pdd-p5">
+      <div class="ph"><div class="t">阶段 5 · 2023：反弹，市值一度超阿里</div><div class="px">~\$25.5 → 2023 高约 \$150</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">Temu 出海炒作 + 业绩强劲（2023 营收 +90%），叙事反转为"中国电商最强增长 + 全球扩张"；<b>2023/11/29 盘中市值一度超越阿里（约 1924 亿 vs 1918 亿美元）</b>，成最大中概股。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">增长确实强，但 Temu 的盈利模式、可持续性远未验证——叙事再次跑在了基本面前面。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">从 \$25 到 \$150 的约 6 倍，主要是<b>情绪与叙事的钟摆从极度悲观荡到乐观</b>，基本面没有 6 倍。又一次"投票机"。</span></div>
+      </div>
+    </div>
+
+    <!-- PDD P6 -->
+    <div class="phase p" id="pdd-p6">
+      <div class="ph"><div class="t">阶段 6 · 2024–2025：增长拐点与利润首降</div><div class="px">2024/8 单日暴跌约 −29% → 2025 现价 ~\$86</div></div>
+      <div class="bd">
+        <div class="layer when"><span class="lb">当时</span><span class="tx-body">2024 年 8 月二季报后，尽管营收同比 +86%，<b>管理层罕见地反复泼冷水</b>（"增速会放缓、利润率会下降、要大举投入、竞争激烈"），股票<b>单日暴跌约 28–29%</b>。2025 年又遇 Temu 因美国取消 de minimis + 关税正面冲击。</span></div>
+        <div class="layer god"><span class="lb">事后</span><span class="tx-body">管理层是对的——<b>2025 全年营收仅 +10%、归母净利 −12%（上市以来首次利润下滑）</b>。这次的暴跌不是"情绪错杀"，而是<b>真实的基本面拐点</b>。</span></div>
+        <div class="layer lesson"><span class="lb">教训</span><span class="tx-body">①管理层主动预警，事后看是诚实的；②<b>同样是单日暴跌，2022 的是错杀（该买），2024 的是真拐点（该警惕）——区分这两者的功力，才是胜负手。</b>不能见跌就抄。</span></div>
+      </div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ===================== 综合 ===================== -->
+  <section id="lessons">
+    <span class="chapnum">第三部分 · 综合</span>
+    <h2>把两家放一起：普通投资者该带走的硬道理</h2>
+
+    <h3>两条 K 线的"价格摆幅 vs 价值摆幅"对照</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>公司</th><th>顶（时点/价位）</th><th>底（时点/价位）</th><th>最大回撤</th><th>同期生意</th></tr></thead>
+      <tbody>
+        <tr><td class="pos">腾讯</td><td>2021/1 ~HK$748</td><td>2022/10 ~HK$198</td><td class="neg">约 −74%</td><td>营收仅 −1%、利润 −16%（仍盈利 1882 亿）</td></tr>
+        <tr><td class="pos">拼多多</td><td>2021/2 ~\$203</td><td>2022/10 ~\$25.5</td><td class="neg">约 −87%</td><td>利润反而在 2022 暴涨 +306%</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:14px;color:var(--ink-soft)">看清这张表：<b>股价跌了七八成，生意根本没跌七八成——拼多多利润甚至在大涨。</b>这就是"价格 ≠ 价值"最直接的证据，也是市场有效性三个漏洞（共识会错、边际盘定价、大量资金不估值）的实证。</p>
+
+    <div class="warn">
+      <div class="lab">🧭 八条可迁移的经验</div>
+      <ol class="steps">
+        <li><b>价格摆幅远大于价值摆幅。</b>5–8 倍的波动里，大部分是情绪和被迫流，不是基本面。把波动当机会、别当信号。</li>
+        <li><b>顶部的共同剧本：好公司 + 离谱价格 = 灾难。</b>2021 年初两家都在顶；买在那里即便公司继续变好，也要深套数年。<b>好公司也要好价格。</b></li>
+        <li><b>底部的共同剧本：好公司 + 真实恐慌（非纯噪音）= 黄金坑。</b>2022 年的腾讯 HK$198、拼多多 \$25.5 都是。但恐惧（退市/监管/地缘）是<b>真实且不可知的尾部风险</b>——"别人恐惧我贪婪"只在你能判断"生意没坏"且留足安全边际时才成立。</li>
+        <li><b>区分"暂时受伤" vs "结构性恶化"是胜负手。</b>腾讯 2018 版号冻结、2023/12 草案虚惊＝暂时（回归）；拼多多 2024 的减速＝真拐点（兑现）。当下都像"暴跌"，只能回到生意本身判断，而且你仍可能错——所以要安全边际兜底。</li>
+        <li><b>同样是单日暴跌，含义可以相反。</b>PDD 2022 的跌是错杀，2024 的跌是真相。见跌就抄＝迟早接到价值陷阱。</li>
+        <li><b>定价的常常不是"在估值的人"。</b>Prosus 减持腾讯、中概 ADR 被无差别抛售、被赎回的基金、回购的公司——看懂这一层，才不会把别人的被迫行为误读成"市场对基本面的判决"。</li>
+        <li><b>时间维度是普通人的最大优势——但前提是拿得住。</b>能扛过 2021–2022 的人，在 2024–2025 收获；多数机构因考核/赎回被迫在底部割。而你能拿住的唯一办法，是<b>真看懂了它、且没加杠杆/没押身家</b>。</li>
+        <li><b>中概有"建不进模型"的尾部风险（监管/退市/地缘）。</b>要么承认看不清、少下注或不碰；要么要求<b>比一般情况更厚的安全边际</b>来补偿。</li>
+      </ol>
+    </div>
+
+    <div class="danger">
+      <div class="lab">⚠️ 必须诚实的一刀</div>
+      <p style="margin:6px 0">本篇是<b>事后</b>复盘，最大的危险是"事后诸葛亮"。请记住：<b>2022 年那个底，当时身处其中的人面对的是真实的、可能不会反转的恐惧</b>（"中概是否归零"在当时是认真的问题）。所以这些案例证明的是"错价会出现、耐心+看懂能有回报"，<b>绝不</b>等于"跌了就抄、抄了就赚"。凯恩斯："市场保持非理性的时间，可能长过你保持不破产的时间。"</p>
+    </div>
+
+    <blockquote>"市场短期是投票机，长期是称重机。"——这十年的腾讯与拼多多，把"投票机"的疯狂（顶部狂热、底部恐慌、叙事钟摆）和"称重机"的最终回归，演了个完整。<span class="who">— 本杰明·格雷厄姆（大意）</span></blockquote>
+    <p>给普通投资者最朴素的落地：<b>用闲钱、不加杠杆、分散、别在狂热顶 FOMO、别在恐慌底割肉；做不到独立判断"受伤还是崩坏"，宽基指数/定投永远是诚实的默认选项。</b></p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 来源 -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考来源</h2>
+    <p style="font-size:13px;color:var(--ink-soft)">股价点位与事件日期来自公开财经媒体报道，为近似值（不同来源个别数字略有出入），用于说明逻辑；精确数据请以行情软件/公司公告为准。</p>
+    <ol class="sources">
+      <li>腾讯 2018 峰值 HK$475.72、2018/10 因版号冻结+美股科技股回调跌至约 HK$265、较峰值 −40%+：Investing.com 历史数据、澎湃/证券时报相关报道。</li>
+      <li>腾讯 2021/1/25 盘中约 HK$741、收 HK$748.5、市值破 7 万亿港元（历史最高）：第一财经 yicai.com、证券时报 stcn.com。</li>
+      <li>腾讯 2022/6/27 大股东 Prosus 宣布有序减持：证券时报 qzs.stcn.com（2022/6/27）。</li>
+      <li>腾讯 2022 全年营收 5545.5 亿元（−1%，首次营收下滑）、归母净利 1882.4 亿元（−16%）：第一财经 <a href="https://www.yicai.com/news/101709024.html">yicai.com/news/101709024</a>。</li>
+      <li>腾讯 2022/10 跌破 HK$200（约 HK$198，十年大底）：21 世纪经济报道 21jingji.com（2022/9）。</li>
+      <li>腾讯 2023/12/22《网络游戏管理办法（草案）》当日股价 −12.3%、市值缩水约 3300 亿：新浪财经 finance.sina.com.cn（2023/12/22）、腾讯新闻 news.qq.com/rain/a/20231222A0703O00。</li>
+      <li>腾讯 2024 全年回购 1120 亿港元（注销式，总股本 96.1 亿→92.2 亿，十年最低）：第一财经 <a href="https://www.yicai.com/news/102427112.html">yicai.com/news/102427112</a>、证券时报 stcn.com/article/detail/1478499。</li>
+      <li>《DNF 手游》（地下城与勇士：起源）2024/5/21 上线、首月流水预估超 50 亿：每日经济新闻 nbd.com.cn/articles/2024-04-22/3343230。</li>
+      <li>腾讯 2025/2 微信灰测接入 DeepSeek、股价站上 HK$500、2/21 达约 HK$517（近四年新高）、市值约 4.75 万亿港元：21 世纪经济报道 21jingji.com（2025/2/17）、证券时报 stcn.com/article/detail/1529588。</li>
+      <li>拼多多 2018/7/26 IPO \$19；2021/2 中旬历史最高约 \$203（盘中一度约 \$212）；2022/10 谷底约 \$25.53；2023 高约 \$150.09；2024 区间约 \$89–158；现价约 \$86：维基百科、macrotrends、stockanalysis、新浪财经历史数据。</li>
+      <li>拼多多 2021/8/24 设"百亿农研专项"、陈磊称利润优先投入直至 100 亿；2021Q2 营收 230 亿（+89%）、净利 24 亿：新浪科技 <a href="https://finance.sina.com.cn/tech/2021-08-25/doc-ikqciyzm3398208.shtml">finance.sina.com.cn</a>、观察者网 guancha.cn。</li>
+      <li>拼多多 2023/11/29 盘中市值一度超阿里（约 1924 亿 vs 1918 亿美元），成最大中概股：新浪财经 finance.sina.com.cn/wm/2023-12-01。</li>
+      <li>拼多多 2024/8 二季报后单日暴跌约 28–29%（营收+86% 但管理层警示放缓/重投入）；2025 全年营收 +10%、归母净利 −12%（详见本系列 PDD 一手财报篇）。</li>
+      <li>Temu 2022/9 在美国上线（见本系列《拼多多商业模式·SEC 一手财报版》）。</li>
+    </ol>
+    <p style="font-size:12.5px;color:#8a8170;margin-top:10px">注：本篇为复盘与认知科普，非投资建议；提及公司仅作案例分析，不构成推荐。</p>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>
