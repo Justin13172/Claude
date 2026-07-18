@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投资者偏误全景图 · 行为金融学深度讲解（七大家族 × 23个偏误）</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --purple:#6a4c93;--purple-bg:#efe9f5;--teal:#0e7c7b;--teal-bg:#e6f2f2;
+    --f1:#c0392b;--f2:#b8860b;--f3:#6a4c93;--f4:#1f5f8b;--f5:#0e7c7b;--f6:#2f7d57;--f7:#5d6d7e;
+    --radius:14px;--maxw:830px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1210px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:286px;flex:0 0 286px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.4px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--danger);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:56px 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:30px;line-height:1.32;margin:0 0 14px;letter-spacing:.3px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.r{border-color:#e6a99f;color:var(--danger);background:var(--danger-bg)}
+  .pill.b{border-color:#bcd6e8;color:var(--buffett);background:var(--buffett-bg)}
+  section{padding:36px 0 8px;scroll-margin-top:18px}
+  h2{font-size:25px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:19px;margin:26px 0 6px;line-height:1.4}
+  p{margin:11px 0}
+  .lead{font-size:18px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  /* family header */
+  .famhead{border-radius:var(--radius);padding:16px 20px;margin:24px 0 14px;color:#fff;box-shadow:var(--shadow)}
+  .famhead .ft{font-size:19px;font-weight:800}
+  .famhead .fr{font-size:14px;margin-top:6px;opacity:.95;line-height:1.7}
+  /* bias card */
+  .bias{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin:16px 0;box-shadow:var(--shadow);border-left:5px solid var(--line)}
+  .bias .bh{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+  .bias .num{flex:0 0 auto;width:30px;height:30px;border-radius:50%;color:#fff;text-align:center;line-height:30px;font-weight:800;font-size:13px}
+  .bias .bn{font-size:17.5px;font-weight:800}
+  .bias .en{font-size:12px;color:#98a0a8;font-weight:500}
+  .brow{padding:7px 0;border-bottom:1px dashed var(--line);font-size:14.8px}
+  .brow:last-child{border-bottom:none}
+  .brow .bl{display:inline-block;font-size:11.5px;font-weight:800;padding:1px 9px;border-radius:6px;margin-right:8px;vertical-align:1px;white-space:nowrap}
+  .bl.mech{background:#f3eee2;color:#8a6d1a}
+  .bl.evid{background:var(--purple-bg);color:var(--purple)}
+  .bl.mkt{background:var(--danger-bg);color:var(--danger)}
+  .bl.cut{background:var(--duan-bg);color:var(--duan)}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px;color:var(--ink)}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft);font-style:normal}
+  figure{margin:22px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  .tablewrap{overflow-x:auto;margin:16px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:8px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#f3eee2;font-size:12.5px;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  .neg{color:var(--danger);font-weight:700}.pos{color:var(--duan);font-weight:700}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  .danger{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .danger .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  .defense{background:var(--paper-2);border:1px solid var(--line);border-left:5px solid var(--duan);border-radius:var(--radius);padding:14px 20px;margin:14px 0;box-shadow:var(--shadow)}
+  .defense .dh{font-weight:800;font-size:16px;margin-bottom:4px}
+  .defense .dh .dn{display:inline-block;width:26px;height:26px;border-radius:50%;background:var(--duan);color:#fff;text-align:center;line-height:26px;font-weight:800;font-size:13px;margin-right:8px}
+  .defense .dvs{font-size:12.5px;color:var(--ink-soft);margin-top:6px}
+  .defense .dvs b{color:var(--danger)}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:18px 0;color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:14px 18px;margin:24px 0}
+  .sources{font-size:12.8px;color:var(--ink-soft)}.sources li{margin:6px 0}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .mobilebar{display:none}
+  /* ===== 动画 ===== */
+  @keyframes drawline{to{stroke-dashoffset:0}}
+  .drawpath{stroke-dasharray:900;stroke-dashoffset:900;animation:drawline 2.8s ease-out forwards}
+  @keyframes cycpulse{0%,100%{opacity:.55;transform:scale(1)}12%{opacity:1;transform:scale(1.06)}24%{opacity:.55;transform:scale(1)}}
+  .cyc{transform-origin:center;transform-box:fill-box;animation:cycpulse 9s infinite}
+  .cyc1{animation-delay:0s}.cyc2{animation-delay:1.5s}.cyc3{animation-delay:3s}
+  .cyc4{animation-delay:4.5s}.cyc5{animation-delay:6s}.cyc6{animation-delay:7.5s}
+  @keyframes painflash{0%,100%{opacity:.35}50%{opacity:1}}
+  .pain{animation:painflash 1.6s ease-in-out infinite}
+  @keyframes cutglow{0%,100%{opacity:.5}50%{opacity:1}}
+  .cutmark{animation:cutglow 2.2s ease-in-out infinite}
+  @media (prefers-reduced-motion: reduce){
+    .drawpath{animation:none;stroke-dashoffset:0}
+    .cyc,.pain,.cutmark{animation:none;opacity:1}
+  }
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    header.hero h1{font-size:24px}header.hero{padding:30px 0 18px}body{font-size:16px}
+    th,td{padding:7px 8px;font-size:12px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.bias,figure svg{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 投资者偏误全景图</summary>
+    <a href="#ch0">第一部分 · 偏误从哪来</a>
+    <a href="#f1">家族一 · 得失不对称</a>
+    <a href="#f2">家族二 · 参照点依赖</a>
+    <a href="#f3">家族三 · 模式饥渴</a>
+    <a href="#f4">家族四 · 自我防御</a>
+    <a href="#f5">家族五 · 控制感需求</a>
+    <a href="#f6">家族六 · 社会性动物</a>
+    <a href="#f7">家族七 · 框架敏感</a>
+    <a href="#cycle">绞肉机循环</a>
+    <a href="#defense">防御体系</a>
+    <a href="#cheat">速查表</a>
+    <a href="#sources">参考文献</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">投资者偏误全景图
+      <small>行为金融学 · 七大家族 × 23 个偏误<br>机制 · 实验 · 盘面表现 · 剪断法</small>
+    </div>
+    <div class="grp">正文</div>
+    <a href="#ch0">第一部分 · 偏误从哪来</a>
+    <a href="#f1">家族一 · 得失不对称（5）</a>
+    <a href="#f2">家族二 · 参照点依赖（2）</a>
+    <a href="#f3">家族三 · 模式饥渴（5）</a>
+    <a href="#f4">家族四 · 自我防御（4）</a>
+    <a href="#f5">家族五 · 控制感需求（2）</a>
+    <a href="#f6">家族六 · 社会性动物（3）</a>
+    <a href="#f7">家族七 · 框架敏感（2）</a>
+    <a href="#cycle">第三部分 · 绞肉机循环</a>
+    <a href="#defense">第四部分 · 防御体系</a>
+    <a href="#cheat">附录 · 23偏误速查表</a>
+    <div class="grp">参考</div>
+    <a href="#sources">参考文献</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">BEHAVIORAL FINANCE · FIELD GUIDE</span>
+    <h1>投资者偏误全景图<br><span style="font-size:.6em;color:var(--ink-soft);font-weight:600">七大家族 × 23 个偏误：机制、实验、盘面表现与剪断法</span></h1>
+    <p class="sub">这些偏误不是"你的毛病"，是人类大脑的出厂设置。聪明治不了，"知道了"也治不了——本篇的目标是：理解生成机制到能识别一切变体，然后用流程设计让它们无处发力。</p>
+    <div class="pillrow">
+      <span class="pill r">23 个偏误 · 按根源归类</span>
+      <span class="pill b">经典实验 + 真实数据</span>
+      <span class="pill">含动画演示 · 速查表</span>
+    </div>
+    <div class="crosslink">📎 本篇是价值投资系列的"心理篇"。行为偏误是《市场有效性三个漏洞》的微观基础——所有人共享同一套出厂设置，价格才会在极端处系统性偏离价值。本篇最后的防御体系，与前面建立的唱反调测试、证伪测试、投资笔记、安全边际全部打通。</div>
+    <div class="disclaimer"><b>说明：</b>本文为投资心理学的学习材料，<b>非投资建议</b>。所引实验为行为经济学经典研究（文末列文献），数字为原研究的近似转述（标"约"）；市场案例（腾讯/拼多多等）细节见本系列《十年股价复盘》篇。</div>
+  </header>
+
+  <!-- ============ 第一部分 ============ -->
+  <section id="ch0">
+    <span class="chapnum">第一部分 · 第一性原理</span>
+    <h2>偏误从哪来，为什么市场是它们的地狱模式</h2>
+
+    <h3>1. 大脑是生存机器，不是求真机器</h3>
+    <p>进化筛选的标准是"活下来传基因"，不是"判断准确"。在祖先环境里：听到草丛响就跑（假警报成本低、真老虎致命）、跟着族群走（大家跑你不跑，死的是你）、损失看得比收益重（丢三天口粮可能死，多捡三天口粮只是更好）——<b>每一条今天所谓的"偏误"，在当时都是最优策略</b>。它们是 feature，不是 bug。这就是为什么它们装在<b>每个人</b>脑子里，智商和学历都不能卸载。</p>
+
+    <h3>2. 快系统与慢系统</h3>
+    <figure>
+      <svg viewBox="0 0 700 210" role="img" aria-label="系统1与系统2">
+        <text x="350" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">决策的真实分工：系统1 抢答，系统2 补签字</text>
+        <rect x="45" y="55" width="280" height="115" rx="12" fill="#fbecea" stroke="#c0392b" stroke-width="2"/>
+        <text x="185" y="85" text-anchor="middle" font-size="15" font-weight="800" fill="#c0392b">系统 1（快）</text>
+        <text x="185" y="110" text-anchor="middle" font-size="12" fill="#7d2f26">自动 · 不费力 · 情绪化 · 永远在线</text>
+        <text x="185" y="132" text-anchor="middle" font-size="12" fill="#7d2f26">负责约 95% 的日常决策</text>
+        <text x="185" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">所有偏误都从这里发出</text>
+        <rect x="375" y="55" width="280" height="115" rx="12" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/>
+        <text x="515" y="85" text-anchor="middle" font-size="15" font-weight="800" fill="#1f5f8b">系统 2（慢）</text>
+        <text x="515" y="110" text-anchor="middle" font-size="12" fill="#1f5f8b">刻意 · 费力 · 讲逻辑 · 很懒</text>
+        <text x="515" y="132" text-anchor="middle" font-size="12" fill="#1f5f8b">只在被显式调用时上线</text>
+        <text x="515" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#1f5f8b">常只为系统1的答案找理由</text>
+        <text x="350" y="196" text-anchor="middle" font-size="12" fill="#666">"讲道理"没用的原因：道理是系统2的语言，决策是系统1做的</text>
+      </svg>
+    </figure>
+
+    <h3>3. 为什么市场恰好是这些捷径的"地狱模式"</h3>
+    <ul class="clean">
+      <li><b>反馈是噪声的、延迟的。</b>好决策短期常亏钱，坏决策短期常赚钱。大脑的学习机制靠即时反馈——于是市场会<b>系统性地奖励坏习惯、惩罚好习惯</b>。</li>
+      <li><b>变率强化。</b>随机的、不定时的奖励是行为学上最强的成瘾机制（老虎机原理）。追涨杀跌偶尔大赚一次，比每次都亏更难戒。</li>
+      <li><b>对抗性环境。</b>你的直觉就是别人的收益来源；媒体、平台、券商在专业地触发你的恐惧与贪婪。</li>
+      <li><b>价格本身是他人情绪的聚合。</b>你以为在参考"客观信息"，其实常常在参考别人的偏误——偏误通过价格互相传染、共振（见《市场有效性三个漏洞》）。</li>
+    </ul>
+
+    <div class="fp">
+      <div class="lab">最关键的推论 · 为什么"知道了"还会犯</div>
+      <p style="margin:8px 0">偏误发生在<b>感知层面</b>，不是推理层面。类比视错觉：你明知两条线一样长，看上去<b>仍然</b>不一样长——知识改变不了知觉。同理，你明知"不该锚定买入价"，看到 −30% 的持仓时<b>仍然</b>会疼、仍然想"回本再卖"。</p>
+      <p style="margin:8px 0"><b>所以有效的防御不是"提醒自己别犯"，而是把决策从临场知觉里拿出来——外部化、规则化、事先化。</b>（第四部分展开。）卡尼曼研究偏误四十年，自己坦承"并没有变得更能避免它们"（大意）——他靠的也是流程，不是意志。</p>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 家族一 ============ -->
+  <section id="f1">
+    <span class="chapnum">第二部分 · 七大家族</span>
+    <h2>家族一 · 得失不对称（前景理论）——最重要的一族</h2>
+    <div class="famhead" style="background:var(--f1)">
+      <div class="ft">共同根源：亏 100 的痛 ≈ 赚 200 的爽</div>
+      <div class="fr">卡尼曼-特沃斯基的前景理论：人不按"最终财富"评估，而按"相对参照点的得失"评估；损失的心理权重约是同额收益的 2–2.5 倍。更微妙的是价值函数的形状——<b>盈利区间人变得风险厌恶（想落袋），亏损区间人反而风险寻求（想赌回来）</b>。这一条曲线，直接生成下面五个偏误。</div>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 700 330" role="img" aria-label="前景理论价值函数">
+        <text x="350" y="24" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">前景理论价值函数：一条曲线解释半个行为金融学</text>
+        <!-- axes -->
+        <line x1="60" y1="165" x2="660" y2="165" stroke="#999" stroke-width="1.5"/>
+        <line x1="360" y1="45" x2="360" y2="300" stroke="#999" stroke-width="1.5"/>
+        <text x="648" y="182" font-size="11" fill="#666">盈利 →</text>
+        <text x="70" y="182" font-size="11" fill="#666">← 亏损</text>
+        <text x="372" y="56" font-size="11" fill="#666">心理感受(爽)</text>
+        <text x="372" y="296" font-size="11" fill="#666">心理感受(痛)</text>
+        <circle cx="360" cy="165" r="4" fill="#b8860b"/>
+        <text x="360" y="155" text-anchor="middle" font-size="11" font-weight="700" fill="#b8860b">参照点(如:买入价)</text>
+        <!-- gain curve: concave, flat-ish -->
+        <path class="drawpath" d="M360,165 C420,120 480,100 650,88" fill="none" stroke="#2f7d57" stroke-width="3.5"/>
+        <!-- loss curve: convex, steeper -->
+        <path class="drawpath" d="M360,165 C320,240 280,275 90,295" fill="none" stroke="#c0392b" stroke-width="3.5"/>
+        <!-- annotations -->
+        <text x="520" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2f7d57">盈利区：曲线变平（边际爽递减）</text>
+        <text x="520" y="130" text-anchor="middle" font-size="11.5" fill="#2f7d57">→ 风险厌恶 → 「落袋为安」过早卖出赢家</text>
+        <text x="185" y="222" text-anchor="middle" font-size="12.5" font-weight="700" fill="#c0392b">亏损区：更陡（痛约2倍）且渐平</text>
+        <text x="185" y="244" text-anchor="middle" font-size="11.5" fill="#c0392b">→ 风险寻求 → 死扛、摊平、赌回本</text>
+        <text x="150" y="308" text-anchor="middle" font-size="11" class="pain" fill="#c0392b">▼ 同样金额，这边挖得深得多</text>
+      </svg>
+      <figcaption>绿色（盈利）段平缓 → 赚了想跑；红色（亏损）段陡峭且渐平 → 亏了反而敢赌。整族偏误都是这条曲线的投影。</figcaption>
+    </figure>
+
+    <div class="bias" style="border-left-color:var(--f1)">
+      <div class="bh"><span class="num" style="background:var(--f1)">1</span><span class="bn">损失厌恶</span><span class="en">Loss Aversion</span></div>
+      <div class="brow"><span class="bl mech">机制</span>亏损的心理权重约是同额收益的 2–2.5 倍——这是价值函数亏损段更陡的直接含义。</div>
+      <div class="brow"><span class="bl evid">实验</span>经典抛硬币实验：输了赔 100 元，问要赢多少你才肯玩？多数人开价 200 元以上——尽管期望值 150:100 已经明显划算。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>恐慌底部明明赔率极好却不敢买（"再亏"的痛压倒了概率判断）；持有现金看着机会流走；对"可能亏"的过度防御导致长期踏空。</div>
+      <div class="brow"><span class="bl cut">剪断</span>决策前把选项翻译成<b>期望值和赔率</b>写在纸上，强制用数字对冲感受；重大决策睡一晚再定（让皮质醇退潮）。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f1)">
+      <div class="bh"><span class="num" style="background:var(--f1)">2</span><span class="bn">处置效应</span><span class="en">Disposition Effect · 散户实测最贵的偏误</span></div>
+      <div class="brow"><span class="bl mech">机制</span>价值函数两段形状的合成：盈利区风险厌恶 → 急着兑现"爽"；亏损区风险寻求 → 逃避"承认亏损"那一下的痛。结果是<b>过早卖出赚钱的、死扛亏钱的</b>。</div>
+      <div class="brow"><span class="bl evid">实验</span>Odean（1998）对上万真实券商账户的研究：投资者兑现盈利的意愿约是兑现亏损的 <b>1.7 倍</b>；更扎心——<b>被卖掉的股票之后一年平均反而跑赢被留下/买入的约 3 个百分点</b>。即这个模式心理上舒服、财务上系统性倒贴，还与税务优化正好相反。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>腾讯 300→400 的路上"落袋为安"，700→500 的路上"坚定持有"；账户里全是亏损股（赢家都被你卖了），这叫"拔掉鲜花、浇灌杂草"。</div>
+      <div class="brow"><span class="bl cut">剪断</span>买卖决策<b>只准引用生意逻辑，禁止引用自己的成本价</b>；每次想卖盈利股时问"如果它现在是浮亏的，我卖吗？"——答案不同，说明你在按情绪不是按价值操作。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f1)">
+      <div class="bh"><span class="num" style="background:var(--f1)">3</span><span class="bn">沉没成本谬误 / 摊平执念</span><span class="en">Sunk Cost Fallacy</span></div>
+      <div class="brow"><span class="bl mech">机制</span>已投入的钱、时间、面子，理性上与"下一步"完全无关，但大脑把它们记在待回收的账上，于是继续投入以"不让之前白费"。</div>
+      <div class="brow"><span class="bl evid">实验</span>经典"雪夜球赛"研究：花钱买了票的人，暴风雪天也要开车去看球；免费得到票的人多数选择不去——同样的成本收益，唯一区别是"已付出的钱"。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>越跌越补仓——不是因为重新论证后仍然便宜（那是合理加仓），而是为了摊低成本、让"回本"显得更近。区分标准只有动机：<b>加仓的理由里若出现"摊薄成本"四个字，就是沉没成本在开车。</b></div>
+      <div class="brow"><span class="bl cut">剪断</span>灵魂一问：<b>"如果我今天空仓、拿着现金，会以现价买它吗？"</b>答案是否，你持有的理由就只剩沉没成本。（这一问同时剪断禀赋效应。）</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f1)">
+      <div class="bh"><span class="num" style="background:var(--f1)">4</span><span class="bn">回本执念</span><span class="en">Get-even-itis / Break-even Effect</span></div>
+      <div class="brow"><span class="bl mech">机制</span>把"回到成本价"设为决策开关。但你的成本价是一个<b>只存在于你账户里的幽灵数字</b>——市场不知道、也不关心它，公司的价值更与它无关。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>"等回本我就卖"：在腾讯 748 买入的人，一路在 400、500 的合理估值区挂着"回本卖"，把该独立判断的问题（现价 vs 价值）替换成了一个无意义的问题（现价 vs 我的成本）。更危险的变体：亏损中为了"快点回本"换into更高风险的标的。</div>
+      <div class="brow"><span class="bl cut">剪断</span>在交易软件里<b>隐藏成本价和盈亏列</b>（多数App支持）；强制自己只回答"以今天的价格和今天的信息，买、卖还是不动"。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f1)">
+      <div class="bh"><span class="num" style="background:var(--f1)">5</span><span class="bn">短视损失厌恶</span><span class="en">Myopic Loss Aversion · 最隐蔽</span></div>
+      <div class="brow"><span class="bl mech">机制</span>损失厌恶 × 查看频率的乘积。因为亏的痛是赚的两倍，而市场短周期涨跌近似对半开——<b>你每天看盘，情绪账户就天天净亏损</b>；同一个资产，看得越频繁，"感受到的风险"越大，越拿不住。</div>
+      <div class="brow"><span class="bl evid">数据</span>以美股长期历史为例（近似）：任意<b>单日</b>为正的概率约 53%，<b>单年</b>约 70%+，<b>十年</b>约 90%+。Benartzi & Thaler 用它解释了著名的"股权溢价之谜"：股票长期回报高得反常，正因为要补偿人们频繁查看时承受的心理煎熬。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>2022 年每天盯着腾讯/PDD 账户的人，一年经历约 250 次"开奖"，其中一半是痛的两倍权重——多数人熬不到 2024，不是判断变了，是被查看频率磨没了。</div>
+      <div class="brow"><span class="bl cut">剪断</span><b>物理降频</b>：删行情App推送、把查看账户改为每月固定一天。这不是自欺，是精确的情绪风控——少看一次，就少疼一次，拿住的概率实打实上升。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 家族二 ============ -->
+  <section id="f2">
+    <h2>家族二 · 参照点依赖</h2>
+    <div class="famhead" style="background:var(--f2)">
+      <div class="ft">共同根源：大脑没有"绝对价值"的感官</div>
+      <div class="fr">一切判断都需要参照物，而大脑抓参照物时不挑食——<b>抓到什么用什么，包括完全无关的数字</b>。你以为你在评估价值，其实你在评估"与某个锚的距离"。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f2)">
+      <div class="bh"><span class="num" style="background:var(--f2)">6</span><span class="bn">锚定效应</span><span class="en">Anchoring</span></div>
+      <div class="brow"><span class="bl mech">机制</span>接触到的第一个（甚至随机的）数字会成为后续判断的引力中心，调整永远不充分。</div>
+      <div class="brow"><span class="bl evid">实验</span>卡尼曼-特沃斯基的轮盘实验：先转动幸运轮盘得到随机数（10 或 65），再让人估"非洲国家占联合国席位比例"——看到 10 的人平均估 25%，看到 65 的人平均估 45%。<b>一个人人知道无关的随机数，显著扭曲了估计。</b></div>
+      <div class="brow"><span class="bl mkt">盘面</span>投资里的锚无处不在，且全部与价值无关：<b>你的买入价</b>（最强的锚）、<b>历史最高点</b>（"从748跌下来的，420好便宜"——2021年接飞刀的人就是这么想的；"便宜"的正确参照是内在价值，不是它自己曾经的泡沫价）、52周低点、整数关口、IPO发行价、分析师目标价。</div>
+      <div class="brow"><span class="bl cut">剪断</span>看任何股票前，<b>先不看K线、先自己独立估出价值区间</b>，再看市价——把"你的锚"抢在"市场的锚"之前放好。这正是估值练习（DCF/反向DCF）最大的隐藏价值。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f2)">
+      <div class="bh"><span class="num" style="background:var(--f2)">7</span><span class="bn">心理账户（含赌场资金效应）</span><span class="en">Mental Accounting / House Money</span></div>
+      <div class="brow"><span class="bl mech">机制</span>钱是完全同质的，但大脑把它分装进不同"账户"（本金/利润、工资/奖金、养老的/玩的），并对每个账户执行不同的风险政策。</div>
+      <div class="brow"><span class="bl evid">实验</span>塞勒的剧院实验:去剧院路上丢了 100 元现金，88% 的人照买票；丢的是已买好的 100 元门票，只有 46% 愿再买——经济上完全等价，只因记账的"账户"不同。塞勒-约翰逊的"赌场资金效应"：刚赢钱的人风险偏好显著上升，因为"输的是赢来的钱，不心疼"。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>把浮盈当"不是自己的钱"随便梭哈（牛市后期集体加杠杆的心理基础）；分红敢乱花、"本金"却神圣不可动（都是你的钱，购买力完全等价）；"这部分是拿来玩的"——于是允许一个账户系统性地干蠢事。</div>
+      <div class="brow"><span class="bl cut">剪断</span>只用一个口径核算：<b>总净值</b>。每月只问一个数字："我的全部可投资产，这个月的决策让它变多还是变少？"利润没有颜色，亏损不分来源。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 家族三 ============ -->
+  <section id="f3">
+    <h2>家族三 · 模式饥渴的归纳机器</h2>
+    <div class="famhead" style="background:var(--f3)">
+      <div class="ft">共同根源：把草丛响当豹子，代价是虚惊；把豹子当草丛响，代价是命</div>
+      <div class="fr">进化把人类的模式识别调到<b>过度灵敏</b>：我们会在纯噪声里看出规律、在两三个样本上完成归纳、并给一切配上因果故事。而市场恰好是地球上噪声最浓的地方——于是这台机器在这里全速产出幻觉。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f3)">
+      <div class="bh"><span class="num" style="background:var(--f3)">8</span><span class="bn">近因偏误 / 线性外推</span><span class="en">Recency Bias / Extrapolation</span></div>
+      <div class="brow"><span class="bl mech">机制</span>最近的事在记忆里权重畸高，大脑默认"最近的趋势会继续"。趋势越久，外推越自信——而市场是均值回归与突变并存的系统。</div>
+      <div class="brow"><span class="bl evid">数据</span>基金申赎流是铁证：资金总在业绩最好的年份<b>之后</b>涌入、最差的年份<b>之后</b>逃离——高买低卖的制度化。DALBAR 研究的"行为差距"（指数年化约 10.35% vs 基民实际到手约 3.66%，30年口径，方法论有争议但方向公认）主要来自这里。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>2021 年初：涨了两年 → "还会涨"（腾讯 748、PDD 203 处人声鼎沸）；2022/10：跌了两年 → "中概归零"（198 和 25.5 处无人问津）。<b>两次外推，两次在最贵的地方看多、最便宜的地方看空。</b></div>
+      <div class="brow"><span class="bl cut">剪断</span>强制看长周期：做判断前拉出<b>10 年图和 10 年财务</b>，让"最近两年"回到它应有的样本权重；问"如果把最近 6 个月遮住，我的结论还成立吗？"</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f3)">
+      <div class="bh"><span class="num" style="background:var(--f3)">9</span><span class="bn">代表性启发（含赌徒谬误）</span><span class="en">Representativeness</span></div>
+      <div class="brow"><span class="bl mech">机制</span>用"像不像"代替"概率是多少"——相似性替代了统计。它无视两样东西：<b>基础比率</b>（这类事总体成功率多少）和<b>样本量</b>（三个数据点不构成规律）。</div>
+      <div class="brow"><span class="bl evid">实验</span>卡尼曼的"琳达问题"：描述一位关心社会正义的女性后，多数人认为"琳达是关注女权的银行柜员"比"琳达是银行柜员"概率更高——逻辑上前者是后者子集，不可能更高，但前者"更像"。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>①"这是下一个腾讯/茅台"——表面特征像，就赋予同样的成功概率，无视基础比率（100 家"像"的公司里 95 家死了）；②赌徒谬误："连跌五天该反弹了"（价格没有记忆）；③三年业绩就封神一个基金经理（样本小到毫无意义）。</div>
+      <div class="brow"><span class="bl cut">剪断</span>每次听到"下一个XX"，先问两个数：<b>这一类的基础比率是多少？样本量有多大？</b>先接受统计，再谈例外。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f3)">
+      <div class="bh"><span class="num" style="background:var(--f3)">10</span><span class="bn">叙事谬误</span><span class="en">Narrative Fallacy</span></div>
+      <div class="brow"><span class="bl mech">机制</span>大脑对故事的吸收效率远高于统计，且会把"叙事的流畅感"误当成"真实性和确定性"。一个好故事能直接绕过你的估值纪律。</div>
+      <div class="brow"><span class="bl evid">佐证</span>席勒（诺奖得主）的《叙事经济学》：重大市场波动的传播机制更像流行病——传播的是故事，不是数据。每个泡沫顶都有一个极好听的故事：1999"互联网改变一切"、2021"中概永续高增长"、当下 AI 一级市场的宏大叙事。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>听完一个动人的公司故事就想买（故事里没有价格）；反过来，恐慌叙事（"中概不可投"）让你在最便宜时不敢买。<b>故事决定你关注什么，数字决定你付多少钱——顺序不能反。</b></div>
+      <div class="brow"><span class="bl cut">剪断</span>规则：<b>故事越流畅，越要强制做反向 DCF</b>——"这个价格隐含了什么假设？"把叙事翻译回数字，魔法就消失了。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f3)">
+      <div class="bh"><span class="num" style="background:var(--f3)">11</span><span class="bn">幸存者偏差</span><span class="en">Survivorship Bias</span></div>
+      <div class="brow"><span class="bl mech">机制</span>你能看到的样本是被"存活"筛选过的——失败者不发声、退市、清盘、注销，从你的视野里物理消失了。于是成功率被系统性高估。</div>
+      <div class="brow"><span class="bl evid">经典</span>二战轰炸机装甲问题：军方想给弹孔密集处加装甲，统计学家 Wald 指出该给<b>没有弹孔</b>的部位加——因为你统计的全是<b>飞回来的</b>飞机；引擎中弹的那些没能回来。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>"茅台拿住 20 年就是百倍"——你没看到同期拿着乐视、长虹"拿住20年"的人（他们不写公众号）；基金业绩榜单天然剔除了清盘的基金；"身边炒股发财的人"是幸存者展览馆。</div>
+      <div class="brow"><span class="bl cut">剪断</span>每次听到成功案例，强制问：<b>"当年和它站在同一起跑线的一共多少家？现在都在哪？"</b>把分母找回来，结论常常反转。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f3)">
+      <div class="bh"><span class="num" style="background:var(--f3)">12</span><span class="bn">后见之明偏误</span><span class="en">Hindsight Bias</span></div>
+      <div class="brow"><span class="bl mech">机制</span>结果揭晓后，大脑无缝重写记忆，让你觉得"我早就知道"。它的真正危害是<b>污染学习系统</b>：让过去显得可预测 → 高估自己对未来的预测力 → 复盘沦为自我表扬。</div>
+      <div class="brow"><span class="bl evid">实验</span>Fischhoff 的经典研究：让人们对历史事件的各种可能结局估概率，公布真实结局后再回忆自己当初的估计——人们一致把给真实结局的估计<b>记高了</b>，且自己毫无察觉。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>"2022 年那个底多明显啊"——不，当时"中概是否归零"是被严肃讨论的问题（这正是我们复盘篇坚持"当时视角/上帝视角"分开写的原因）。不留书面记录，你的记忆一定作弊。</div>
+      <div class="brow"><span class="bl cut">剪断</span><b>投资笔记是唯一解</b>：买入前写下判断和概率，复盘时对照的是白纸黑字，不是被重写过的记忆。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 家族四 ============ -->
+  <section id="f4">
+    <h2>家族四 · 自我防御系统</h2>
+    <div class="famhead" style="background:var(--f4)">
+      <div class="ft">共同根源：这套机制保护的是你的感受，代价是你的钱</div>
+      <div class="fr">自我评价在进化上关乎社会地位与生存，所以大脑配了一整套"护己"装置：抬高自我评估、过滤刺耳信息、把功劳归自己把锅甩出去。它让你活得心情舒畅——并在市场里精确地亏钱。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f4)">
+      <div class="bh"><span class="num" style="background:var(--f4)">13</span><span class="bn">过度自信</span><span class="en">Overconfidence</span></div>
+      <div class="brow"><span class="bl mech">机制</span>对自己判断的准确率、信息的完备度、控制力的系统性高估。关键规律：<b>知识增加时，自信的增速远快于准确率的增速</b>——读三份研报，"懂"没涨多少，"觉得懂"涨了三倍。</div>
+      <div class="brow"><span class="bl evid">实验/数据</span>Svenson（1981）：93% 的美国司机认为自己驾驶水平高于平均。校准研究：让专家给"90%置信区间"，真实值只有约一半时间落在区间内。Barber & Odean（2000）数万账户："交易越频繁，净收益越差"，最活跃组年化落后市场约 6 个百分点——<b>频繁交易就是过度自信的行为化</b>；同研究发现男性交易频率高于女性 45%，收益反而更低。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>重仓一个只研究了两周的"深度认知"；不设仓位上限（"这次我确定"）；用杠杆表达信心。呼应能力圈篇：最危险的不是不懂，是"以为懂"。</div>
+      <div class="brow"><span class="bl cut">剪断</span>给一切判断标注置信度并<b>事后校准</b>（笔记里回看："我标90%把握的事，实际对了几成？"）；仓位上限是对自己过度自信的<b>制度性不信任</b>。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f4)">
+      <div class="bh"><span class="num" style="background:var(--f4)">14</span><span class="bn">确认偏误</span><span class="en">Confirmation Bias</span></div>
+      <div class="brow"><span class="bl mech">机制</span>动机性推理：立场先行，注意力、搜索行为、记忆全部自动偏向支持性证据。<b>它控制的是注意力本身，所以无法自查</b>——你不会注意到自己没注意什么。</div>
+      <div class="brow"><span class="bl evid">实验</span>华生 2-4-6 任务：让人猜数列规则（真规则只是"递增"），几乎所有人只提出<b>验证</b>自己假设的例子，极少有人主动提出能<b>推翻</b>自己的例子——人类默认的检验方式就是找证据"支持"，不是"证伪"。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>买入后信息食谱自动变化：只点开利好、跳过利空、给唱空者扣帽子；持仓群里互相喂糖。结果：逻辑早破了，你是最后一个知道的。</div>
+      <div class="brow"><span class="bl cut">剪断</span>制度化反对：<b>唱反调测试</b>（把空头逻辑讲得比空头还好）+ <b>证伪测试</b>（事先写下"出现什么我就认错"）+ 主动订阅至少一个高质量反方信源。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f4)">
+      <div class="bh"><span class="num" style="background:var(--f4)">15</span><span class="bn">自我归因偏误</span><span class="en">Self-attribution Bias</span></div>
+      <div class="brow"><span class="bl mech">机制</span>赚了=我水平高；亏了=市场不好/庄家害我/黑天鹅。它是过度自信的<b>发动机</b>：牛市里把运气记成实力（呼应"运气与实力短期不可分"），一轮牛市批量生产"股神"，熊市批量回收。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>最深的危害是<b>让经验无法变成学习</b>：亏损从不被归因于自己的决策 → 决策永远不被修正 → 同一个错误换个标的再犯。十年老股民 ≠ 十年经验，可能是一年经验重复了十次。</div>
+      <div class="brow"><span class="bl cut">剪断</span>复盘时强制双向拷问：赚钱的单子问"<b>有多少是运气？</b>"（决策过程有没有漏洞却被行情掩盖），亏钱的单子问"<b>有多少是我的责任？</b>"（哪个环节当时就可识别）。评价决策质量，不评价结果——扑克界叫拒绝 "resulting"（以结果论英雄）。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f4)">
+      <div class="bh"><span class="num" style="background:var(--f4)">16</span><span class="bn">禀赋效应</span><span class="en">Endowment Effect</span></div>
+      <div class="brow"><span class="bl mech">机制</span>仅仅"拥有"这个事实就抬高了估值——放弃已拥有之物被记为"损失"（又是损失厌恶），于是持有者的要价系统性高于未持有者的出价。</div>
+      <div class="brow"><span class="bl evid">实验</span>康奈尔马克杯实验（Kahneman-Knetsch-Thaler）：随机发杯子，几分钟后拥有者的平均要价（约$7）是未拥有者出价（约$3.5）的<b>2 倍</b>——同一个杯子，唯一变量是"是不是我的"。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>持有一只股票会让你<b>爱上它</b>：客观性随持仓时间衰减，它慢慢从"一个标的"变成"我的判断、我的身份"，批评它像批评你。</div>
+      <div class="brow"><span class="bl cut">剪断</span>与沉没成本共用那把刀："<b>空仓的我，今天会买它吗？</b>"定期对每个持仓执行一次（比如每季度），把"我的股票"重新降格为"一个标的"。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 家族五 ============ -->
+  <section id="f5">
+    <h2>家族五 · 控制感的需求</h2>
+    <div class="famhead" style="background:var(--f5)">
+      <div class="ft">共同根源：不确定带来的焦虑是生理性的，而"做点什么"能止痛</div>
+      <div class="fr">哪怕做的事毫无用处甚至有害——行动本身就是止痛药。市场是不确定性的海洋，于是这里的人永远手痒。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f5)">
+      <div class="bh"><span class="num" style="background:var(--f5)">17</span><span class="bn">行动偏误</span><span class="en">Action Bias</span></div>
+      <div class="brow"><span class="bl evid">实验</span>足球门将研究（Bar-Eli 等）：统计上千次点球，<b>站在中间不动</b>的扑救成功率最高（射门约1/3走中路），但门将 94% 的时候扑向两边——因为丢球时"至少我尽力扑了"比"我站着没动"好受得多。<b>行动是给自己看的，不是给结果看的。</b></div>
+      <div class="brow"><span class="bl mkt">盘面</span>暴跌时"必须操作一下"；账户太久没动就手痒（无聊交易）；每天问自己"今天买点什么"。而价值投资的真相是：<b>绝大多数日子，正确操作就是无操作</b>——巴菲特一年真正的重大决策往往不超过一两个。</div>
+      <div class="brow"><span class="bl cut">剪断</span>把"不动"变成一个<b>显式的、需要理由才能打破的默认选项</b>：规定每月至多一次交易窗口；想下单时先写笔记、隔 48 小时再执行。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f5)">
+      <div class="bh"><span class="num" style="background:var(--f5)">18</span><span class="bn">控制错觉</span><span class="en">Illusion of Control</span></div>
+      <div class="brow"><span class="bl evid">实验</span>Langer 的经典系列：自己选彩票号码的人，转让彩票时要价是被随机分配号码者的<b>4 倍以上</b>；掷骰子的人想掷大点会更用力——对纯随机过程产生"我能影响它"的体感。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>盯盘产生"掌控感"（盯着不能改变任何走势）；复杂图表和指标的仪式感；频繁调仓的"操作感"。<b>忙碌感 ≠ 控制力：市场不会因为你付出了努力而多给一分钱</b>——你唯一真正能控制的只有：买什么、什么价、买多少、拿多久、以及自己的行为。</div>
+      <div class="brow"><span class="bl cut">剪断</span>把精力全部转移到<b>真正可控的五件事</b>上（标的、价格、仓位、期限、纪律），对不可控的（短期走势、宏观、别人的行为）明确宣布放弃预测。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 家族六 ============ -->
+  <section id="f6">
+    <h2>家族六 · 社会性动物</h2>
+    <div class="famhead" style="background:var(--f6)">
+      <div class="ft">共同根源：被群体排斥曾等于死刑</div>
+      <div class="fr">从众在进化上保命（大家跑你不跑，你死），所以"和大家不一样"会触发真实的生理不适。逆向投资难，不是难在认知，是难在这份生理性的不适。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f6)">
+      <div class="bh"><span class="num" style="background:var(--f6)">19</span><span class="bn">羊群效应</span><span class="en">Herding</span></div>
+      <div class="brow"><span class="bl evid">实验</span>阿希从众实验：判断线段长短这种<b>有明确答案</b>的题，只要周围人齐声给出错误答案，约 1/3 的被试跟着说错；约 3/4 的人至少从众过一次。市场里没有明确答案，从众压力只强不弱。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>注意它的两面性：<b>大多数时候跟随共识是对的</b>（市场大体有效）——羊群的致命处只在<b>极端</b>：顶部（2021 年初人人满仓中概）与底部（2022/10 人人清仓），那时"和大家一样"最舒服，也最贵。呼应前篇："别人恐惧我贪婪"只在尾部成立。机构同样如此（职业风险："随大流地失败好过特立独行地成功"）。</div>
+      <div class="brow"><span class="bl cut">剪断</span>把"人人都在说"本身当作一个<b>反向数据点</b>记录下来：当一个观点成为聚会共识、热搜常客时，问"这个共识已经被定价了多少？"</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f6)">
+      <div class="bh"><span class="num" style="background:var(--f6)">20</span><span class="bn">FOMO 与社会比较</span><span class="en">Fear of Missing Out</span></div>
+      <div class="brow"><span class="bl mech">机制</span>让人破防的从来不是绝对亏损，而是<b>相对剥夺</b>——"邻居赚得比我多"。地位是进化尺度上的硬通货，所以别人晒收益带来的痛是真实的生理信号。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>在最高点冲进你根本没研究过的东西，仅仅因为"再不上车就晚了"；看着错过的股票继续涨而报复性追高。记住系列前篇的定义：<b>机会是"错价"，不是"别人在赚钱"。</b>别人赚钱恰恰说明便宜筹码已被拿走。</div>
+      <div class="brow"><span class="bl cut">剪断</span>写下并贴起来："<b>市场里永远有人比我赚得多，这不是我的成本。</b>"错过一万个不属于你的机会，代价为零；踏进一个你不懂的机会，代价真实。（呼应：错过 vs 做错的不对称。）</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f6)">
+      <div class="bh"><span class="num" style="background:var(--f6)">21</span><span class="bn">权威偏误</span><span class="en">Authority Bias</span></div>
+      <div class="brow"><span class="bl evid">证据</span>Tetlock 对数万条专家预测的著名长期研究：宏观/市场类专家的预测准确率与"掷飞镖的黑猩猩"相差无几，且<b>名气与准确率几乎无关甚至负相关</b>——媒体奖励的是观点的戏剧性和确定感，不是正确率。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>大V/首席/"股神"喊单跟买；把"某大佬也持有"当成尽调的替代品（他的仓位、成本、期限、退出计划你全都不知道）；反过来，权威唱空也能吓掉你手里拿得好好的筹码。</div>
+      <div class="brow"><span class="bl cut">剪断</span>规则：<b>剥掉头衔评估内容</b>——把观点复述成匿名论证再判断；只借鉴"论据和事实"，永不外包"结论和仓位"。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 家族七 ============ -->
+  <section id="f7">
+    <h2>家族七 · 框架与呈现</h2>
+    <div class="famhead" style="background:var(--f7)">
+      <div class="ft">共同根源：同一事实，不同说法，不同决定</div>
+      <div class="fr">理性人应当只对"内容"反应，但人类对"包装"的反应常常更强。金融信息的每一层呈现（措辞、颜色、单位）都在塑造你的判断。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f7)">
+      <div class="bh"><span class="num" style="background:var(--f7)">22</span><span class="bn">框架效应</span><span class="en">Framing Effect</span></div>
+      <div class="brow"><span class="bl evid">实验</span>特沃斯基-卡尼曼"亚洲疾病问题"：同一方案，说成"能救 200 人"时 72% 的人选它，说成"400 人会死"时只有 22% 选——数学上完全等价。医生对"存活率90%"和"死亡率10%"的手术推荐意愿同样显著不同。</div>
+      <div class="brow"><span class="bl mkt">盘面</span>"从高点回调 60%"（听着像机会）vs "持有者亏了 60%"（听着像灾难）——同一件事；"年化 8%"vs"十年翻 2.2 倍"（后者更诱人）；App 的红绿闪烁、推送措辞都在给你的情绪装框。</div>
+      <div class="brow"><span class="bl cut">剪断</span>接到任何信息，先<b>重新表述成中性数字</b>（绝对值、概率、基数）再判断；重要决策把正反两种框架各写一遍，看结论是否翻转——翻转了就说明你在对框架反应，不是对事实反应。</div>
+    </div>
+
+    <div class="bias" style="border-left-color:var(--f7)">
+      <div class="bh"><span class="num" style="background:var(--f7)">23</span><span class="bn">每股价格幻觉</span><span class="en">Nominal Price Illusion</span></div>
+      <div class="brow"><span class="bl mech">机制</span>把"每股价格的绝对数字"当成贵贱："3 块的股票好便宜，1400 的茅台太贵"。而每股价格只取决于公司把自己切成多少份——<b>贵贱 = 价格相对价值，只有市值/盈利、市值/现金流才有意义。</b></div>
+      <div class="brow"><span class="bl evid">证据</span>公司拆股（1 拆 10，价值零变化）后常出现散户买入潮和短期溢价——对"数字变小"的纯粹错觉反应；低价股（penny stocks）长期是散户亏损重灾区，"便宜的感觉"是它唯一的产品。</div>
+      <div class="brow"><span class="bl cut">剪断</span>训练自己<b>只用市值思考</b>："这家公司整体卖 X 亿，它一年赚 Y 亿，值不值？"每股价格从你的决策语言里删除。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 绞肉机 ============ -->
+  <section id="cycle">
+    <span class="chapnum">第三部分</span>
+    <h2>它们不是孤立的：一台联动的"散户绞肉机"</h2>
+    <p class="lead">单个偏误只是零件，杀伤力在于它们按固定顺序串联成循环。把腾讯/拼多多那轮牛熊（2020–2024）套进去，每一步都有偏误精确接力。</p>
+    <figure>
+      <svg viewBox="0 0 720 560" role="img" aria-label="散户绞肉机循环图">
+        <text x="360" y="28" text-anchor="middle" font-size="15.5" font-weight="700" fill="#1f2328">散户绞肉机：六个节点的偏误接力（动画按顺序点亮）</text>
+        <defs><marker id="ca" markerWidth="11" markerHeight="11" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#98a0a8"/></marker></defs>
+        <!-- arrows (hexagon layout) -->
+        <path d="M360,118 L516,180" fill="none" stroke="#98a0a8" stroke-width="2" marker-end="url(#ca)"/>
+        <path d="M552,232 L552,330" fill="none" stroke="#98a0a8" stroke-width="2" marker-end="url(#ca)"/>
+        <path d="M516,384 L410,448" fill="none" stroke="#98a0a8" stroke-width="2" marker-end="url(#ca)"/>
+        <path d="M312,462 L204,412 " fill="none" stroke="#98a0a8" stroke-width="2" marker-end="url(#ca)"/>
+        <path d="M168,330 L168,240" fill="none" stroke="#98a0a8" stroke-width="2" marker-end="url(#ca)"/>
+        <path d="M204,182 L308,116" fill="none" stroke="#98a0a8" stroke-width="2" marker-end="url(#ca)"/>
+        <!-- node 1 top -->
+        <g class="cyc cyc1">
+          <rect x="230" y="52" width="260" height="66" rx="12" fill="#fbecea" stroke="#c0392b" stroke-width="2"/>
+          <text x="360" y="76" text-anchor="middle" font-size="13.5" font-weight="800" fill="#c0392b">① 牛市顶 · 重仓冲入（腾讯748/PDD203）</text>
+          <text x="360" y="95" text-anchor="middle" font-size="11" fill="#7d2f26">近因外推 ⑧ + 羊群 ⑲ + FOMO ⑳ + 过度自信 ⑬</text>
+          <text x="360" y="110" text-anchor="middle" font-size="11" fill="#7d2f26">（自我归因⑮把前两年运气记成实力）</text>
+        </g>
+        <!-- node 2 right top -->
+        <g class="cyc cyc2">
+          <rect x="470" y="166" width="220" height="66" rx="12" fill="#fdf3e7" stroke="#b9770f" stroke-width="2"/>
+          <text x="580" y="190" text-anchor="middle" font-size="13.5" font-weight="800" fill="#b9770f">② 开始下跌 · 拒绝小亏认错</text>
+          <text x="580" y="209" text-anchor="middle" font-size="11" fill="#8a5a0f">锚定买入价 ⑥（"回本就卖"④）</text>
+          <text x="580" y="224" text-anchor="middle" font-size="11" fill="#8a5a0f">损失厌恶 ①</text>
+        </g>
+        <!-- node 3 right bottom -->
+        <g class="cyc cyc3">
+          <rect x="452" y="336" width="238" height="66" rx="12" fill="#efe9f5" stroke="#6a4c93" stroke-width="2"/>
+          <text x="571" y="360" text-anchor="middle" font-size="13.5" font-weight="800" fill="#6a4c93">③ 持续下跌 · 摊平加码</text>
+          <text x="571" y="379" text-anchor="middle" font-size="11" fill="#5b3f80">沉没成本 ③ + 确认偏误 ⑭（只看利好）</text>
+          <text x="571" y="394" text-anchor="middle" font-size="11" fill="#5b3f80">禀赋效应 ⑯（越套越爱）· 亏损区风险寻求</text>
+        </g>
+        <!-- node 4 bottom -->
+        <g class="cyc cyc4">
+          <rect x="240" y="430" width="240" height="66" rx="12" fill="#e9f2fa" stroke="#1f6fb2" stroke-width="2"/>
+          <text x="360" y="454" text-anchor="middle" font-size="13.5" font-weight="800" fill="#1f6fb2">④ 深套 · 麻木鸵鸟</text>
+          <text x="360" y="473" text-anchor="middle" font-size="11" fill="#1f6fb2">不看账户（鸵鸟效应）· 心理账户⑦</text>
+          <text x="360" y="488" text-anchor="middle" font-size="11" fill="#1f6fb2">（"就当存着养老"——重新装框 ㉒）</text>
+        </g>
+        <!-- node 5 left bottom -->
+        <g class="cyc cyc5">
+          <rect x="52" y="336" width="232" height="66" rx="12" fill="#fbecea" stroke="#c0392b" stroke-width="2"/>
+          <text x="168" y="360" text-anchor="middle" font-size="13.5" font-weight="800" fill="#c0392b">⑤ 恐慌底 · 割在最低点（198/$25.5）</text>
+          <text x="168" y="379" text-anchor="middle" font-size="11" fill="#7d2f26">短视损失厌恶 ⑤爆表 + 羊群反向踩踏 ⑲</text>
+          <text x="168" y="394" text-anchor="middle" font-size="11" fill="#7d2f26">近因外推 ⑧（"要归零了"）</text>
+        </g>
+        <!-- node 6 left top -->
+        <g class="cyc cyc6">
+          <rect x="58" y="174" width="220" height="66" rx="12" fill="#e6f2f2" stroke="#0e7c7b" stroke-width="2"/>
+          <text x="168" y="198" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e7c7b">⑥ 反弹后 · 零学习</text>
+          <text x="168" y="217" text-anchor="middle" font-size="11" fill="#0b5f5e">后见之明 ⑫（"其实有信号"）</text>
+          <text x="168" y="232" text-anchor="middle" font-size="11" fill="#0b5f5e">自我归因 ⑮（"庄家害我"）→ 带着偏误再来</text>
+        </g>
+        <!-- cut marks -->
+        <g class="cutmark">
+          <text x="360" y="140" text-anchor="middle" font-size="15" fill="#2f7d57">✂ 剪断点A：高位不重仓（仓位规则）</text>
+          <text x="168" y="428" text-anchor="middle" font-size="15" fill="#2f7d57">✂ 剪断点B：低位不割肉（少看盘+笔记）</text>
+        </g>
+        <text x="360" y="540" text-anchor="middle" font-size="12" fill="#666">你不需要每个节点都赢——在 A、B 两个节点剪断链条，整台机器就对你失效</text>
+      </svg>
+      <figcaption>注意⑤的深意：你在恐慌底割出的筹码，恰好通过"边际定价"机制成为别人的错价机会——<b>你的偏误就是他人超额收益的来源</b>（呼应《市场有效性三个漏洞》）。</figcaption>
+    </figure>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 防御体系 ============ -->
+  <section id="defense">
+    <span class="chapnum">第四部分</span>
+    <h2>防御体系：改造流程，而不是改造自己</h2>
+    <p class="lead">偏误发生在知觉层，意志力和知识防不住。唯一可靠的防线是<b>决策环境设计</b>——让偏误没有发力的机会。七道防线，按优先级，每道标注它主防哪些偏误。</p>
+
+    <div class="defense">
+      <div class="dh"><span class="dn">1</span>投资笔记（外部化）——性价比最高</div>
+      <p style="margin:6px 0;font-size:14.8px">每次买入前白纸黑字写下：<b>论点</b>（为什么值这个钱）、<b>关键假设</b>、<b>证伪条件</b>（出现什么我就认错）、<b>预期持有期</b>、<b>置信度</b>。三重作用：决策时逼系统2上线；复盘时对照的是白纸黑字而非被重写的记忆；卖出从"我感觉"变成"对照当初写的条件"。</p>
+      <div class="dvs">主防：<b>后见之明⑫ · 自我归因⑮ · 确认偏误⑭ · 过度自信⑬（置信度校准）</b></div>
+    </div>
+
+    <div class="defense">
+      <div class="dh"><span class="dn">2</span>事前规则（预承诺）——学奥德修斯绑桅杆</div>
+      <p style="margin:6px 0;font-size:14.8px">在<b>没有持仓、情绪中性</b>时定好并写下：单只仓位上限、加仓条件（必须"重估后仍便宜"，禁止"摊成本"）、卖出条件、绝不做清单。临场只执行、不发明。段永平的 Stop Doing List 本质就是一份<b>偏误防火清单</b>：不借钱=剪断爆仓节点，不做空=剪断无限损失，不懂不做=关闭叙事谬误的入口。</p>
+      <div class="dvs">主防：<b>沉没成本③ · 行动偏误⑰ · FOMO⑳ · 过度自信⑬（仓位上限）</b></div>
+    </div>
+
+    <div class="defense">
+      <div class="dh"><span class="dn">3</span>降低查看频率（釜底抽薪）</div>
+      <p style="margin:6px 0;font-size:14.8px">直接针对短视损失厌恶的数学结构：把看账户从每天改为每月固定一天，删掉行情推送，隐藏成本价列。你少看一次盘，就少经历一次两倍权重的痛，拿住好资产的概率<b>实打实</b>上升——这是精确的情绪风控，不是自欺。</p>
+      <div class="dvs">主防：<b>短视损失厌恶⑤ · 行动偏误⑰ · 控制错觉⑱ · 回本执念④（藏成本价）</b></div>
+    </div>
+
+    <div class="defense">
+      <div class="dh"><span class="dn">4</span>制度化的反对意见</div>
+      <p style="margin:6px 0;font-size:14.8px">确认偏误控制的是注意力本身，<b>无法自查，必须借外力</b>：唱反调测试（把空头论点讲到空头点头）、证伪测试（事先写认错条件）、订阅至少一个高质量反方信源、找一个敢说"你这逻辑不成立"的人。</p>
+      <div class="dvs">主防：<b>确认偏误⑭ · 叙事谬误⑩ · 禀赋效应⑯ · 羊群⑲（反向校验共识）</b></div>
+    </div>
+
+    <div class="defense">
+      <div class="dh"><span class="dn">5</span>外部视角优先（基础比率）</div>
+      <p style="margin:6px 0;font-size:14.8px">评估任何机会，先问"<b>这一类</b>事情历史上通常什么结局"（外部视角），再问"我这个案例特殊在哪"（内部视角）。"'下一个茅台'们的存活率是多少？""明星IPO三年后平均表现如何？"——先接受统计，再谈例外。一招同时拦住三个偏误。</p>
+      <div class="dvs">主防：<b>代表性⑨ · 叙事谬误⑩ · 幸存者偏差⑪ · 过度自信⑬</b></div>
+    </div>
+
+    <div class="defense">
+      <div class="dh"><span class="dn">6</span>检查清单代替临场发挥</div>
+      <p style="margin:6px 0;font-size:14.8px">买入前过固定清单（本系列已建立：能力圈自检、商业模式七步、安全边际、"空仓的我今天会买吗"、"十年不能卖还买吗"）。清单的意义不在内容多高明，而在<b>强制在情绪最热的时刻插入一段冷流程</b>——给系统2一个法定的上场时间。</p>
+      <div class="dvs">主防：<b>全家族（流程性拦截）· 尤其锚定⑥ · 框架㉒（中性重述）</b></div>
+    </div>
+
+    <div class="defense">
+      <div class="dh"><span class="dn">7</span>结构性谦逊</div>
+      <p style="margin:6px 0;font-size:14.8px">默认底仓用指数+定投（<b>自动化 = 零偏误执行</b>）；集中下注的资格靠研究深度赚取；仓位永远留余地。最后要诚实：<b>以上一切只能降低偏误的频率和伤害，不可能清零——安全边际存在的意义之一，就是给"你终究还会犯的错"预留的缓冲。</b></p>
+      <div class="dvs">主防：<b>兜底全部残余</b></div>
+    </div>
+
+    <blockquote>行为偏误是《市场有效性三个漏洞》的微观基础——所有人共享同一套出厂设置，价格才会在极端处系统性偏离价值。你做这七件事的全部目的只有一个：<b>在别人被这套设置驱使着制造错价的时刻，你恰好不在被驱使的行列里。</b>这就是行为纪律全部超额收益的来源。<span class="who">— 本系列的贯穿结论</span></blockquote>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 速查表 ============ -->
+  <section id="cheat">
+    <span class="chapnum">附录</span>
+    <h2>23 个偏误速查表</h2>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>#</th><th>偏误</th><th>一句话机制</th><th>自检一问</th></tr></thead>
+      <tbody>
+        <tr><td>①</td><td>损失厌恶</td><td>亏的痛≈赚的爽×2</td><td>我是在算赔率，还是在躲"疼"？</td></tr>
+        <tr><td>②</td><td>处置效应</td><td>卖赢家锁爽，扛输家避痛</td><td>若这只股现在是浮亏/浮盈反过来，我还这么操作吗？</td></tr>
+        <tr><td>③</td><td>沉没成本</td><td>为"不白费"继续投入</td><td>空仓的我，今天会以现价买它吗？</td></tr>
+        <tr><td>④</td><td>回本执念</td><td>把成本价当决策开关</td><td>我的决策里出现"回本"两个字了吗？</td></tr>
+        <tr><td>⑤</td><td>短视损失厌恶</td><td>看得越勤，感觉越险</td><td>这个月我看了几次账户？</td></tr>
+        <tr><td>⑥</td><td>锚定效应</td><td>无关数字成引力中心</td><td>"便宜"是相对内在价值，还是相对某个历史价格？</td></tr>
+        <tr><td>⑦</td><td>心理账户</td><td>给同质的钱分账户执行不同政策</td><td>我在用"总净值"思考吗？</td></tr>
+        <tr><td>⑧</td><td>近因外推</td><td>默认最近趋势继续</td><td>遮住最近6个月，结论还成立吗？</td></tr>
+        <tr><td>⑨</td><td>代表性</td><td>用"像不像"代替"概率多少"</td><td>基础比率和样本量是多少？</td></tr>
+        <tr><td>⑩</td><td>叙事谬误</td><td>流畅感被当成真实性</td><td>把故事翻译成数字后，价格还合理吗？</td></tr>
+        <tr><td>⑪</td><td>幸存者偏差</td><td>只看见活下来的样本</td><td>当年的分母有多少家？都去哪了？</td></tr>
+        <tr><td>⑫</td><td>后见之明</td><td>记忆被结果重写</td><td>我当时白纸黑字写的判断是什么？</td></tr>
+        <tr><td>⑬</td><td>过度自信</td><td>自信增速远超准确率增速</td><td>我标"90%把握"的判断，历史命中率几成？</td></tr>
+        <tr><td>⑭</td><td>确认偏误</td><td>注意力自动过滤反面证据</td><td>我最近一次认真读空头报告是什么时候？</td></tr>
+        <tr><td>⑮</td><td>自我归因</td><td>赚=实力，亏=运气</td><td>赚的单子里有多少运气？亏的里有多少责任？</td></tr>
+        <tr><td>⑯</td><td>禀赋效应</td><td>因为是"我的"所以更值钱</td><td>（同③）空仓的我会买它吗？</td></tr>
+        <tr><td>⑰</td><td>行动偏误</td><td>"做点什么"止痛</td><td>这笔操作的理由，是逻辑还是手痒？</td></tr>
+        <tr><td>⑱</td><td>控制错觉</td><td>对随机产生掌控体感</td><td>我在忙的事，哪些真的可控？</td></tr>
+        <tr><td>⑲</td><td>羊群效应</td><td>与众不同触发生理不适</td><td>这个共识现在处于分布的中段还是极端？</td></tr>
+        <tr><td>⑳</td><td>FOMO</td><td>相对剥夺压倒独立判断</td><td>它是"错价"，还是只是"别人在赚钱"？</td></tr>
+        <tr><td>㉑</td><td>权威偏误</td><td>头衔给观点加权</td><td>匿名化之后，这个论证还站得住吗？</td></tr>
+        <tr><td>㉒</td><td>框架效应</td><td>对包装反应强于对内容</td><td>换个说法重述一遍，结论翻转了吗？</td></tr>
+        <tr><td>㉓</td><td>每股价格幻觉</td><td>把每股数字当贵贱</td><td>我在用市值/盈利思考，还是每股价格？</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="warn">
+      <div class="lab">📌 使用建议</div>
+      <p style="margin:6px 0">不必背 23 个名字。记住<b>七个根</b>（得失不对称、参照点、模式饥渴、自我防御、控制感、社会性、框架），遇到自己的任何冲动时问一句："<b>这是七个根里的哪一个在说话？</b>"——能归类，就能识破；配合第四部分的七道防线，就能拦截。</p>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 参考 ============ -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考文献（经典研究）</h2>
+    <ol class="sources">
+      <li>Kahneman & Tversky (1979), "Prospect Theory: An Analysis of Decision under Risk", Econometrica — 前景理论/损失厌恶/框架。</li>
+      <li>Kahneman (2011), 《思考，快与慢》— 系统1/2、锚定轮盘实验、琳达问题、外部视角与基础比率。</li>
+      <li>Odean (1998), "Are Investors Reluctant to Realize Their Losses?", Journal of Finance — 处置效应实证（兑现盈利/亏损比约1.7；卖出者其后跑赢约3pp）。</li>
+      <li>Barber & Odean (2000), "Trading Is Hazardous to Your Wealth" — 交易频率与净收益负相关；(2001) "Boys Will Be Boys" — 性别与过度自信。</li>
+      <li>Thaler (1985/1999), Mental Accounting 系列；Thaler & Johnson (1990) — 赌场资金效应；剧院门票实验。</li>
+      <li>Benartzi & Thaler (1995), "Myopic Loss Aversion and the Equity Premium Puzzle" — 短视损失厌恶。</li>
+      <li>Kahneman, Knetsch & Thaler (1990) — 马克杯禀赋效应实验。</li>
+      <li>Svenson (1981) — 93%司机自评高于平均；Alpert & Raiffa — 置信区间校准。</li>
+      <li>Wason (1960) — 2-4-6 确认偏误任务；Fischhoff (1975) — 后见之明。</li>
+      <li>Asch (1951) — 从众实验；Langer (1975) — 控制错觉；Bar-Eli 等 (2007) — 门将行动偏误。</li>
+      <li>Tetlock (2005), 《Expert Political Judgment》— 专家预测准确率；Shiller (2019), 《叙事经济学》。</li>
+      <li>Wald (1943) — 幸存者偏差（轰炸机装甲）；DALBAR QAIB 年度报告 — 行为差距（方法论存争议）。</li>
+      <li>Duke (2018), 《Thinking in Bets》— "resulting"（以结果论英雄）与决策质量评估。</li>
+    </ol>
+    <p style="font-size:12.5px;color:#8a8170;margin-top:10px">注：实验数字为原研究的近似转述；本文为学习材料、非投资建议。市场案例详见本系列《腾讯与拼多多十年股价复盘》《市场有效性的三个漏洞》。</p>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>
