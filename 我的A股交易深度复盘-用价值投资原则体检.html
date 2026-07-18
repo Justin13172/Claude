@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的交易深度复盘 · 用价值投资原则体检（2020–2025 真实交割单）</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --purple:#6a4c93;--purple-bg:#efe9f5;
+    --radius:14px;--maxw:840px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1220px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:284px;flex:0 0 284px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.4px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--danger);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:54px 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:29px;line-height:1.32;margin:0 0 14px;letter-spacing:.3px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.r{border-color:#e6a99f;color:var(--danger);background:var(--danger-bg)}
+  .pill.g{border-color:#bfe0cd;color:var(--duan);background:var(--duan-bg)}
+  section{padding:36px 0 8px;scroll-margin-top:18px}
+  h2{font-size:25px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:19px;margin:26px 0 6px;line-height:1.4}
+  p{margin:11px 0}
+  .lead{font-size:18px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  .kpis{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+  .kpi{flex:1 1 140px;background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-align:center;box-shadow:var(--shadow)}
+  .kpi .n{display:block;font-size:20px;font-weight:800;color:var(--ink)}
+  .kpi .n.red{color:var(--danger)}.kpi .n.green{color:var(--duan)}
+  .kpi .l{font-size:12px;color:var(--ink-soft);line-height:1.4;margin-top:3px}
+  .tablewrap{overflow-x:auto;margin:16px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.2px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#f3eee2;font-size:12.3px;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.hl td{background:#fbf6ea;font-weight:700}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .neg{color:var(--danger);font-weight:700}.pos{color:var(--duan);font-weight:700}
+  figure{margin:22px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  /* 案例卡 */
+  .case{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:24px 0;box-shadow:var(--shadow);background:#fff}
+  .case .top{padding:13px 20px;color:#fff;background:var(--danger);display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+  .case.win .top{background:var(--duan)}
+  .case .top .t{font-weight:800;font-size:17px}
+  .case .top .pl{font-size:14px;font-weight:800}
+  .case .bd{padding:14px 20px}
+  .crow{padding:8px 0;border-bottom:1px dashed var(--line);font-size:14.8px}
+  .crow:last-child{border-bottom:none}
+  .crow .cl{display:inline-block;font-size:11.5px;font-weight:800;padding:1px 9px;border-radius:6px;margin-right:8px;vertical-align:1px;white-space:nowrap}
+  .cl.fact{background:#f3eee2;color:#8a6d1a}
+  .cl.then{background:var(--buffett-bg);color:var(--buffett)}
+  .cl.after{background:var(--purple-bg);color:var(--purple)}
+  .cl.bias{background:var(--danger-bg);color:var(--danger)}
+  .cl.rule{background:var(--duan-bg);color:var(--duan)}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px;color:var(--ink)}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft);font-style:normal}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  .danger{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .danger .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  .good{background:var(--duan-bg);border:1px solid #bfe0cd;border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .good .lab{font-weight:800;color:var(--duan);margin-bottom:4px}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  ul.cross li::before{content:"✕";color:var(--danger)}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 44px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--duan);color:#fff;text-align:center;line-height:28px;font-weight:800;font-size:14px}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:18px 0;color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:14px 18px;margin:24px 0}
+  .sources{font-size:12.8px;color:var(--ink-soft)}.sources li{margin:6px 0;word-break:break-all}.sources a{color:var(--buffett)}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    header.hero h1{font-size:23px}header.hero{padding:28px 0 18px}body{font-size:16px}
+    th,td{padding:6px 7px;font-size:11.5px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.case,figure svg{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 我的交易深度复盘</summary>
+    <a href="#ch0">总览 · 一句话诊断</a>
+    <a href="#ledger">完整损益表</a>
+    <a href="#timeline">时间轴 · 买点全在山顶</a>
+    <a href="#cases">七个关键案例</a>
+    <a href="#bias">行为体检报告</a>
+    <a href="#right">做对了什么</a>
+    <a href="#stats">数字病理</a>
+    <a href="#rx">改进处方 · 交易规则v1.0</a>
+    <a href="#sources">参考来源</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">我的交易深度复盘
+      <small>2020.7 – 2025.1 真实交割单<br>用价值投资原则逐笔体检</small>
+    </div>
+    <div class="grp">正文</div>
+    <a href="#ch0">总览 · 一句话诊断</a>
+    <a href="#ledger">§1 完整损益表</a>
+    <a href="#timeline">§2 时间轴：买点全在山顶</a>
+    <a href="#cases">§3 七个关键案例</a>
+    <a href="#c1" class="sub">① 开户即巅峰</a>
+    <a href="#c2" class="sub">② 西藏药业：买在历史最高日</a>
+    <a href="#c3" class="sub">③ 五粮液的两段人生</a>
+    <a href="#c4" class="sub">④ 片仔癀：唯一的长持</a>
+    <a href="#c5" class="sub">⑤ 隆基：六周五笔</a>
+    <a href="#c6" class="sub">⑥ 腾讯：底部买入只拿一天</a>
+    <a href="#c7" class="sub">⑦ 2024轮回：万科+科创50</a>
+    <a href="#bias">§4 行为体检报告</a>
+    <a href="#right">§5 做对了什么</a>
+    <a href="#stats">§6 数字病理</a>
+    <a href="#rx">§7 改进处方</a>
+    <div class="grp">参考</div>
+    <a href="#sources">参考来源</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">PERSONAL TRADE AUDIT · 2020–2025</span>
+    <h1>我的 A 股/港股通交易深度复盘<br><span style="font-size:.62em;color:var(--ink-soft);font-weight:600">用价值投资原则逐笔体检：问题、原理与改进</span></h1>
+    <p class="sub">基于你提供的券商成交记录（2020年7月—2025年1月，54笔成交、14个标的），逐笔核对当时的市场背景与之后的走势，用本系列建立的价值投资与行为金融框架做一次完整体检。</p>
+    <div class="pillrow">
+      <span class="pill">54笔成交 · 14个标的 · 4.5年</span>
+      <span class="pill r">净盈亏约 −20,467 元</span>
+      <span class="pill g">两笔长持 +56,459 元</span>
+      <span class="pill r">其余交易 −76,926 元</span>
+    </div>
+    <div class="crosslink">📎 本篇是整个价值投资系列的"实证收官"：你的这份交割单，几乎逐站走完了《投资者偏误全景图》里的"散户绞肉机循环"，也用真金白银验证了《市场有效性三个漏洞》《腾讯与拼多多十年复盘》里的每一条结论。文中偏误编号（如⑳FOMO）对应《偏误全景图》的 23 偏误清单。</div>
+    <div class="disclaimer"><b>数据与口径说明：</b>交易数据来自你提供的成交记录截图，已逐条人工识读；<b>盈亏为"卖出金额−买入金额+已见分红"的估算，未含佣金/印花税/过户费</b>（估计另有数百至千余元成本）；港股通交易的成交金额为券商折算后的人民币。市场背景（指数点位、个股高低点、事件日期）均经公开报道检索核实并在文末列出来源，个别为约值。<b>京东集团-SW 仅见卖出10股、无对应买入记录（可能来自打新或更早持仓），不纳入盈亏分析。</b>本报告仅用于学习复盘，不构成投资建议。</div>
+  </header>
+
+  <!-- 总览 -->
+  <section id="ch0">
+    <span class="chapnum">总览</span>
+    <h2>一句话诊断</h2>
+    <div class="fp">
+      <div class="lab">诊断结论</div>
+      <p style="font-size:17.5px;margin:8px 0"><b>这份交割单里住着两个投资者：一个"持有者"，只出手了两次（五粮液2020、片仔癀），合计赚了 +56,459 元；一个"交易者"，做了其余全部操作，合计亏了 −76,926 元。</b>你的问题从来不是选股——选的大多是白马龙头；而是<b>几乎每一笔大额买入都发生在市场或个股的情绪顶点（多数在开盘后10分钟内下单），几乎每一次卖出都由情绪而非逻辑触发</b>。</p>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><span class="n">4.5年</span><span class="l">2020/7/15 开户<br>—2025/1/27 清仓</span></div>
+      <div class="kpi"><span class="n">54笔</span><span class="l">29买 25卖<br>集中于两个狂热期</span></div>
+      <div class="kpi"><span class="n red">−20,467</span><span class="l">净盈亏(元,不含费用)<br>峰值投入约18–19万</span></div>
+      <div class="kpi"><span class="n green">+59.1%</span><span class="l">最佳:片仔癀<br>持有约6个月</span></div>
+      <div class="kpi"><span class="n red">−32.0%</span><span class="l">最差:五粮液R2<br>320追高→217割肉</span></div>
+      <div class="kpi"><span class="n red">1天</span><span class="l">腾讯312元底部买入<br>的持有时长</span></div>
+    </div>
+    <p>三个最扎眼的事实，后面逐一展开：</p>
+    <ul class="clean">
+      <li><b>持有期 ≥4个月的仓位全部盈利（2/2）；持有期 &lt;2个月的仓位绝大多数亏损。</b>你账户里唯一稳定的"alpha"，就是时间。</li>
+      <li><b>七次关键建仓，全部踩在可考证的情绪极值上</b>：开户建仓周=沪指3458狂热顶（2020/7/13-17）；西藏药业买在<b>历史最高价当日</b>（2020/8/4，盘中182.07）；隆基买在核心资产崩盘初期的"抄底"；腾讯585/五粮液320买在2021/5反弹顶；万科买在9·24行情最狂热的9/30（港股单日成交破5000亿历史纪录）；科创50ETF买在<b>A股史上最大成交日</b>（2024/10/8，3.45万亿）的开盘10分钟内。</li>
+      <li><b>唯一一次教科书级的逆向买入——2022/3/15以312港元买腾讯（当日收盘298，−10.19%）——只持有了一天</b>：次日金融委讲话大涨+23.15%，你在319.4和360全部清仓。四年后腾讯约430港元；若300股全部拿住，今天约小幅盈利，而实际实现亏损−28.3%。</li>
+    </ul>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 损益表 -->
+  <section id="ledger">
+    <span class="chapnum">§1</span>
+    <h2>完整损益表（14个标的逐一核算）</h2>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>标的</th><th>期间</th><th class="num">买入总额</th><th class="num">卖出总额</th><th class="num">盈亏(元)</th><th class="num">收益率</th><th>持有期</th><th>一句话</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td>五粮液 R1</td><td>2020/7–2021/1</td><td class="num">143,511</td><td class="num">177,380</td><td class="num pos">+33,869</td><td class="num pos">+23.6%</td><td>1.5–6.5个月</td><td>拿住了白酒牛市主升浪</td></tr>
+        <tr class="hl"><td>片仔癀</td><td>2020/7–2021/1</td><td class="num">38,226</td><td class="num">60,816</td><td class="num pos">+22,590</td><td class="num pos">+59.1%</td><td>约6个月</td><td>全账户最佳，唯一的真"长持"</td></tr>
+        <tr><td>复星医药</td><td>2020/7</td><td class="num">19,275</td><td class="num">20,425</td><td class="num pos">+1,150</td><td class="num pos">+6.0%</td><td>4天</td><td>运气性的快进快出</td></tr>
+        <tr><td>格力电器</td><td>2020/9–10</td><td class="num">16,469</td><td class="num">16,542</td><td class="num pos">+73</td><td class="num pos">+0.4%</td><td>约1个月</td><td>打平出局</td></tr>
+        <tr><td>凯撒文化</td><td>2021/5–6</td><td class="num">4,580</td><td class="num">4,600</td><td class="num pos">+20</td><td class="num pos">+0.4%</td><td>5天</td><td>概念股投机，扣费即亏</td></tr>
+        <tr><td>立讯精密</td><td>2020/7</td><td class="num">45,275</td><td class="num">44,000</td><td class="num neg">−1,275</td><td class="num neg">−2.8%</td><td>7–13天</td><td>两周内追高再放弃</td></tr>
+        <tr><td>华兰生物</td><td>2020/7–8</td><td class="num">43,390</td><td class="num">38,838</td><td class="num neg">−4,552</td><td class="num neg">−10.5%</td><td>1–5周</td><td>54元买对了，68元加错了</td></tr>
+        <tr><td>科创50ETF</td><td>2024/10–2025/1</td><td class="num">11,318</td><td class="num">10,434</td><td class="num neg">−884</td><td class="num neg">−7.8%</td><td>约3.5个月</td><td>买在史上最大成交日开盘</td></tr>
+        <tr><td>隆基股份</td><td>2021/3–4</td><td class="num">57,518</td><td class="num">50,096</td><td class="num neg">−7,422</td><td class="num neg">−12.9%</td><td>6周内5笔</td><td>swing交易，卖在77元阶段低点</td></tr>
+        <tr><td>五粮液 R2</td><td>2021/5–9</td><td class="num">32,000</td><td class="num">21,750<span style="color:#8a8170">+258分红</span></td><td class="num neg">−9,992</td><td class="num neg">−31.2%</td><td>4个月</td><td>320追反弹顶，217恐慌割肉</td></tr>
+        <tr><td>万科企业(H)</td><td>2024/9–2025/1</td><td class="num">38,571</td><td class="num">28,636</td><td class="num neg">−9,935</td><td class="num neg">−25.8%</td><td>4个月</td><td>9/30狂热日买入债务危机公司</td></tr>
+        <tr><td>西藏药业</td><td>2020/8</td><td class="num">60,132</td><td class="num">48,302</td><td class="num neg">−11,830</td><td class="num neg">−19.7%</td><td>7–9天</td><td>买在历史最高日，9天亏两成</td></tr>
+        <tr><td>腾讯控股(港)</td><td>2021/5–2022/3</td><td class="num">114,146</td><td class="num">81,762<span style="color:#8a8170">+105分红</span></td><td class="num neg">−32,279</td><td class="num neg">−28.3%</td><td>1天–10个月</td><td>585→485→312摊平，大反弹日全清</td></tr>
+        <tr><td>京东集团(港)</td><td>2022/3 仅卖出</td><td class="num">—</td><td class="num">1,848</td><td class="num">不计</td><td class="num">—</td><td>—</td><td>仅10股，无买入记录，不纳入</td></tr>
+      </tbody>
+      </table>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><span class="n green">+56,459</span><span class="l">两笔持有≥4个月的白马仓<br>（五粮液R1+片仔癀）</span></div>
+      <div class="kpi"><span class="n red">−76,926</span><span class="l">其余12个标的合计<br>（多为数天~数周的操作）</span></div>
+      <div class="kpi"><span class="n red">−20,467</span><span class="l">全账户净盈亏<br>（另有费用未计）</span></div>
+    </div>
+    <p style="font-size:14px;color:var(--ink-soft)">同期基准（约值）：沪深300从2020年7月中旬约4,700点到2025年1月约3,800点，跌约15–20%。你约−11%（净亏÷峰值投入）——<b>跑赢了下跌的指数，但输给了自己账户里那个"持有者"</b>：若只做那两笔长持，收益是+56,459。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 时间轴 -->
+  <section id="timeline">
+    <span class="chapnum">§2</span>
+    <h2>时间轴：把你的买卖点画在市场情绪曲线上</h2>
+    <figure>
+      <svg viewBox="0 0 760 400" role="img" aria-label="买卖点与市场情绪时间轴">
+        <text x="380" y="24" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">4年半：▲买入 与 ▼卖出 落在情绪曲线的什么位置</text>
+        <!-- axis -->
+        <line x1="40" y1="330" x2="740" y2="330" stroke="#999"/>
+        <!-- stylized market emotion curve: 2020/7 peak, dip, 2021/2 big peak, 2021/5 rebound, slide to 2022/3 valley, 2022/10 deeper, drift, 2024/9-10 spike, pullback -->
+        <path d="M50,180 C80,140 100,130 120,150 C150,185 170,180 200,120 C215,95 230,90 245,110 C265,140 280,135 300,120 C330,100 380,190 420,240 C440,262 455,300 470,290 C500,270 530,285 560,280 C590,275 610,120 640,110 C660,105 680,150 720,170" fill="none" stroke="#98a0a8" stroke-width="2.5"/>
+        <!-- labels of market events -->
+        <text x="118" y="122" text-anchor="middle" font-size="10.5" fill="#666">2020/7/13 沪指3458</text>
+        <text x="243" y="80" text-anchor="middle" font-size="10.5" fill="#666">2021/2 核心资产顶</text>
+        <text x="300" y="105" text-anchor="middle" font-size="10.5" fill="#666">2021/5 反弹</text>
+        <text x="470" y="315" text-anchor="middle" font-size="10.5" fill="#666">2022/3/15 中概最恐慌</text>
+        <text x="638" y="95" text-anchor="middle" font-size="10.5" fill="#666">2024/9/30-10/8 天量顶</text>
+        <!-- BUY markers (red triangles up) -->
+        <g font-size="15" fill="#c0392b" text-anchor="middle" font-weight="800">
+          <text x="112" y="145">▲</text><text x="112" y="163" font-size="9.5">开户建仓5只</text>
+          <text x="138" y="150">▲</text><text x="138" y="167" font-size="9.5">西藏药业@历史最高日</text>
+          <text x="262" y="128">▲</text><text x="262" y="145" font-size="9.5">隆基106/100</text>
+          <text x="300" y="112">▲</text><text x="300" y="129" font-size="9.5">腾讯585·五粮液320</text>
+          <text x="352" y="150">▲</text><text x="352" y="167" font-size="9.5">腾讯485</text>
+          <text x="468" y="278">▲</text><text x="468" y="296" font-size="9.5" fill="#2f7d57" font-weight="800">腾讯312(全场唯一谷底买入!)</text>
+          <text x="612" y="132">▲</text><text x="612" y="112" font-size="9.5">万科9/30</text>
+          <text x="640" y="102">▲</text><text x="640" y="88" font-size="9.5">科创50@10/8开盘</text>
+        </g>
+        <!-- SELL markers (green triangles down) -->
+        <g font-size="15" fill="#2f7d57" text-anchor="middle" font-weight="800">
+          <text x="160" y="200">▼</text><text x="160" y="216" font-size="9.5">8月恐慌抛医药</text>
+          <text x="238" y="112">▼</text><text x="238" y="97" font-size="9.5" fill="#2f7d57">1月顶部卖酒/片仔癀✓</text>
+          <text x="278" y="152">▼</text><text x="278" y="169" font-size="9.5">隆基88→77(阶段低)</text>
+          <text x="335" y="168">▼</text><text x="335" y="185" font-size="9.5">五粮液217割肉</text>
+          <text x="482" y="270">▼</text><text x="482" y="253" font-size="9.5" fill="#c0392b" font-weight="800">3/16全清腾讯(+23%当日)</text>
+          <text x="700" y="195">▼</text><text x="700" y="212" font-size="9.5">2025/1/27两分钟清仓</text>
+        </g>
+        <text x="380" y="385" text-anchor="middle" font-size="12" fill="#666">规律：▲几乎都贴着波峰（唯一贴着谷底的那个▲，次日就变成了▼）；✓标注的是仅有的"卖在顶部"的正确卖出</text>
+      </svg>
+      <figcaption>这不是事后画的漫画——每个▲▼的位置都对应文中已核实的日期与价位。它就是《偏误全景图》"绞肉机循环"的实盘版。</figcaption>
+    </figure>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 案例 -->
+  <section id="cases">
+    <span class="chapnum">§3</span>
+    <h2>七个关键案例逐笔复盘</h2>
+    <p class="lead">每个案例四层：交易事实 → 当时的市场背景（已核实）→ 之后发生了什么（已核实）→ 命中的偏误与该记住的原则。</p>
+
+    <div class="case" id="c1">
+      <div class="top"><span class="t">案例① 开户即巅峰：2020/7/15–17 三天建仓五只</span><span class="pl">埋下全部伏笔</span></div>
+      <div class="bd">
+        <div class="crow"><span class="cl fact">事实</span>7/15开户（登记指定）当天即买立讯精密500股@56.95、华兰生物300股@54.38；7/16买五粮液200股(@205/@201.56)、复星医药500股@38.55；7/17买片仔癀100股@183.98。三天投入约12.3万。</div>
+        <div class="crow"><span class="cl then">当时</span>正是A股本轮情绪最狂热的一周：沪指7/1突破3000点后连续暴涨，<b>7/13冲到3458.79点的阶段顶</b>，白酒医药领涨、两市连续万亿成交、开户潮刷屏——你就是在"人人都在讨论股票"的那一周入场的。</div>
+        <div class="crow"><span class="cl after">之后</span>沪指随即回调至3200点区间。你的五只里，追着疫情概念的（华兰、复星）和果链热点的（立讯）短期都套住或平出；反而五粮液、片仔癀这两只"买贵了但生意够硬"的，被后来的结构性牛市救了回来。</div>
+        <div class="crow"><span class="cl bias">偏误</span>⑳FOMO+⑲羊群（在最热的一周入场）、⑧近因外推（以为涨势会延续）。</div>
+        <div class="crow"><span class="cl rule">原则</span>入场时点由市场热度触发而非价值触发，是散户的第一课。幸运的是你选的多是白马——<b>"好生意"给了"坏时机"一次赦免，但只赦免了拿得住的那部分</b>。</div>
+      </div>
+    </div>
+
+    <div class="case" id="c2">
+      <div class="top"><span class="t">案例② 西藏药业：买在历史最高价当日，9天亏两成</span><span class="pl">−11,830（−19.7%）</span></div>
+      <div class="bd">
+        <div class="crow"><span class="cl fact">事实</span>8/4 14:48买200股@154.16，8/6加仓200股@146.50；8/11–13分四笔@117–130全部割掉。9天，−19.7%。</div>
+        <div class="crow"><span class="cl then">当时</span>西藏药业是2020年最疯的"妖股"之一：因宣布投资斯微生物mRNA新冠疫苗，股价从5/22的25.92元涨到<b>8/4盘中182.07元——不到3个月+600%，而8/4恰是它的历史最高日</b>。你在市场为它写下最高价的那个下午入场。</div>
+        <div class="crow"><span class="cl after">之后</span>疫苗合作再无实质进展，年底跌到67.28元（较峰值−63%）；公司因对疫苗企业投资"无正式尽调报告"收监管警示函，后被曝内幕交易案，"一地鸡毛"。你的快速割肉，事后看反而躲过了更深的坑。</div>
+        <div class="crow"><span class="cl bias">偏误</span>⑩叙事谬误（"疫苗=暴富"的故事）+⑳FOMO+⑨代表性（把概念当成概率）；随后⑤短视损失厌恶触发恐慌卖出。</div>
+        <div class="crow"><span class="cl rule">原则</span>这是全单最典型的"<b>能力圈外+零安全边际</b>"交易：无法回答"它十年后靠什么赚钱"的标的，涨得越猛越不能碰。止损止对了——但真正的错误发生在买入那一刻。</div>
+      </div>
+    </div>
+
+    <div class="case" id="c3">
+      <div class="top"><span class="t">案例③ 五粮液的两段人生：同一只股票，+23.6% vs −31.2%</span><span class="pl">R1 +33,869 / R2 −9,992</span></div>
+      <div class="bd">
+        <div class="crow"><span class="cl fact">事实</span><b>R1：</b>2020/7–9分批买入600股（成本约205–229为主），持有穿越整个白酒主升浪，2021/1/7–29在291–330区间分批卖出，+23.6%。<b>R2：</b>2021/5/26以320元重新追入100股，9/29以217.5元割肉，−31.2%。</div>
+        <div class="crow"><span class="cl then">当时</span>五粮液2021/2/10见历史峰值354.61元后崩了一轮；5月是那次著名的"最后反弹"（回到320+），随后开启多年熊市。你R1卖点（1月291–330）极其漂亮——但2月一新高，5月你就受不了了，在反弹顶追了回去。</div>
+        <div class="crow"><span class="cl after">之后</span>五粮液此后一路阴跌，2025年末在90元附近、较峰值腰斩过半。R2的217.5割肉事后看"躲过"了更深下跌——但整笔交易的病根是320的追高：<b>该位置对应的市盈率隐含了"白酒永续高增长"的完美假设</b>。</div>
+        <div class="crow"><span class="cl bias">偏误</span>R2买入：⑳FOMO+⑥锚定（"从354跌到320好便宜"——锚在泡沫价而非价值）；R2卖出：⑤短视损失厌恶。R1→R2的转变，就是《十年复盘》里"同一家公司，区别全在价格"的亲身版。</div>
+        <div class="crow"><span class="cl rule">原则</span><b>好公司≠任何价格都能买。</b>R1赚钱不是因为你会择时，而是买价（205–229）留了余地；R2亏钱不是因为公司变了，而是320的价格没有任何安全边际。同一只股票替你把《安全边际》讲了两遍。</div>
+      </div>
+    </div>
+
+    <div class="case win" id="c4">
+      <div class="top"><span class="t">案例④ 片仔癀：全账户唯一的"价值投资"</span><span class="pl">+22,590（+59.1%）</span></div>
+      <div class="bd">
+        <div class="crow"><span class="cl fact">事实</span>2020/7/17买100股@183.98、8/12加100股@198.28；持有约6个月，2021/1/7、1/25分别以299.91、308.25卖出。+59.1%，贡献了全账户最大单笔利润。</div>
+        <div class="crow"><span class="cl then">当时</span>买入时片仔癀是"中药茅台"叙事的早中期；你做对了三件事：选了有<b>独家配方+提价权</b>（真护城河）的公司、买后<b>拿住不动</b>（中间四个月零操作）、在市场狂热时卖出。</div>
+        <div class="crow"><span class="cl after">之后</span>片仔癀2021/7/21冲到491.88元峰值——你卖在300出头，"少赚"了最后一段；但到2026年它较峰值已跌去72%。你这笔从头到尾都站在合理一侧。</div>
+        <div class="crow"><span class="cl bias">偏误</span>（这笔几乎没有）——它反过来证明：<b>你并非没有能力做对，只是没有把"做对"的条件制度化。</b></div>
+        <div class="crow"><span class="cl rule">原则</span>把这笔交易拆开，就是你自己的成功公式：<b>护城河看得懂 + 买价不疯狂 + 持有超过一个季度 + 在别人贪婪时卖。</b>你的改进方向不是学新东西，而是让每一笔都长成它的样子。</div>
+      </div>
+    </div>
+
+    <div class="case" id="c5">
+      <div class="top"><span class="t">案例⑤ 隆基：六周五笔的swing trading</span><span class="pl">−7,422（−12.9%）</span></div>
+      <div class="bd">
+        <div class="crow"><span class="cl fact">事实</span>3/3买200@106、3/4买200@100（核心资产崩盘刚开始的"抄底"）；3/11割200@88.01；3/17又买200@81.59（09:30:01开盘冲动单）；3/25再割200@77.02；4/15反弹卖200@85.45。六周，五笔，−12.9%。</div>
+        <div class="crow"><span class="cl then">当时</span>2021/2/18后核心资产集体崩盘，隆基从125+高位一路下杀。你在106"抄底"，在88恐慌，在81.59"再抄底"，在77.02（恰是那轮调整的底部区域）彻底投降。</div>
+        <div class="crow"><span class="cl after">之后</span>隆基当年11/1即创出103.30元新高（复权口径远高于你全部卖出价）——你在底部区域交出的筹码，7个月内翻了约一倍。（再之后光伏产能过剩，2022–24又跌回去了——但那是另一个周期的故事，与这六周的操作无关。）</div>
+        <div class="crow"><span class="cl bias">偏误</span>⑰行动偏误（六周五笔）+⑥锚定（106→88"便宜了"）+②处置效应变体（越亏越急）+⑤短视损失厌恶（77元的投降单）。</div>
+        <div class="crow"><span class="cl rule">原则</span>你既没有波段交易者的止损纪律，也没有价值投资者的持有逻辑——<b>卡在中间的"既想抄底又怕跌"状态，是亏损效率最高的状态。</b>周期股+高波动+无估值锚，注定被来回打脸。</div>
+      </div>
+    </div>
+
+    <div class="case" id="c6">
+      <div class="top"><span class="t">案例⑥ 腾讯：唯一的谷底买入，只持有了一天</span><span class="pl">−32,279（−28.3%，全账户最大亏损）</span></div>
+      <div class="bd">
+        <div class="crow"><span class="cl fact">事实</span>2021/5/21买100股@585港元（≈¥48,536）；10/12"便宜了100块"再买100股@485；<b>2022/3/15 09:30:56，在中概史诗级恐慌的开盘一分钟，买100股@312</b>——当日腾讯收298、跌10.19%。<b>次日(3/16)金融委释放重磅利好，腾讯暴涨+23.15%收367——你在11:58以319.4卖出200股、14:31以360卖出100股，全部清仓。</b>另3/29卖出京东10股清账。</div>
+        <div class="crow"><span class="cl then">当时</span>585是2021年2月748历史顶回落后的"看起来便宜"（⑥锚定）；485是"更便宜"；312那笔——是全账户唯一一次真正的"别人恐惧我贪婪"，买在了《十年复盘》里写过的那个历史级底部区域（3/15）。然后市场只用了一天就奖励了你+23%，而这份奖励触发的不是坚定，是<b>"终于能少亏点跑了"</b>。</div>
+        <div class="crow"><span class="cl after">之后</span>腾讯2022/10见108港元大底（你若拿着会更痛），但随后走出完整修复：2025/2重上500+（DeepSeek行情、近四年新高），2026/7约430港元。<b>你300股的平均成本约461港元：拿到今天≈小幅盈亏平衡，拿到2025年初≈+12%；而实际结果是−28.3%、亏掉3.2万。</b>更扎心的对照：你3/16卖出的"理由"（大涨了）恰是持有的理由。</div>
+        <div class="crow"><span class="cl bias">偏误</span>买入链：⑥锚定（585"比748便宜"）+③沉没成本（485摊平）；卖出：②处置效应+④回本执念的镜像——被套10个月后，第一根大阳线成了"解脱之门"。这正是《偏误全景图》绞肉机第⑤站的变体：<b>不是割在最低点，而是割在最低点后的第一次反弹</b>——同样致命，更常见。</div>
+        <div class="crow"><span class="cl rule">原则</span>312那笔证明你有逆向的<b>直觉</b>；3/16的全清证明你没有逆向的<b>系统</b>。逆向投资的收益不来自"敢买"，来自"买了之后扛得住波动、等得起价值回归"——<b>没有事先写下的持有逻辑，任何一次剧烈波动（无论涨跌）都会把你洗出去。</b></div>
+      </div>
+    </div>
+
+    <div class="case" id="c7">
+      <div class="top"><span class="t">案例⑦ 2024轮回：三年空窗后，在史上最大成交日回归</span><span class="pl">万科−9,935 / 科创50−884</span></div>
+      <div class="bd">
+        <div class="crow"><span class="cl fact">事实</span>2022/3/29后账户沉寂<b>两年半</b>。2024/9/30 09:30:07（开盘7秒），买万科H 5500股@7.8港元（≈¥38,571，占当期投入近八成）；10/8 09:31和09:40，分两笔买科创50ETF 9400份@1.204。2025/1/27 14:51–14:53，两分钟内两只全部清仓：万科5.6港元（−25.8%）、科创50@1.11（−7.8%）。</div>
+        <div class="crow"><span class="cl then">当时</span>9/24政策组合拳引爆史诗行情：9/30港股单日成交<b>破5000亿港元历史纪录</b>、9月恒指累涨3000点为历年最佳；10/8是A股节后首日，沪指开盘+10.13%、科创50收涨17.38%、两市成交<b>3.45万亿创历史天量</b>——你的两笔买入分别落在这两个可载入教科书的狂热时刻，而且都在开盘10分钟内。</div>
+        <div class="crow"><span class="cl after">之后</span>大盘随即回落震荡。万科则是自身的雷：2025/1债务危机深化、机构"抛弃"股债双跌——你1/27割在坏消息最密集处；2月深铁输血一度涨停，但危机延续（2025/12两笔57亿债券展期被拒）。<b>万科这笔的病根不在卖点，在买点：一家连年亏损、现金流告急的高杠杆房企，无论多便宜都答不出"未来现金流"这道题</b>——它在你的能力圈和安全边际框架里本就该被一票否决。</div>
+        <div class="crow"><span class="cl bias">偏误</span>"蛇咬效应"（腾讯创伤→2.5年不敢碰）+⑳FOMO（在全民狂热周被吸回）+⑲羊群；万科重仓单一风险标的违反仓位纪律；1/27两分钟清仓=情绪性"眼不见心不烦"。<b>这一整段就是绞肉机循环的第二圈：创伤→缺席→在下一个顶点回归→再割肉。</b></div>
+        <div class="crow"><span class="cl rule">原则</span>三年不交易不等于三年在学习——<b>没有复盘的空窗期，只是把同一套行为模式冷冻保存。</b>回归后第一笔就是重仓开盘冲动单，说明触发你交易的仍然是"市场热闹"而非"价格低于价值"。</div>
+      </div>
+    </div>
+
+    <p style="font-size:14px;color:var(--ink-soft)">附注两笔小交易：凯撒文化（2021/5/27买500股@9.16，6/1卖@9.20，+20元，扣费即亏）——纯概念投机，5天进出，无任何生意逻辑；复星医药（+6%，4天）——结果是赚的，但决策模式与西藏药业无异，只是运气好。<b>用结果评价决策（resulting）恰是要戒掉的。</b></p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 行为体检 -->
+  <section id="bias">
+    <span class="chapnum">§4</span>
+    <h2>行为体检报告：对照23偏误清单</h2>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>命中偏误</th><th>你的实证（本单内）</th><th>出血量</th></tr></thead>
+      <tbody>
+        <tr><td><b>⑳ FOMO / ⑲羊群</b></td><td>开户于3458狂热周；西藏药业买在历史最高日；万科买在5000亿天量日开盘7秒；科创50买在3.45万亿天量日开盘10分钟</td><td class="num neg">最大出血源</td></tr>
+        <tr><td><b>⑥ 锚定效应</b></td><td>腾讯585（锚在748）、485（锚在585）；五粮液320（锚在354）；隆基88→81"便宜了"</td><td class="num neg">约−5万</td></tr>
+        <tr><td><b>② 处置效应</b></td><td>3/16腾讯+23%当日全清（拿不住反弹）；1月五粮液330卖了又300买回；赢家全部提前离场</td><td class="num neg">机会成本巨大</td></tr>
+        <tr><td><b>⑤ 短视损失厌恶</b></td><td>西藏9天割、隆基77投降、五粮液217割——全部发生在连续下跌后的情绪谷</td><td class="num neg">约−3万</td></tr>
+        <tr><td><b>⑰ 行动偏误</b></td><td>隆基六周五笔；2020/8医药仓一周内七笔进出；开盘10分钟内下单成瘾（7笔）</td><td class="num neg">摩擦+错误放大</td></tr>
+        <tr><td><b>⑩ 叙事谬误 / ⑨代表性</b></td><td>西藏药业（疫苗故事）、凯撒文化（概念）、万科（"政策救市=地产反转"）</td><td class="num neg">约−2.2万</td></tr>
+        <tr><td><b>③ 沉没成本 / 摊平</b></td><td>腾讯485一笔（"摊低成本"而非重估价值）；华兰68.6追加</td><td class="num neg">约−1.5万</td></tr>
+        <tr><td><b>蛇咬效应（风险规避摆动）</b></td><td>2022/3创伤→2.5年空窗→2024/9在更高狂热处回归</td><td class="num neg">循环放大器</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="fp">
+      <div class="lab">绞肉机循环 · 你的两圈实录</div>
+      <p style="margin:6px 0"><b>第一圈（2020/7–2022/3）：</b>狂热期重仓入场(①) → 下跌拒绝认错、锚定买入价(②) → 摊平(③腾讯485) → 深套麻木(④) → 在恐慌/反弹中清仓(⑤ 3/16) → 归因于市场、零复盘(⑥) →</p>
+      <p style="margin:6px 0"><b>第二圈（2024/9–2025/1）：</b>→ 创伤性缺席2.5年 → 在下一个史诗级狂热日回归(①′ 9/30、10/8) → 4个月后两分钟清仓(⑤′ 1/27) → 循环待续或就此打破——<b>这份报告的目的就是在这里剪断它。</b></p>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 做对了什么 -->
+  <section id="right">
+    <span class="chapnum">§5</span>
+    <h2>做对了什么（必须公平地说）</h2>
+    <div class="good">
+      <div class="lab">✅ 这份交割单里真实存在的优点</div>
+      <ul class="clean">
+        <li><b>零杠杆、零融资融券。</b>4.5年所有交易都是现货现金——这让你所有的错误都"可生还"。这是比任何技巧都重要的底线，你一直守着。</li>
+        <li><b>选股品味不差。</b>14个标的里11个是行业龙头/白马（五粮液、片仔癀、腾讯、格力、隆基、立讯、复星、华兰、万科曾是、科创50是指数）。真正的纯投机只有西藏药业和凯撒文化两笔。<b>你的选股能力从来不是问题。</b></li>
+        <li><b>有真实的逆向直觉。</b>2022/3/15开盘一分钟敢买腾讯312，是很多职业投资者都做不到的动作——你缺的是把它拿住的系统，不是勇气。</li>
+        <li><b>对烂票止损快。</b>西藏药业9天、万科4个月——事后看都躲过了更深的下跌。问题从不在"割得快"，在"为什么会买"。</li>
+        <li><b>两笔教科书级的完整交易。</b>五粮液R1和片仔癀：合理价买白马→拿住4–6个月→狂热中分批卖出。+56,459元证明你完整地"会"这件事。</li>
+      </ul>
+    </div>
+    <blockquote>你不需要变成另一个人。把片仔癀那笔交易的四个条件（看得懂、买价不疯、拿得住、贪婪时卖）变成每一笔的<b>准入门槛</b>，这份交割单的下半部分就会完全不同。<span class="who">— 本报告的核心结论</span></blockquote>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 数字病理 -->
+  <section id="stats">
+    <span class="chapnum">§6</span>
+    <h2>数字病理：三张小表看清模式</h2>
+    <h3>表一 · 持有期与盈亏（全部14笔）</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>持有期</th><th>笔数</th><th>标的</th><th class="num">合计盈亏</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td><b>≥4个月</b></td><td>2</td><td>五粮液R1、片仔癀</td><td class="num pos">+56,459（100%胜率）</td></tr>
+        <tr><td>3–4个月</td><td>3</td><td>五粮液R2、万科、科创50</td><td class="num neg">−20,811（0%胜率）</td></tr>
+        <tr><td>2–6周</td><td>4</td><td>华兰、格力、隆基、腾讯(混合)</td><td class="num neg">−44,180（1胜3负）</td></tr>
+        <tr><td>≤2周</td><td>5</td><td>复星、立讯、西藏、凯撒、腾讯312那笔</td><td class="num neg">−11,935（2胜3负,胜的都是运气）</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:14px;color:var(--ink-soft)">注意3–4个月组的全败：不是"拿久一点就行"，而是<b>这三笔的买入价没有安全边际</b>（320的五粮液、7.8的万科、1.204的科创50全在情绪极值）——时间只能救"买得对的"，救不了"买得贵的"。<b>时间×安全边际，缺一不可。</b></p>
+
+    <h3>表二 · 下单时间体检（独有发现）</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>时段</th><th>行为</th><th>实例</th><th>结局</th></tr></thead>
+      <tbody>
+        <tr><td><b>开盘9:30–9:41</b></td><td>冲动买入（7笔）</td><td>万科09:30:07、隆基09:30:01、腾讯312@09:30:56、科创50两笔09:31/09:40、格力09:40、五粮液09:40</td><td class="neg">除腾讯312外全部平庸或亏损；而那笔312次日即被卖掉</td></tr>
+        <tr><td><b>尾盘14:28–15:00</b></td><td>决断卖出（11笔）</td><td>隆基77@14:54、万科@14:53、科创@14:51、五粮液291@14:49、腾讯360@14:31…</td><td class="neg">恐慌日的尾盘卖单=一天煎熬后的投降；顶部的15:00卖单（1月）反而是对的</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:14px;color:var(--ink-soft)"><b>开盘前10分钟是你的高危时段</b>——隔夜消息+集合竞价跳空最能点燃系统1。一条简单的机械规则（见§7）就能剪掉这整类错误。</p>
+
+    <h3>表三 · 与基准和"另一个自己"对比（约值）</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>情景</th><th class="num">结果（约）</th></tr></thead>
+      <tbody>
+        <tr><td>实际操作（54笔）</td><td class="num neg">−20,467元（−11%/峰值投入）</td></tr>
+        <tr><td>同期沪深300</td><td class="num neg">约−15%~−20%</td></tr>
+        <tr class="hl"><td>只做两笔长持（账户里的"持有者"）</td><td class="num pos">+56,459元</td></tr>
+        <tr><td>腾讯312那100股拿到2025/2（500+港元）</td><td class="num pos">单笔约+60%</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 处方 -->
+  <section id="rx">
+    <span class="chapnum">§7</span>
+    <h2>改进处方：你的交易规则 v1.0（针对本单病灶定制）</h2>
+    <p class="lead">承接《偏误全景图》的七道防线，逐条对准这份交割单里真实出现过的错误。规则的意义不是高明，是<b>在情绪最热时替你值班</b>。</p>
+    <ol class="steps">
+      <li><b>买入前检查清单（一票否决）：</b>①我能用三句话写出它怎么赚钱、凭什么持续吗？（拦西藏药业/凯撒/万科）②假如买入后停牌一年，我睡得着吗？③现在的价格隐含了什么假设——是"合理"还是"完美"？（拦五粮液320/腾讯585）④今天大盘/该股是否处于情绪极值（涨跌停潮、天量、热搜）？是则自动冷却48小时。（拦9/30、10/8）</li>
+      <li><b>禁止开盘下单：</b>所有委托只在<b>11:00–14:00</b>之间下达。你的七笔开盘冲动单已经证明9:30的你不可信。隔夜想好的单子，开盘后两小时依然成立才执行。</li>
+      <li><b>持有期下限90天：</b>买入后90天内禁止卖出（跌破买入逻辑的证伪条件除外，且该条件必须在买入前白纸黑字写下）。这条规则单独就能保住腾讯312、要回处置效应吃掉的利润。</li>
+      <li><b>卖出白名单：</b>只允许三个卖出理由——①买入时写下的证伪条件被触发；②价格显著高于你的估值区间上沿（如1月的330五粮液✓）；③出现明显更好的标的且需要资金。<b>"涨了很多""跌了很多""受不了了"都不是理由。</b></li>
+      <li><b>仓位纪律：</b>单一标的≤25%（拦万科的77%）；单月新增买入≤总资金1/3（拦三天建仓五只）；指数基金为默认底仓、个股为例外。</li>
+      <li><b>投资笔记强制化：</b>每笔买入前填三行——论点/证伪条件/预期持有期。每季度复盘一次：赚的笔数里有多少运气、亏的里有多少自己的责任（对抗⑮自我归因，杜绝"复星医药式"的运气强化）。</li>
+      <li><b>年度交易配额：</b>每年主动交易≤6笔。配额花完只能持有或定投。2020/8你一周做了7笔——配额制会把那种周从你的人生里删除。</li>
+    </ol>
+    <div class="warn">
+      <div class="lab">📌 一页纸军规（打印贴在下单界面旁）</div>
+      <p style="margin:6px 0">1. 市场最热闹的那天，是我的休息日。<br>2. 9:30的我不许碰钱；决定留给11点以后的我。<br>3. 买之前写三行字；写不出=不许买。<br>4. 买入后90天内，跌只有一个含义：检查证伪条件是否触发。没触发=噪音。<br>5. 我账户里赚钱的那个人只做两件事：合理价买白马，然后拿着。让他多上班。</p>
+    </div>
+    <blockquote>"投资很简单，但不容易。"——你的交割单证明了后半句，也藏着前半句的答案：那两笔赚钱的交易已经把"简单"演示给你看了。接下来要做的，不是寻找新的圣杯，而是<b>把例外变成默认</b>。<span class="who">— 段永平（前半句）；本报告（后半句）</span></blockquote>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 来源 -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考来源（市场背景核实）</h2>
+    <ol class="sources">
+      <li>沪指2020/7/1破3000、7/13高点3458.79，白酒医药领涨、万亿成交：新浪财经涨停复盘（2020-07-07）、《财经》慢牛特别报道。</li>
+      <li>西藏药业：5/22收25.92 → 8/4盘中182.07（历史最高）、年末67.28、监管警示函与内幕交易后续：每经网（2021-01-04/05）、第一财经"18天大涨160%"、凤凰网"妖股收警示函 股价一度暴涨6倍"、新浪科技（2023-04-27）。</li>
+      <li>五粮液2021/2峰值354.61、2025年末约90元：搜狐证券历史行情、知乎"股价腰斩！五粮液到底什么情况？"。</li>
+      <li>片仔癀2021/7/21峰值491.88、2026年距峰值−72%：格隆汇、新浪财经（2026-05-18）。</li>
+      <li>隆基2021/11/1股价新高103.30（复权口径更高）：21经济网（2021-11-01）、和讯/东方财富行情。</li>
+      <li>腾讯2022/3/15收298（−10.19%）、3/16金融委利好+23.15%收367：新浪财经/腾讯新闻当日报道；腾讯2026/7约430港元：证券之星回购公告（2026-07-03）。</li>
+      <li>2024/9/30港股单日成交破5000亿历史纪录、9月恒指累涨3000点；10/2恒指+6.2%、内房股翻倍潮：新浪财经港股收盘报道（2024-10-02）、证券时报。</li>
+      <li>2024/10/8：沪指开盘+10.13%、科创50收涨17.38%、两市成交3.45万亿历史天量：腾讯新闻、《财经》、新浪财经（2024-10-09）。</li>
+      <li>万科2025/1债务危机（机构股债双抛）、2025/2深铁输血涨停、2025/12两笔57亿债券展期被拒：华盛通（2025-01-12）、新京报（2025-02-13）、第一财经、金灵AI研究。</li>
+      <li>立讯精密2020/10最高65.53、2023年市值跌破1800亿：OFweek/腾讯新闻（2024-05）；华兰生物2020/8高点76元、五年跌六成：澎湃（2025）、新浪财经（2025-01-22）。</li>
+      <li>方法论：本系列《价值投资入门指南》《难点》《市场有效性的三个漏洞》《投资者偏误全景图》《腾讯与拼多多十年复盘》。</li>
+    </ol>
+    <p style="font-size:12.5px;color:#8a8170;margin-top:10px">注：本报告为个人学习复盘材料，非投资建议；所有盈亏为不含费用的估算，以券商对账单为准。</p>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>
