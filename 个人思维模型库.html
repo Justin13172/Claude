@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人思维模型库 · 活文档 v1.0（28张精选卡）</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --purple:#6a4c93;--purple-bg:#efe9f5;--teal:#0e7c7b;--teal-bg:#e6f2f2;
+    --evo:#2f7d57;--prob:#6a4c93;--econ:#b8860b;--sys:#1f5f8b;--mind:#8e2f4f;
+    --radius:14px;--maxw:840px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1220px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:280px;flex:0 0 280px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.4px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--buffett);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:54px 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:29px;line-height:1.32;margin:0 0 14px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  section{padding:34px 0 8px;scroll-margin-top:18px}
+  h2{font-size:24px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  p{margin:11px 0}
+  .lead{font-size:17.5px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:18px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  /* 模型卡 */
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin:16px 0;box-shadow:var(--shadow);border-left:5px solid var(--line)}
+  .card .ch{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .card .cn{font-size:17.5px;font-weight:800}
+  .card .tag{font-size:10.5px;font-weight:800;padding:1px 8px;border-radius:6px;white-space:nowrap}
+  .tag.ours{background:var(--duan-bg);color:var(--duan)}
+  .tag.canon{background:var(--buffett-bg);color:var(--buffett)}
+  .tag.inv{background:var(--gold-bg);color:#a9760a}
+  .oneline{font-size:16px;font-weight:700;color:var(--ink);background:#faf7ef;border-radius:8px;padding:8px 12px;margin:6px 0}
+  .crow{padding:6px 0;border-bottom:1px dashed var(--line);font-size:14.4px}
+  .crow:last-child{border-bottom:none}
+  .crow .cl{display:inline-block;font-size:11px;font-weight:800;padding:1px 8px;border-radius:6px;margin-right:8px;vertical-align:1px;white-space:nowrap}
+  .cl.src{background:#f3eee2;color:#8a6d1a}
+  .cl.gen{background:var(--buffett-bg);color:var(--buffett)}
+  .cl.edge{background:var(--danger-bg);color:var(--danger)}
+  .crow .en{display:block;font-size:13px;color:#7a818a;font-style:italic;margin-top:3px}
+  .crow ul{margin:4px 0 2px;padding-left:20px}
+  .crow li{margin:3px 0}
+  blockquote{margin:16px 0;padding:13px 18px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:15.5px}
+  blockquote .who{display:block;margin-top:5px;font-size:13px;color:var(--ink-soft)}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:15px 19px;margin:18px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  ul.clean{list-style:none;padding:0;margin:10px 0}
+  ul.clean li{padding:7px 0 7px 28px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:7px;color:var(--duan);font-weight:800}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:16px 0;color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:13px 17px;margin:20px 0}
+  .backtop{display:inline-block;margin-top:8px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    header.hero h1{font-size:23px}header.hero{padding:28px 0 18px}body{font-size:16px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 个人思维模型库 v1.0</summary>
+    <a href="#rules">收录标准与用法</a>
+    <a href="#d1">抽屉① 进化与生物（3）</a>
+    <a href="#d2">抽屉② 概率与统计（6）</a>
+    <a href="#d3">抽屉③ 经济与市场（7）</a>
+    <a href="#d4">抽屉④ 系统与数学（4）</a>
+    <a href="#d5">抽屉⑤ 心理与决策（8）</a>
+    <a href="#mine">附 · 挖矿书单（含翻译支持）</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">个人思维模型库
+      <small>活文档 v1.0 · 28张精选卡<br>宁缺毋滥 · 持续追加</small>
+    </div>
+    <div class="grp">开始之前</div>
+    <a href="#rules">收录标准 · 卡片格式 · 用法</a>
+    <div class="grp">五个抽屉</div>
+    <a href="#d1">① 进化与生物（3张）</a>
+    <a href="#d2">② 概率与统计（6张）</a>
+    <a href="#d3">③ 经济与市场（7张）</a>
+    <a href="#d4">④ 系统与数学（4张）</a>
+    <a href="#d5">⑤ 心理与决策（8张）</a>
+    <div class="grp">附录</div>
+    <a href="#mine">挖矿书单与订阅源</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">A PERSONAL LATTICEWORK · LIVING DOC</span>
+    <h1>个人思维模型库 <span style="font-size:.6em;color:var(--ink-soft)">v1.0</span><br><span style="font-size:.62em;color:var(--ink-soft);font-weight:600">28 张精选卡 · 按根学科分五个抽屉 · 持续追加的活文档</span></h1>
+    <p class="sub">收录那些"讲出来就懂、自己总结不出、懂了之后能解释很多事"的压缩认知。来源两类：<b>本系列讨论中自产的</b>（标绿），和<b>从经典中按'对你最有价值'挑选的</b>(标蓝，英文原文附翻译)。投资高相关的标 ★。</p>
+    <div class="pillrow">
+      <span class="pill">本系列自产 12 张</span>
+      <span class="pill">经典精选 16 张</span>
+      <span class="pill">每张过四条收录测试</span>
+    </div>
+    <div class="crosslink">📎 维护约定：以后每次讨论若产出新模型，经四条测试合格后追加进来并升版本号；每月回顾一次，三个月没用过的卡降级或移出。你随时可以说"把XX加进模型库"或"这张卡我用过了，补个实例"。</div>
+    <div class="disclaimer"><b>说明：</b>引语尽量注明原始出处；英文原文为准、中文为译（标"译"）；个别为广为流传的转述（标"大意"）。本库是认知工具，不构成任何建议。</div>
+  </header>
+
+  <!-- 收录标准 -->
+  <section id="rules">
+    <span class="chapnum">开始之前</span>
+    <h2>收录标准 · 卡片格式 · 用法</h2>
+    <div class="fp">
+      <div class="lab">四条收录测试（宁缺毋滥的滤网）</div>
+      <p style="margin:6px 0">① <b>压缩性</b>：一句话装下一个领域的核心机制；② <b>生成性</b>：能解释≥3个它没直接提到的现象、且跨≥2个领域（核心测试，鸡汤过不了这条）；③ <b>反直觉但可验证</b>：先"啊？"后"哦！"；④ <b>有学科根</b>：能追溯到某个学科的硬核心，不是无源之水。</p>
+    </div>
+    <p><b>卡片五字段</b>：模型名｜一句话｜出处｜它解释了什么（≥3例跨域）｜边界与反例。<b>用法三件事</b>：新卡先给别人（或给我）讲一遍才算收；遇事先问"哪张卡在管这件事"；每月翻一遍全库。</p>
+  </section>
+
+  <!-- ================= 抽屉1 进化 ================= -->
+  <section id="d1">
+    <span class="chapnum">抽屉①</span>
+    <h2 style="border-color:var(--evo)">进化与生物（3张）</h2>
+
+    <div class="card" style="border-left-color:var(--evo)">
+      <div class="ch"><span class="cn">1. 生存机器</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">大脑是生存机器，不是求真机器——它为"活下来"优化，不为"看对"优化。</div>
+      <div class="crow"><span class="cl src">出处</span>理查德·道金斯《自私的基因》(1976)，"生存机器（survival machines）"是书中原词；行为含义由进化心理学展开。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>全部投资偏误的总根源（损失厌恶、从众、模式饥渴——草原上全是最优策略）；</li><li>为什么广告攻击情绪而非逻辑、为什么八卦和坏消息天然抓眼球；</li><li>为什么"知道道理"治不了行为——道理装在慢系统，行为由快系统发出。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>不是"人永远不理性"：在有及时反馈、可重复练习的领域（棋类、手艺），慢系统能被训练成直觉。它失灵最重的地方恰是市场这种反馈又慢又乱的环境。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--evo)">
+      <div class="ch"><span class="cn">2. 基因的目标不是你的目标</span><span class="tag canon">经典</span></div>
+      <div class="oneline">你的许多"想要"，是基因为了复制自己装进你脑里的，不是为了你的幸福或财富。</div>
+      <div class="crow"><span class="cl src">出处</span>道金斯《自私的基因》核心命题（译述）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么明知垃圾食品不好还想吃（热量稀缺时代的程序在富足时代跑偏）；</li><li>为什么"别人赚得比我多"比"我亏了"更痛（地位=远古的生存资源）→FOMO的根；</li><li>为什么赌博、刷手机让人上瘾（变率奖励劫持了觅食回路）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>解释冲动的来源≠为冲动开脱；知道程序存在，才谈得上用流程绕开它（见第22张）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--evo)">
+      <div class="ch"><span class="cn">3. 红皇后效应</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">你必须全力奔跑，才能留在原地——因为对手也在进化。</div>
+      <div class="crow"><span class="cl src">出处</span>进化生物学家 Van Valen (1973) 借《爱丽丝镜中奇遇》红皇后之言命名："It takes all the running you can do, to keep in the same place."（译：你得拼命奔跑，才能保持在原地。）</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么没有护城河的优秀会被"卷"没——同行也在拼命跑（呼应巴菲特：先问十年后对手为什么还打不进来）；</li><li>为什么套利策略会自我消灭（2024年2月量化踩踏：跑的人太多，原地都保不住）；</li><li>个人职业：技能不升级=相对退步，哪怕绝对水平没降。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>存在少数"不必奔跑"的位置——真正的结构性护城河（品牌心智、网络效应）恰是逃出红皇后赛道的例外，这正是它们值钱的原因。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ================= 抽屉2 概率 ================= -->
+  <section id="d2">
+    <span class="chapnum">抽屉②</span>
+    <h2 style="border-color:var(--prob)">概率与统计（6张）</h2>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">4. 群体智慧的前提是误差独立</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">很多人一起估计更准的前提是各自独立犯错；一旦大家共享同一个故事，平均出来的不是智慧，是更自信的错误。</div>
+      <div class="crow"><span class="cl src">出处</span>统计学（误差抵消原理）+ 本系列《市场有效性的三个漏洞》对"被充分研究≠价格正确"的推导。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么泡沫里专家集体错（2008年AAA评级：所有模型共享同一个错误假设）；</li><li>为什么信息茧房让人更笃定而非更聪明；</li><li>为什么好的决策组织要保护反对意见（独立性是资产，共识是消耗品）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>误差独立时群体确实极准（估牛体重的经典实验）——所以别反过来轻视一切共识：先判断"这些人是独立得出的，还是互相抄的"。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">5. 均值回归</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">极端表现 = 实力 + 运气；实力会留下，运气不续约——所以极端之后大概率跟着平庸。</div>
+      <div class="crow"><span class="cl src">出处</span>高尔顿（19世纪，身高遗传研究）；卡尼曼《思考，快与慢》用飞行教官的故事讲透（骂了差表现后"变好"、夸了好表现后"变差"，其实都只是回归均值）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么追买冠军基金通常失望（DALBAR缺口的来源之一）；</li><li>为什么"处罚见效、表扬失灵"是错觉（教育、管理中的普遍误判）；</li><li>为什么周期股利润最亮眼时往往最危险（把周期顶的运气当成了实力）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>只适用于"运气占比高"的领域；有真实结构变化时不回归（真护城河的高ROE可以常年不回归——区分两者正是研究的价值）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">6. 先找回分母</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">你看到的样本是被"存活"筛选过的——评价任何成功经验前，先问：当年同一起跑线上一共多少人？其他人呢？</div>
+      <div class="crow"><span class="cl src">出处</span>幸存者偏差；统计学家 Wald 的二战轰炸机装甲分析（该加固的是"没弹孔"的部位，因为那里中弹的飞机没能回来）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"拿住茅台20年百倍"的叙事（同期拿住乐视的人不写公众号）；</li><li>成功学书籍全体（采访的都是活下来的）；</li><li>基金业绩榜单（清盘的基金被自动移出统计）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>幸存者身上仍可能有真信息——正确姿势不是无视成功者，而是"补齐分母后再归因"。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">7. 遍历性：一群人的平均 ≠ 一个人的长期</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">100个人各玩一次俄罗斯轮盘，"平均"结果不错；1个人连玩100次，必死——期望值再高，只要有"出局"，你的长期就是出局。</div>
+      <div class="crow"><span class="cl src">出处</span>遍历性（ergodicity）问题；塔勒布《利益攸关》（Skin in the Game）与物理学家 Ole Peters 的遍历性经济学（译述）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么"胜率90%但会爆仓"的策略必须拒绝（LTCM：期望值漂亮，路径致死）；</li><li>为什么巴菲特第一条是"别亏钱"——不是保守，是数学（活着才在游戏里）；</li><li>为什么仓位管理比选股更根本：赌注大小决定你能不能玩到均值兑现那天。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>没有"归零态"的重复小赌注可以按期望值算；这张卡只在"存在不可逆出局"时是铁律——但杠杆、单押、身家全上，恰恰都制造出局态。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">8. 外部视角优先</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">先问"这一类事情通常怎么收场"（基础比率），再问"我这次特殊在哪"——顺序反了，就会被眼前案例的细节骗走。</div>
+      <div class="crow"><span class="cl src">出处</span>卡尼曼"外部视角 vs 内部视角"（《思考，快与慢》；他与特沃斯基的课程编写项目亲历故事）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"下一个茅台"们的真实存活率（先看这一类的分母和基础比率）；</li><li>为什么工程项目普遍超期超支（人人都觉得"我们这次不一样"）；</li><li>创业、装修、减肥计划的系统性乐观。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>基础比率是起点不是终点——真有强证据时允许偏离，但"偏离的幅度"要配得上"证据的强度"。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">9. 拒绝以结果论英雄</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">在有运气的领域，好结果≠好决策，坏结果≠坏决策——按结果复盘，等于让运气给你上课。</div>
+      <div class="crow"><span class="cl src">出处</span>职业扑克手 Annie Duke《对赌》(Thinking in Bets)，术语 "resulting"（以结果论）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>你交割单里复星医药+6%的真相（决策模式与西藏药业无异，只是运气好——最危险的一种赢）；</li><li>牛市为什么批量生产"股神"、熊市批量回收；</li><li>为什么投资笔记必须在买入前写：把决策质量和结果分开归档。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>长期、大样本下结果会逼近决策质量——这张卡管的是"单次和短期"，别用它给长期烂业绩找借口。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ================= 抽屉3 经济与市场 ================= -->
+  <section id="d3">
+    <span class="chapnum">抽屉③</span>
+    <h2 style="border-color:var(--econ)">经济与市场（7张）</h2>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">10. 激励是最强预测器</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">别听一个人说什么，看他被什么激励——给我看激励，我就能预言结果。</div>
+      <div class="crow"><span class="cl src">出处</span>芒格（大意）："Show me the incentive and I will show you the outcome."（译：给我看激励，我给你看结果。）<span class="en">另一句名言："Never, ever, think about something else when you should be thinking about the power of incentives."（大意：永远不要低估激励的力量。）</span></div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么卖方研报几乎永远看多（激励来自交易量与承销，不来自你赚钱）；</li><li>为什么交易所和券商把市场做成赌场（巴菲特："吸引投机客更赚钱"——场子的激励结构使然）；</li><li>眼镜蛇效应：悬赏蛇尾导致养蛇（印度殖民时期典故）——一切好心办坏事的政策。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>激励解释群体和长期最准；解释单个人的单次行为会失手（人偶尔真有超越激励的选择）。用它审视系统，别用它诛心。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">11. 机会成本：一切成本都是放弃的最佳替代</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">每个"是"都自动是对其他所有选项的"否"——钱和时间没有"闲着"，只有"配置在哪"。</div>
+      <div class="crow"><span class="cl src">出处</span>经济学第一原理；段永平版："长期持有只是意向，永远要算机会成本。"</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么"死扛亏损股"的真实代价不是浮亏，而是这笔钱本可以放在更好的地方；</li><li>为什么持有现金不丢人（它买的是"等到更好机会"的权利）；</li><li>时间管理的本质：答应一件小事=拒绝一件没看见的大事。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>过度计算机会成本会瘫痪决策（永远有"可能更好的"）——它是把尺子，不是每分钟都要掏出来的强迫症。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">12. 古德哈特定律</span><span class="tag canon">经典</span></div>
+      <div class="oneline">一个指标一旦变成目标，它就不再是好指标——因为人们会直接优化指标本身，而不是指标背后的东西。</div>
+      <div class="crow"><span class="cl src">出处</span>经济学家 Goodhart；流行表述出自人类学家 Strathern："When a measure becomes a target, it ceases to be a good measure."（译：当度量成为目标，它就不再是好的度量。）</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>市值管理与财务粉饰（利润成为目标后，利润数字开始撒谎——所以我们看现金流）；</li><li>应试教育（分数成为目标后，分数不再度量学识）；</li><li>点击率新闻、KPI造假、刷单——一切"数字很好看、实事很糟糕"。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>不是不要指标，而是：重要指标要多个交叉、且定期检查"优化行为是否已绕开了本意"（我们查公司时"三张表交叉+分部拆解"就是应用）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">13. 利益攸关（Skin in the Game）</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">不要接受"不承担后果的人"给出的建议——没有下注的观点，连噪音都不如。</div>
+      <div class="crow"><span class="cl src">出处</span>塔勒布《利益攸关》(Skin in the Game, 2018)（译述）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>怎么过滤财经内容：先问"他自己买了吗？亏了会痛吗？"（喊单的大V靠流量赚钱，不靠观点正确）；</li><li>为什么基金经理"旗舰产品自购金额"比路演PPT更值得看；</li><li>为什么大奖章只管自己人的钱、巴菲特99%身家在伯克希尔——最强的信号从来是仓位不是语言。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>有下注≠观点正确（他也会错），只是"值得听"的最低门槛；另外注意反向利益（做空者发报告也有仓位，但方向相反——听时要知道他坐哪边）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">14. 价格是"成交"出来的，不是"投票"出来的</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">任一时刻的价格只反映"最边际那一笔买卖"的意见；沉默的多数不定价——所以价格是边际情绪的读数，不是集体智慧的平均。</div>
+      <div class="crow"><span class="cl src">出处</span>市场微观结构 + 本系列《三个漏洞》。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么2%的恐慌盘能砸出20%的跌幅（98%的人没卖，但不定价）；</li><li>"市值"是个外推假设：全部股份按最后一笔小成交计价，真卖是卖不到的；</li><li>小区房价被一套急售房定义、艺术品拍卖价、加密货币的暴涨暴跌——一切薄流动性资产的价格幻觉。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>长期、大成交量下价格会向"称重机"收敛——这张卡管的是短期与极端时刻的解读，别用它否认长期价格的信息量。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">15. 赌场里稳定赚钱的是荷官，不是赌客</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">凡是有大量人下注的地方，最稳的生意永远是"收流量费的场子"，不是"下注的人"——想赚钱，先看清自己坐在哪个位置。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列《赌场论与市场的猎手们》；历史原型：淘金热里赚钱的是卖铲子和牛仔裤的（Levi's）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>做市商/交易所/券商旱涝保收，散户整体必亏（零和+抽水）；</li><li>为什么"学猎手的招"多半学错位置：你以为在开收费站，其实在交过路费；</li><li>平台经济通吃（应用商店抽成、直播平台）——一切"淘金者与卖铲人"结构。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>场子也有自己的竞争与监管风险（价差被压薄、Jane Street印度案）；且"当场子"的门票极贵——这张卡的用途是自我定位，不是行动指南。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">16. 定价权是护城河的试金石</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">敢涨价而客户不走，才是真护城河；财务上的铁证是"常年高毛利+先收钱后交货"。</div>
+      <div class="crow"><span class="cl src">出处</span>巴菲特（喜诗糖果的年年提价）+ 本系列茅台拆解（92%毛利、合同负债=经销商排队打款）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么"规模大"不等于"生意好"（没有定价权的巨头在替客户打工）；</li><li>看财报的捷径：毛利率的高度与稳定度+营运资本的正负，比听故事可靠；</li><li>个人职场同构：你敢要价而雇主不换人，才说明有不可替代性。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>定价权也有透支点（茅台批价崩、"苹果税"遭全球监管）——它是存量判断，仍需盯"什么会摧毁它"。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ================= 抽屉4 系统与数学 ================= -->
+  <section id="d4">
+    <span class="chapnum">抽屉④</span>
+    <h2 style="border-color:var(--sys)">系统与数学（4张）</h2>
+
+    <div class="card" style="border-left-color:var(--sys)">
+      <div class="ch"><span class="cn">17. 复利是乘法：乘上一个零，全部归零</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">长期结果是一串乘积，不是一串加和——所以"避免大亏"在数学上优先于"追求大赚"。</div>
+      <div class="crow"><span class="cl src">出处</span>复利数学 + 本系列复利篇（−50%需+100%回本；30年年化8%途中挨一次腰斩，终值近乎减半）。巴菲特版："第一条，别亏钱；第二条，记住第一条。"（大意）</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么杠杆是复利杀手（放大了"归零因子"出现的概率）；</li><li>声誉与信任同构：二十年建立，五分钟毁掉（乘法链上的零）；</li><li>健康、婚姻、公司存续——一切"长期游戏"的第一戒律都是"别死"。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>过度防守也有成本（永远空仓=乘数恒为1）；目标是"消灭归零项"，不是"消灭波动"——波动是复利的门票，归零才是敌人。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--sys)">
+      <div class="ch"><span class="cn">18. 熵：一切秩序默认走向瓦解</span><span class="tag canon">经典</span></div>
+      <div class="oneline">不持续输入能量维护的东西，必然变乱——"保持不变"本身就是一项昂贵的主动工作。</div>
+      <div class="crow"><span class="cl src">出处</span>热力学第二定律的推广用法。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>护城河需要年年重挖（红皇后的物理学版本：品牌会老化、技术会过时）；</li><li>不复盘的投资纪律会自动松弛（你的交易规则若无月检，半年后名存实亡）；</li><li>房子、身体、关系、代码库——一切"没人管就变糟"的现象。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>比喻性借用（严格的熵只定义于封闭系统）；开放系统靠输入能量可以局部逆熵——这恰是"维护"的意义所在。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--sys)">
+      <div class="ch"><span class="cn">19. "稳定"可能是尾部风险的分期付款</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">一条长期平滑向上的收益曲线，有两种可能：真优势，或者在卖你看不见的保险——后者的结局是某天一根线砸到零。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列（XIV一夜清盘、LTCM、2024量化DMA）+ 塔勒布"火鸡问题"（被喂养1000天的火鸡，对农夫的信任在感恩节达到顶峰）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么"年年稳赚15%"的产品要先问"它在卖什么保险"（雪球产品=你在不知情中当保险公司）；</li><li>为什么评价策略必须看"最坏路径"而不是平均年化；</li><li>击鼓传花的行业繁荣、和平年代的国防松弛——一切"平静期误读为安全"的结构。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>不是所有平滑曲线都藏雷（国债、货基的平滑有真实底层）——鉴别方法是问："它的收益从哪来？极端日它赔付什么？"说不清来源的稳定，按卖保险处理。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--sys)">
+      <div class="ch"><span class="cn">20. 时间×安全边际，缺一不可</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">时间只能救"买得对的"，救不了"买得贵的"；便宜只能保护"拿得住的"，保护不了"三天就跑的"——两个因子是相乘关系。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列你的交易复盘（持有≥4个月全胜，但320元的五粮液拿4个月照样−31%——因为买价没有边际）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么"长期主义"救不了2021年顶部买入的人（时间因子有了，边际因子是零）；</li><li>为什么捡到便宜也赚不到钱的人那么多（边际因子有了，时间因子是零——你的腾讯312只拿1天）；</li><li>读书、健身同构：方法对（边际）×坚持（时间），单有哪个都不出结果。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>还有第三因子"生意别变质"（价值陷阱里两个因子都救不了你）——完整式是：看懂 × 边际 × 时间。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ================= 抽屉5 心理与决策 ================= -->
+  <section id="d5">
+    <span class="chapnum">抽屉⑤</span>
+    <h2 style="border-color:var(--mind)">心理与决策（8张）</h2>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">21. 偏误发生在知觉层，所以防御靠流程不靠意志</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">你明知两条线一样长，看上去仍不一样长——知识改变不了知觉；能改变行为的只有"把决策从临场知觉里拿出来"的流程。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列《偏误全景图》；卡尼曼自述研究偏误四十年"并没有变得更能避免它们"（大意）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么读完行为金融学的人照样追涨杀跌（道理在慢系统，下单的是快系统）；</li><li>为什么有效的都是"环境设计"：检查清单、预承诺、隐藏成本价列、禁止开盘下单；</li><li>飞行安全靠checklists不靠飞行员意志、戒瘾靠改变环境不靠决心——同一个原理。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>流程也要留应急出口（证伪条件触发时允许打破规则）；且流程本身需要熵卡（第18张）的维护。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">22. 二阶思维</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">一阶思维问"这是不是好东西"；二阶思维问"大家都知道它好之后，价格里还剩多少便宜？我和共识的差在哪？"</div>
+      <div class="crow"><span class="cl src">出处</span>霍华德·马克斯《投资最重要的事》第一章。原文："First-level thinking says, 'It's a good company; let's buy the stock.' Second-level thinking says, 'It's a good company, but everyone thinks it's a great company, and it's not. So the stock's overrated and overpriced; let's sell.'"（译：一阶思维说"好公司，买"；二阶思维说"确实是好公司，但人人都以为它是伟大公司，所以价格已被高估——卖"。）</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>你2021年买腾讯585、五粮液320的病根：全是一阶思维（"好公司+在涨"），没问"共识已经付了多少价"；</li><li>为什么"利好出尽是利空"（消息的价值取决于它是否已在价格里）；</li><li>博弈类场景通用：面试撞车的"聪明答案"、人人看好的赛道创业。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>无限套娃（三阶四阶）会瘫痪并走向虚无——实操停在二阶："我的判断和共识的差是什么？我凭什么对？"（即"举证责任"卡）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">23. 逆向：反过来想，总是反过来想</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">很多问题正着解无从下手，反着问立刻清晰——别问"怎么成功"，先问"怎么必然失败"，然后避开。</div>
+      <div class="crow"><span class="cl src">出处</span>数学家雅可比 "Invert, always invert"（man muss immer umkehren），经芒格发扬："我只想知道我将来会死在哪里，这样我就永远不去那儿。"（大意）</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>研究公司先问"什么会杀死它"（我们七步法的第五步）比"它有多好"信息量更大；</li><li>幸福学的实操版：先移除必然痛苦的事（负债、恶习、有毒关系），胜过追加快乐；</li><li>唱反调测试的哲学根：理解一个立场的最好方式是全力论证它的反面。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>纯防守没有进攻不产生收益——逆向是排雷器，排完雷仍要正向选择；两者是先后关系不是替代关系。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">24. 负向法：先停止做蠢事，胜过多做聪明事</span><span class="tag canon">经典</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">系统性的进步往往来自减法：移除错误的收益，比添加聪明的收益更大、更稳、更可持续。</div>
+      <div class="crow"><span class="cl src">出处</span>塔勒布 via negativa（《反脆弱》）；芒格版原文："It is remarkable how much long-term advantage people like us have gotten by trying to be consistently not stupid, instead of trying to be very intelligent."（译：像我们这样的人能取得长期优势，靠的是持续不做蠢事，而不是追求非常聪明——这很惊人。）段永平的落地版：Stop Doing List（不为清单）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>你的交易改进方案为什么全是禁令（禁开盘下单、禁摊成本、禁概念股）——剪掉错误后，正确自己会浮出来；</li><li>健康的最大杠杆是戒（烟、糖、熬夜）而非补；</li><li>为什么"不懂不做"一条能顶十条选股技巧。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>减法有下限（减无可减后仍需正向能力）；且"不做"需要清单化才可执行，否则只是姿态。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">25. 空仓测试</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">"如果我今天空仓、拿着现金，会以现价买它吗？"——答案是否，你持有它的理由就只剩沉没成本和感情。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列（针对禀赋效应+沉没成本的合并手术刀）；管理学中的同构物是"零基思考"（zero-based thinking）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>持仓审查的唯一正确姿势（把"我的股票"降格回"一个标的"）；</li><li>职业与项目同构："如果今天重新选择，我还会进入这份工作/继续这个项目吗？"；</li><li>为什么"等回本再卖"在逻辑上不成立（市场不知道你的成本）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>考虑摩擦成本（税、手续费、寻找替代的代价）后，"边缘持有"可以容忍；这张卡砍的是"明确不会再买却死拿着"的仓位。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">26. 等待是工作的主体，不是中断</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">好机会=好生意×恐慌错价，两个低概率事件的交集本来就几年一遇——所以出手频率本身就是立场：频繁出手等于宣称"机会遍地"，而这与市场结构相悖。</div>
+      <div class="crow"><span class="cl src">出处</span>巴菲特2026访谈（"大多数时候几年找不到一个标的，这是常态"）+ 本系列对你29次买入的复盘。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么"没操作"不等于"没工作"（等待期的工作是研究与看着）；</li><li>棒球击球区理论：没有三振出局的规则，你可以只打最甜的球；</li><li>科研、狩猎、狙击同构：高价值目标领域的产出都呈"长空窗+短爆发"。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>等待≠拖延——区别在等待者有明确的"出手条件清单"且持续在看；没有清单的等待只是不作为。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">27. 举证责任在你：宣称"市场错了"需要证据</span><span class="tag ours">本系列</span><span class="tag inv">★投资高相关</span></div>
+      <div class="oneline">价格是一条信息而非噪音的默认值——想说"这是错杀的机会"，你必须能具体说出市场错在哪、为什么是你而不是市场看对了。说不出，默认市场是对的。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列"价格vs价值"讨论（对格雷厄姆"市场先生"的现代修正：他只是"偶尔"发疯，多数报价是认真的）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>价值陷阱的免疫机制（"便宜"最可能的解释是你漏看了什么）；</li><li>为什么逆向投资不是"跌多了就买"而是"能说清错在哪才买"；</li><li>一切"众人皆醉我独醒"主张的通用检验（阴谋论、逆势创业、学术翻案）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>在流动性差、无人覆盖的角落（小盘、冷门资产），市场"认真定价"的假设减弱，举证门槛可适当降低——但从不降到零。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">28. 地图不是疆域</span><span class="tag canon">经典</span></div>
+      <div class="oneline">一切模型、报表、指标、理论都是地图——有用恰恰因为它做了简化，危险也恰恰因为你忘了它做过简化。</div>
+      <div class="crow"><span class="cl src">出处</span>语义学家柯日布斯基（Korzybski, 1931）："The map is not the territory."（译：地图不是疆域。）</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>财报是地图不是公司（会计口径的一切陷阱）；DCF是地图不是未来（区间非点）；</li><li>跟着导航开进湖里的所有版本：模型精确≠现实如此（LTCM的数学完美无缺）；</li><li><b>对本库自身的警告：这28张卡也全是地图</b>——每张的"边界"字段存在的意义，就是提醒你抬头看路。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>反过来也别废掉地图（"一切模型都是错的，但有些是有用的"——统计学家 Box）；成熟的用法是带着多张地图上路，并知道每张的失效区。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 挖矿书单 -->
+  <section id="mine">
+    <span class="chapnum">附录</span>
+    <h2>挖矿书单与订阅源（含翻译支持约定）</h2>
+    <div class="warn"><div class="lab">翻译约定</div><p style="margin:5px 0">标🌐的为英文源——你可以把任何一篇丢给我，我承担"<b>代读→转译→压成模型卡</b>"；已有中译本的优先读中译本。</p></div>
+    <ul class="clean">
+      <li><b>第一优先（模型密度最高，直接服务投资）：</b>《穷查理宝典》（芒格）；《投资最重要的事》+ 🌐橡树资本备忘录存档（霍华德·马克斯，官网免费）；《金钱心理学》（摩根·豪泽尔）；《段永平投资问答录》。</li>
+      <li><b>学科原典（每本贡献3-5张大卡）：</b>《自私的基因》（道金斯→本库1、2号卡的母矿）；《思考，快与慢》（卡尼曼→5、8号卡母矿）；《随机漫步的傻瓜》《反脆弱》《利益攸关》（塔勒布→7、13、19、24号卡母矿）；《影响力》（西奥迪尼）。</li>
+      <li><b>模型汇编类：</b>🌐 Farnam Street（fs.blog）Mental Models 系列及《The Great Mental Models》三卷；《纳瓦尔宝典》；万维钢《精英日课》（高质量中文转译）。</li>
+      <li><b>订阅节奏建议：</b>每周1-2次×30分钟"挖矿时间"读上述源；每月最后一个周末做"全库月检"（我可以陪你做：你说"月检"，我出复盘问题）。</li>
+    </ul>
+    <p style="font-size:13.5px;color:var(--ink-soft)">维护日志：v1.0（2026-07）建库，收录28张（本系列12张＋经典16张）。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>
