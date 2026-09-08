@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人思维模型库 v2.0 · 51张精选卡（八个抽屉的活文档）</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --purple:#6a4c93;--purple-bg:#efe9f5;--teal:#0e7c7b;--teal-bg:#e6f2f2;
+    --evo:#2f7d57;--prob:#6a4c93;--econ:#b8860b;--sys:#1f5f8b;--mind:#8e2f4f;--grow:#0e7c7b;--life:#c2661a;--soc:#5d6d7e;
+    --radius:14px;--maxw:840px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1220px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:280px;flex:0 0 280px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--buffett);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:54px 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:29px;line-height:1.32;margin:0 0 14px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  section{padding:34px 0 8px;scroll-margin-top:18px}
+  h2{font-size:24px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  p{margin:11px 0}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:18px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin:16px 0;box-shadow:var(--shadow);border-left:5px solid var(--line)}
+  .card .ch{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .card .cn{font-size:17.5px;font-weight:800}
+  .card .tag{font-size:10.5px;font-weight:800;padding:1px 8px;border-radius:6px;white-space:nowrap}
+  .tag.ours{background:var(--duan-bg);color:var(--duan)}
+  .tag.canon{background:var(--buffett-bg);color:var(--buffett)}
+  .tag.inv{background:var(--gold-bg);color:#a9760a}
+  .oneline{font-size:16px;font-weight:700;color:var(--ink);background:#faf7ef;border-radius:8px;padding:8px 12px;margin:6px 0}
+  .crow{padding:6px 0;border-bottom:1px dashed var(--line);font-size:14.4px}
+  .crow:last-child{border-bottom:none}
+  .crow .cl{display:inline-block;font-size:11px;font-weight:800;padding:1px 8px;border-radius:6px;margin-right:8px;vertical-align:1px;white-space:nowrap}
+  .cl.src{background:#f3eee2;color:#8a6d1a}
+  .cl.story{background:var(--teal-bg);color:var(--teal)}
+  .cl.gen{background:var(--buffett-bg);color:var(--buffett)}
+  .cl.edge{background:var(--danger-bg);color:var(--danger)}
+  .crow .en{display:block;font-size:13px;color:#7a818a;font-style:italic;margin-top:3px}
+  .crow ul{margin:4px 0 2px;padding-left:20px}
+  .crow li{margin:3px 0}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:15px 19px;margin:18px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  ul.clean{list-style:none;padding:0;margin:10px 0}
+  ul.clean li{padding:7px 0 7px 28px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:7px;color:var(--duan);font-weight:800}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:16px 0;color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:13px 17px;margin:20px 0}
+  .backtop{display:inline-block;margin-top:8px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    header.hero h1{font-size:23px}header.hero{padding:28px 0 18px}body{font-size:16px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 个人思维模型库 v2.0</summary>
+    <a href="#rules">收录标准与用法</a>
+    <a href="#d1">① 进化与生物(3)</a>
+    <a href="#d2">② 概率与统计(6)</a>
+    <a href="#d3">③ 经济与市场(7)</a>
+    <a href="#d4">④ 系统与数学(4)</a>
+    <a href="#d5">⑤ 心理与决策(10)</a>
+    <a href="#d6">⑥ 成长与学习(7)</a>
+    <a href="#d7">⑦ 人生与幸福(8)</a>
+    <a href="#d8">⑧ 自我与他人(6)</a>
+    <a href="#mine">附 · 挖矿书单</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">个人思维模型库 v2.0
+      <small>51张精选卡 · 八个抽屉<br>投资约占一半 · 活文档</small>
+    </div>
+    <div class="grp">开始之前</div>
+    <a href="#rules">收录标准 · 格式 · 用法</a>
+    <div class="grp">八个抽屉</div>
+    <a href="#d1">① 进化与生物（3张）</a>
+    <a href="#d2">② 概率与统计（6张）</a>
+    <a href="#d3">③ 经济与市场（7张）</a>
+    <a href="#d4">④ 系统与数学（4张）</a>
+    <a href="#d5">⑤ 心理与决策（10张）</a>
+    <a href="#d6">⑥ 成长与学习（7张）</a>
+    <a href="#d7">⑦ 人生与幸福（8张）</a>
+    <a href="#d8">⑧ 自我与他人（6张）</a>
+    <div class="grp">附录</div>
+    <a href="#mine">挖矿书单与订阅源</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">A PERSONAL LATTICEWORK · LIVING DOC</span>
+    <h1>个人思维模型库 <span style="font-size:.6em;color:var(--ink-soft)">v2.0</span><br><span style="font-size:.62em;color:var(--ink-soft);font-weight:600">51 张精选卡 · 八个抽屉 · 每张自带故事与拆解</span></h1>
+    <p class="sub">收录"讲出来就懂、自己总结不出、懂了能解释很多事"的压缩认知。v2.0 新增：<b>成长/人生/幸福/自我三个抽屉共21张</b>，投资相关占比降至约一半；所有卡片补充<b>「拆开讲」字段</b>（实验、故事或分步逻辑），确保每张脱离对话上下文也完整自明。</p>
+    <div class="pillrow">
+      <span class="pill">本系列自产 11 张 · 经典 40 张</span>
+      <span class="pill">★投资高相关 24 张（约47%）</span>
+      <span class="pill">每张过四条收录测试</span>
+    </div>
+    <div class="crosslink">📎 维护约定：新模型经四条测试合格后追加并升版本号；每月说"月检"我陪你过全库；三个月没用的卡降级。说"把XX加进模型库"即可扩充。</div>
+    <div class="disclaimer"><b>说明：</b>引语注明出处；英文原文附译（标"译"）；广为流传但出处存疑的标"大意/流传"。实验数字为原研究的近似转述（标"约"）。本库是认知工具，不构成任何建议。</div>
+  </header>
+
+  <section id="rules">
+    <span class="chapnum">开始之前</span>
+    <h2>收录标准 · 卡片格式 · 用法</h2>
+    <div class="fp">
+      <div class="lab">四条收录测试（宁缺毋滥的滤网）</div>
+      <p style="margin:6px 0">① <b>压缩性</b>：一句话装下一个领域的核心机制；② <b>生成性</b>：能解释≥3个它没直接提到的现象、跨≥2个领域（鸡汤过不了这条）；③ <b>反直觉但可验证</b>：先"啊？"后"哦！"；④ <b>有学科根</b>：能追溯到某学科的硬核心。</p>
+    </div>
+    <p><b>卡片六字段</b>：模型名｜一句话｜出处｜<b>拆开讲</b>（实验/故事/分步逻辑，保证单卡自明）｜它解释了什么（≥3例跨域）｜边界与反例。<b>用法三件事</b>：新卡先讲给人（或给我）听才算收；遇事先问"哪张卡在管这件事"；每月翻一遍全库。</p>
+  </section>
+
+  <!-- ============ ① 进化 ============ -->
+  <section id="d1">
+    <span class="chapnum">抽屉①</span>
+    <h2 style="border-color:var(--evo)">进化与生物（3张）</h2>
+
+    <div class="card" style="border-left-color:var(--evo)">
+      <div class="ch"><span class="cn">1. 生存机器</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">大脑是生存机器，不是求真机器——它为"活下来"优化，不为"看对"优化。</div>
+      <div class="crow"><span class="cl src">出处</span>道金斯《自私的基因》(1976)，"生存机器（survival machines）"为书中原词。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>想象十万年前的草原：草丛响了一下。判断"有豹子"而错了（虚惊），代价是白跑一趟；判断"没豹子"而错了，代价是死。两种错误的代价极端不对称，所以进化把我们的警报器调得<b>宁可误报一千、不可漏报一次</b>。恐惧、从众、损失看得比收益重——全是这套"误报便宜、漏报致命"算术的产物。它们不是缺陷，是草原上的最优解；只是今天的市场、职场没有豹子，警报器却还在响。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>全部投资偏误的总根源（损失厌恶、恐慌抛售、模式饥渴）；</li><li>为什么广告攻击情绪而非逻辑、坏消息天然抓眼球（负面偏好=漏报致命的遗产）；</li><li>为什么"知道道理"治不了行为——道理装在慢系统，行为由快系统发出。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>在反馈及时、可重复练习的领域（棋类、手艺），直觉能被训练得可靠；它失灵最重的地方恰是市场这种反馈又慢又乱的环境。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--evo)">
+      <div class="ch"><span class="cn">2. 基因的目标不是你的目标</span><span class="tag canon">经典</span></div>
+      <div class="oneline">你的许多"想要"，是基因为复制自己装进你脑里的程序，不是为了你的幸福。</div>
+      <div class="crow"><span class="cl src">出处</span>道金斯《自私的基因》核心命题（译述）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>糖为什么好吃？因为在热量稀缺的远古，"见糖就吃"的个体活了下来——爱吃糖是基因发的奖金。但程序没有更新日期：超市时代它照跑不误，于是奖励机制和你的利益（健康）分了家。同理，"在意别人怎么看"曾等于部落里的生死，"看到别人有我也要"曾是资源竞争的本能——<b>这些程序服务的是基因的复制，不是你的账户和血压</b>。识别出"这是程序在说话，不是我在说话"，是一切自控的起点。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>明知垃圾食品不好还想吃、明知刷手机浪费还停不下（变率奖励劫持觅食回路）；</li><li>FOMO 的根：地位焦虑=远古生存资源竞争的残留程序；</li><li>为什么"延迟满足"天然反本能——基因偏好确定的现在。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>解释冲动≠为冲动开脱；知道程序存在，才谈得上用流程绕开它（第21张）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--evo)">
+      <div class="ch"><span class="cn">3. 红皇后效应</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">你必须全力奔跑，才能留在原地——因为对手也在进化。</div>
+      <div class="crow"><span class="cl src">出处</span>进化生物学家 Van Valen (1973)，借《爱丽丝镜中奇遇》红皇后之言命名："It takes all the running you can do, to keep in the same place."（译：你得拼命奔跑，才能保持在原地。）</div>
+      <div class="crow"><span class="cl story">拆开讲</span>猎豹为什么越跑越快？因为羚羊也在变快；羚羊为什么变快？因为猎豹在变快——双方都在进步，但<b>相对位置没变</b>，谁停下谁灭绝。杀毒软件和病毒、军备竞赛、内卷的补习班全是同构：当所有人都努力时，努力只能保住位置，不能拉开差距。<b>真正值钱的不是"跑得快"，而是找到一条别人进不来的赛道</b>——这就是护城河的进化论定义。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>没有护城河的优秀会被"卷"没（巴菲特问"十年后对手为什么还打不进来"）；</li><li>套利策略的自我消灭（2024年2月量化踩踏）；</li><li>职业技能不升级=相对退步，哪怕绝对水平没降。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>存在少数"不必奔跑"的位置——品牌心智、网络效应等结构性护城河正是逃出赛道的例外，所以它们值钱。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ ② 概率 ============ -->
+  <section id="d2">
+    <span class="chapnum">抽屉②</span>
+    <h2 style="border-color:var(--prob)">概率与统计（6张）</h2>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">4. 群体智慧的前提是误差独立</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">很多人一起估计更准的前提是各自独立犯错；一旦大家共享同一个故事，平均出来的不是智慧，是更自信的错误。</div>
+      <div class="crow"><span class="cl src">出处</span>统计学误差抵消原理；本系列《市场有效性的三个漏洞》。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>1906年，统计学家高尔顿在集市上看787人竞猜一头牛的重量：没有一个人猜对，但所有人猜测的<b>平均值与真实体重只差约1磅</b>——有人猜高、有人猜低，误差互相抵消了。这就是"群体智慧"。但注意实验的隐藏前提：<b>每个人独立写下答案</b>。假如允许大家互相打听、跟着喊价最响的人报数，误差就不再抵消，而是朝同一方向叠加——最后得到一个所有人都很有信心的错误数字。市场在平时像前者，在狂热和恐慌时像后者。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>泡沫里专家集体错（2008年AAA评级：所有模型共享同一个假设）；</li><li>信息茧房让人更笃定而非更聪明；</li><li>好组织为什么要先匿名收集意见再讨论（保护独立性）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>误差独立时群体确实极准——所以别反过来轻视一切共识；先判断"这些人是独立得出的，还是互相抄的"。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">5. 均值回归</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">极端表现 = 实力 + 运气；实力会留下，运气不续约——所以极端之后大概率跟着平庸。</div>
+      <div class="crow"><span class="cl src">出处</span>高尔顿（身高遗传研究）；卡尼曼《思考，快与慢》。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>卡尼曼给以色列空军讲课时说"表扬比惩罚有效"，一位教官反驳：我每次夸了学员，下次他准飞得更差；骂了，下次准变好——惩罚明明更管用！卡尼曼意识到教官被统计规律骗了：一次<b>特别好</b>的飞行=实力+好运气，下一次运气退场，自然回落（显得"夸了就退步"）；一次<b>特别差</b>的=实力+坏运气，下一次自然回升（显得"骂了就进步"）。教官的表扬和责骂什么都没改变，<b>是运气在来回走动，他却给自己的干预记了功</b>。凡是"运气占比高"的领域，都在天天上演这出戏。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>追买冠军基金通常失望（极端业绩里运气成分最大）；</li><li>"处罚见效、表扬失灵"的教育错觉；</li><li>周期股利润最亮眼时最危险（把周期顶的运气当实力）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>只适用于运气占比高的领域；有真实结构变化时不回归（真护城河的高回报可常年维持——区分两者正是研究的价值）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">6. 先找回分母</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">你看到的样本是被"存活"筛选过的——评价任何成功经验前，先问：当年同一起跑线上共多少人？其他人呢？</div>
+      <div class="crow"><span class="cl src">出处</span>幸存者偏差；统计学家 Wald 的二战轰炸机分析。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>二战时军方统计返航轰炸机的弹孔分布，发现机翼弹孔密集、引擎附近很少，于是准备给<b>机翼</b>加装甲。统计学家 Wald 说：反了——你们统计的全是<b>飞回来的</b>飞机。机翼中弹还能回来，说明机翼中弹死不了；引擎附近"没有弹孔"，不是因为打不中那里，而是<b>中弹的都没能回来给你数</b>。该加固的恰是看起来最完好的部位。一切"成功者经验"都是返航的飞机：你看不见的坠机，才藏着真正的信息。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"拿住某股20年百倍"的叙事（同期拿住退市股的人不发声）；</li><li>成功学书籍全体（只采访活下来的）；</li><li>基金业绩榜（清盘的被自动移出统计）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>幸存者身上仍可能有真信息——正确姿势是"补齐分母后再归因"，不是无视成功者。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">7. 遍历性：一群人的平均 ≠ 一个人的长期</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">100个人各玩一次俄罗斯轮盘，"平均"结果不错；1个人连玩100次，必死——期望值再高，只要有"出局"，你的长期就是出局。</div>
+      <div class="crow"><span class="cl src">出处</span>遍历性（ergodicity）；塔勒布《利益攸关》与物理学家 Ole Peters（译述）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>做道算术：一个游戏，每轮硬币，正面财富+50%，反面−40%。听起来划算——平均每轮期望+5%。但你<b>连续玩</b>下去：每一对正反面让财富×1.5×0.6=<b>×0.9</b>，玩得越久越接近归零。悖论在哪？"+5%"是<b>一万个平行宇宙的你在同一时刻的平均</b>（截面平均），而你只活在一条时间线上，吃的是<b>连乘</b>（时间平均）。两者不相等，就叫"不可遍历"。所以凡是收益按乘法累积、且存在深坑的游戏，<b>期望值会说谎，路径才说真话</b>。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"胜率90%但会爆仓"的策略必须拒绝（LTCM：期望漂亮，路径致死）；</li><li>巴菲特"别亏钱"不是保守是数学（活着才在游戏里）；</li><li>仓位管理比选股更根本：赌注大小决定你能否活到均值兑现。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>无"归零态"的重复小赌注可按期望值算；这张卡只在存在不可逆出局时是铁律——而杠杆、单押、押身家恰恰制造出局态。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">8. 外部视角优先</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">先问"这一类事情通常怎么收场"（基础比率），再问"我这次特殊在哪"——顺序反了，就被眼前案例的细节骗走。</div>
+      <div class="crow"><span class="cl src">出处</span>卡尼曼"外部视角 vs 内部视角"（《思考，快与慢》）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>卡尼曼亲历：他带团队编一本教材，内部估计"两年能完成"。他随口问组里一位研究过同类项目的专家："别的团队编类似教材一般用多久？"对方愣住，想了想说：约40%的团队<b>永远没完成</b>；完成的用了<b>7到10年</b>。——而这位专家自己刚刚也投了"两年"一票！最终这本书用了8年。**同一个人，从"我们这个项目"（内部视角）看是两年，从"这一类项目"（外部视角）看是七年**——内部视角天然被细节和信心淹没，外部视角才带着统计的冷静。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"下一个茅台"们的真实存活率（先看这一类的基础比率）；</li><li>工程普遍超期超支、创业计划书的系统性乐观；</li><li>装修、减肥、学习计划为什么总是翻倍拖延。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>基础比率是起点不是终点——有强证据时允许偏离，但偏离幅度要配得上证据强度。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--prob)">
+      <div class="ch"><span class="cn">9. 拒绝以结果论英雄</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">在有运气的领域，好结果≠好决策，坏结果≠坏决策——按结果复盘，等于让运气给你上课。</div>
+      <div class="crow"><span class="cl src">出处</span>职业扑克手 Annie Duke《对赌》，术语 "resulting"。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>两个场景：①你酒后开车回家，一路平安——结果好，决策烂（换一天可能车毁人亡）；②扑克手在80%胜率时全押，翻出的牌偏偏是那20%——结果坏，决策对（长期这么打必赢）。<b>结果=决策质量+运气，而运气在单次里常常是主角</b>。所以评价一个决定，永远问"在当时已知的信息下，这个选择的期望好不好"，而不是"后来赚没赚"。做不到这一点的人，会保留侥幸成功的坏习惯、扔掉偶然失败的好习惯——被运气反向训练。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>牛市批量生产"股神"、熊市批量回收（运气被记成实力）；</li><li>投资笔记必须买入前写：把决策与结果分开归档；</li><li>公司里"只看业绩不看过程"的考核为什么鼓励赌徒。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>长期大样本下结果会逼近决策质量——这张卡管单次和短期，别用它给长期烂业绩找借口。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ ③ 经济与市场 ============ -->
+  <section id="d3">
+    <span class="chapnum">抽屉③</span>
+    <h2 style="border-color:var(--econ)">经济与市场（7张）</h2>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">10. 激励是最强预测器</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">别听一个人说什么，看他被什么激励——给我看激励，我就能预言结果。</div>
+      <div class="crow"><span class="cl src">出处</span>芒格（大意）："Show me the incentive and I will show you the outcome."（译：给我看激励，我给你看结果。）</div>
+      <div class="crow"><span class="cl story">拆开讲</span>殖民时期的印度德里毒蛇成灾，政府悬赏收购眼镜蛇尸体。起初有效，很快有人发现：<b>养蛇再上交，比抓野蛇划算</b>。政府察觉后取消悬赏，养蛇人把没用的蛇全放了——毒蛇比悬赏前更多。这就是"眼镜蛇效应"：政策的实际后果不由"意图"决定，由"它创造了什么激励"决定。看任何制度、公司、建议，先画出各方的激励箭头，结果就八九不离十。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>卖方研报几乎永远看多（激励来自交易量与承销，不来自你赚钱）；</li><li>交易所把市场做成赌场（巴菲特："吸引投机客更赚钱"）；</li><li>一切"好心办坏事"的政策与KPI。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>激励解释群体和长期最准，解释单个人的单次行为会失手；用它审视系统，别用它诛心。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">11. 机会成本</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">一切成本都是"放弃的最佳替代"——每个"是"都自动是对其他所有选项的"否"。</div>
+      <div class="crow"><span class="cl src">出处</span>经济学第一原理；段永平版："长期持有只是意向，永远要算机会成本。"</div>
+      <div class="crow"><span class="cl story">拆开讲</span>"免费讲座"免费吗？门票是零，但你付出了两小时——这两小时本可以陪家人、读书或睡觉，其中<b>最好的那个用途</b>就是讲座的真实价格。同理，死扛一只亏损股的真实代价，不是账面浮亏（那已经发生了），而是<b>这笔钱冻结期间错过的所有更好去处</b>。机会成本看不见、不出现在任何账单上，所以人们系统性地低估它——而理性决策的全部含义，就是永远和"看不见的那个最佳替代"作比较。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"等回本再卖"的荒谬（比较对象应是别的机会，不是你的成本价）；</li><li>持有现金不丢人（它买的是"等到更好机会"的权利）；</li><li>答应一件小事=拒绝一件没看见的大事（时间管理的本质）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>过度计算会瘫痪决策（永远存在"可能更好的"）——它是尺子，不是强迫症。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">12. 古德哈特定律</span><span class="tag canon">经典</span></div>
+      <div class="oneline">一个指标一旦变成目标，它就不再是好指标——人们会直接优化指标本身，而不是指标背后的东西。</div>
+      <div class="crow"><span class="cl src">出处</span>经济学家 Goodhart；流行表述出自 Strathern："When a measure becomes a target, it ceases to be a good measure."（译：当度量成为目标，它就不再是好的度量。）</div>
+      <div class="crow"><span class="cl story">拆开讲</span>流传的经典段子（近乎寓言但机制真实）：苏联钉子工厂按<b>产量（个数）</b>考核，工厂就生产海量小如图钉的钉子；改按<b>重量</b>考核，工厂就铸出几根谁也用不了的巨钉。指标没错，错在<b>指标只是目标的影子</b>——一旦影子本身成了目标，人们就直接对影子做手脚，影子和实体从此分家。这就是为什么"数字很好看、实事很糟糕"能同时成立。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>市值管理与财务粉饰（利润成为目标后，利润数字开始撒谎——所以要看现金流交叉验证）；</li><li>应试刷分、点击率新闻、刷单；</li><li>用"步数"考核健康的人，把手机绑在狗身上。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>不是不要指标，而是：重要指标要多个交叉、定期检查"优化行为是否已绕开本意"。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">13. 利益攸关（Skin in the Game）</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">不要接受"不承担后果的人"给出的建议——没有下注的观点，连噪音都不如。</div>
+      <div class="crow"><span class="cl src">出处</span>塔勒布《利益攸关》(2018)（译述）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>近四千年前的《汉谟拉比法典》规定：若房屋倒塌压死屋主，<b>建筑师偿命</b>。传说古罗马要求工程师站在自己造的拱桥下看拆除脚手架。这些制度的洞察是同一个：<b>让做决定的人暴露在决定的后果里，是唯一可靠的质量保证</b>。反过来，一个荐股的大V：你亏了他掉粉吗？不，他靠流量赚钱，你的亏损不在他的账单上——他的建议在结构上就不可信，无论他多真诚。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>过滤财经内容的第一问："他自己买了吗？亏了会痛吗？"；</li><li>基金经理的自购金额比路演PPT可信；</li><li>为什么"顾问式"建议（咨询、算命、育儿指导）系统性地过度大胆。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>有下注≠观点正确，只是"值得听"的门槛；且注意对方坐哪边（做空者发报告也有仓位，方向相反）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">14. 价格是"成交"出来的，不是"投票"出来的</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">任一时刻的价格只反映"最边际那一笔买卖"的意见；沉默的多数不定价。</div>
+      <div class="crow"><span class="cl src">出处</span>市场微观结构；本系列《三个漏洞》。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>一个小区100套同户型的房子。今天只发生了一笔交易：一位业主急用钱，低于市价两成卖掉了。中介立刻把全小区的"参考价"下调20%——于是另外99户的账面财富一夜蒸发了两成。可他们既没卖房、也不认同这个价。<b>"市场价"从来不是100户投票的结果，而是"最急的那一个人"的成交价</b>。股票同理："市值"=最后一笔小成交的价格×全部股份，是个外推的假设；恐慌日2%的换手能砸出20%的跌幅，因为定价权在那2%手里。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>暴跌≠所有人都看空（98%没卖的人不定价）；</li><li>薄流动性资产（小盘股、艺术品、加密币）的价格幻觉；</li><li>为什么极端时刻的价格信息含量最低（定价者是被迫者和恐慌者）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>长期、大成交量下价格向"称重机"收敛——这张卡管短期与极端时刻的解读，别用它否认长期价格的信息量。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">15. 赌场里稳定赚钱的是荷官，不是赌客</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">凡是有大量人下注的地方，最稳的生意永远是"收流量费的场子"——先看清自己坐在哪个位置。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列《赌场论与市场的猎手们》。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>1849年加州淘金热，数十万人涌去挖金子，绝大多数空手而归。稳定发财的是谁？卖铲子和牛仔裤的（李维斯就诞生于此）、开旅店的、摆渡的。原因是结构性的：<b>挖金者互相竞争（一人挖到=别人挖不到），卖铲人服务所有人（每多一个淘金者=多一份收入）</b>。股市同构：交易者互为对手盘（零和），交易所、券商、做市商向每一笔买卖收费（正和于己）。所以判断任何"热潮"，先问：我是在挖金，还是在买铲子？铲子摊位还有的租吗？</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>做市商千亿营收 vs 散户整体亏损（零和+抽水的数学）；</li><li>淘金热里的英伟达（AI热潮的"卖铲人"叙事）；</li><li>为什么"学猎手的招"常学错位置：你以为在收过路费，其实在交。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>场子也有竞争与监管风险，且"当场子"的门票极贵——这张卡用于自我定位，不是行动指南。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--econ)">
+      <div class="ch"><span class="cn">16. 定价权是护城河的试金石</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">敢涨价而客户不走，才是真护城河；财务铁证是"常年高毛利+先收钱后交货"。</div>
+      <div class="crow"><span class="cl src">出处</span>巴菲特（喜诗糖果）；本系列茅台拆解。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>巴菲特1972年买下喜诗糖果后做的最重要的一件事，是每年圣诞节后<b>提价</b>——年复一年，客户照买不误，因为"给爱人送喜诗"是加州人的情感习惯，换个便宜牌子反而显得敷衍。五十年间这家几乎不需要新增投资的糖果店，为伯克希尔贡献了几十倍于买价的现金。<b>检验护城河不用听故事，做个思想实验就行：它明天涨价10%，客户会流失多少？</b>答案写在财报里——能常年维持高毛利、且让客户预付款排队的公司，已经用行动回答了。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"规模大"≠"生意好"（没有定价权的巨头在替客户打工）；</li><li>看财报捷径：毛利率的高度与稳定度+营运资本的正负；</li><li>职场同构：你敢要价而雇主不换人，才叫不可替代。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>定价权可被透支（品牌自伤、监管介入）——它是存量判断，仍需盯"什么会摧毁它"。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ ④ 系统与数学 ============ -->
+  <section id="d4">
+    <span class="chapnum">抽屉④</span>
+    <h2 style="border-color:var(--sys)">系统与数学（4张）</h2>
+
+    <div class="card" style="border-left-color:var(--sys)">
+      <div class="ch"><span class="cn">17. 复利是乘法：乘上一个零，全部归零</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">长期结果是一串乘积不是加和——所以"避免大亏"在数学上优先于"追求大赚"。</div>
+      <div class="crow"><span class="cl src">出处</span>复利数学；巴菲特（大意）："第一条，别亏钱；第二条，记住第一条。"</div>
+      <div class="crow"><span class="cl story">拆开讲</span>加法世界里，一次失误减掉一块，后面还能加回来；乘法世界里，各年收益是<b>连乘</b>的：×1.2×1.3×1.15×……此时一次−50%意味着后面必须+100%才回原点，而一次−100%（爆仓）让前面所有的项瞬间无意义——<b>零乘任何数都是零</b>。这就是为什么长期游戏的第一戒律永远是"别死"：不是胆小，是乘法的结构决定的。声誉同构：巴菲特说"建立名声要二十年，毁掉只要五分钟"——因为信任也是连乘的。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>杠杆是复利杀手（放大"归零因子"出现的概率）；</li><li>健康、婚姻、公司存续——一切长期游戏都先排"致死项"；</li><li>为什么波动可以忍、归零不能碰（波动是门票，归零是终点）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>过度防守也有成本（永远空仓=乘数恒为1）；目标是消灭归零项，不是消灭波动。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--sys)">
+      <div class="ch"><span class="cn">18. 熵：一切秩序默认走向瓦解</span><span class="tag canon">经典</span></div>
+      <div class="oneline">不持续输入能量维护的东西必然变乱——"保持不变"本身就是一项昂贵的主动工作。</div>
+      <div class="crow"><span class="cl src">出处</span>热力学第二定律的推广用法。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>一栋房子没人住，十年后是什么样？屋顶漏、管道锈、院子荒——没有任何人"破坏"它，它自己就坏了。因为"完好"只是无数种状态中极少数的几种，而"坏掉"的方式有无穷多种：<b>放着不管，系统会自动滑向可能性更多的那一边（更乱）</b>。所以维持任何秩序——房子、身材、关系、纪律、护城河——都需要持续付出能量；"没变差"从来不是免费的，是有人在看不见的地方一直做功。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>护城河需要年年重挖（品牌老化、技术过时是默认趋势）；</li><li>不复盘的投资纪律半年后名存实亡；</li><li>"感情变淡"不需要理由，不维护就是理由。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>比喻性借用（严格的熵定义于封闭系统）；开放系统靠输入能量可局部逆熵——这正是"维护"的意义。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--sys)">
+      <div class="ch"><span class="cn">19. "稳定"可能是尾部风险的分期付款</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">一条长期平滑向上的收益曲线有两种可能：真优势，或者在卖你看不见的保险——后者的结局是某天一根线砸到零。</div>
+      <div class="crow"><span class="cl src">出处</span>塔勒布"火鸡问题"；本系列（XIV、LTCM、2024量化DMA）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>一只火鸡，农夫每天来喂食。第1天它有点怕，第100天它相当放心，第1000天它的"数据模型"显示农夫的善意达到历史最高置信度——第1001天是感恩节。火鸡的错误不是数据不够，是<b>它的全部数据都来自"保险还没赔付"的时期</b>。金融同构：做空波动率的XIV产品连年稳涨，无数人当成"稳赚神器"，2018年2月5日一夜暴跌九成清盘。凡是说不清"收益从哪来、极端日赔付什么"的稳定，都按"暗中卖保险"处理。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"年年稳赚15%"的产品要先问它在卖什么保险（雪球产品）；</li><li>评价策略必须看最坏路径而非平均年化；</li><li>和平年代的国防松弛、大堤多年没决口后的侥幸。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>不是所有平滑都藏雷（国债的平滑有真实底层）——鉴别法就是问收益来源与极端日义务。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--sys)">
+      <div class="ch"><span class="cn">20. 时间 × 安全边际，缺一不可</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">时间只能救"买得对的"，救不了"买得贵的"；便宜只能保护"拿得住的"，保护不了"三天就跑的"——两个因子是相乘关系。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列交易复盘（持有≥4个月的仓位全胜；但320元追高的仓位拿4个月照样−31%）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>把长期收益写成一个乘法：收益 ≈ 看懂 × 买价的余地 × 持有的时间。乘法的残酷在于<b>任何一项为零，整体为零</b>：2021年顶部买入好公司的人，时间因子拉满、边际因子为零——"长期主义"救不了他们；反过来在大底捡到便宜却三天就卖的人，边际因子拉满、时间因子为零——"会抄底"也没用。市面上的争论常把两个因子对立起来（"择时派"vs"躺平派"），其实它们不是二选一，是<b>相乘</b>。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么"拿住就行"和"买得便宜就行"各自都有大量反例；</li><li>读书健身同构：方法（边际）×坚持（时间），单有哪个都不出结果；</li><li>复盘框架：亏损先归因到哪个因子缺失。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>还有第三因子"生意别变质"——完整式是：看懂 × 边际 × 时间。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ ⑤ 心理与决策 ============ -->
+  <section id="d5">
+    <span class="chapnum">抽屉⑤</span>
+    <h2 style="border-color:var(--mind)">心理与决策（10张）</h2>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">21. 偏误发生在知觉层，防御靠流程不靠意志</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">你明知两条线一样长，看上去仍不一样长——知识改变不了知觉；能改变行为的只有"把决策从临场知觉里拿出来"的流程。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列《偏误全景图》；缪勒-莱尔视错觉；卡尼曼自述（大意）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>看缪勒-莱尔错觉图（两条等长线段，箭头朝向不同）：即使你拿尺子量过、100%确认等长，<b>再看一眼，它们依然不等长</b>。视觉系统不接受你的知识。偏误同理：明知不该锚定成本价，看到−30%依然疼。那怎么办？看航空业：飞行员的素质远超常人，但飞行安全不靠素质，靠<b>起飞前逐项打勾的检查单</b>——把关键判断从"临场的知觉"转移到"事先的流程"。改变环境和流程，是唯一被验证有效的偏误防御。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>读完行为金融学照样追涨杀跌（道理在慢系统，下单的是快系统）；</li><li>有效的都是环境设计：检查单、预承诺、隐藏成本价、禁开盘下单；</li><li>戒瘾靠改变环境不靠决心、减肥靠不买零食不靠忍。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>流程要留应急出口（证伪条件触发时允许打破）；流程本身需要维护（第18张熵）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">22. 二阶思维</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">一阶思维问"这是不是好东西"；二阶思维问"大家都知道它好之后，价格里还剩多少便宜？我和共识的差在哪？"</div>
+      <div class="crow"><span class="cl src">出处</span>霍华德·马克斯《投资最重要的事》第一章。原文（节选）："First-level thinking says, 'It's a good company; let's buy the stock.' Second-level thinking says, 'It's a good company, but everyone thinks it's a great company, and it's not. So the stock's overrated and overpriced; let's sell.'"（译：一阶说"好公司，买"；二阶说"确实好，但人人都以为它伟大，所以已被高估——卖"。）</div>
+      <div class="crow"><span class="cl story">拆开讲</span>凯恩斯把选股比作一种选美比赛：报纸登出100张照片，<b>猜中"得票最多的脸"的人获奖</b>。此时你不该选自己觉得最美的（一阶），而要猜大家会觉得谁美（二阶）——甚至猜"大家会猜大家觉得谁美"。市场里你买的任何东西，价格已经包含了众人的看法；<b>你赚钱靠的不是"看对"，而是"比共识更对"</b>。所以研究一家公司，最后一问永远是："这些优点里，有多少已经在价格里了？"</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"好公司+在涨"就买的病根（共识付过钱了）；</li><li>"利好出尽是利空"（消息的价值取决于是否已被定价）；</li><li>面试撞车的"标准好答案"、人人看好的赛道创业。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>无限套娃会瘫痪并走向虚无——实操停在二阶："我与共识的差是什么？我凭什么对？"</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">23. 逆向：反过来想，总是反过来想</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">别问"怎么成功"，先问"怎么必然失败"，然后避开。</div>
+      <div class="crow"><span class="cl src">出处</span>数学家雅可比 "Invert, always invert"；芒格："我只想知道我将来会死在哪里，这样我就永远不去那儿。"（大意）</div>
+      <div class="crow"><span class="cl story">拆开讲</span>"怎样活得健康长寿？"——答案众说纷纭。反过来问："怎样确保早死？"——答案清晰得可怕：抽烟、酗酒、熬夜、久坐、酒驾、不体检。把这张清单避开，你已经超过了绝大多数人，<b>而且每一条都有把握</b>。正向问题的解空间是发散的（成功路径千万条、多靠运气），反向问题的解空间是收敛的（致败因素就那几个、且高度确定）——所以逆向不是悲观，是<b>专挑确定性高的仗打</b>。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>研究公司先问"什么会杀死它"，比"它有多好"信息量更大；</li><li>婚姻幸福的最大贡献是避开致命伤（轻蔑、冷战），不是制造浪漫；</li><li>唱反调测试的哲学根。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>纯防守不产生收益——逆向是排雷器，排完仍要正向选择；先后关系，不是替代。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">24. 负向法：先停止做蠢事，胜过多做聪明事</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">系统性的进步往往来自减法：移除错误的收益，比添加聪明的收益更大、更稳。</div>
+      <div class="crow"><span class="cl src">出处</span>塔勒布 via negativa（《反脆弱》）；芒格原文："It is remarkable how much long-term advantage people like us have gotten by trying to be consistently not stupid, instead of trying to be very intelligent."（译：我们的长期优势来自持续不做蠢事，而非追求聪明——这很惊人。）段永平落地版：Stop Doing List。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>统计学家拉莫分析了几千场网球后发现：职业比赛是"赢家的游戏"——胜负由制胜分决定；<b>业余比赛是"输家的游戏"——约八成的分不是被对手打赢的，是自己失误送的</b>（下网、出界、双误）。所以业余者提升胜率的最优策略不是练出穿越球，而是<b>把球稳稳回过网，等对面自己失误</b>。查尔斯·埃利斯把这个发现搬进投资：市场里绝大多数人输给的不是别人，是自己的失误——所以先删失误，再谈技巧。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>交易改进方案为什么全是禁令（禁开盘下单、禁摊成本、禁概念股）；</li><li>健康的最大杠杆是戒（烟糖熬夜）而非补；</li><li>"不懂不做"一条顶十条选股技巧。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>减法有下限，减无可减后仍需正向能力；且"不做"必须清单化才可执行。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">25. 空仓测试</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">"如果我今天空仓拿着现金，会以现价买它吗？"——答案是否，你持有它的理由就只剩沉没成本和感情。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列（禀赋效应+沉没成本的合并手术刀）；管理学同构物为"零基思考"。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>为什么这一问如此锋利？因为"持有"和"买入"在经济上<b>是同一件事</b>（每天选择不卖，等价于每天用市价重新买入），但在心理上是两件事：买入要过审，持有却自动续期、免检。空仓测试做的就是取消这个免检特权——把每个持仓拖回安检口重新过一遍。同样适用于职业（"如果今天重新择业，我还会进这家公司吗？"）、项目、习惯、订阅服务：一切"当初的决定在自动续期"的地方。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>持仓审查的正确姿势（把"我的股票"降格回"一个标的"）；</li><li>"等回本再卖"的逻辑漏洞；</li><li>大扫除法则：这件东西如果今天在商店里，我会再买一次吗？</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>计入摩擦成本（税费、更换代价）后，"边缘持有"可容忍；这刀砍的是"明确不会再买却死拿着"的。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">26. 等待是工作的主体，不是中断</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">好机会=好生意×恐慌错价，两个低概率事件的交集本来就几年一遇——出手频率本身就是立场。</div>
+      <div class="crow"><span class="cl src">出处</span>巴菲特2026访谈（"几年找不到标的是常态"）；泰德·威廉姆斯《击球的科学》。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>史上最伟大的击球手之一泰德·威廉姆斯把好球区切成<b>77个棒球大小的格子</b>，并统计出：只挥击落在最甜几个格子里的球，打击率0.4；追打边角格的球，打击率骤降到0.23。他的纪律是——不甜的球，看着它过去，<b>哪怕连续看过几十个</b>。巴菲特把这套搬进投资并加了一句：股市比棒球更仁慈，<b>这里没有三振出局</b>——你可以无限次不挥棒，不损失任何东西，直到那颗正中甜区的球出现。所以"没出手"的日子不是没工作：观察、研究、把手感养在甜区上，就是工作本身。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>频繁交易的立场错误（等于宣称"机会遍地"）；</li><li>科研、狩猎、找工作同构：高价值目标都是"长空窗+短爆发"；</li><li>为什么"手痒"要用配额制度关起来。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>等待≠拖延——区别在等待者有明确的出手条件清单且持续在看。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">27. 举证责任在你</span><span class="tag ours">本系列</span><span class="tag inv">★</span></div>
+      <div class="oneline">价格是一条信息而非噪音——想说"这是错杀的机会"，你必须能说出市场错在哪、凭什么是你对。说不出，默认市场是对的。</div>
+      <div class="crow"><span class="cl src">出处</span>本系列"价格vs价值"讨论（对"市场先生"的现代修正）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>你在二手车市场看到一辆车，标价只有同款的一半。你的第一反应绝不会是"捡漏了！"，而是"<b>它哪儿坏了？</b>"——泡过水？调过表？出过事故？奇怪的是，同一个人走进股市，看到便宜一半的股票，第一反应却常常变成"机会！"。两个市场的逻辑其实一样：<b>标价里含着卖家知道而你不知道的信息</b>。所以"便宜"永远需要一个解释；你买入的资格，来自你能说清"这个折扣是市场的情绪造成的，而不是我漏看的缺陷"——并给出证据。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>价值陷阱的免疫机制（"便宜"最可能的解释是你漏看了什么）；</li><li>逆向投资的门槛（不是"跌多了就买"，是"能说清错在哪才买"）；</li><li>一切"众人皆醉我独醒"主张的通用检验。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>在无人覆盖的冷门角落，市场"认真定价"的假设减弱，举证门槛可降低——但从不降到零。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">28. 可逆的门与不可逆的门</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">可逆的决定要快（错了退回来就是），不可逆的决定要慢——多数人恰好做反：对奶茶口味纠结半天，对押上身家的事一冲动就定。</div>
+      <div class="crow"><span class="cl src">出处</span>贝索斯1997与2015年致股东信："Type 1"（不可逆的单向门）与"Type 2"（可逆的双向门）决策。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>贝索斯发现大公司变慢的原因：把所有决定都当成不可逆的"单向门"，层层审批。他的解法是先分类——<b>双向门</b>（定价试错、功能上线：错了随时走回来）应该快、下放、允许错；<b>单向门</b>（卖掉公司、押上全部、公开承诺）才值得慢、升级、反复推演。配套工具是"后悔最小化框架"：想象80岁的自己回看这个决定，哪种选择更少后悔。多数人的决策预算完全错配：<b>在可逆的小事上消耗掉了纠结额度，轮到不可逆的大事反而凭冲动</b>。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>满仓押一只票=把双向门焊死成单向门（仓位纪律的本质是保住可逆性）；</li><li>裸辞/闪婚 vs 纠结买哪支牙膏的荒诞对比；</li><li>组织设计：什么该授权、什么该上会。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>可逆性会随时间衰减（拖延能把双向门拖成单向门）；且"可逆"要算上撤回的全部成本。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">29. 满意者赢过最优化者</span><span class="tag canon">经典</span><span class="tag inv">★</span></div>
+      <div class="oneline">追求"足够好"的人，客观结果稍差、主观幸福更高；追求"最优"的人，客观结果稍好、却更不满、更后悔、更易瘫痪。</div>
+      <div class="crow"><span class="cl src">出处</span>司马贺（Herbert Simon）"satisficing"；施瓦茨《选择的悖论》。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>超市果酱实验（约值）：摆24种果酱试吃，围观者多、购买者寥寥；只摆6种，购买率高出约十倍——选项越多，决定越难，选后越怀疑。施瓦茨进一步发现，"最优化者"（必须选到最好）比"满意者"（达到我的标准就要）收入略高、但幸福感和自我评价显著更低，因为<b>最优化者选完仍在和所有未选项比较</b>。理性的真相是：在选项无限的世界里，"最优"根本不可验证，<b>事先定标准、达标就出手、不回头</b>，才是可执行的理性。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>不必买在最低卖在最高（"模糊的正确"的心理学版本）；</li><li>婚恋App时代的选择焦虑（永远觉得下一个更好）；</li><li>为什么定好标准的人行动力碾压追求完美的人。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>极少数高杠杆、一次性、不可逆的决策（职业方向、终身伴侣）值得接近最优化——用第28张"两种门"来区分。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--mind)">
+      <div class="ch"><span class="cn">30. 地图不是疆域</span><span class="tag canon">经典</span></div>
+      <div class="oneline">一切模型、报表、指标、理论都是地图——有用恰因它做了简化，危险也恰因你忘了它做过简化。</div>
+      <div class="crow"><span class="cl src">出处</span>柯日布斯基（1931）："The map is not the territory."（译：地图不是疆域。）统计学家 Box："所有模型都是错的，但有些是有用的。"（大意）</div>
+      <div class="crow"><span class="cl story">拆开讲</span>每隔一阵就有新闻：司机跟着导航开进湖里、开上台阶。荒诞之处不在导航出错——地图必然有错漏，否则它就得和疆域一样大、一样复杂，也就失去了地图的意义——而在司机<b>用屏幕上的线覆盖了挡风玻璃里的湖</b>。财报之于公司、DCF之于未来、简历之于人、体检报告之于身体，全是地图。成熟的用法：带多张地图上路，每张都标注失效区，并且<b>永远保留抬头看路的优先权</b>。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>会计口径的一切陷阱（报表是地图不是公司）；</li><li>LTCM的数学完美无缺，现实却翻了车；</li><li><b>对本库自身的警告：这51张卡也全是地图</b>——每张的"边界"字段就是失效区标注。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>反过来别废掉地图（没有模型寸步难行）——问题从不是"要不要地图"，是"记不记得它是地图"。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ ⑥ 成长与学习 ============ -->
+  <section id="d6">
+    <span class="chapnum">抽屉⑥ · v2.0新增</span>
+    <h2 style="border-color:var(--grow)">成长与学习（7张）</h2>
+
+    <div class="card" style="border-left-color:var(--grow)">
+      <div class="ch"><span class="cn">31. 成长发生在舒适区边缘</span><span class="tag canon">经典</span></div>
+      <div class="oneline">练一万小时没用，除非练在"刚好够不着"的地方——舒适区里是重复，恐慌区里是煎熬，进步只住在两者的边界上。</div>
+      <div class="crow"><span class="cl src">出处</span>艾利克森（Ericsson）"刻意练习"研究（《刻意练习》）；"一万小时定律"是对他研究的流行化误读。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>为什么有人开车三十年，技术还不如开了三年的赛车学员？因为前者的三十年是<b>同一年重复了三十遍</b>——在舒适区内自动驾驶，大脑早已停止调整。艾利克森研究顶尖小提琴手、棋手后发现，专家的练习有共同配方：把技能拆成小块，<b>专挑当前做不好的那块</b>，高强度重复，配即时反馈，改了再来。这个过程不舒服（一直在出错），但"不舒服"正是神经在重新布线的信号。检验自己是否在成长的最简单标志：<b>最近有没有一件事让你觉得笨拙。</b></div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"十年经验"可能只是一年经验重复十次（呼应第9张：无反馈的重复不产生学习）；</li><li>健身平台期（身体适应了旧负荷）；</li><li>为什么舒服的工作待久了反而危险。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>刻意练习需要"反馈及时、规则稳定"的领域（乐器、棋、体育）；投资这类反馈又慢又乱的领域没法直接刻意练习——替代方案是用投资笔记人工制造反馈闭环。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--grow)">
+      <div class="ch"><span class="cn">32. 成长型思维："还不会"而不是"不会"</span><span class="tag canon">经典</span></div>
+      <div class="oneline">把能力看作可增长的人，把失败当信息；把能力看作天生固定的人，把失败当判决——两种信念本身就改变了结局。</div>
+      <div class="crow"><span class="cl src">出处</span>德韦克（Dweck）《终身成长》（Mindset）；Mueller &amp; Dweck (1998) 表扬实验。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>经典实验：让小学生做题后，一组被夸"你真聪明"，一组被夸"你刚才很努力"。随后让他们自选下一题的难度——被夸聪明的孩子大多<b>选了简单题</b>（聪明是天生标签，选难题万一失败就证伪了标签）；被夸努力的孩子大多选了难题（努力是过程，难题正是发挥处）。之后遇到超纲难题，"聪明组"成绩崩得更快、还更可能谎报分数。一句表扬就能切换孩子的整个行为策略——因为它改变的不是知识，是<b>"失败意味着什么"的定义</b>：判决，还是反馈。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么有人一被批评就崩溃、有人越挫越强（同一事件，两套记账系统）；</li><li>亏损复盘的两种姿态："我不适合投资" vs "我这个流程哪里漏了"；</li><li>夸孩子/下属的正确方式：夸过程与策略，不夸天赋。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>被滥用成"努力崇拜"是误读——德韦克本人强调成长型思维不是无脑打气，而是如实对待"策略+反馈"；且天赋差异真实存在，它改变的是斜率不是起点。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--grow)">
+      <div class="ch"><span class="cn">33. 流畅感 ≠ 掌握</span><span class="tag canon">经典</span></div>
+      <div class="oneline">重读和划线让你"感觉都懂了"，合上书才发现什么都取不出来——学习的检验不是输入时的顺畅，是输出时的提取。</div>
+      <div class="crow"><span class="cl src">出处</span>认知科学"检索练习/测试效应"（《认知天性》/ Make It Stick）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>实验反复复现：一组学生重读课文四遍，一组只读一遍但做三次自测。读四遍的组<b>自我感觉</b>明显更好——文字越来越眼熟，流畅感爆棚；一周后考试，自测组成绩碾压。因为"眼熟"只说明识别容易了，而考试和人生需要的是<b>提取</b>——从空白中把知识拽出来。提取本身费力、挫败、显得"效率低"，但那份费力恰恰是记忆在加固。所以一切让你舒服的学习法（重读、划线、收藏、听课点头）都值得怀疑，一切让你难受的（自测、复述、写出来、教别人）都值得坚持。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>收藏≠拥有（收藏夹是流畅感的仓库）；</li><li>看懂答案≠会做题（程序员的"教程地狱"）；</li><li>本库的使用规则为什么是"讲给人听才算收了这张卡"。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>零基础期需要一定量的流畅输入打底；流畅在"表演"场景（演讲、面试）本身就是目标。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--grow)">
+      <div class="ch"><span class="cn">34. 教是最好的学</span><span class="tag canon">经典</span></div>
+      <div class="oneline">为了讲给别人听而学，学得最深——因为"教"强迫你发现自己哪里其实不懂。</div>
+      <div class="crow"><span class="cl src">出处</span>"门徒效应（protégé effect）"研究；费曼学习法（源自费曼的教学实践，流传定式）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>实验显示：告知一组学生"稍后要把材料教给别人"，另一组"稍后要考试"——仅仅是<b>预期要教</b>，前者的理解和记忆就显著更好。机制：对自己解释时，大脑允许"差不多懂了"蒙混过关；对别人解释时，每个含糊处都会被暴露成一句讲不下去的话。写作同理——"我懂但写不出来"基本等于"其实没懂"。所以最快的深学法是倒过来安排：先承诺输出（讲、写、教），再倒逼输入。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么费曼测试能戳穿"以为懂"（能力圈自检的原理）；</li><li>写投资笔记比看十篇研报更长功力；</li><li>带新人的老员工自己进步最快。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>教错的东西会把错固化——输出需要配一个能纠错的反馈源（听众的追问、行家的批评、现实的检验）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--grow)">
+      <div class="ch"><span class="cn">35. 每个行动都是给"你想成为的人"投票</span><span class="tag canon">经典</span></div>
+      <div class="oneline">改变行为最深的杠杆不是目标，是身份——不是"我要戒烟"，而是"我不是吸烟者"。</div>
+      <div class="crow"><span class="cl src">出处</span>詹姆斯·克利尔《掌控习惯》(Atomic Habits)："Every action you take is a vote for the type of person you wish to become."（译：你的每一次行动，都是在为你想成为的那种人投票。）</div>
+      <div class="crow"><span class="cl story">拆开讲</span>两个戒烟的人被递烟。一个说"不了，<b>我在戒烟</b>"——他仍然自认烟民，只是正在对抗欲望，意志力耗尽的那天就是复吸的那天；另一个说"不了，<b>我不抽烟</b>"——他改的是身份，拒绝不再消耗意志力，因为烟和"我"根本无关。克利尔的洞察：行为改变有三层（结果→过程→身份），从外往里推最累，<b>从身份往外推最省力</b>；而身份不是宣言出来的，是由一次次小行动"投票"累积出来的——每次投票不必全胜，只需让"想成为的那个人"得票领先。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>为什么"目标型"改变总反弹（达标后身份没变，行为回弹）；</li><li>"我是长期投资者"这句自我定义比任何交易规则都底层；</li><li>习惯从两分钟微行动起步的原理（投票贵在张数不在金额）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>身份也会僵化反噬——"我是价值投资者"若变成不许认错的教条，身份就成了偏误（呼应第30张：身份也是地图）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--grow)">
+      <div class="ch"><span class="cn">36. 技能堆叠</span><span class="tag canon">经典</span></div>
+      <div class="oneline">成为一个领域的前1%极难；把两三个"前25%"的技能组合起来，同样稀有，而且容易得多。</div>
+      <div class="crow"><span class="cl src">出处</span>斯科特·亚当斯（《呆伯特》作者）《我的人生样样稀松照样赢》中的 "talent stack"。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>亚当斯自评：画画，不错但成不了艺术家；写段子，好笑但当不了脱口秀明星；懂办公室政治，熟但做不了高管。单拿哪一样都平平——但"会画+会写+懂职场"的交集里，全世界几乎只有他一个人，于是《呆伯特》成为史上最成功的职场漫画。数学很直白：三个独立的前25%，交集约为1/64，稀缺度已胜过单项前1%——而练到前25%只需认真数年，练到前1%要天赋加命。<b>普通人的差异化战略，是选交集，不是拼单项。</b></div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"懂技术+会表达"的工程师为什么晋升快；</li><li>"懂财务+懂心理+肯等"恰好就是普通人做投资的可行组合；</li><li>转行不是清零：旧技能是堆叠的第一层。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>技能之间要有能相交的应用场景（会拉丁语+会滑板堆不出什么）；且每项仍需真到前25%，凑数的三脚猫叠不起来。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--grow)">
+      <div class="ch"><span class="cn">37. 马太效应：优势会自我复利</span><span class="tag canon">经典</span></div>
+      <div class="oneline">凡有的，还要加给他——初始的微小领先会被系统机制不断放大，因为资源流向已经领先的人。</div>
+      <div class="crow"><span class="cl src">出处</span>社会学家默顿（Merton, 1968）以《马太福音》命名，原研究科学界声誉分配。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>两个同龄孩子，一个因生日早几个月而稍高稍壮，被选进校队——从此得到更好的教练、更多的比赛、更强的自信；几年后两人的差距已是天壤，但起点只是几个月的月龄（加拿大冰球队员生日集中在上半年的著名统计）。机制不在天赋，在<b>回路</b>：领先→分到更多资源→更领先。论文引用、平台流量、财富积累（钱生钱）全是同一回路。看懂它的两面：想累积优势，尽早进入正回路并守住不掉出；评价他人成就时，记得拆掉"回路放大"的部分再看真实起点差距。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>平台经济赢家通吃、头部主播吸走全部流量；</li><li>复利是财富的马太效应（本金优势被时间放大）；</li><li>"寒门难出贵子"的结构性部分（非努力可完全对冲）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>有对抗力量：领域天花板、反垄断、技术断代（新回路清零旧优势）、均值回归（第5张）在运气维度上反着拉。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ ⑦ 人生与幸福 ============ -->
+  <section id="d7">
+    <span class="chapnum">抽屉⑦ · v2.0新增</span>
+    <h2 style="border-color:var(--life)">人生与幸福（8张）</h2>
+
+    <div class="card" style="border-left-color:var(--life)">
+      <div class="ch"><span class="cn">38. 享乐适应：快乐的跑步机</span><span class="tag canon">经典</span></div>
+      <div class="oneline">无论中彩票还是遭大难，一段时间后幸福感都会回到自己的基线——你在跑步机上狂奔，风景却不动。</div>
+      <div class="crow"><span class="cl src">出处</span>Brickman 等 (1978) 彩票中奖者与截瘫者对照研究；"hedonic treadmill" 概念。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>那项著名研究访谈了彩票大奖得主和事故截瘫者：一年左右后，两组的日常幸福感都<b>大幅回归各自原本的基线</b>——中奖者并没有从此快乐，伤者也没有从此绝望。机制：大脑的幸福感是个<b>变化探测器</b>，不是水平探测器——它响应"变好了"，而不是"很好"；一旦新状态成为常态，探测器归零，你开始需要下一次"变好"。这解释了欲望为什么会通胀：不是你贪，是探测器的工作原理如此。对策不是不追求，而是①把钱花在<b>不易适应</b>的地方（体验、关系、免除通勤——研究显示人对噪音和通勤几乎不适应，反向利用它）；②主动制造"变化感"（间隔、对比、暂停拥有）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>升职加薪的快乐为什么只维持几周；</li><li>"赚到X万就满足"永远失约（目标随基线上移——投资里的目标通胀）；</li><li>为什么旅行结束前的降级酒店毁掉整程记忆（对比效应的反噬）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>适应不完全：慢性疼痛、噪音、通勤、失业的伤害长期不衰减——所以"移除持续性负项"比"添加一次性正项"回报高得多（负向法在幸福领域的应用）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--life)">
+      <div class="ch"><span class="cn">39. 比较是快乐的小偷</span><span class="tag canon">经典</span></div>
+      <div class="oneline">人对"绝对拥有多少"很迟钝，对"比身边人多还是少"极敏感——痛苦大多不来自匮乏，来自参照系。</div>
+      <div class="crow"><span class="cl src">出处</span>社会比较理论（Festinger）；伊斯特林悖论；Solnick &amp; Hemenway (1998) 调查（约值）；"Comparison is the thief of joy" 常归于罗斯福（大意）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>经典调查给人两个世界选：A世界你年薪5万、别人都挣2.5万；B世界你年薪10万、别人都挣20万。物质上B世界你富一倍——但<b>约半数人选了A</b>。这不是愚蠢，是诚实：进化把我们造成地位动物，远古时代"相对位置"确实决定生存与择偶。但今天的参照系被技术无限放大了——你的祖辈只和全村比，你在和朋友圈里被精心剪辑过的全人类比。好消息是：<b>参照系是可以选的</b>。和昨天的自己比、和入场时的自己比、退出展示橱窗——这些不是心灵鸡汤，是对一个已知漏洞打补丁。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>FOMO的引擎（别人赚钱比自己亏钱更难受——你交割单里的追高全与此有关）；</li><li>薪资保密制度存在的原因；</li><li>社交媒体与焦虑的剂量关系（展示面=全人类的最高剪辑）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>向上比较可以是燃料（选一个具体的、可追赶的榜样），毁人的是被动的、无边界的、与剪辑品的比较——主动权在参照系的选择。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--life)">
+      <div class="ch"><span class="cn">40. 你有两个自我：体验的我与记忆的我</span><span class="tag canon">经典</span></div>
+      <div class="oneline">"过日子的我"和"回忆日子的我"是两个人，服从不同的算法——记忆只保留峰值和结尾，时长几乎不计入。</div>
+      <div class="crow"><span class="cl src">出处</span>卡尼曼"体验自我 vs 记忆自我"与峰终定律（peak-end rule）；结肠镜实验 (1996)。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>卡尼曼的著名实验：A组做了8分钟很痛的肠镜；B组做了同样的8分钟、<b>外加</b>几分钟明显减轻的疼痛——B组客观上多受了罪，但事后回忆里B组觉得"没那么糟"、更愿意复查。因为记忆自我不做积分，只抽样两点：<b>峰值时刻+结束时刻</b>，时长被直接忽略（"时长忽视"）。这意味着你的人生由两套账本记着：体验自我逐秒记账，记忆自我只存高光和结局——而做决定、讲故事、评价"这辈子值不值"的，全是后者。所以设计假期、项目、关系时，为峰值和结尾投资的回报率，远高于平均地延长时长。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>度假两周和一周的回忆几乎等值（时长忽视）；</li><li>一次糟糕的收尾能污染多年的合作（离职、分手要好好收）；</li><li>投资的痛苦记忆由"最深回撤+清仓那天"构成，而不是平均持有体验——影响你下一轮的行为。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>别为记忆自我完全牺牲体验自我（为拍照毁掉旅行本身）——知道有两本账，学会在两者间分配预算。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--life)">
+      <div class="ch"><span class="cn">41. 心流：幸福是全神贯注，不是舒适</span><span class="tag canon">经典</span></div>
+      <div class="oneline">人最快乐的时刻不是躺着，而是能力被恰到好处地挑战、自我意识消失的时刻——挑战略高于技能的那条窄边上。</div>
+      <div class="crow"><span class="cl src">出处</span>契克森米哈赖（Csikszentmihalyi）《心流》；其"工作悖论"研究。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>契克森米哈赖用随机呼叫法让人们随时报告状态，发现一个尴尬的悖论：人们在<b>工作中</b>报告的心流时刻远多于休闲时（工作自带目标、反馈、挑战），但被问"想工作还是想休息"时人人选休息——我们对幸福的<b>预测</b>系统性地出错，把"舒适"误当成"快乐"。心流的配方其实明确：清晰的目标+即时反馈+挑战略高于技能。挑战太低是无聊（刷手机），太高是焦虑，窄边上时间消失、自我消失——那才是被动娱乐永远给不了的深度满足。游戏产业是把这条配方工业化的产物。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>躺了一天反而更空虚（舒适≠快乐）；</li><li>游戏成瘾的设计原理（精确的难度阶梯+即时反馈=人造心流）；</li><li>退休后迅速衰老的人缺的不是钱，是挑战结构。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>心流对活动的价值中立——赌博和刷短视频也能造出伪心流；方向仍需价值观来选，心流只回答"怎么投入"，不回答"投入什么值得"。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--life)">
+      <div class="ch"><span class="cn">42. 延迟满足的真相：不是意志力，是信任</span><span class="tag canon">经典</span></div>
+      <div class="oneline">能等第二颗棉花糖的孩子，赢在的不是自控力，而是"相信承诺会兑现"的环境——延迟满足是对未来的信任函数。</div>
+      <div class="crow"><span class="cl src">出处</span>米歇尔（Mischel）棉花糖实验（1972）；Kidd 等 (2013) 环境可靠性实验；Watts 等 (2018) 大样本复现（家庭背景混淆）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>原版故事人尽皆知：能忍住不吃第一颗棉花糖的孩子，多年后成就更高——被讲成"自控力决定人生"。但后续研究改写了结论：①2018年大样本复现发现，控制家庭经济背景后，预测力大幅缩水——<b>能等的孩子多来自"明天依然会有糖"的家庭</b>；②2013年的精巧实验：先让实验者对孩子"失信"一次（承诺的蜡笔没拿来），孩子随后在棉花糖测试中的等待时间骤降到约三分之一。<b>不等，是身处不可靠环境时的理性策略，不是性格缺陷。</b>推论辛辣：想让自己或孩子"延迟满足"，先建设一个承诺会兑现的环境，而不是训话。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>长期投资的心理前提是制度信任（对市场规则、对产权的信心——为什么动荡市场里人人短线）；</li><li>朝令夕改的公司里没人做长期投入（员工的"不等"是理性的）；</li><li>穷困中"今朝有酒今朝醉"的结构性成因。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>个体自控力差异仍真实存在，只是比流行叙事小得多；且延迟满足不是无限延迟——见下一张（四千周）。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--life)">
+      <div class="ch"><span class="cn">43. 四千周：接受有限，才能选择</span><span class="tag canon">经典</span></div>
+      <div class="oneline">人生约四千个星期。效率解决不了"太多想做的事"，因为问题不是速度，是有限——真正的成熟是主动选择放弃什么。</div>
+      <div class="crow"><span class="cl src">出处</span>伯克曼《四千周》(Four Thousand Weeks, 2021)（80岁≈4160周）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>伯克曼戳破了"效率崇拜"的循环：你提高效率想清空清单，但<b>处理能力越强，涌来的事越多</b>（回邮件越快，收到越多），清单永远比人生长。数字"四千周"的作用是把抽象的"人生苦短"变成一个能数的量——你可能已用掉一半多。由此推论逆转：既然注定完不成绝大多数"想做的事"，<b>拖延和错过就不是失败，而是常态；真正的决策不是"怎么全做完"，而是"主动选择放弃哪些"</b>——像投资一样，问题从来不是钱不够买所有好公司，而是把有限的仓位给谁。贝索斯的"后悔最小化"（想象80岁回看）是同一张牌的操作面。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>待读清单、收藏夹的焦虑本质（错把"全部"当目标）；</li><li>"等忙完这阵就……"的自欺（那阵永远不完）；</li><li>仓位思维对人生的迁移：说"是"之前先看它挤掉了谁。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>不是躺平的许可——恰恰相反，承认有限让"选中的少数"变得严肃；效率工具仍有用，只是别指望它替你做取舍。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--life)">
+      <div class="ch"><span class="cn">44. 内在动机三要素：自主、胜任、联结</span><span class="tag canon">经典</span></div>
+      <div class="oneline">钱够用之后，人被三样东西驱动：自己说了算（自主）、感到在变强（胜任）、和人有真联结（归属）——三者齐备，不给钱也拼命；三者全无，给再多钱也空心。</div>
+      <div class="crow"><span class="cl src">出处</span>德西与瑞安（Deci &amp; Ryan）自我决定理论（SDT）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>为什么有人放着高薪岗位不干，跑去做收入减半但"自己说了算"的小生意，反而神采飞扬？SDT给出了坐标系：那份高薪工作可能三项全空——被微管理（无自主）、重复劳动无长进（无胜任）、同事互为工具（无联结），薪水是在<b>补偿三大缺失</b>，而补偿性收入买不来内在满足。反例是开源社区：无数顶尖工程师免费贡献代码，因为三项全满。诊断任何"钱不少却痛苦"的处境，把三个刻度拉出来看，问题一目了然；设计生活时，三项是比薪资更硬的谈判条款。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>微管理为什么杀死积极性（精准打击"自主"）；</li><li>退休抑郁（三项同时清零）与"退而不休"者的活力；</li><li>游戏的魔力=三要素模拟器（全程自主+清晰成长+公会）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>基础报酬的公平是前提（先解决"卫生因素"，饿着肚子谈自主是空话）；三要素间也需平衡，极端自主可能牺牲联结。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--life)">
+      <div class="ch"><span class="cn">45. 奖励会挤出热爱</span><span class="tag canon">经典</span></div>
+      <div class="oneline">给爱画画的孩子发奖状，他反而不画了——外在奖励会把"我想做"改写成"我为报酬做"，报酬一停，热爱已死。</div>
+      <div class="crow"><span class="cl src">出处</span>德西 (1971) 索玛拼图实验；Lepper 等 (1973) 画画实验；Gneezy &amp; Rustichini (2000)《罚款是一种价格》。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>两个方向的实验拼出全貌。<b>奖励方向</b>：本来爱画画的幼儿被承诺"画了就发好宝宝奖状"，几周后自由活动时间里，这些孩子画画的时间比没被奖励过的孩子少了一半——奖励把游戏改写成了工作。<b>惩罚方向</b>更妙：以色列的幼儿园苦于家长接孩子迟到，于是对迟到罚款——结果迟到<b>不降反升</b>。因为罚款把"让老师加班的愧疚"（道德账户）改写成了"加时托管费"（价格账户）：付了钱，心安理得。两个实验同一个内核：<b>金钱激励不是叠加在原动机上，而是替换原动机</b>——而且替换往往不可逆（取消罚款后，迟到率也没降回去）。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>兴趣变职业后热情消退的机制（不只是累）；</li><li>付费道歉、"给钱就行"心态对关系的腐蚀；</li><li>用物质奖励换孩子读书的长期反效果。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>对机械重复、本无兴趣的任务，金钱激励有效且必要——挤出效应只发生在原本就有内在动机的创造性/道德性活动上。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ ⑧ 自我与他人 ============ -->
+  <section id="d8">
+    <span class="chapnum">抽屉⑧ · v2.0新增</span>
+    <h2 style="border-color:var(--soc)">自我与他人（6张）</h2>
+
+    <div class="card" style="border-left-color:var(--soc)">
+      <div class="ch"><span class="cn">46. 聚光灯效应：没人那么在意你</span><span class="tag canon">经典</span></div>
+      <div class="oneline">你以为全场都注意到了你的失态，实际注意到的人不到你估计的一半——每个人都在忙着当自己人生的主角。</div>
+      <div class="crow"><span class="cl src">出处</span>Gilovich 等 (2000) "聚光灯效应"实验。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>实验让一名学生穿着一件尴尬的过气歌手T恤走进教室，然后问他"多少人注意到了你的T恤？"他估计约50%——实际只有约23%，不到一半。机制简单而残酷：<b>你是你自己世界的绝对中心，却只是别人世界的路人甲</b>；你对自己的关注度被投射成了别人对你的关注度。这个模型的价值在于它是解放性的：那次发言卡壳、那条没人点赞的动态、那次穿错衣服——在别人的记忆里几乎不存在。怕丢脸而不敢做的事，成本被你高估了一倍以上。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>公开演讲恐惧的虚高定价；</li><li>"别人会怎么看我"作为决策标准的不可靠（别人根本没看）；</li><li>社交媒体沉默的大多数：你的忸怩表演，观众早划走了。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>在小圈子、重复博弈里（同事、行业），声誉是真实积累的——这张卡治"过度自我意识"，不是"完全没人看"的许可证。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--soc)">
+      <div class="ch"><span class="cn">47. 课题分离：这是谁的课题？</span><span class="tag canon">经典</span></div>
+      <div class="oneline">判断一件事该谁负责，只看一条：后果由谁承担——别人的课题不越界，自己的课题不外包。</div>
+      <div class="crow"><span class="cl src">出处</span>阿德勒心理学；岸见一郎《被讨厌的勇气》。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>父母逼婚的场景拆开看：你结不结婚，后果（婚姻生活）由你承担——这是<b>你的课题</b>；父母因你不婚而焦虑，这份焦虑由他们承受——那是<b>他们的课题</b>。混乱在于双向越界：他们想替你做你的课题，你想替他们消化他们的情绪。课题分离的答案冷而清晰：认真听取，然后自己决定；他们的失望，尊重但不接管。同理，"同事怎么评价我"是同事的课题（评价发生在他脑子里），"我把事做到什么水准"才是我的课题。<b>一半以上的人际痛苦，源于在替别人做课题，或让别人做了自己的课题。</b></div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>讨好型人格的结构（把"所有人的情绪"都背成自己的课题）；</li><li>"孩子写作业"的战争（学习后果归孩子，家长的角色是支持不是代管）；</li><li>投资建议的边界：告知是你的课题，听不听是对方的。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>亲密关系存在真正的"共同课题"（育儿、财务），需要协商而非切割；课题分离用来划界，不是冷暴力的借口。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--soc)">
+      <div class="ch"><span class="cn">48. 基本归因错误</span><span class="tag canon">经典</span></div>
+      <div class="oneline">解释别人的行为，我们高估性格（"他就是这种人"）；解释自己的行为，我们高估情境（"我是有苦衷的"）。</div>
+      <div class="crow"><span class="cl src">出处</span>Ross (1977) 命名；"问答游戏"实验。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>经典实验：随机抽签决定谁当"出题人"、谁当"答题人"。出题人可以用自己最冷僻的知识出题，答题人自然答不上几道。事后让旁观者评价双方的"知识水平"——尽管人人知道角色是<b>抽签</b>决定的，旁观者仍然评出题人"知识渊博"、答题人"平庸"。角色带来的优势被记到了性格头上。日常版本天天上演：别人开车抢道="没素质"，自己抢道="赶时间"；下属迟到="散漫"，自己迟到="堵车"。解药是一句强制自问：<b>"如果是我处在他的情境里，我会怎么做？"</b>——多数时候答案是：一样。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>大部分人际冲突的第一推动力（双方都在"性格化"对方、"情境化"自己）；</li><li>评价基金经理/CEO时忽略时代红利（把牛市记成能力——与第9张联动）；</li><li>换了位置就换了脑袋：不是虚伪，是情境的力量被低估。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>性格真实存在——单次行为归情境，<b>跨情境的重复模式</b>才归性格；观察次数够多时，"他总是这样"可以成立。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--soc)">
+      <div class="ch"><span class="cn">49. 汉隆剃刀</span><span class="tag canon">经典</span></div>
+      <div class="oneline">能用疏忽、忙碌或愚蠢解释的事，不要归因于恶意——恶意稀缺，混乱管够。</div>
+      <div class="crow"><span class="cl src">出处</span>流传格言（归于 Robert Hanlon，出处存疑，标"流传"）："Never attribute to malice that which is adequately explained by stupidity."（译：凡能用愚蠢充分解释的，勿归因于恶意。）</div>
+      <div class="crow"><span class="cl story">拆开讲</span>消息发出去两天没回。大脑的默认剧本：他看到了、不想理我、上次那件事他记仇了……而真实世界的概率分布是：没看到、看到时在开会随后忘了、想好好回于是搁置了。<b>"针对我"的解释需要对方专门分配注意力给你——而注意力恰恰是世上最稀缺的东西（聚光灯效应：没人那么在意你）。</b>把"恶意"从默认解释降级为"需要证据的例外"，能一次性消灭大半的人际内耗，也能让你在真恶意出现时（有重复模式、有利益动机）看得更清——因为你的警报器不再天天误响。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>职场"被针对"感的绝大多数（其实是别人忙）；</li><li>产品烂≠公司想坑你（多半是组织混乱——熵）；</li><li>阴谋论的通用解毒剂（用无能解释历史，比用阴谋准确得多）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>真恶意存在——剃刀是"先验"不是"定论"；在利益冲突明确的场景（销售、谈判、零和博弈），先查激励（第10张）再用剃刀。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--soc)">
+      <div class="ch"><span class="cn">50. 情感账户与 5:1</span><span class="tag canon">经典</span></div>
+      <div class="oneline">关系是一个账户：每次善意是存款，每次伤害是取款——且取款的面额约是存款的五倍，稳固的关系需要正负互动至少 5:1。</div>
+      <div class="crow"><span class="cl src">出处</span>戈特曼（Gottman）婚姻实验室对冲突互动的量化研究（稳定婚姻冲突中正负比≈5:1，并以极高准确率预测离婚，大意）；"情感账户"比喻出自柯维《高效能人士的七个习惯》。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>戈特曼让夫妻在实验室讨论争议话题，逐秒编码互动（讽刺、点头、微笑、翻白眼……），仅凭几分钟录像就能以极高准确率预测多年后是否离婚。核心发现有二：①<b>吵不吵架不预测离婚，正负互动的比例才预测</b>——稳定的关系冲突中依然维持约5:1（呼应损失厌恶：一句伤话≈五句好话的当量）；②最毒的不是愤怒，是<b>轻蔑</b>（翻白眼、讥讽——它传递"你低我一等"）。实操含义：平时的小存款（倾听、致谢、兑现小承诺）不是客套，是在给必然到来的冲突日预存余额；而账户见底时，任何一次普通取款都会引发挤兑。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>"平时挺好，一吵就崩"的关系（账户余额一直是零）；</li><li>团队信任同构：日常的守信积累决定危机时的容错空间；</li><li>品牌与用户的关系账户（一次公关灾难取走五年好感）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>5:1是统计规律不是机械配方；戈特曼强调"修复尝试"（冲突中的台阶与幽默）能否被接住才是核心机制——账户思维辅助日常，修复能力决定生死。</div>
+    </div>
+
+    <div class="card" style="border-left-color:var(--soc)">
+      <div class="ch"><span class="cn">51. 弱联系的力量</span><span class="tag canon">经典</span></div>
+      <div class="oneline">新机会大多来自"偶尔见面的人"，而不是亲密好友——因为强联系和你共享同一个信息池，弱联系才连着你不知道的世界。</div>
+      <div class="crow"><span class="cl src">出处</span>格兰诺维特（Granovetter, 1973）"The Strength of Weak Ties"；其求职研究发现经人脉找到工作者中，多数来自不常见面的弱联系（大意）。</div>
+      <div class="crow"><span class="cl story">拆开讲</span>格兰诺维特研究人们如何找到工作，发现一个反直觉的分布：靠人介绍找到工作的人里，介绍人多数不是密友，而是<b>许久不联系的旧识</b>。逻辑一想就通：你和密友读同样的东西、认识同样的人、知道同样的机会——强联系是<b>信息的回音室</b>；而那位老同学在另一个行业、另一座城市，他随口一句"我们那儿在招人"，就是你的信息池里根本不存在的增量。这就是社交网络里的"套利"：<b>价值在网络的桥上，不在网络的团块里</b>。实操：定期激活休眠联系（一年一句问候的成本，买一条跨池信息通道），并珍惜自己作为"桥"的位置。</div>
+      <div class="crow"><span class="cl gen">它解释了什么</span><ul><li>跳槽机会很少来自天天见的同事；</li><li>跨界创新的来源（把A领域常识搬到B领域就是突破——技能堆叠的信息版）；</li><li>投资中的"信息同温层"：只看同一批公众号的人共享同一套盲区（呼应第4张误差独立）。</li></ul></div>
+      <div class="crow"><span class="cl edge">边界</span>弱联系供信息，强联系供信任与支持——深度合作、患难扶持仍靠强联系；两者是分工，不是替代。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 挖矿书单 -->
+  <section id="mine">
+    <span class="chapnum">附录</span>
+    <h2>挖矿书单与订阅源（含翻译支持约定）</h2>
+    <div class="warn"><div class="lab">翻译约定</div><p style="margin:5px 0">标🌐的为英文源——丢给我即可，我承担"<b>代读→转译→压成模型卡</b>"；有中译本的优先读中译本。</p></div>
+    <ul class="clean">
+      <li><b>投资与决策：</b>《穷查理宝典》；《投资最重要的事》+🌐橡树资本备忘录（官网免费）；《金钱心理学》；《段永平投资问答录》；《对赌》（Annie Duke）。</li>
+      <li><b>学科原典：</b>《自私的基因》（卡1、2母矿）；《思考，快与慢》（卡5、8、40母矿）；《随机漫步的傻瓜》《反脆弱》《利益攸关》（卡7、13、19、24母矿）；《影响力》。</li>
+      <li><b>成长与学习（v2.0新增）：</b>《刻意练习》（卡31）；《终身成长》（卡32）；《认知天性》（卡33）；《掌控习惯》（卡35）；《我的人生样样稀松照样赢》（卡36）。</li>
+      <li><b>人生与幸福（v2.0新增）：</b>《心流》（卡41）；《四千周》（卡43）；《选择的悖论》（卡29）；《被讨厌的勇气》（卡47）；《高效能人士的七个习惯》（卡50）；🌐卡尼曼TED演讲"两个自我"（卡40）。</li>
+      <li><b>模型汇编：</b>🌐Farnam Street（fs.blog）与《The Great Mental Models》三卷；《纳瓦尔宝典》；万维钢《精英日课》。</li>
+      <li><b>节奏：</b>每周1-2次×30分钟挖矿；每月末"月检"（你说"月检"，我出复盘问题）。</li>
+    </ul>
+    <p style="font-size:13.5px;color:var(--ink-soft)">维护日志：v1.0（2026-07）建库28张；<b>v2.0（2026-07）扩至51张</b>——新增抽屉⑥⑦⑧共21张（成长/人生/自我），心理与决策抽屉并入"两种门""满意者"2张，全库补「拆开讲」字段，投资相关占比降至约47%。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>

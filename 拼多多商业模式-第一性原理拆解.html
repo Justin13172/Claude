@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拼多多商业模式 · 第一性原理拆解（基于 SEC 原始 20-F / 6-K）</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --pdd:#e02e24;--pdd-bg:#fdeeed;--temu:#f47b20;--temu-bg:#fdf0e4;--purple:#6a4c93;
+    --radius:14px;--maxw:820px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1200px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:288px;flex:0 0 288px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.4px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--pdd);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:58px 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:31px;line-height:1.32;margin:0 0 14px;letter-spacing:.3px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.r{border-color:#f0b3b0;color:var(--pdd);background:var(--pdd-bg)}
+  .pill.o{border-color:#f3c79a;color:#c25e10;background:var(--temu-bg)}
+  .pill.b{border-color:#bcd6e8;color:var(--buffett);background:var(--buffett-bg)}
+  section{padding:38px 0 8px;scroll-margin-top:18px}
+  h2{font-size:26px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:20px;margin:30px 0 8px;line-height:1.4}
+  h4{font-size:16.5px;margin:18px 0 6px;color:var(--ink)}
+  p{margin:12px 0}
+  a.ref{color:var(--buffett);text-decoration:none;font-size:11px;vertical-align:super;padding:0 1px}
+  .lead{font-size:18.5px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  .concept{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;margin:20px 0;box-shadow:var(--shadow)}
+  .concept .ctag{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--pdd);padding:2px 11px;border-radius:999px;margin-bottom:8px}
+  .concept.o .ctag{background:var(--temu)}.concept.b .ctag{background:var(--buffett)}
+  .memo{margin-top:12px;padding:11px 14px;background:var(--pdd-bg);border-left:4px solid var(--pdd);border-radius:0 8px 8px 0;font-size:15px}
+  .concept.o .memo{background:var(--temu-bg);border-left-color:var(--temu)}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px;color:var(--ink)}
+  blockquote.src{border-left-color:var(--buffett);background:var(--buffett-bg);font-size:15px}
+  blockquote.src cite{display:block;margin-top:6px;font-size:12.5px;color:var(--ink-soft);font-style:normal}
+  .tablewrap{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);vertical-align:top}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:#f3eee2;font-size:13px;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.hl td{background:#fbf6ea;font-weight:700}
+  .neg{color:var(--danger);font-weight:700}.pos{color:var(--duan);font-weight:700}
+  figure{margin:22px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  .kpis{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+  .kpi{flex:1 1 120px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:center}
+  .kpi .n{display:block;font-size:18px;font-weight:800;color:var(--pdd)}
+  .kpi .l{font-size:11.5px;color:var(--ink-soft);line-height:1.35}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+  .twocol .box{border-radius:12px;padding:14px 16px;font-size:14.3px}
+  .box.dom{background:var(--pdd-bg);border:1px solid #f0b3b0}
+  .box.temu{background:var(--temu-bg);border:1px solid #f3c79a}
+  .box h5{margin:0 0 8px;font-size:15px}.box.dom h5{color:var(--pdd)}.box.temu h5{color:#c25e10}
+  .riskbox{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:12px;padding:14px 18px;margin:14px 0}
+  .riskbox .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  .riskbox ul{margin:6px 0;padding-left:20px}.riskbox li{margin:5px 0;font-size:14.3px}
+  .takeaway{margin-top:14px;padding:12px 14px;background:#f4f8e9;border-left:4px solid #8aa84b;border-radius:0 8px 8px 0;font-size:14.5px}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 44px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--pdd);color:#fff;text-align:center;line-height:28px;font-weight:800;font-size:14px}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:14px 18px;margin:24px 0}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:18px 0;color:var(--buffett)}
+  .srcnote{font-size:13px;background:var(--duan-bg);border:1px solid #bcdcc9;border-radius:10px;padding:12px 16px;margin:18px 0;color:#26603f}
+  .sources{font-size:13px;color:var(--ink-soft)}.sources li{margin:8px 0;word-break:break-all}.sources a{color:var(--buffett)}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    .twocol{grid-template-columns:1fr}
+    header.hero h1{font-size:25px}header.hero{padding:30px 0 20px}body{font-size:16px}
+    th,td{padding:7px 8px;font-size:12.5px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.concept,figure svg{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 拼多多商业模式拆解（SEC 一手财报版）</summary>
+    <a href="#ch0">序章 · 一句话讲清它怎么赚钱</a>
+    <a href="#ch1">第一章 · 三个第一性问题</a>
+    <a href="#ch2">第二章 · 两条收入线（审计口径）</a>
+    <a href="#ch3">第三章 · 国内主站的引擎</a>
+    <a href="#ch4">第四章 · Temu 这台不同的机器</a>
+    <a href="#ch5">第五章 · 商业模式的财务指纹</a>
+    <a href="#ch6">第六章 · 第一性原理总结</a>
+    <a href="#sources">参考来源（SEC 原始文件）</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">拼多多商业模式 · 第一性原理拆解
+      <small>基于 SEC 原始 20-F / 6-K · 国内主站 + Temu<br>每个数字都可回溯到一手申报文件</small>
+    </div>
+    <div class="grp">正文</div>
+    <a href="#ch0">序章 · 一句话讲清</a>
+    <a href="#ch1">第一章 · 三个第一性问题</a>
+    <a href="#ch2">第二章 · 两条收入线</a>
+    <a href="#c2-mix" class="sub">三年收入结构（审计）</a>
+    <a href="#c2-ad" class="sub">在线营销服务(广告)</a>
+    <a href="#c2-tx" class="sub">交易服务(佣金+Temu)</a>
+    <a href="#c2-q" class="sub">2025 四个季度</a>
+    <a href="#ch3">第三章 · 国内主站引擎</a>
+    <a href="#c3-flywheel" class="sub">低价飞轮</a>
+    <a href="#c3-c2m" class="sub">C2M / 拼团 / 农产品</a>
+    <a href="#ch4">第四章 · Temu</a>
+    <a href="#c4-model" class="sub">全托管 vs 半托管</a>
+    <a href="#c4-tariff" class="sub">关税/de minimis 冲击</a>
+    <a href="#ch5">第五章 · 财务指纹</a>
+    <a href="#c5-float" class="sub">负营运资本（浮存）</a>
+    <a href="#c5-margin" class="sub">毛利率被谁拉低</a>
+    <a href="#c5-moat" class="sub">护城河 / VIE / 退市</a>
+    <a href="#ch6">第六章 · 第一性原理总结</a>
+    <div class="grp">参考</div>
+    <a href="#sources">参考来源（SEC 原文）</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">BUSINESS MODEL · FIRST PRINCIPLES · SEC FILINGS</span>
+    <h1>拼多多商业模式 · 第一性原理拆解<br><span style="font-size:.58em;color:var(--ink-soft);font-weight:600">它到底靠什么赚钱？——逐条对照 SEC 原始 20-F / 6-K</span></h1>
+    <p class="sub">不背名词、不讲故事。从"谁付钱、为什么付、怎么收"三个最底层问题出发，把拼多多这台机器一层层拆开——而每一个关键数字，都直接取自公司提交给美国 SEC 的<b>一手申报文件</b>。</p>
+    <div class="pillrow">
+      <span class="pill r">国内主站：轻资产广告模式</span>
+      <span class="pill o">Temu：重运营全托管模式</span>
+      <span class="pill b">数据源：20-F (FY2025) + 四份季度 6-K</span>
+    </div>
+    <div class="srcnote">📑 <b>口径升级：本版全部财务数据取自 SEC EDGAR 原始申报文件</b>（PDD Holdings Inc.，CIK&nbsp;0001737806）：年度数字来自 <b>FY2025 年报 20-F</b>（2026-04-29 提交，含 FY2023/24/25 经审计对比数）；季度数字来自 <b>2025 年四份业绩公告 6-K</b>（EX-99.1）。本文所有"亿元/百万元"均为对原文千元数四舍五入；如有差异以原始申报文件为准。文末逐份给出 Accession Number 与链接。</div>
+    <div class="crosslink">📎 本篇是 PDD 系列的"商业模式"专篇，与《用 DCF 估算拼多多》配套：先看懂这门生意怎么赚钱（本篇），才谈得上估它值多少（DCF 篇）。</div>
+    <div class="disclaimer"><b>⚠️ 重要声明：</b>本文是<b>商业模式分析的学习材料</b>，<b>不构成任何投资建议或买卖推荐</b>。币种主要为人民币（RMB）。拼多多为开曼注册、采用 VIE 结构、在美上市的中概股，含 ADR/VIE/中国监管/退市等重大风险（见第五章）。</div>
+  </header>
+
+  <!-- 序章 -->
+  <section id="ch0">
+    <span class="chapnum">序章</span>
+    <h2>一句话讲清拼多多怎么赚钱</h2>
+    <div class="fp">
+      <div class="lab">第一性原理 · 拼多多的本质</div>
+      <p style="margin:8px 0;font-size:17px"><b>拼多多本质上不是"卖货的"，而是"卖流量的"。</b>它用<b>极致低价</b>聚拢起海量、对价格极度敏感的用户；然后把这群用户的"注意力和购买力"，<b>卖给想要订单的第三方商家</b>——主要通过<b>广告（竞价排名）</b>，其次是<b>交易佣金</b>。它自己几乎不进货、不压库存（是平台/3P 模式，不是自营）。</p>
+      <p style="margin:8px 0">20-F 里它对自己的描述只有一句话那么直白：<i>"我们的收入主要由（i）交易服务和（ii）在线营销服务及其他构成，由在我们平台上销售产品的<b>第三方商家</b>支付。"</i><a href="#sources" class="ref">[1]</a> ——付钱的是商家，不是消费者。</p>
+      <p style="margin:8px 0">所以它的赚钱链条是：<b>低价 → 聚集海量用户 → 商家为了拿到这些用户的订单，必须来平台买广告/让利 → 平台把广告费变成收入，再补贴更低的价格 → 吸引更多用户。</b>一个自我强化的飞轮。</p>
+    </div>
+    <p>Temu 是把这套"聚集低价需求"的引擎搬到全球，但用了一套<b>更重、更亲自下场</b>的打法（全托管），因此目前还在大额投入、并在 2025 年被关税/取消免税正面冲击、拖累了利润。下面逐层拆开，每一步都对照原始财报。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第一章 -->
+  <section id="ch1">
+    <span class="chapnum">第一章</span>
+    <h2>三个第一性问题</h2>
+    <p class="lead">看懂任何生意，先回答这三个最底层的问题。拼多多的答案，可以直接用它 20-F 的原话来佐证。</p>
+    <div class="concept">
+      <span class="ctag">问题一</span>
+      <h4 style="margin-top:2px">谁给拼多多付钱？</h4>
+      <p><b>是商家，不是消费者。</b>消费者在平台上买东西的钱，绝大部分流向了卖家；拼多多真正的"客户"是<b>几百万第三方商家</b>。20-F 明确写道：<i>"截至 2025 财年，我们<b>几乎全部收入都来自中国的第三方商家</b>。"</i><a href="#sources" class="ref">[1]</a> 消费者是被低价吸引来的"流量"，是拼多多卖给商家的"产品"。</p>
+    </div>
+    <div class="concept">
+      <span class="ctag">问题二</span>
+      <h4 style="margin-top:2px">商家为什么愿意付？</h4>
+      <p>因为拼多多手里攥着<b>中国最庞大的价格敏感型消费人群</b>（含广阔的下沉市场）。商家想把货卖出去，就得到这里来争夺曝光——<b>买广告位（竞价排名）让自己被更多人看到</b>。流量越集中、越便宜，商家越离不开。</p>
+    </div>
+    <div class="concept">
+      <span class="ctag">问题三</span>
+      <h4 style="margin-top:2px">具体怎么把钱收进来？两条线，连"何时确认收入"都写在财报里</h4>
+      <p>拼多多把收入分成两条线，且在 20-F 的收入确认政策（ASC&nbsp;606）里写得很具体：</p>
+      <ul class="clean">
+        <li><b>① 在线营销服务及其他（广告）</b>：<i>"主要在消费者<b>查看或点击</b>商家的商品列表时、或在广告服务提供期间确认收入。"</i><a href="#sources" class="ref">[1]</a> ——这就是<b>按点击/曝光计费的广告</b>，核心、且毛利极高。</li>
+        <li><b>② 交易服务</b>：<i>"在每笔销售交易中，对商家的服务义务被认定为已完成的<b>时点</b>确认收入。"</i><a href="#sources" class="ref">[1]</a> ——按成交收取的佣金/支付费，<b>且 Temu 的收入也主要计入这条线</b>。</li>
+      </ul>
+      <p style="margin-top:10px">两条线在 FY2025 各占约一半（下一章用审计数字详解）。</p>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第二章 收入线 -->
+  <section id="ch2">
+    <span class="chapnum">第二章</span>
+    <h2>两条收入线（用审计口径拆开看真实数字）</h2>
+    <p class="lead">下面这张表，是直接从 FY2025 年报 20-F 的收入附注里抄出来的三年经审计对比——它一眼就能讲清拼多多过去三年发生了什么。</p>
+
+    <h3 id="c2-mix">三年收入结构（审计口径，单位：百万元人民币）</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>会计年度</th><th>在线营销服务及其他(广告)</th><th>占比</th><th>交易服务(佣金+Temu)</th><th>占比</th><th>总营收</th></tr></thead>
+      <tbody>
+        <tr><td>FY2023</td><td>153,540.6</td><td>62.0%</td><td>94,098.7</td><td>38.0%</td><td>247,639.2</td></tr>
+        <tr><td>FY2024</td><td>197,934.2 <span class="pos">(+28.9%)</span></td><td>50.3%</td><td>195,901.9 <span class="pos">(+108.2%)</span></td><td>49.7%</td><td>393,836.1</td></tr>
+        <tr class="hl"><td>FY2025</td><td>217,783.0 <span class="pos">(+10.0%)</span></td><td>50.4%</td><td>214,062.7 <span class="pos">(+9.3%)</span></td><td>49.6%</td><td>431,845.7</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:13px;color:var(--ink-soft)">来源：PDD Holdings FY2025 年报 <b>Form 20-F</b> 收入附注（经审计）<a href="#sources" class="ref">[1]</a>。<b>三个关键看点：</b>① 收入结构从 FY2023 的"广告六成、交易四成"，在<b>一年内被 Temu 推平成五五开</b>——FY2024 交易服务暴涨 <b>+108%</b> 几乎全是 Temu 起量。② 到 FY2025，<b>暴涨结束</b>：两条线增速都回落到约 +10%，结构稳定在 50/50。③ 这意味着"Temu 把收入撑大"的故事已进入下半场——规模红利兑现得差不多了，<b>下一个问题变成：这些规模能不能赚到利润</b>（见第四、五章）。</p>
+
+    <h3 id="c2-ad">收入线①：在线营销服务（广告）—— 真正的利润核心</h3>
+    <div class="concept">
+      <span class="ctag">广告 = 卖流量</span>
+      <p>商家为了让自己的商品在搜索/推荐里排得更靠前，<b>竞价购买广告位</b>，按点击/曝光计费（见上一章 20-F 收入确认原话）。这是典型的"卖流量"生意——<b>几乎没有边际成本、毛利极高</b>（多卖一个广告位不增加什么成本）。这才是拼多多最赚钱、最像"印钞机"的部分。</p>
+      <div class="memo">🧠 2022 年起推出的"<b>全站推</b>"（自动全站投放）大幅提升了广告变现效率（货币化率）。从审计数字看：广告线 FY2024 增 +28.9%、FY2025 只增 +10.0%——<b>"提速期"已过，进入贴近 GMV 的平稳增长</b>。</div>
+    </div>
+
+    <h3 id="c2-tx">收入线②：交易服务（佣金 + Temu）</h3>
+    <div class="concept">
+      <span class="ctag">交易服务 = 抽成 + Temu</span>
+      <p>这条线里混着两种性质完全不同的东西：</p>
+      <ul class="clean">
+        <li><b>国内交易佣金/支付费</b>：按成交额抽一个<b>很低的比例</b>，轻巧但不是大头。</li>
+        <li><b>Temu 的收入</b>：Temu 海外业务的收入主要计入这条线。<b>FY2024 这条线暴涨 +108%（94,098.7 → 195,901.9 百万元），几乎全靠 Temu 放量；FY2025 增速骤降到 +9.3%</b>——刹车的痕迹一目了然。注意：Temu 的"收入"里含了商品、物流、补贴等真实成本，<b>性质和高毛利的广告完全不同</b>——它带来规模，却<b>拖累利润率</b>（第五章用毛利率拆给你看）。</li>
+      </ul>
+    </div>
+
+    <h4 id="c2-q">2025 年四个季度：看见"刹车"（GAAP 口径，百万元人民币）</h4>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>季度</th><th>在线营销(广告)</th><th>交易服务</th><th>总营收</th><th>同比</th><th>经营利润</th><th>归母净利</th></tr></thead>
+      <tbody>
+        <tr><td>2025 Q1</td><td>48,722.2</td><td>46,950.0</td><td>95,672.2</td><td>+10%</td><td>16,085.6 <span class="neg">(−38%)</span></td><td>14,741.8</td></tr>
+        <tr><td>2025 Q2</td><td>55,703.2</td><td>48,281.6 <span class="neg">(+1%)</span></td><td>103,984.8</td><td class="neg">+7%</td><td>25,792.9 <span class="neg">(−21%)</span></td><td>30,753.5</td></tr>
+        <tr><td>2025 Q3</td><td>53,347.6</td><td>54,928.9 <span class="pos">(+10%)</span></td><td>108,276.5</td><td>+9%</td><td>25,025.9</td><td>29,328.2 <span class="pos">(+17%)</span></td></tr>
+        <tr><td>2025 Q4</td><td>60,010.1</td><td>63,902.1</td><td>123,912.2</td><td>+12%</td><td>27,719.7</td><td>24,541.0 <span class="neg">(−11%)</span></td></tr>
+        <tr class="hl"><td>FY2025 全年</td><td>217,783.0</td><td>214,062.7</td><td>431,845.7</td><td>+10%</td><td>94,624.1 <span class="neg">(−13%)</span></td><td>99,364.5 <span class="neg">(−12%)</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:13px;color:var(--ink-soft)">来源：2025 年四份季度业绩公告 <b>6-K</b>（EX-99.1）逐季抄录<a href="#sources" class="ref">[2][3][4][5]</a>。四个季度相加：在线营销 217,783.1、交易服务 214,062.6、经营利润 94,624.1、归母净利 99,364.5——<b>与全年审计/公告数字逐项对得上</b>，可自检。<b>看点：</b>① <b>Q2 交易服务仅 +1%</b>，正是 Temu 遭遇美国关税/取消免税冲击的直接体现（见第四章）；Q3 回升 +10%（半托管转型见效）。② <b>经营利润 Q1 暴跌 −38%、Q2 −21%</b>，全年经营利润 <b>−13%</b>、归母净利 <b>−12%</b>——<b>这是拼多多上市以来首次年度利润下滑</b>。③ Q2/Q3 归母净利反而同比为正，主要靠投资收益等线下波动（见第五章），别被单季净利的"翻红"骗了——<b>主营造血能力（经营利润）是真在下滑</b>。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第三章 国内主站 -->
+  <section id="ch3">
+    <span class="chapnum">第三章</span>
+    <h2>国内主站：一台轻资产的"低价飞轮"</h2>
+    <p class="lead">拼多多国内主站是它的利润基本盘。它的厉害之处，在于一个自我强化、且极度轻资产的飞轮。</p>
+
+    <h3 id="c3-flywheel">低价飞轮</h3>
+    <figure>
+      <svg viewBox="0 0 480 320" role="img" aria-label="拼多多低价飞轮">
+        <text x="240" y="24" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">拼多多的低价飞轮</text>
+        <defs><marker id="fw" markerWidth="12" markerHeight="12" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#e02e24"/></marker></defs>
+        <g font-size="12.5" fill="#e02e24" font-weight="700">
+          <rect x="165" y="42" width="150" height="40" rx="20" fill="#fdeeed" stroke="#e02e24"/><text x="240" y="67" text-anchor="middle">极致低价</text>
+          <rect x="320" y="115" width="150" height="46" rx="20" fill="#fdeeed" stroke="#e02e24"/><text x="395" y="134" text-anchor="middle">海量价格</text><text x="395" y="150" text-anchor="middle">敏感用户</text>
+          <rect x="165" y="240" width="150" height="46" rx="20" fill="#fdeeed" stroke="#e02e24"/><text x="240" y="259" text-anchor="middle">商家涌入抢流量</text><text x="240" y="275" text-anchor="middle">买广告 / 让利</text>
+          <rect x="10" y="115" width="150" height="46" rx="20" fill="#fdeeed" stroke="#e02e24"/><text x="85" y="134" text-anchor="middle">平台收广告费</text><text x="85" y="150" text-anchor="middle">再补贴低价</text>
+        </g>
+        <path d="M315,60 Q395,75 393,113" fill="none" stroke="#e02e24" stroke-width="2" marker-end="url(#fw)"/>
+        <path d="M390,163 Q330,235 318,250" fill="none" stroke="#e02e24" stroke-width="2" marker-end="url(#fw)"/>
+        <path d="M163,258 Q95,235 86,163" fill="none" stroke="#e02e24" stroke-width="2" marker-end="url(#fw)"/>
+        <path d="M88,113 Q120,75 168,64" fill="none" stroke="#e02e24" stroke-width="2" marker-end="url(#fw)"/>
+        <text x="240" y="170" text-anchor="middle" font-size="11" fill="#888">越转越强</text>
+      </svg>
+      <figcaption>低价是"鱼饵"，目的是聚集海量用户；用户越多，商家越非来不可，广告费越高；平台再把钱投回补贴，价格更低。轻资产，是因为平台不碰货、不压库存。</figcaption>
+    </figure>
+
+    <h3 id="c3-c2m">支撑低价的底层：C2M、拼团、农产品直连</h3>
+    <div class="concept">
+      <span class="ctag">为什么能做到这么便宜</span>
+      <ul class="clean">
+        <li><b>拼团（社交聚单）</b>：把分散的需求<b>聚合成规模化订单</b>，规模换低价，并靠社交裂变低成本获客。</li>
+        <li><b>C2M（反向定制）</b>：用海量用户的行为数据，反向指导工厂"<b>按需生产</b>"，砍掉品牌溢价和中间环节，直接工厂到消费者。</li>
+        <li><b>农产品"农地云拼"</b>：20-F 原话——让<i>"农产品可以直接<b>从农田到餐桌</b>"</i><a href="#sources" class="ref">[1]</a>，把流通环节压缩、损耗大降、农民增收，这是拼多多最早的差异化根基。</li>
+        <li><b>3P 平台、不自营</b>：自己不进货、不压库存，<b>资产极轻</b>，把供应链的重活留给商家。</li>
+      </ul>
+      <div class="memo">🧠 一句话：拼多多用"<b>聚合需求</b>"（拼团/C2M）压低了供给端成本，又用"<b>不自营</b>"让自己极致轻资产——省下的钱让利给消费者换流量，再把流量卖给商家。这也是为什么它的"成本"（20-F 里的 Cost of revenues 主要是<b>第三方支付手续费、履约费、商家支持、带宽服务器、折旧、人力</b><a href="#sources" class="ref">[1]</a>，而非进货成本）能长期压得很低。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第四章 Temu -->
+  <section id="ch4">
+    <span class="chapnum">第四章</span>
+    <h2>Temu：同样的"低价引擎"，完全不同的机器</h2>
+    <p class="lead">Temu 把"聚集低价需求"搬到全球，但用了一套<b>亲自下场、又重又贵</b>的打法。理解它，是理解拼多多 2025 年利润为何首次下滑的关键。</p>
+
+    <blockquote class="src">"Temu 于 2022 年 9 月在美国波士顿创立。在 2022 年 9 月于北美首发后，Temu 于 2023 年 3 月扩展至大洋洲、4 月扩展至欧洲，随后推向全球更多国家和地区。截至 2025 年底，Temu 已为美国、日本、德国、英国、法国、加拿大、意大利等多个全球最大经济体的消费者提供服务……<b>尽管仍处于发展早期</b>……"
+      <cite>—— PDD Holdings FY2025 年报 Form 20-F（一手原文，译）<a href="#sources" class="ref">[1]</a></cite>
+    </blockquote>
+
+    <h3 id="c4-model">全托管 vs 半托管</h3>
+    <div class="twocol">
+      <div class="box temu"><h5>全托管（早期主力）</h5>
+        <p style="margin:6px 0">商家只管<b>把货送到 Temu 国内仓</b>；<b>定价、营销、跨境物流、售后全由 Temu 包办</b>。商家像供货商，平台像"操盘手"。</p>
+        <p style="margin:6px 0">低价靠两件事：<b>中国集运空运 + 美国 de minimis（小额包裹免关税）</b>，直邮到美国消费者。</p>
+      </div>
+      <div class="box temu"><h5>半托管（被迫转型）</h5>
+        <p style="margin:6px 0">商家<b>自己把货备到海外仓、负责本地发货</b>，Temu 负责流量与平台。</p>
+        <p style="margin:6px 0">这是为应对关税/免税取消而转的更"本地化"模式，未来计划靠<b>广告</b>变现。</p>
+      </div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 700 200" role="img" aria-label="Temu 全托管模式流程">
+        <text x="350" y="22" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">Temu 全托管：平台包办一切</text>
+        <defs><marker id="tm" markerWidth="11" markerHeight="11" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f47b20"/></marker></defs>
+        <rect x="20" y="80" width="120" height="48" rx="10" fill="#fdf0e4" stroke="#f47b20" stroke-width="2"/><text x="80" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#c25e10">中国商家</text><text x="80" y="117" text-anchor="middle" font-size="10.5" fill="#c25e10">只管供货</text>
+        <rect x="200" y="72" width="170" height="64" rx="10" fill="#f47b20"/><text x="285" y="96" text-anchor="middle" font-size="12.5" font-weight="800" fill="#fff">Temu 平台</text><text x="285" y="114" text-anchor="middle" font-size="10" fill="#fff">定价·营销·跨境物流·售后</text>
+        <rect x="430" y="80" width="110" height="48" rx="10" fill="#fdf0e4" stroke="#f47b20" stroke-width="2"/><text x="485" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#c25e10">集运空运</text><text x="485" y="117" text-anchor="middle" font-size="10.5" fill="#c25e10">免税直邮</text>
+        <rect x="595" y="80" width="90" height="48" rx="10" fill="#fdf0e4" stroke="#f47b20" stroke-width="2"/><text x="640" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#c25e10">海外</text><text x="640" y="117" text-anchor="middle" font-size="10.5" fill="#c25e10">消费者</text>
+        <path d="M140,104 L198,104" stroke="#f47b20" stroke-width="2" marker-end="url(#tm)"/>
+        <path d="M370,104 L428,104" stroke="#f47b20" stroke-width="2" marker-end="url(#tm)"/>
+        <path d="M540,104 L593,104" stroke="#f47b20" stroke-width="2" marker-end="url(#tm)"/>
+        <text x="350" y="165" text-anchor="middle" font-size="11.5" fill="#666">平台掌控全链条 → 能压到极低价，但也自己承担物流、补贴、亏损</text>
+      </svg>
+    </figure>
+
+    <h3 id="c4-tariff">关税 / de minimis 取消：直击 Temu 命门（20-F 原文，带确切日期）</h3>
+    <div class="riskbox">
+      <div class="lab">⚠️ 2025 年到底发生了什么——直接引 20-F 风险因素</div>
+      <blockquote class="src" style="margin:8px 0">"《1930 年关税法》第 321 条的豁免，使运往美国、低于规定<b>小额（de minimis）金额门槛</b>的包裹免缴进口关税并简化海关程序。<b>自 2025 年 5 月 2 日起，该豁免对来自中国大陆和香港的进口不再适用；自 2025 年 8 月 29 日起，该豁免对来自所有国家的进口被取消。</b>已有诉讼对政府取消该豁免提出挑战，但结果仍不确定。"
+        <cite>—— PDD Holdings FY2025 年报 Form 20-F（一手原文，译）<a href="#sources" class="ref">[1]</a></cite>
+      </blockquote>
+      <p style="margin:8px 0">Temu 全托管的低价，<b>高度依赖这个政策红利</b>："中国直邮 + 免税"。当免税在 2025 年被分两步取消（先中国/香港、后全球），全托管的低价根基<b>被直接打断</b>——Temu 被迫转向半托管 + 海外本地仓，重构供应链、定价和获客。</p>
+      <p style="margin:8px 0"><b>财务后果，在 6-K 里立刻显现：</b>2025 Q2 交易服务收入<b>几乎零增长（+1%）</b>、整体营收只增 7%（多年来最慢）；为转型与竞争，全年<b>成本与费用大幅前置</b>：<b>营业成本 +23%、研发 +30%</b>，把全年经营利润<b>压到 −13%</b>、归母净利<b>−12%</b>（上市以来首次年度利润下滑）。<a href="#sources" class="ref">[2][6]</a></p>
+    </div>
+    <div class="takeaway">🎯 <b>第一性原理看 Temu 的脆弱：</b>它早期的超低价，部分建立在一个<b>可被政策一夜抹掉的红利（免税）</b>上，而非完全靠自身效率。20-F 自己用确切日期承认了这一点。当红利消失，低价的根基就动摇——这正是评估它"护城河"时必须扣分的地方。能不能靠半托管+广告重新跑通盈利，是它最大的悬念。</div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第五章 财务指纹 -->
+  <section id="ch5">
+    <span class="chapnum">第五章</span>
+    <h2>商业模式的"财务指纹"</h2>
+    <p class="lead">好的商业模式会在财报上留下独特的"指纹"。借助一手数字，拼多多的指纹非常鲜明——而且每一条都能在 20-F / 6-K 里指给你看。</p>
+    <div class="kpis">
+      <div class="kpi"><span class="n">轻资产</span><span class="l">国内不自营/不压库存</span></div>
+      <div class="kpi"><span class="n">高毛利</span><span class="l">广告几乎零边际成本</span></div>
+      <div class="kpi"><span class="n">负营运资本</span><span class="l">用商家/买家的钱周转</span></div>
+      <div class="kpi"><span class="n">4,223 亿</span><span class="l">现金+短期投资(净现金强)</span></div>
+      <div class="kpi"><span class="n">毛利率↓</span><span class="l">60.9%→56.3%，Temu 拖累</span></div>
+    </div>
+
+    <div class="concept b" id="c5-float">
+      <span class="ctag">指纹一 · 负营运资本（最容易被忽略，现在有硬数字）</span>
+      <p>拼多多<b>用别人的钱在经营</b>：买家付款后，平台先<b>持有这笔货款</b>，确认收货后才结算给商家；同时向商家收<b>保证金</b>。这些"别人的钱"在资产负债表上沉淀成几笔巨额负债。FY2025 年报里（截至 2025-12-31，百万元）：</p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>科目（流动负债）</th><th>2024-12-31</th><th>2025-12-31</th></tr></thead>
+        <tbody>
+          <tr><td>应付商家款 (Payable to merchants)</td><td>91,655.9</td><td>107,407.2</td></tr>
+          <tr><td>商家保证金 (Merchant deposits)</td><td>16,460.6</td><td>17,708.2</td></tr>
+          <tr><td>预收客户款及递延收入</td><td>2,947.0</td><td>3,378.8</td></tr>
+          <tr class="hl"><td>合计"别人的钱"（浮存）</td><td>111,063.5</td><td>128,494.1</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>也就是说，FY2025 末平台账上长期沉淀着约 <b>1,285 亿元</b>"别人的钱"<a href="#sources" class="ref">[2]</a>。这正是它<b>经营性现金流常年高于净利润</b>的根本原因——FY2025 经营活动现金流 <b>1,069 亿元</b>，高于归母净利 <b>994 亿元</b><a href="#sources" class="ref">[2]</a>；也是它账上能堆出 <b>现金+短期投资 4,223 亿元</b>（1,089 亿现金 + 3,134 亿短期投资）净现金的重要来源。</p>
+    </div>
+
+    <div class="concept b" id="c5-margin">
+      <span class="ctag">指纹二 · 两种毛利混在一起 → 看懂"毛利率为什么掉"</span>
+      <p>国内广告业务<b>毛利极高</b>（卖流量）；Temu 的"收入"里却含了商品/物流/补贴等真实成本，<b>毛利低、甚至亏损</b>。所以当 Temu 占比上升、且免税红利消失推高履约/合规成本时，<b>公司整体毛利率被结构性拉低</b>。用一手数字把 FY2025 的利润下滑拆开（百万元）：</p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>损益项（GAAP）</th><th>FY2024</th><th>FY2025</th><th>变化</th></tr></thead>
+        <tbody>
+          <tr><td>总营收</td><td>393,836.1</td><td>431,845.7</td><td class="pos">+9.7%</td></tr>
+          <tr><td>营业成本</td><td>153,900.4</td><td>188,801.8</td><td class="neg">+22.7%</td></tr>
+          <tr class="hl"><td>毛利 / 毛利率</td><td>239,935.7 / 60.9%</td><td>243,043.9 / 56.3%</td><td class="neg">+1.3% / −4.6pct</td></tr>
+          <tr><td>销售及营销费用</td><td>111,300.5</td><td>125,287.9</td><td class="neg">+12.6%</td></tr>
+          <tr><td>研发费用</td><td>12,659.4</td><td>16,496.2</td><td class="neg">+30.3%</td></tr>
+          <tr class="hl"><td>经营利润 / 经营利润率</td><td>108,422.9 / 27.5%</td><td>94,624.1 / 21.9%</td><td class="neg">−12.7%</td></tr>
+          <tr><td>利息及投资净收益</td><td>20,553.5</td><td>25,583.8</td><td class="pos">+24.5%</td></tr>
+          <tr class="hl"><td>归母净利 / 净利率</td><td>112,434.5 / 28.5%</td><td>99,364.5 / 23.0%</td><td class="neg">−11.6%</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-soft)">来源：FY2025 业绩公告 6-K 合并损益表<a href="#sources" class="ref">[2]</a>。<b>一句话读懂这张表：</b>营收还在 +10% 增长，但<b>营业成本飙了 +23%</b>（Temu 履约/合规成本+免税取消），导致<b>毛利只增 1.3%、毛利率从 60.9% 掉到 56.3%</b>；再叠加研发 +30%，经营利润<b>−13%</b>。最后净利"只"跌 12%，是因为账上 4,223 亿现金带来的<b>利息收入 +24%</b>垫了一脚——<b>主营变差的程度，比净利数字看起来更明显</b>。看财报时务必意识到："总毛利率下降"很可能只是<b>低毛利的 Temu 占比变大了</b>（结构问题），但 2025 年是<b>结构 + 政策成本双重打击</b>。</p>
+    </div>
+
+    <div class="concept" id="c5-moat">
+      <span class="ctag">护城河、软肋，与三条不能忽视的中概股风险</span>
+      <p><b>护城河</b>：国内的"低价心智 + 海量价格敏感用户 + 商家网络"形成的双边网络效应；轻资产、负营运资本、巨额净现金。</p>
+      <p><b>软肋</b>：Temu 的低价部分依赖政策红利、护城河尚浅；国内增长见顶、竞争（淘宝/京东/抖音）加剧。</p>
+      <p style="margin-top:10px"><b>以及三条只有翻原始申报文件才看得清的结构性风险：</b></p>
+      <ul class="clean">
+        <li><b>VIE 架构</b>：拼多多通过一系列协议控制境内 VIE <b>杭州爱米（Hangzhou Aimi）</b>（创始人陈磊持 86.6%、赵佳臻持 13.4%）。投资者持有的是开曼公司股权、靠合同"协议控制"境内牌照资产，并非直接持股<a href="#sources" class="ref">[1]</a>。值得注意：VIE 体内收入正在<b>快速缩小</b>——FY2023/24/25 分别为 1,131 / 888 / 568 亿元，FY2025 仅占总营收约 13%，越来越多收入走 WFOE/子公司（含 Temu）<a href="#sources" class="ref">[1]</a>。</li>
+        <li><b>HFCAA 退市风险（已缓解但框架仍在）</b>：根据《外国公司问责法》，若 PCAOB 连续两年无法检查其审计机构，ADR 将被禁止在美交易。PCAOB 曾于 2021-12-16 认定无法检查中国大陆/香港；但<b>已于 2022-12-15 撤销该认定</b>，把中国大陆和香港移出"无法检查"名单<a href="#sources" class="ref">[1]</a>——<b>眼下退市风险已缓解，但法律框架仍在</b>，未来若再被认定无法检查，风险可被重新触发。</li>
+        <li><b>单一经营分部 + 几乎全部收入来自中国商家</b>：20-F 按<b>单一可报告分部</b>披露，且"几乎全部收入来自中国第三方商家"<a href="#sources" class="ref">[1]</a>——意味着中国电商监管、平台治理、宏观与消费政策的任何变化，都会<b>直接、整体地</b>冲击它。</li>
+      </ul>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第六章 总结 -->
+  <section id="ch6">
+    <span class="chapnum">第六章</span>
+    <h2>第一性原理总结：一页纸看懂拼多多</h2>
+    <ol class="steps">
+      <li><b>本质：</b>它是"卖流量"的平台，不是"卖货"的商家。20-F 自己说"几乎全部收入来自第三方商家"——消费者是被低价吸引的"产品"，商家才是"客户"。</li>
+      <li><b>怎么赚：</b>两条线——<b>广告（按点击/曝光计费、高毛利、利润核心）</b> + <b>交易服务（佣金 + Temu）</b>，FY2025 审计口径各占约一半（50.4% / 49.6%）。</li>
+      <li><b>国内引擎：</b>拼团/C2M/农产品直连压低成本 + 不自营的轻资产 → 极致低价 → 低价飞轮聚集用户 → 商家买广告变现。</li>
+      <li><b>Temu：</b>2022 年 9 月生于波士顿，全托管重运营、早期靠美国免税红利；2025 年免税分两步取消（5/2 中港、8/29 全球）+ 关税重击，被迫转半托管，<b>把全年利润首次拖成下滑</b>。</li>
+      <li><b>财务指纹：</b>轻资产、高毛利广告、<b>负营运资本</b>（账上约 1,285 亿"别人的钱"）、<b>4,223 亿净现金</b>；但 Temu + 免税取消把毛利率从 60.9% 拉到 56.3%、经营利润 −13%。</li>
+      <li><b>看财报要点：</b>盯<b>广告收入增速</b>（主业健康度）、<b>交易服务增速</b>（=Temu 晴雨表）、<b>毛利率/经营利润率</b>（看是不是被 Temu 结构性 + 政策成本拉低）、<b>经营现金流 vs 净利润</b>（负营运资本的体现）、以及 <b>VIE / HFCAA</b> 这类只有原始申报文件才讲清的结构性风险。</li>
+    </ol>
+    <blockquote>"看懂一家公司，就是看懂它未来现金流的折现。"——而要看懂未来现金流，先得像本篇这样，<b>逐条对着原始财报</b>，把它<b>怎么赚钱、靠什么持续赚、什么会打断它</b>彻底拆开。<span style="display:block;margin-top:6px;font-size:13px;color:var(--ink-soft)">下一步若要估值，请接《用 DCF 估算拼多多》篇。</span></blockquote>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 来源 -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考来源（SEC EDGAR 原始申报文件）</h2>
+    <p style="font-size:14px;color:var(--ink-soft)">本文<b>全部关键财务数字与引文，均取自拼多多提交给美国 SEC 的原始申报文件</b>（PDD Holdings Inc.，<b>CIK 0001737806</b>）。年度审计数与定性引文来自 <b>Form 20-F</b>，季度数来自 <b>Form 6-K</b> 的业绩公告附件（EX-99.1）。币种主要为人民币；本文"亿元/百万元"为对原文千元数四舍五入，如有差异以原始申报文件为准。</p>
+    <ol class="sources">
+      <li>[1] <b>PDD Holdings Inc. — Form 20-F（FY2025 年报，财年截至 2025-12-31）</b>，2026-04-29 提交，Accession No. <b>0001104659-26-050727</b>。本文引用其中：业务与收入构成、ASC 606 收入确认政策、三年收入分项附注（在线营销 153,540.6 / 197,934.2 / 217,783.0 百万元；交易服务 94,098.7 / 195,901.9 / 214,062.7 百万元）、营业成本构成、Temu 创立与扩张、de minimis（第 321 条）取消的确切日期、VIE（杭州爱米）与体内收入、HFCAA/PCAOB、单一分部等 — <a href="https://www.sec.gov/Archives/edgar/data/1737806/000110465926050727/pdd-20251231x20f.htm">sec.gov · 20-F 原文</a></li>
+      <li>[2] <b>Form 6-K — Q4 &amp; FY2025 业绩公告</b>（EX-99.1），2026-03-26 提交，Accession No. <b>0001104659-26-034813</b>。FY2025：总营收 431,845.7、营业成本 188,801.8、销售营销 125,287.9、研发 16,496.2、经营利润 94,624.1、归母净利 99,364.5、经营现金流 106,938.7、现金+短期投资 422,308.3（百万元）；含资产负债表"应付商家款 107,407.2 / 商家保证金 17,708.2 / 预收客户款 3,378.8" — <a href="https://www.sec.gov/Archives/edgar/data/1737806/000110465926034813/tm269789d1_ex99-1.htm">sec.gov · 6-K EX-99.1</a></li>
+      <li>[3] <b>Form 6-K — Q3 2025 业绩公告</b>（EX-99.1），2025-11-18 提交，Accession No. <b>0001104659-25-113490</b>。Q3'25：总营收 108,276.5、在线营销 53,347.6、交易服务 54,928.9、经营利润 25,025.9、归母净利 29,328.2（百万元，+17%） — <a href="https://www.sec.gov/Archives/edgar/data/1737806/000110465925113490/tm2531580d1_ex99-1.htm">sec.gov · 6-K EX-99.1</a></li>
+      <li>[4] <b>Form 6-K — Q2 2025 业绩公告</b>（EX-99.1），2025-08-25 提交，Accession No. <b>0001104659-25-082502</b>。Q2'25：总营收 103,984.8、在线营销 55,703.2、交易服务 48,281.6（+1%）、经营利润 25,792.9（−21%）、归母净利 30,753.5、经营现金流 21,641.7（百万元） — <a href="https://www.sec.gov/Archives/edgar/data/1737806/000110465925082502/tm2524268d1_ex99-1.htm">sec.gov · 6-K EX-99.1</a></li>
+      <li>[5] <b>Form 6-K — Q1 2025 业绩公告</b>（EX-99.1），2025-05-27 提交，Accession No. <b>0001104659-25-053013</b>。Q1'25：总营收 95,672.2、在线营销 48,722.2、交易服务 46,950.0、经营利润 16,085.6（−38%）、归母净利 14,741.8（百万元） — <a href="https://www.sec.gov/Archives/edgar/data/1737806/000110465925053013/tm2516198d1_ex99-1.htm">sec.gov · 6-K EX-99.1</a></li>
+      <li>[6] Temu 全托管/半托管商业模式与美国 de minimis 取消的行业背景（辅助性二手资料，仅用于补充模式描述，不用于财务数字）：The Conversation、China Made &amp; Tech 等 — <a href="https://theconversation.com/the-secret-behind-temus-rock-bottom-prices-249231">theconversation.com</a>；<a href="https://chinamade.tech/blog/temu-business-model">chinamade.tech</a></li>
+      <li>[7] SEC EDGAR 公司检索入口（可自行核验上述全部文件）：PDD Holdings Inc.，CIK 0001737806 — <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001737806&type=20-F">sec.gov · EDGAR 申报列表</a></li>
+    </ol>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>

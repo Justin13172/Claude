@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>价值投资入门指南 · 巴菲特与段永平（写给初学者）</title>
+<style>
+  :root{
+    --ink:#1f2328;          /* 正文墨色 */
+    --ink-soft:#4a5159;     /* 次要文字 */
+    --paper:#fbf8f1;        /* 米白底 */
+    --paper-2:#ffffff;      /* 卡片白 */
+    --line:#e6e1d6;         /* 分隔线 */
+    --buffett:#1f5f8b;      /* 巴菲特蓝 */
+    --buffett-bg:#eaf2f8;
+    --duan:#2f7d57;         /* 段永平绿 */
+    --duan-bg:#e9f4ee;
+    --gold:#b8860b;         /* 强调金 */
+    --warn-bg:#fdf3e7;
+    --warn-line:#e6b873;
+    --radius:14px;
+    --maxw:760px;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;
+  }
+  .layout{display:flex;align-items:flex-start;max-width:1180px;margin:0 auto;}
+  /* 左侧目录 */
+  nav.toc{
+    position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;
+    width:262px;flex:0 0 262px;padding:26px 14px 60px 22px;border-right:1px solid var(--line);
+    background:linear-gradient(180deg,#fbf8f1,#f6f1e6);
+  }
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.5px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--buffett);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  /* 正文 */
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:64px 0 28px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:34px;line-height:1.3;margin:0 0 14px;letter-spacing:.5px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.b{border-color:#bcd6e8;color:var(--buffett);background:var(--buffett-bg)}
+  .pill.d{border-color:#bfe0cd;color:var(--duan);background:var(--duan-bg)}
+  section{padding:40px 0 8px;scroll-margin-top:18px}
+  h2{font-size:26px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:20px;margin:34px 0 8px;line-height:1.4}
+  h4{font-size:16.5px;margin:20px 0 6px;color:var(--ink)}
+  p{margin:12px 0}
+  a.ref{color:var(--buffett);text-decoration:none;font-size:11px;vertical-align:super;padding:0 1px}
+  a.ref:hover{text-decoration:underline}
+  .lead{font-size:18.5px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  /* 概念卡 */
+  .concept{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:22px 0;box-shadow:var(--shadow)}
+  .concept .ctag{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--buffett);padding:2px 10px;border-radius:999px;margin-bottom:8px}
+  .concept.duan .ctag{background:var(--duan)}
+  .concept dl{margin:10px 0 0;display:grid;grid-template-columns:84px 1fr;gap:6px 14px}
+  .concept dt{font-weight:700;color:var(--ink);font-size:14px;padding-top:2px}
+  .concept dd{margin:0;color:var(--ink-soft);font-size:15.5px}
+  .memo{margin-top:14px;padding:12px 14px;background:var(--buffett-bg);border-left:4px solid var(--buffett);border-radius:0 8px 8px 0;font-size:15px}
+  .concept.duan .memo{background:var(--duan-bg);border-left-color:var(--duan)}
+  .memo b{color:var(--ink)}
+  /* 第一性原理框 */
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  /* 案例盒 */
+  .case{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:26px 0;box-shadow:var(--shadow);background:#fff}
+  .case .top{padding:14px 20px;color:#fff;background:var(--buffett);display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+  .case.duan .top{background:var(--duan)}
+  .case .top h4{margin:0;color:#fff;font-size:18px}
+  .case .top .yr{font-size:13px;opacity:.9}
+  .case .body{padding:18px 22px}
+  .kpis{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 14px}
+  .kpi{flex:1 1 130px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:center}
+  .kpi .n{display:block;font-size:20px;font-weight:800;color:var(--buffett)}
+  .case.duan .kpi .n{color:var(--duan)}
+  .kpi .l{font-size:12px;color:var(--ink-soft)}
+  .takeaway{margin-top:12px;padding:12px 14px;background:#f4f8e9;border-left:4px solid #8aa84b;border-radius:0 8px 8px 0;font-size:14.5px}
+  /* 引用 */
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px;color:var(--ink)}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft);font-style:normal}
+  blockquote.b{border-left-color:var(--buffett)}
+  blockquote.d{border-left-color:var(--duan)}
+  /* 表格 */
+  .tablewrap{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#f3eee2;font-size:13.5px;color:var(--ink)}
+  tbody tr:last-child td{border-bottom:none}
+  td.b{color:var(--buffett);font-weight:600}
+  td.d{color:var(--duan);font-weight:600}
+  /* 图表容器 */
+  figure{margin:24px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  /* 警示/避坑 */
+  .warn{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  ul.cross li::before{content:"✕";color:#c0392b}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 44px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--buffett);color:#fff;text-align:center;line-height:28px;font-weight:800;font-size:14px}
+  /* 术语词典 */
+  .gloss{display:grid;grid-template-columns:1fr;gap:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .gloss .row{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .gloss .row:last-child{border-bottom:none}
+  .gloss .t{font-weight:700;color:var(--buffett)}
+  /* 参考来源 */
+  .sources{font-size:13px;color:var(--ink-soft)}
+  .sources li{margin:6px 0;word-break:break-all}
+  .sources a{color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:14px 18px;margin:24px 0}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--buffett);text-decoration:none}
+  /* 顶部移动端目录 */
+  .mobilebar{display:none}
+  @media (max-width:920px){
+    nav.toc{display:none}
+    main{padding:0 18px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}
+    .mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    header.hero h1{font-size:27px}
+    header.hero{padding:34px 0 22px}
+    body{font-size:16px}
+  }
+  @media print{
+    nav.toc,.mobilebar,.backtop{display:none}
+    body{background:#fff}
+    .case,.concept,figure svg{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 价值投资入门指南</summary>
+    <a href="#ch0">序章 · 什么是价值投资</a>
+    <a href="#ch1">第一章 · 巴菲特核心理念</a>
+    <a href="#ch2">第二章 · 巴菲特经典案例</a>
+    <a href="#ch3">第三章 · 段永平核心理念</a>
+    <a href="#ch4">第四章 · 段永平经典案例</a>
+    <a href="#ch5">第五章 · 两人对照与行动框架</a>
+    <a href="#appendix">附录 · 术语小词典</a>
+    <a href="#sources">参考来源</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">价值投资入门指南
+      <small>巴菲特 × 段永平<br>写给零基础投资者</small>
+    </div>
+    <div class="grp">正文</div>
+    <a href="#ch0">序章 · 什么是价值投资</a>
+    <a href="#ch1">第一章 · 巴菲特核心理念</a>
+    <a href="#c1-1" class="sub">1. 买股票就是买公司</a>
+    <a href="#c1-2" class="sub">2. 市场先生</a>
+    <a href="#c1-3" class="sub">3. 安全边际</a>
+    <a href="#c1-4" class="sub">4. 能力圈</a>
+    <a href="#c1-5" class="sub">5. 护城河</a>
+    <a href="#c1-6" class="sub">6. 内在价值与折现</a>
+    <a href="#c1-7" class="sub">7. 复利与滚雪球</a>
+    <a href="#c1-8" class="sub">8. 从烟蒂到伟大公司</a>
+    <a href="#c1-9" class="sub">9. 关键财务直觉</a>
+    <a href="#c1-10" class="sub">10. 性格、情绪与机会成本</a>
+    <a href="#ch2">第二章 · 巴菲特经典案例</a>
+    <a href="#ch3">第三章 · 段永平核心理念</a>
+    <a href="#c3-1" class="sub">1. 本分</a>
+    <a href="#c3-2" class="sub">2. 平常心</a>
+    <a href="#c3-3" class="sub">3. 商业模式 + 企业文化</a>
+    <a href="#c3-4" class="sub">4. 不懂不做 / 敢于不投资</a>
+    <a href="#c3-5" class="sub">5. 价格、价值与长期</a>
+    <a href="#c3-6" class="sub">6. 把老巴"翻译"成大白话</a>
+    <a href="#ch4">第四章 · 段永平经典案例</a>
+    <a href="#ch5">第五章 · 两人对照与行动框架</a>
+    <div class="grp">参考</div>
+    <a href="#appendix">附录 · 术语小词典</a>
+    <a href="#sources">参考来源</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">A BEGINNER'S GUIDE</span>
+    <h1>价值投资入门指南<br>巴菲特 × 段永平</h1>
+    <p class="sub">用第一性原理，把两位大师的核心思想讲成你能听懂的大白话。</p>
+    <div class="pillrow">
+      <span class="pill">零基础友好</span>
+      <span class="pill b">巴菲特蓝 = 巴菲特观点</span>
+      <span class="pill d">段永平绿 = 段永平观点</span>
+      <span class="pill">含图解 · 案例 · 数据来源</span>
+    </div>
+    <div class="disclaimer">
+      <b>重要提示：</b>本指南仅用于投资理念的学习与科普，<b>不构成任何投资建议</b>。文中所有公司、价格、收益均为历史事实的整理，用于说明原理，<b>不代表对任何标的的推荐</b>。历史数据来自公开报道（见文末参考来源），部分数字为不同来源的近似值，已用"约/大致"标注。投资有风险，独立思考、量力而行。
+    </div>
+  </header>
+
+  <!-- ============ 序章 ============ -->
+  <section id="ch0">
+    <span class="chapnum">序章</span>
+    <h2>什么是价值投资？为什么是这两个人？</h2>
+    <p class="lead">在背任何"口诀"之前，先想清楚一个最底层的问题：当你买入一只股票时，你到底买到了什么？</p>
+
+    <div class="fp">
+      <div class="lab">第一性原理 · 股票到底是什么</div>
+      <p>把"股市""K线""涨跌"这些词全部删掉，回到最原始的事实：<b>一家公司把自己切成很多份，每一份叫"一股"。你买一股，就是买下了这家公司极小的一部分所有权。</b></p>
+      <p>所以买股票 = 当这家公司的小股东。你分享它赚的钱（利润、分红），也承担它的经营风险。这跟"和朋友合伙开一家奶茶店、占 1% 股份"在本质上完全一样——只不过股市让你可以随时把这 1% 卖给别人。</p>
+    </div>
+
+    <p>一旦接受了这个事实，很多事情就自然推导出来了：</p>
+    <ul class="clean">
+      <li><b>公司值不值钱，取决于它未来能赚多少钱</b>——而不是别人愿意出多高的价。</li>
+      <li><b>股价短期乱跳，是因为"愿意接手的人"情绪在变</b>——奶茶店本身的赚钱能力不会因为今天有人想低价转让就变差。</li>
+      <li><b>所以聪明的做法是：估算这家公司大概值多少钱，然后等一个明显更便宜的价格买入。</b></li>
+    </ul>
+    <p>这套"把股票当公司、用便宜价格买好生意、长期持有"的思路，就叫 <b>价值投资（Value Investing）</b>。它的对立面是 <b>投机</b>——不关心公司值多少，只赌"有没有人愿意用更高价从我手里接走"。</p>
+
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>维度</th><th>投资（价值投资）</th><th>投机</th></tr></thead>
+      <tbody>
+        <tr><td>你在买什么</td><td class="b">一家公司未来的盈利能力</td><td>一个会涨的"筹码"</td></tr>
+        <tr><td>赚钱来源</td><td class="b">公司成长 + 分红（创造的价值）</td><td>差价（别人愿意出更高价）</td></tr>
+        <tr><td>关注点</td><td class="b">生意好不好、价格贵不贵</td><td>短期走势、消息、情绪</td></tr>
+        <tr><td>时间尺度</td><td class="b">数年 ~ 长期</td><td>天 / 周 / 月</td></tr>
+        <tr><td>下跌时</td><td class="b">可能是更便宜的买入机会</td><td>恐慌、割肉</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>为什么选巴菲特和段永平？</h3>
+    <p><b>沃伦·巴菲特</b>是价值投资公认的集大成者，用 60 多年时间把这套方法验证到了极致；他的老师是"价值投资之父"格雷厄姆，搭档是查理·芒格。<b>段永平</b>则是把巴菲特思想"本土化"得最透彻的中国企业家与投资人——他既是步步高、OPPO、vivo 背后的人，又在网易、苹果等投资上取得惊人回报，还在 2006 年花 62 万美元拍下巴菲特午餐<a href="#sources" class="ref">[7]</a>。</p>
+    <p>两人放在一起学的好处是：<b>巴菲特给你完整、经典的"理论体系"，段永平用大白话和中国人熟悉的公司，帮你把这套体系"翻译"成能落地的直觉。</b>一个是原典，一个是最好的注解。</p>
+
+    <div class="warn">
+      <div class="lab">📌 如何使用本指南</div>
+      <p style="margin:6px 0">① 先读序章建立"股票=公司"的底层认知；② 第一章逐条吃透巴菲特的核心概念（每个都有<b>定义→类比→第一性原理→记忆点</b>）；③ 第二、四章用真实案例把概念"看见"；④ 第三章理解段永平如何继承与简化；⑤ 第五章是给你的行动清单。<b>不必一次读完</b>，每个概念卡都可独立咀嚼。</p>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 第一章：巴菲特核心理念 ============ -->
+  <section id="ch1">
+    <span class="chapnum">第一章</span>
+    <h2>巴菲特的核心理念（逐条拆解）</h2>
+    <p class="lead">这一章是整份指南的地基。十个概念，每个都从"最底层为什么"讲起，配类比和图解。</p>
+
+    <!-- 1 -->
+    <h3 id="c1-1">1. 买股票就是买公司（所有权思维）</h3>
+    <div class="concept">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>定义</dt><dd>买入股票 = 成为这家企业的部分所有者，而非买入一张可以炒来炒去的票据。</dd>
+        <dt>类比</dt><dd>就像花钱入股了楼下那家生意火爆的火锅店。你不会因为今天有人出价低就觉得火锅店"变烂了"——你关心的是它每年还能不能赚钱、能不能开更多分店。</dd>
+        <dt>底层</dt><dd>价格是别人情绪的报价，价值是企业自身的赚钱能力。前者天天变，后者变得很慢。把注意力放在后者，你就拥有了别人没有的"定力"。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>"我不是在买股票，我是在买这家公司的一小块。" 这一句想通了，价值投资就入门了一半。</div>
+    </div>
+    <blockquote class="b">"如果你不愿意持有一只股票十年，那就连十分钟都不要持有它。"<span class="who">— 沃伦·巴菲特</span></blockquote>
+
+    <!-- 2 -->
+    <h3 id="c1-2">2. 市场先生（Mr. Market）</h3>
+    <div class="concept">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>定义</dt><dd>格雷厄姆的比喻：把"市场"想象成一个情绪极不稳定的合伙人"市场先生"。他每天都来敲你的门，给你的股份报一个价——有时极度乐观报天价，有时极度悲观报地板价。</dd>
+        <dt>类比</dt><dd>你的合伙人今天兴高采烈，说"你那份火锅店股份我出双倍价收了！"；明天又愁眉苦脸，"我亏惨了，半价卖给我吧！"。火锅店本身一点没变，只是他的情绪在变。</dd>
+        <dt>底层</dt><dd>市场的存在是为了<b>服务你</b>，不是<b>指导你</b>。他报高价时你可以卖给他，报低价时你可以买他的，但你<b>没有义务搭理他</b>。关键：你得对企业有自己的判断，否则就会被他的情绪牵着走。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>把价格的波动当成"机会"而不是"信号"。市场先生情绪越极端，给你的机会越好。</div>
+    </div>
+    <figure>
+      <!-- 市场先生情绪曲线 -->
+      <svg viewBox="0 0 680 300" role="img" aria-label="市场先生情绪曲线：价格围绕价值上下波动">
+        <text x="340" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">市场先生的情绪 vs 公司的真实价值</text>
+        <!-- 坐标 -->
+        <line x1="60" y1="250" x2="650" y2="250" stroke="#999" stroke-width="1"/>
+        <line x1="60" y1="40" x2="60" y2="250" stroke="#999" stroke-width="1"/>
+        <text x="40" y="50" font-size="11" fill="#666">价</text><text x="40" y="64" font-size="11" fill="#666">格</text>
+        <text x="600" y="268" font-size="11" fill="#666">时间 →</text>
+        <!-- 价值线（缓慢上升的直线） -->
+        <line x1="60" y1="200" x2="650" y2="120" stroke="#2f7d57" stroke-width="3" stroke-dasharray="0"/>
+        <text x="556" y="112" font-size="12" font-weight="700" fill="#2f7d57">内在价值（慢慢上升）</text>
+        <!-- 价格波动曲线 -->
+        <path d="M60,210 C110,120 150,300 200,150 C250,40 300,270 350,150 C400,60 450,250 500,130 C550,55 600,210 650,110"
+              fill="none" stroke="#1f5f8b" stroke-width="2.5"/>
+        <text x="120" y="100" font-size="12" font-weight="700" fill="#1f5f8b">市场价格（情绪剧烈波动）</text>
+        <!-- 标注点：贪婪/恐惧 -->
+        <circle cx="250" cy="40" r="6" fill="#c0392b"/><text x="250" y="32" text-anchor="middle" font-size="11" fill="#c0392b">贪婪·别人抢着买</text>
+        <circle cx="200" cy="150" r="5" fill="#1f5f8b"/>
+        <circle cx="300" cy="270" r="6" fill="#2f7d57"/><text x="300" y="288" text-anchor="middle" font-size="11" fill="#2f7d57">恐惧·机会出现</text>
+        <circle cx="500" cy="130" r="5" fill="#1f5f8b"/>
+      </svg>
+      <figcaption>价格（蓝）围绕价值（绿）大幅震荡。聪明的投资者在绿线下方很多时买入，在蓝线远高于绿线时考虑卖出。</figcaption>
+    </figure>
+
+    <!-- 3 -->
+    <h3 id="c1-3">3. 安全边际（Margin of Safety）</h3>
+    <div class="concept">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>定义</dt><dd>只在价格<b>明显低于</b>你估算的内在价值时才买入，中间留出的那段"折扣"就是安全边际。</dd>
+        <dt>类比</dt><dd>造一座限重 1 万吨的桥，工程师会按 3 万吨去设计。多出来的承载力，就是应对"估算出错、意外发生"的缓冲。投资也一样：你估这家公司值 100 元，就等它跌到 60 元再买，留 40 元缓冲。</dd>
+        <dt>底层</dt><dd>未来无法精确预测，你的估值一定会有误差。安全边际的作用是：<b>即使我看错了一部分，也亏不了大钱；如果我看对了，就赚得很多。</b>它把"不确定性"变成了你的朋友。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>好公司 + 好价格，缺一不可。再好的公司，买贵了也是糟糕的投资。</div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 680 240" role="img" aria-label="安全边际示意图">
+        <text x="340" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">安全边际 = 价值与买入价之间的缓冲</text>
+        <!-- 价值柱 -->
+        <rect x="120" y="60" width="120" height="150" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/>
+        <text x="180" y="50" text-anchor="middle" font-size="13" font-weight="700" fill="#1f5f8b">内在价值</text>
+        <text x="180" y="140" text-anchor="middle" font-size="15" font-weight="800" fill="#1f5f8b">约 100 元</text>
+        <!-- 买入价柱 -->
+        <rect x="360" y="135" width="120" height="75" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2"/>
+        <text x="420" y="50" text-anchor="middle" font-size="13" font-weight="700" fill="#2f7d57">理想买入价</text>
+        <text x="420" y="178" text-anchor="middle" font-size="15" font-weight="800" fill="#2f7d57">约 60 元</text>
+        <!-- 缓冲箭头 -->
+        <line x1="540" y1="60" x2="540" y2="135" stroke="#b8860b" stroke-width="2"/>
+        <line x1="535" y1="60" x2="545" y2="60" stroke="#b8860b" stroke-width="2"/>
+        <line x1="535" y1="135" x2="545" y2="135" stroke="#b8860b" stroke-width="2"/>
+        <text x="556" y="100" font-size="13" font-weight="700" fill="#b8860b">安全边际</text>
+        <text x="556" y="118" font-size="12" fill="#b8860b">≈ 40% 缓冲</text>
+        <line x1="240" y1="135" x2="360" y2="135" stroke="#999" stroke-dasharray="4 4"/>
+      </svg>
+      <figcaption>价值估 100 元，等跌到 60 元才买。这 40 元缓冲既保护你免于估值出错，也是你的潜在收益空间。</figcaption>
+    </figure>
+
+    <!-- 4 -->
+    <h3 id="c1-4">4. 能力圈（Circle of Competence）</h3>
+    <div class="concept">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>定义</dt><dd>每个人都有一个自己真正能看懂、能判断的领域范围，这就是能力圈。投资只在圈内做。</dd>
+        <dt>类比</dt><dd>开餐馆的人能一眼看出哪家店生意能不能持久；让他去判断芯片公司的护城河，他就抓瞎了。重点不是圈有多大，<b>而是你清不清楚自己的边界在哪</b>。</dd>
+        <dt>底层</dt><dd>投资是"用确定性赚钱"。在你看得懂的地方，你对企业未来的判断更可能正确；圈外的机会再诱人，对你来说都只是赌博。<b>承认"我不懂"，是一种巨大的优势。</b></dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>圈子大小不重要，知道边界在哪最重要。最危险的不是"不知道"，而是"以为自己知道"。</div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 680 280" role="img" aria-label="能力圈三层示意图">
+        <text x="340" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">三个圈：真知道 / 以为知道 / 不知道</text>
+        <circle cx="340" cy="160" r="110" fill="#fdf3e7" stroke="#e6b873" stroke-width="2"/>
+        <circle cx="340" cy="160" r="75" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/>
+        <circle cx="340" cy="160" r="40" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2.5"/>
+        <text x="340" y="158" text-anchor="middle" font-size="13" font-weight="800" fill="#2f7d57">真正</text>
+        <text x="340" y="176" text-anchor="middle" font-size="13" font-weight="800" fill="#2f7d57">看得懂</text>
+        <text x="340" y="110" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1f5f8b">以为自己懂（危险区）</text>
+        <text x="340" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#b9770f">完全不懂（绕开）</text>
+        <text x="340" y="250" text-anchor="middle" font-size="12" fill="#666">★ 只在最内圈下注，老实承认外面两圈</text>
+      </svg>
+      <figcaption>巴菲特只在最内圈（真正看得懂的公司）出手。最容易亏钱的是中间那圈——你以为懂，其实不懂。</figcaption>
+    </figure>
+
+    <!-- 5 -->
+    <h3 id="c1-5">5. 护城河（Economic Moat）</h3>
+    <div class="concept">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>定义</dt><dd>企业抵御竞争对手、长期维持高利润的"持久竞争优势"。城堡（公司）要赚钱，就得有又宽又深的护城河，让对手攻不进来。</dd>
+        <dt>类比</dt><dd>一家位置无可替代的老字号、一个深入人心的品牌、一套用户离不开的系统——别人就算砸钱也很难抢走它的生意。</dd>
+        <dt>底层</dt><dd>任何赚大钱的生意都会招来模仿者。没有护城河，高利润很快被竞争"卷"没；有护城河，公司才能<b>年复一年</b>地赚钱，复利才有意义。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>先问"十年后它还在不在、还这么赚钱吗？"。护城河决定了一家公司能不能"长期"被信任。</div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 680 250" role="img" aria-label="护城河城堡与四类护城河">
+        <text x="340" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">城堡（公司）+ 护城河（竞争优势）</text>
+        <!-- 护城河水 -->
+        <ellipse cx="200" cy="160" rx="150" ry="55" fill="#dcebff" opacity="0"/>
+        <path d="M70,160 q130,55 260,0 q-130,55 -260,0 Z" fill="#cfe3f2" stroke="#1f5f8b" stroke-width="1.5"/>
+        <text x="200" y="200" text-anchor="middle" font-size="11" fill="#1f5f8b">护城河（对手难以跨越）</text>
+        <!-- 城堡 -->
+        <rect x="160" y="100" width="80" height="55" fill="#f3eee2" stroke="#8a7d56" stroke-width="2"/>
+        <rect x="160" y="90" width="16" height="14" fill="#8a7d56"/><rect x="184" y="90" width="16" height="14" fill="#8a7d56"/><rect x="208" y="90" width="16" height="14" fill="#8a7d56"/>
+        <rect x="190" y="125" width="20" height="30" fill="#8a7d56"/>
+        <text x="200" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#8a7d56">公司</text>
+        <!-- 四类护城河 -->
+        <g font-size="12.5" fill="#1f2328">
+          <rect x="400" y="55" width="250" height="34" rx="8" fill="#eaf2f8" stroke="#1f5f8b"/><text x="412" y="77">① 品牌 · 顾客愿意多付钱（可口可乐）</text>
+          <rect x="400" y="97" width="250" height="34" rx="8" fill="#eaf2f8" stroke="#1f5f8b"/><text x="412" y="119">② 网络效应 · 用的人越多越好用（微信）</text>
+          <rect x="400" y="139" width="250" height="34" rx="8" fill="#eaf2f8" stroke="#1f5f8b"/><text x="412" y="161">③ 转换成本 · 换掉太麻烦（操作系统）</text>
+          <rect x="400" y="181" width="250" height="34" rx="8" fill="#eaf2f8" stroke="#1f5f8b"/><text x="412" y="203">④ 成本优势 · 比谁都便宜还赚钱（规模）</text>
+        </g>
+      </svg>
+      <figcaption>四类最常见的护城河。判断一家公司，先找它的护城河是哪一种、够不够宽、会不会被填平。</figcaption>
+    </figure>
+
+    <!-- 6 -->
+    <h3 id="c1-6">6. 内在价值与现金流折现（DCF 的直觉）</h3>
+    <div class="concept">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>定义</dt><dd>一家公司的内在价值，等于它"未来一辈子能赚到的所有现金"，折算回今天的总和。</dd>
+        <dt>类比</dt><dd>有人许诺"今后每年给你 10 万元，给一辈子"，这个承诺今天值多少钱？肯定不是"10 万 × 年数"那么简单——因为<b>未来的钱不如现在的钱值钱</b>（今天的 10 万能先拿去钱生钱，还要考虑通胀和兑现风险）。把每一年的钱"打个折"再加起来，就是它今天的价值。这个"打折"动作就叫<b>折现</b>。</dd>
+        <dt>底层</dt><dd>钱的本质是"未来购买力"。越远、越不确定的钱，越要打折。所以一家公司是否值钱，取决于它<b>能赚多少、能赚多久、确定性多高</b>——这正好对应前面的"盈利能力 + 护城河 + 能力圈"。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>不必会算复杂公式。记住方向就够了：<b>未来现金越多、越持久、越确定 → 今天越值钱。</b></div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 680 230" role="img" aria-label="现金流折现示意">
+        <text x="340" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">未来每年赚的钱，"打折"折回今天</text>
+        <!-- 未来现金柱 -->
+        <g>
+          <rect x="120" y="70" width="40" height="90" fill="#eaf2f8" stroke="#1f5f8b"/><text x="140" y="180" text-anchor="middle" font-size="11" fill="#666">第1年</text>
+          <rect x="200" y="78" width="40" height="82" fill="#eaf2f8" stroke="#1f5f8b"/><text x="220" y="180" text-anchor="middle" font-size="11" fill="#666">第2年</text>
+          <rect x="280" y="88" width="40" height="72" fill="#eaf2f8" stroke="#1f5f8b"/><text x="300" y="180" text-anchor="middle" font-size="11" fill="#666">第3年</text>
+          <rect x="360" y="100" width="40" height="60" fill="#eaf2f8" stroke="#1f5f8b"/><text x="380" y="180" text-anchor="middle" font-size="11" fill="#666">…</text>
+          <rect x="440" y="116" width="40" height="44" fill="#eaf2f8" stroke="#1f5f8b"/><text x="460" y="180" text-anchor="middle" font-size="11" fill="#666">第N年</text>
+        </g>
+        <text x="300" y="55" text-anchor="middle" font-size="11" fill="#b8860b">越远的钱，折得越狠（柱子越矮）↓</text>
+        <!-- 箭头汇总到今天 -->
+        <path d="M500,135 C560,135 560,135 580,135" fill="none" stroke="#2f7d57" stroke-width="2" marker-end="url(#a)"/>
+        <defs><marker id="a" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2f7d57"/></marker></defs>
+        <rect x="588" y="95" width="70" height="80" rx="8" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2"/>
+        <text x="623" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#2f7d57">今天的</text>
+        <text x="623" y="146" text-anchor="middle" font-size="11" font-weight="700" fill="#2f7d57">内在价值</text>
+      </svg>
+      <figcaption>把每一年赚到的现金分别"打折"再相加，就得到公司今天的内在价值。这就是 DCF（折现现金流）的核心直觉。</figcaption>
+    </figure>
+
+    <!-- 7 -->
+    <h3 id="c1-7">7. 复利与"滚雪球"</h3>
+    <div class="concept">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>定义</dt><dd>复利 = "利滚利"。赚到的钱不取出，继续投入再赚钱，雪球越滚越大。时间越长，威力越惊人。</dd>
+        <dt>类比</dt><dd>巴菲特自己的比喻："人生就像滚雪球，重要的是找到<b>很湿的雪</b>（高回报的好生意）和<b>很长的坡</b>（足够长的时间）。"</dd>
+        <dt>底层</dt><dd>复利是<b>指数增长</b>，而人脑习惯<b>线性思考</b>，所以总会低估它。年化 15% 看着不起眼，但坚持 30 年是约 66 倍。<b>巴菲特 99% 以上的财富是 50 岁之后才积累的</b>——不是他后来更聪明，而是雪球滚到了后半程。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>复利最大的敌人是"中断"——频繁买卖、亏一次大的、或太早离场。让好资产安静地待着，是普通人最强的武器。</div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 680 280" role="img" aria-label="复利曲线 vs 线性增长">
+        <text x="340" y="24" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">同样年化，时间拉长后的天壤之别</text>
+        <line x1="70" y1="240" x2="650" y2="240" stroke="#999"/><line x1="70" y1="40" x2="70" y2="240" stroke="#999"/>
+        <text x="55" y="48" font-size="11" fill="#666">钱</text><text x="600" y="258" font-size="11" fill="#666">时间（年）→</text>
+        <!-- 线性 -->
+        <line x1="70" y1="220" x2="650" y2="150" stroke="#999" stroke-width="2" stroke-dasharray="6 5"/>
+        <text x="556" y="146" font-size="11" fill="#888">单利（线性）</text>
+        <!-- 复利曲线 -->
+        <path d="M70,220 C300,215 470,180 560,110 C600,75 630,55 650,46" fill="none" stroke="#1f5f8b" stroke-width="3"/>
+        <text x="480" y="86" font-size="12" font-weight="700" fill="#1f5f8b">复利（指数）</text>
+        <!-- 标注后期陡峭 -->
+        <circle cx="560" cy="110" r="5" fill="#b8860b"/>
+        <text x="470" y="245" font-size="11" fill="#b9770f">← 前期几乎看不出差别</text>
+        <text x="500" y="40" font-size="11" fill="#b9770f">后期突然起飞 →</text>
+      </svg>
+      <figcaption>复利前期"很慢"，容易让人失去耐心；真正的爆发都在后半段。这正是"坡要长"的意义。</figcaption>
+    </figure>
+
+    <!-- 8 -->
+    <h3 id="c1-8">8. 从"烟蒂"到"伟大公司"：巴菲特思想的进化</h3>
+    <p>很多人不知道，巴菲特年轻时的方法和后来并不一样。理解这个转变，能帮你少走弯路。</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th></th><th>早期 · 格雷厄姆"烟蒂股"</th><th>成熟期 · 芒格 & 费雪的影响</th></tr></thead>
+      <tbody>
+        <tr><td>核心思路</td><td>买极度便宜的"烂公司"，像捡别人扔掉的烟蒂，还能免费吸最后一口</td><td class="b">以合理价格买<b>伟大的公司</b>，长期陪它成长</td></tr>
+        <tr><td>赚钱方式</td><td>买入价 &lt; 清算价，价格回归就卖出</td><td class="b">公司自身不断创造价值，越拿越值钱</td></tr>
+        <tr><td>持有时间</td><td>短，赚一笔就走</td><td class="b">很长，甚至"永远"</td></tr>
+        <tr><td>关键洞察</td><td>便宜是唯一的安全垫</td><td class="b">"用合理的价格买伟大的公司，远胜于用便宜的价格买平庸的公司"</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <blockquote class="b">"用合理的价格买一家了不起的公司，远比用了不起的价格买一家平庸的公司要好得多。"<span class="who">— 沃伦·巴菲特（受查理·芒格影响）</span></blockquote>
+    <p>促成这个转变的代表作，就是下一章要讲的<b>喜诗糖果</b>。对初学者的启示是：<b>别只盯着"便宜"，更要盯着"好"。一家会越来越值钱的好公司，才能让你的复利雪球真正滚起来。</b></p>
+
+    <!-- 9 -->
+    <h3 id="c1-9">9. 关键财务直觉（不用会算，先建立感觉）</h3>
+    <p>财报很厚，但初学者只需先抓住三个"感觉"：</p>
+    <div class="concept">
+      <span class="ctag">直觉一 · ROE</span>
+      <dl>
+        <dt>是什么</dt><dd>净资产收益率（ROE）= 公司用股东的钱，每年能赚回多少。ROE 长期 20%，意味着股东每投 100 元，公司每年能赚回约 20 元。</dd>
+        <dt>怎么用</dt><dd>长期、稳定的高 ROE，通常是<b>有护城河</b>的信号。但要警惕靠借大量债撑起来的"虚高 ROE"。</dd>
+      </dl>
+    </div>
+    <div class="concept">
+      <span class="ctag">直觉二 · 自由现金流</span>
+      <dl>
+        <dt>是什么</dt><dd>公司经营赚到的现金，减去维持和扩张必须的花费，剩下能"自由支配"的真金白银。</dd>
+        <dt>怎么用</dt><dd>利润可以通过会计手法"美化"，但<b>现金很难骗人</b>。能持续产生大量自由现金、又不需要不断砸钱维持的生意（如喜诗糖果），才是真正的"现金奶牛"。</dd>
+      </dl>
+    </div>
+    <div class="concept">
+      <span class="ctag">直觉三 · 留存收益的"一美元原则"</span>
+      <dl>
+        <dt>是什么</dt><dd>公司赚了钱不分给股东、而是留下来再投资（留存收益）。巴菲特的检验标准：公司每留下 1 美元，长期是否至少为股东创造了 1 美元以上的市值？</dd>
+        <dt>怎么用</dt><dd>如果一家公司留着利润却创造不出更多价值，那还不如把钱分红给股东。这考验的是<b>管理层的资本配置能力</b>。</dd>
+      </dl>
+    </div>
+
+    <!-- 10 -->
+    <h3 id="c1-10">10. 性格、情绪与机会成本</h3>
+    <div class="concept">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>情绪</dt><dd>"别人贪婪时我恐惧，别人恐惧时我贪婪。"——市场暴跌、人人割肉时，往往是好公司打折的时刻；人人狂热、追涨时，反而最危险。</dd>
+        <dt>性格</dt><dd>巴菲特说投资成功靠的不是智商，而是<b>性情（temperament）</b>：能独立思考、扛得住波动、不被群体情绪裹挟。"投资不需要天才，需要的是控制住那些让别人栽跟头的冲动。"</dd>
+        <dt>机会成本</dt><dd>你的钱投了 A，就不能投 B。所以每个决定都在和"我能做的最好的其他选择"比较。现金拿在手里看似没收益，但它保留了"等到更好机会"的权利。</dd>
+        <dt>通胀</dt><dd>钱会随时间贬值，所以"把钱放着不动"其实也在亏。真正的目标是让财富的<b>购买力</b>跑赢通胀——这又回到了"买能持续赚钱的好资产"。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>投资是反人性的。最难的不是看懂公司，而是<b>管住自己</b>。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 第二章：巴菲特案例 ============ -->
+  <section id="ch2">
+    <span class="chapnum">第二章</span>
+    <h2>巴菲特经典案例（把概念"看见"）</h2>
+    <p class="lead">理论讲完了，下面用真实的钱、真实的公司，看看这些概念是怎么发挥作用的。</p>
+
+    <div class="case">
+      <div class="top"><h4>① 喜诗糖果 See's Candies</h4><span class="yr">1972 年收购</span></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">2500万</span><span class="l">美元收购价</span></div>
+          <div class="kpi"><span class="n">约420万</span><span class="l">当时税前利润/年</span></div>
+          <div class="kpi"><span class="n">约16.5亿</span><span class="l">到2011累计税前利润<a href="#sources" class="ref">[1]</a></span></div>
+        </div>
+        <p>这是巴菲特投资思想的<b>转折点</b>。按格雷厄姆的"烟蒂"标准，2500 万美元（约为账面价值 3 倍、利润 6 倍）并不"便宜"，年轻的巴菲特差点没买。但芒格说服他：喜诗有<b>强大的品牌和定价权</b>——加州人送礼就认这个牌子，每年还能从容涨价，而且几乎不需要追加投资就能多赚钱。</p>
+        <p>结果证明，喜诗几乎不需要再投入资本，却年复一年源源不断地吐出现金，到 2011 年累计为伯克希尔贡献了约 16.5 亿美元税前利润<a href="#sources" class="ref">[1]</a>，是当年 2500 万投入的几十倍。巴菲特称它为"梦想中的生意的原型"。</p>
+        <div class="takeaway">🎯 <b>对应理念：</b>护城河（品牌+定价权）、轻资本的"现金奶牛"、从"便宜烟蒂"转向"合理价买伟大公司"。<b>启示：</b>真正的好生意，是赚的钱不用大量再投入、还能持续涨价的生意。</div>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="top"><h4>② 美国运通 American Express</h4><span class="yr">1964 年（"色拉油丑闻"）</span></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">$60→$35</span><span class="l">丑闻中股价腰斩<a href="#sources" class="ref">[3]</a></span></div>
+          <div class="kpi"><span class="n">约2000万</span><span class="l">美元建仓（约5%股份）<a href="#sources" class="ref">[3]</a></span></div>
+          <div class="kpi"><span class="n">约40%</span><span class="l">一度占合伙基金仓位<a href="#sources" class="ref">[3]</a></span></div>
+        </div>
+        <p>1963 年，一家子公司卷入"色拉油欺诈"丑闻，市场恐慌美国运通会因此巨额赔偿甚至破产，股价从约 60 美元跌到约 35 美元<a href="#sources" class="ref">[3]</a>。巴菲特没有跟着恐慌，而是<b>跑到餐馆、商店实地观察</b>：消费者还在照常刷运通卡、用它的旅行支票吗？答案是——完全没受影响。</p>
+        <p>他由此判断：丑闻冲击的是一次性赔偿，而运通的<b>核心生意（品牌信任和支付网络）完好无损</b>。于是他把合伙基金里很大一笔钱（一度高达约 40%）押在运通上，随后股价回升，赚得丰厚。</p>
+        <div class="takeaway">🎯 <b>对应理念：</b>市场先生（恐惧中报地板价）、安全边际、能力圈（亲自调研验证）、别人恐惧我贪婪。<b>启示：</b>区分"暂时的坏消息"和"生意本身坏掉了"，是危机中赚钱的关键。</div>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="top"><h4>③ 可口可乐 Coca-Cola</h4><span class="yr">1988–1994 年建仓</span></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">约13亿</span><span class="l">美元总成本<a href="#sources" class="ref">[2]</a></span></div>
+          <div class="kpi"><span class="n">约52亿</span><span class="l">1994年底市值<a href="#sources" class="ref">[2]</a></span></div>
+          <div class="kpi"><span class="n">数十年</span><span class="l">持有至今未卖</span></div>
+        </div>
+        <p>巴菲特从 1988 年开始大举买入可口可乐，到 1994 年累计投入约 13 亿美元；仅仅到 1994 年底，这笔持仓的市值就已达约 52 亿美元<a href="#sources" class="ref">[2]</a>。更重要的是，他<b>几十年来一股没卖</b>，靠持续上涨的分红和股价，收获了教科书级的复利。</p>
+        <p>他看中的是可口可乐近乎完美的<b>护城河</b>：全球公认的品牌、遍布世界的渠道、让人难以撼动的口味习惯，以及"卖糖水却不需要重资产"的好生意模式。</p>
+        <div class="takeaway">🎯 <b>对应理念：</b>护城河（超级品牌）、长期持有、复利、买股票就是买公司。<b>启示：</b>找到一家能"理解、且能长期赚钱"的伟大公司后，最好的操作往往是——拿住，别动。</div>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="top"><h4>④ 苹果 Apple</h4><span class="yr">2016 年起建仓</span></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">约11亿</span><span class="l">2016年首笔建仓<a href="#sources" class="ref">[4]</a></span></div>
+          <div class="kpi"><span class="n">50%+</span><span class="l">一度占股票组合比例<a href="#sources" class="ref">[4]</a></span></div>
+          <div class="kpi"><span class="n">超千亿</span><span class="l">峰值持仓市值（美元）<a href="#sources" class="ref">[4]</a></span></div>
+        </div>
+        <p>巴菲特早年一直回避科技股（"看不懂、不在能力圈"）。但 2016 年起，他重仓苹果，因为他不是把它当"科技股"，而是当成一家<b>拥有极强用户忠诚度的消费品公司</b>——iPhone 像可口可乐一样，是用户离不开、且愿意持续付费的产品（高<b>转换成本</b>+品牌）。这笔投资后来成为伯克希尔历史上最赚钱的股票投资之一，峰值时一度占其股票组合一半以上<a href="#sources" class="ref">[4]</a>。</p>
+        <div class="takeaway">🎯 <b>对应理念：</b>能力圈是会"成长"的、护城河（品牌+转换成本）、用消费品视角理解科技公司。<b>启示：</b>能力圈不是一成不变的——你可以通过学习把它扩大，但前提是真的看懂了，而不是跟风。</div>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="top"><h4>⑤ 反面教材：纺织厂 & Dexter 制鞋</h4><span class="yr">"最贵的教训"</span></div>
+      <div class="body">
+        <p>巴菲特也犯过大错，而且坦诚地反复检讨。<b>伯克希尔本身</b>原本是一家濒死的纺织厂，他出于"便宜"买下，结果在没有护城河的烂生意里挣扎多年，浪费大量资本——他后来说这是他"最愚蠢的买入"。<b>Dexter 制鞋</b>则是他用伯克希尔的股票去收购，结果公司因海外竞争迅速失去优势变得一文不值，而当年付出去的股票如今价值连城——等于用"会下金蛋的鹅"换了一堆废铁。</p>
+        <div class="takeaway">🎯 <b>对应理念（反向）：</b>没有护城河的"便宜货"是陷阱；机会成本（用好资产换坏资产的代价）。<b>启示：</b>大师也会犯错，关键是<b>诚实复盘、不重复犯同样的错</b>。便宜，永远不能成为买入烂生意的理由。</div>
+      </div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 第三章：段永平核心理念 ============ -->
+  <section id="ch3">
+    <span class="chapnum">第三章</span>
+    <h2>段永平的核心理念（最好的"中文注解"）</h2>
+    <p class="lead">段永平把巴菲特的思想消化后，用中国人最熟悉的词重新表达：本分、平常心、不为清单。它们听起来朴素，却直指投资的本质。</p>
+
+    <figure>
+      <svg viewBox="0 0 680 290" role="img" aria-label="段永平投资框架四要素">
+        <text x="340" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">段永平的投资框架</text>
+        <!-- 底座两块 -->
+        <rect x="120" y="60" width="200" height="80" rx="10" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2"/>
+        <text x="220" y="92" text-anchor="middle" font-size="15" font-weight="800" fill="#2f7d57">本分</text>
+        <text x="220" y="116" text-anchor="middle" font-size="12" fill="#4a5159">做对的事 + 把事做对</text>
+        <rect x="360" y="60" width="200" height="80" rx="10" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2"/>
+        <text x="460" y="92" text-anchor="middle" font-size="15" font-weight="800" fill="#2f7d57">平常心</text>
+        <text x="460" y="116" text-anchor="middle" font-size="12" fill="#4a5159">回到事物本来的样子</text>
+        <!-- 选公司两块 -->
+        <rect x="120" y="165" width="200" height="80" rx="10" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/>
+        <text x="220" y="197" text-anchor="middle" font-size="15" font-weight="800" fill="#1f5f8b">商业模式</text>
+        <text x="220" y="221" text-anchor="middle" font-size="12" fill="#4a5159">生意本身好不好赚钱</text>
+        <rect x="360" y="165" width="200" height="80" rx="10" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/>
+        <text x="460" y="197" text-anchor="middle" font-size="15" font-weight="800" fill="#1f5f8b">企业文化</text>
+        <text x="460" y="221" text-anchor="middle" font-size="12" fill="#4a5159">这帮人靠不靠谱</text>
+        <text x="340" y="270" text-anchor="middle" font-size="12" fill="#666">上：做人做事的底层（绿）  ·  下：选公司的两把尺子（蓝）  +  合理的价格</text>
+      </svg>
+      <figcaption>段永平选公司的标准可概括为"商业模式 + 企业文化 + 合理价格"，而支撑这一切的是"本分 + 平常心"<a href="#sources" class="ref">[8]</a>。</figcaption>
+    </figure>
+
+    <h3 id="c3-1">1. 本分：做对的事，把事做对</h3>
+    <div class="concept duan">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>定义</dt><dd>"本分"是段永平所有思想的根。它包含两层：<b>做对的事情</b>（Right thing）+ <b>把事情做对</b>（Do things right）。</dd>
+        <dt>关键</dt><dd>"做对的事"其实是靠"<b>不为清单</b>（Stop Doing List）"实现的——一旦发现某件事是错的，<b>立刻停止，多晚都不晚</b>。比错过机会更可怕的是坚持做错的事。</dd>
+        <dt>底层</dt><dd>人生和投资的结果，是无数选择累加的。少做错事（尤其是不犯致命错误），长期下来就会大幅领先。这与巴菲特"<b>第一条：不要亏钱</b>"异曲同工。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>把精力放在"不做什么"上，常比"做什么"更重要。错的事，停下就是进步。<a href="#sources" class="ref">[8]</a></div>
+    </div>
+    <blockquote class="d">"做对的事情，把事情做对。发现是错的事情要马上停止，不管多大代价都是最小的代价。"<span class="who">— 段永平</span></blockquote>
+
+    <h3 id="c3-2">2. 平常心：回到事物本来的样子</h3>
+    <div class="concept duan">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>定义</dt><dd>平常心，就是不受贪婪、恐惧、急躁干扰，"<b>回到事物本来应该有的样子</b>"去做判断。</dd>
+        <dt>类比</dt><dd>别人因为股价大涨而狂喜、大跌而绝望时，平常心的人只问一句："这家公司的生意，本身有没有变化？"没变化，价格的波动就只是噪音。</dd>
+        <dt>底层</dt><dd>这正是巴菲特"市场先生"和"别人贪婪我恐惧"的东方表达。投资的敌人是情绪，平常心就是<b>对抗情绪的内功</b>。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>段永平说"我所有的成功都来自'本分 + 平常心'"<a href="#sources" class="ref">[8]</a>。平常心不是不在乎，而是不被情绪带跑。</div>
+    </div>
+
+    <h3 id="c3-3">3. 商业模式 + 企业文化（他最看重的两把尺子）</h3>
+    <div class="concept duan">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>商业模式</dt><dd>这门生意<b>本身</b>好不好——靠什么赚钱、能不能持续、有没有护城河。段永平认为这是投资里<b>最重要</b>的事，对应巴菲特的"护城河 + 好生意"。</dd>
+        <dt>企业文化</dt><dd>这帮经营者<b>靠不靠谱、价值观正不正</b>。再好的生意，交到不诚信、乱折腾的管理层手里也会被毁掉。他把企业文化看作长期投资能否安心的"软护城河"。</dd>
+        <dt>合理价格</dt><dd>在前两者过关的前提下，等一个不贵的价格——对应巴菲特的"安全边际"。但他强调：<b>好公司比好价格更重要</b>，为一家伟大公司多等、稍微多付一点，往往值得。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>段永平选股顺序：先看<b>商业模式</b>（生意好不好）→ 再看<b>企业文化</b>（人靠不靠谱）→ 最后看<b>价格</b>（贵不贵）。<a href="#sources" class="ref">[8]</a></div>
+    </div>
+
+    <h3 id="c3-4">4. 不懂不做 / 敢于不投资 / 持有现金</h3>
+    <div class="concept duan">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>不懂不做</dt><dd>看不懂的生意，绝不碰，哪怕它正在疯涨。这就是巴菲特的"能力圈"。</dd>
+        <dt>敢于不投资</dt><dd>没有好机会时，<b>拿着现金等待</b>是完全正确的选择。段永平反对"为了投资而投资"。空仓不丢人，乱出手才危险。</dd>
+        <dt>慢即是快</dt><dd>一辈子真正的大机会没几个。抓住少数几个看得最懂的，重仓、长期持有，胜过频繁折腾。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点：</b>"不为清单"在投资里的体现就是：不懂的不做、看不清的不做、太贵的不做。把"不做"做好，已经赢了大多数人。</div>
+    </div>
+    <blockquote class="d">"钱在那儿是不会亏的。没有好的机会，拿着现金是很正常的事。"<span class="who">— 段永平（大意）</span></blockquote>
+
+    <h3 id="c3-5">5. 价格、价值与长期持有</h3>
+    <div class="concept duan">
+      <span class="ctag">核心概念</span>
+      <dl>
+        <dt>买股票就是买公司</dt><dd>这是他最强调的一句，和巴菲特完全一致。他常说，买之前先问自己：<b>"如果这家公司不上市、买了十年不能卖，你还买吗？"</b></dd>
+        <dt>长期</dt><dd>他主张<b>"买了就当永远持有"</b>的心态去筛选——这样你会自然地只挑真正的好公司，而不是赌短期波动。</dd>
+        <dt>对价格的态度</dt><dd>价格围绕价值波动，短期不可预测、也不必预测。你要做的是估算价值、留足安全边际，然后耐心等待。</dd>
+      </dl>
+      <div class="memo">🧠 <b>记忆点："</b>不能卖你还买吗？"——这一问，瞬间帮你过滤掉绝大多数投机冲动。</div>
+    </div>
+
+    <h3 id="c3-6">6. 段永平的真正价值：把老巴"翻译"成大白话</h3>
+    <p>段永平最大的贡献，是用中国人能秒懂的语言和公司，把巴菲特那套看似"高大上"的体系讲清楚了。对照着看，你会发现两人讲的是<b>同一件事</b>：</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>巴菲特的说法</th><th>段永平的"翻译"</th></tr></thead>
+      <tbody>
+        <tr><td class="b">能力圈</td><td class="d">不懂不做</td></tr>
+        <tr><td class="b">市场先生 / 别人贪婪我恐惧</td><td class="d">平常心</td></tr>
+        <tr><td class="b">护城河 + 好生意</td><td class="d">商业模式</td></tr>
+        <tr><td class="b">诚信、优秀的管理层</td><td class="d">企业文化</td></tr>
+        <tr><td class="b">安全边际</td><td class="d">合理（便宜）的价格</td></tr>
+        <tr><td class="b">"第一条不要亏钱"</td><td class="d">本分 + 不为清单</td></tr>
+        <tr><td class="b">长期持有伟大公司</td><td class="d">买了就当不能卖</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 第四章：段永平案例 ============ -->
+  <section id="ch4">
+    <span class="chapnum">第四章</span>
+    <h2>段永平经典案例</h2>
+    <p class="lead">看段永平如何把"本分 + 平常心 + 商业模式"用在真实的重仓上。</p>
+
+    <div class="case duan">
+      <div class="top"><h4>① 网易 NetEase</h4><span class="yr">2001–2002 年抄底</span></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">约1美元</span><span class="l">低位重仓买入<a href="#sources" class="ref">[5]</a></span></div>
+          <div class="kpi"><span class="n">面临退市</span><span class="l">当时市场极度恐慌</span></div>
+          <div class="kpi"><span class="n">约100倍</span><span class="l">持有后的回报<a href="#sources" class="ref">[5]</a></span></div>
+        </div>
+        <p>2001 年互联网泡沫破裂，网易因财务问题和行业寒冬，股价跌到约 1 美元、一度面临退市，几乎人人避之不及。段永平却深入研究后判断：网易<b>手里的现金甚至接近它的市值</b>（相当于"买公司白送生意"），而且它在游戏等业务上的<b>商业模式</b>正在跑通。于是他用"平常心"无视市场的恐慌，大举买入并长期持有<a href="#sources" class="ref">[5]</a>。</p>
+        <p>此后网易凭借网游业务暴涨，这笔投资为他带来了约百倍的回报，也让他在华人投资圈一战成名（被戏称"段菲特"）<a href="#sources" class="ref">[5]</a>。</p>
+        <div class="takeaway">🎯 <b>对应理念：</b>市场先生（极度恐惧报地板价）、安全边际（现金≈市值）、能力圈（看懂了它的生意）、平常心、重仓+长期。<b>启示：</b>最好的机会，往往出现在"好公司遇到暂时的坏消息、被市场错杀"之时。</div>
+      </div>
+    </div>
+
+    <div class="case duan">
+      <div class="top"><h4>② 苹果 Apple</h4><span class="yr">约 2011 年起</span></div>
+      <div class="body">
+        <p>值得一提的是，段永平重仓苹果<b>比巴菲特还早好几年</b>。他的理由非常"段永平"：他理解苹果的<b>商业模式</b>（极强的产品力和用户黏性）和<b>企业文化</b>（对产品极致的追求），认为这是一家用户离不开、且会持续赚钱的伟大公司。他用"买了就当不能卖"的心态长期持有，获利丰厚。</p>
+        <div class="takeaway">🎯 <b>对应理念：</b>商业模式 + 企业文化、长期持有、能力圈（看懂消费电子）。<b>启示：</b>真正看懂一家公司时，你甚至会比"股神"更早、更敢下手——因为你的信心来自理解，而非跟随。</div>
+      </div>
+    </div>
+
+    <div class="case duan">
+      <div class="top"><h4>③ 通用电气 GE</h4><span class="yr">2008–2009 金融危机</span></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">$6–10</span><span class="l">危机中分批买入区间<a href="#sources" class="ref">[6]</a></span></div>
+          <div class="kpi"><span class="n">$20+</span><span class="l">后续卖出区间<a href="#sources" class="ref">[6]</a></span></div>
+        </div>
+        <p>2008 年金融危机，百年巨头 GE 受拖累，股价从约 38 美元一路跌到 10 美元以下。段永平在听到 CEO 坦诚反思、并承诺收缩高风险金融业务后，判断公司<b>整体仍然安全、生意没坏</b>，于是在约 6–10 美元区间分批重仓买入，后来在 20 美元以上卖出，获利丰厚<a href="#sources" class="ref">[6]</a>。</p>
+        <p><b>补充一个进阶知识点：</b>段永平买入心仪公司时，常用一种叫"<b>卖出认沽期权（sell put）</b>"的工具——简单说就是"<b>我承诺如果它跌到某个更低的价格，我就按那个价买</b>"，同时先收一笔权利金。看不懂没关系，初学者只需知道：这是他"反正想买、不如等更便宜、顺便先赚点"的耐心体现，背后仍是"想当股东"的所有权思维。</p>
+        <div class="takeaway">🎯 <b>对应理念：</b>别人恐惧我贪婪、安全边际、看管理层（企业文化）、危机中区分"暂时受伤"与"生意坏掉"。<b>启示：</b>越是恐慌的时候，越要冷静判断生意本身——但前提仍是你真的看得懂。</div>
+      </div>
+    </div>
+
+    <div class="case duan">
+      <div class="top"><h4>④ 巴菲特慈善午餐</h4><span class="yr">2006 年</span></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">$620,100</span><span class="l">中标金额<a href="#sources" class="ref">[7]</a></span></div>
+          <div class="kpi"><span class="n">带了黄峥</span><span class="l">后来创立拼多多<a href="#sources" class="ref">[7]</a></span></div>
+        </div>
+        <p>2006 年，段永平以 62.01 万美元拍下与巴菲特共进午餐的机会，并带上了当时还籍籍无名的年轻人<b>黄峥</b>（后来拼多多创始人）<a href="#sources" class="ref">[7]</a>。这顿饭不仅是向偶像"汇报学习成果"，也深刻影响了黄峥——他从中悟到"简单和常识的力量"。</p>
+        <div class="takeaway">🎯 <b>对应理念：</b>花钱买认知、向最优秀的人学习。<b>启示：</b>对普通投资者，最划算的投资之一就是<b>投资自己的认知</b>——好书、原始资料、独立思考，远比追逐消息更有价值。</div>
+      </div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 第五章：对照与行动 ============ -->
+  <section id="ch5">
+    <span class="chapnum">第五章</span>
+    <h2>两人对照 & 给初学者的行动框架</h2>
+
+    <h3>相同的内核，不同的风格</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>维度</th><th>巴菲特</th><th>段永平</th></tr></thead>
+      <tbody>
+        <tr><td>共同内核</td><td colspan="2" style="text-align:center;color:var(--gold);font-weight:700">买股票=买公司 · 能力圈 · 护城河 · 安全边际 · 长期 · 控制情绪</td></tr>
+        <tr><td>表达方式</td><td class="b">体系化、英文语境、致股东信</td><td class="d">大白话、东方哲学（本分/平常心）</td></tr>
+        <tr><td>身份背景</td><td class="b">职业投资人为主</td><td class="d">先是顶级企业家，再做投资（更懂"经营"视角）</td></tr>
+        <tr><td>工具偏好</td><td class="b">以买入并持有为主</td><td class="d">也擅用卖出认沽期权等工具优化买入价</td></tr>
+        <tr><td>集中度</td><td class="b">高度集中于少数公司</td><td class="d">同样极度集中、敢于重仓</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>投资前的"自检 5 问"</h3>
+    <p>下次想买入任何股票前，先诚实地问自己这 5 个问题，过不了就别买：</p>
+    <ol class="steps">
+      <li><b>我真的看懂这家公司怎么赚钱吗？</b>（能力圈 / 不懂不做）</li>
+      <li><b>它有护城河吗？十年后大概率还在赚钱吗？</b>（商业模式）</li>
+      <li><b>管理层诚信、靠谱吗？</b>（企业文化）</li>
+      <li><b>现在的价格，相对它的价值够便宜吗？</b>（安全边际）</li>
+      <li><b>如果它明天停牌十年不能卖，我还愿意买吗？</b>（所有权思维 / 长期）</li>
+    </ol>
+
+    <div class="warn">
+      <div class="lab">⚠️ 初学者避坑清单</div>
+      <ul class="clean cross">
+        <li>不要因为"它最近一直涨"就买（那是投机，不是投资）</li>
+        <li>不要碰自己看不懂的生意，哪怕全世界都在赚（守住能力圈）</li>
+        <li>不要因为"便宜"就买没有护城河的烂公司（便宜的烟蒂是陷阱）</li>
+        <li>不要频繁买卖（交易越多，越容易被情绪和手续费蚕食复利）</li>
+        <li>不要借钱（杠杆）投资（一次大跌就可能让你彻底出局）</li>
+        <li>不要相信"内幕消息""稳赚不赔""老师带你"（真有这种好事不会轮到你）</li>
+      </ul>
+    </div>
+
+    <div class="warn" style="background:var(--duan-bg);border-color:#bfe0cd">
+      <div class="lab" style="color:var(--duan)">✅ 初学者起步清单</div>
+      <ul class="clean">
+        <li>先读原始资料：<b>巴菲特致股东的信</b>（伯克希尔官网免费）、<b>段永平的雪球 / 网易博客问答</b></li>
+        <li>从你<b>最熟悉的行业 / 公司</b>开始研究，慢慢扩大能力圈</li>
+        <li>把"买股票"当成"入股一门生意"来思考，每一笔都写下买入理由</li>
+        <li>用<b>闲钱</b>、长期不用的钱投资；先活下来，再谈赚钱</li>
+        <li>耐心。复利的奖励，留给那些"坡足够长"的人</li>
+      </ul>
+    </div>
+    <blockquote class="b">"投资很简单，但并不容易。"<span class="who">— 沃伦·巴菲特</span></blockquote>
+    <p>简单，是因为道理就这么几条；不容易，是因为你要常年对抗自己的贪婪、恐惧和急躁。把这份指南里的概念<b>反复咀嚼、用真实公司去练</b>，你就已经走在了大多数人前面。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 附录 ============ -->
+  <section id="appendix">
+    <span class="chapnum">附录</span>
+    <h2>术语小词典（一句话白话版）</h2>
+    <div class="gloss">
+      <div class="row"><div class="t">内在价值</div><div>公司未来一辈子能赚的现金，折算到今天的总和。它才是公司"真正值多少"。</div></div>
+      <div class="row"><div class="t">折现</div><div>把"未来的钱"按一定比例打折换算成"今天的钱"，因为未来的钱不如现在值钱。</div></div>
+      <div class="row"><div class="t">安全边际</div><div>买入价比估算的价值低出的那一段缓冲，用来对抗看错和意外。</div></div>
+      <div class="row"><div class="t">护城河</div><div>让对手抢不走生意、公司能长期高利润的持久优势（品牌、网络、转换成本、成本优势）。</div></div>
+      <div class="row"><div class="t">能力圈</div><div>你真正能看懂、能判断的领域。投资只在圈内做。</div></div>
+      <div class="row"><div class="t">市场先生</div><div>把"市场"想象成情绪化的合伙人，天天给你报价；他服务你，但不指导你。</div></div>
+      <div class="row"><div class="t">复利</div><div>利滚利。赚的钱继续投入再赚钱，时间越长、雪球越大。</div></div>
+      <div class="row"><div class="t">ROE</div><div>净资产收益率：公司用股东的钱每年能赚回多少；长期高 ROE 常意味着有护城河。</div></div>
+      <div class="row"><div class="t">自由现金流</div><div>公司经营赚到、扣除必要花费后能自由支配的真金白银。比利润更难造假。</div></div>
+      <div class="row"><div class="t">烟蒂股</div><div>极度便宜的平庸公司，像捡烟蒂还能免费吸一口。便宜是唯一卖点。</div></div>
+      <div class="row"><div class="t">本分</div><div>段永平：做对的事 + 把事做对；错的事马上停（不为清单）。</div></div>
+      <div class="row"><div class="t">平常心</div><div>段永平：不被贪婪恐惧带跑，回到事物本来的样子做判断。</div></div>
+      <div class="row"><div class="t">认沽期权（put）</div><div>一种"承诺在更低价格买入、并先收一笔钱"的工具。段永平用它优化买入价。初学阶段了解即可，不必使用。</div></div>
+      <div class="row"><div class="t">机会成本</div><div>钱投了 A 就不能投 B，所以每个决定都在和"最好的其他选择"比较。</div></div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ============ 来源 ============ -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考来源</h2>
+    <p style="font-size:14px;color:var(--ink-soft)">以下为文中关键数据与事实的公开来源。不同来源对个别数字（如建仓金额、收益倍数）的口径略有差异，文中已尽量取主流口径并以"约/大致"标注。本指南为学习科普整理，非投资建议。</p>
+    <ol class="sources">
+      <li>[1] 喜诗糖果 1972 年收购价（约 2500 万美元）、当时税前利润与累计利润：The Motley Fool《Warren Buffett Bought This Company for $25 Million》、Snack & Bakery 等 — <a href="https://www.fool.com/investing/general/2014/07/13/warren-buffett-bought-this-company-for-25-million.aspx">fool.com</a>；<a href="https://www.snackandbakery.com/articles/109318-warren-buffett-believes-in-sees-candies-the-prototype-of-a-dream-business">snackandbakery.com</a></li>
+      <li>[2] 可口可乐 1988–1994 建仓约 13 亿美元、1994 年底市值约 52 亿美元：CIBC《Revisiting Warren Buffett's Investment in Coca-Cola》、Begin To Invest — <a href="https://www.begintoinvest.com/throwback-thursday-look-buffetts-1988-investment-coca-cola/">begintoinvest.com</a></li>
+      <li>[3] 美国运通 1964 色拉油丑闻（股价约 $60→$35）、约 2000 万美元/约 5% 股份、一度占合伙基金约 40%：First Principles Investing、The Tontine Coffee-House — <a href="https://tontinecoffeehouse.com/2021/11/15/salad-oil-and-american-express/">tontinecoffeehouse.com</a></li>
+      <li>[4] 苹果 2016 年首笔约 11 亿美元建仓、一度占股票组合 50%+、峰值市值超千亿美元：The Motley Fool、Nasdaq — <a href="https://www.fool.com/investing/2024/11/20/warren-buffett-trims-stake-in-apple-stock-again/">fool.com</a></li>
+      <li>[5] 段永平 2001–2002 约 1 美元重仓网易、约 100 倍回报：华盛通、知乎《复盘段永平千亿投资之旅》 — <a href="https://www.hstong.com/news/detail/21031617064693323">hstong.com</a>；<a href="https://zhuanlan.zhihu.com/p/453796055">zhuanlan.zhihu.com</a></li>
+      <li>[6] 段永平 2008–2009 危机中约 $6–10 买入 GE、$20+ 卖出：网易财经《段永平：我为什么买 GE》、零点财经 — <a href="https://www.163.com/money/article/638MV0PB00253G87.html">163.com</a></li>
+      <li>[7] 2006 年巴菲特午餐中标 62.01 万美元、带黄峥同行：网易财经专题、凤凰网财经 — <a href="https://finance.ifeng.com/c/8FaNMYzCePn">finance.ifeng.com</a></li>
+      <li>[8] 段永平"本分 + 平常心""不为清单""商业模式 + 企业文化 + 合理价格"：界面新闻《段永平连答 53 问》、知乎/腾讯新闻《段永平投资问答录》 — <a href="https://www.jiemian.com/article/2513409.html">jiemian.com</a>；<a href="https://news.qq.com/rain/a/20220125A0B7X600">news.qq.com</a></li>
+    </ol>
+    <p style="font-size:13px;color:#8a8170;margin-top:18px">注：巴菲特/段永平的引语为其公开表达的常见中文译法或大意转述，仅用于阐释理念，非逐字原文记录。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+/* 仅用于：目录项随滚动高亮 + 平滑跳转。禁用 JS 时正文与目录链接仍完整可用。 */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {};
+  var targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>

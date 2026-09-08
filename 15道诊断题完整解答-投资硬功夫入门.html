@@ -1,0 +1,808 @@
+<title>15道诊断题·完整解答</title>
+<style>
+  :root{
+    --paper:#fbf8f1;--paper-2:#fff;--ink:#23272b;--ink-soft:#5f6772;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --purple:#6a4c93;--purple-bg:#efe9f5;--teal:#0e7c7b;--teal-bg:#e6f2f2;
+    --term:#1666a5;--term-bg:#e8f3fc;
+    --radius:14px;--maxw:840px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.9;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1220px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:290px;flex:0 0 290px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.2px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--buffett);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc .grp{margin-top:14px;font-size:11px;letter-spacing:1px;color:#a39b86;padding:0 10px;font-weight:700}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:52px 0 24px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:29px;line-height:1.32;margin:0 0 14px}
+  header.hero .sub{font-size:17.5px;color:var(--ink-soft);margin:0 0 20px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.b{border-color:#bcd6e8;color:var(--buffett);background:var(--buffett-bg)}
+  .pill.g{border-color:#bfe0cd;color:var(--duan);background:var(--duan-bg)}
+  section{padding:34px 0 8px;scroll-margin-top:18px}
+  h2{font-size:24px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:18.5px;margin:24px 0 6px;line-height:1.4}
+  h4{font-size:16.5px;margin:20px 0 4px;color:var(--buffett)}
+  p{margin:11px 0}
+  .lead{font-size:17.5px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  /* 题卡 */
+  .q{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;margin:22px 0;box-shadow:var(--shadow);border-left:5px solid var(--buffett)}
+  .q.red{border-left-color:var(--danger)}
+  .q.green{border-left-color:var(--duan)}
+  .q.amber{border-left-color:var(--gold)}
+  .qh{font-size:17.5px;font-weight:800;margin-bottom:4px;line-height:1.45}
+  .qn{display:inline-block;background:var(--buffett);color:#fff;border-radius:6px;font-size:12.5px;padding:1px 9px;margin-right:8px;vertical-align:2px;font-weight:800}
+  .q.red .qn{background:var(--danger)}.q.green .qn{background:var(--duan)}.q.amber .qn{background:var(--gold)}
+  .yours{font-size:13.6px;color:var(--ink-soft);background:#f5f1e8;border-radius:9px;padding:8px 13px;margin:10px 0 14px}
+  .yours b{color:var(--ink)}
+  .term{background:var(--term-bg);border:1px solid #b5d4ec;border-left:5px solid var(--term);border-radius:12px;padding:13px 18px;margin:15px 0;font-size:15.2px}
+  .term .tt{font-weight:800;color:var(--term);font-size:15.5px;margin-bottom:4px}
+  .term .tt::before{content:"📖 "}
+  .eg{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:12px;padding:13px 18px;margin:15px 0;font-size:15.2px}
+  .eg .tt{font-weight:800;color:var(--gold);font-size:14px;letter-spacing:.5px;margin-bottom:4px}
+  .eg .tt::before{content:"🧃 "}
+  .key{background:var(--duan-bg);border:1px solid #bfe0cd;border-radius:12px;padding:13px 18px;margin:15px 0;font-size:15.4px}
+  .key .tt{font-weight:800;color:var(--duan);font-size:14px;margin-bottom:4px}
+  .key .tt::before{content:"🔑 "}
+  .warn{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:12px;padding:13px 18px;margin:15px 0;font-size:15.2px}
+  .warn .tt{font-weight:800;color:var(--danger);font-size:14px;margin-bottom:4px}
+  .warn .tt::before{content:"⚠️ "}
+  .oneline{margin:16px 0 4px;padding:12px 18px;background:#2f3a45;color:#fff;border-radius:12px;font-size:15.6px;font-weight:700;line-height:1.7}
+  .oneline::before{content:"一句话记住 · ";color:#ffd98a;font-size:12.5px;letter-spacing:1px}
+  .tablewrap{overflow-x:auto;margin:15px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.6px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:8px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#f3eee2;font-size:12.5px;font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .neg{color:var(--danger);font-weight:700}.pos{color:var(--duan);font-weight:700}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:7px 0 7px 28px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"▸";position:absolute;left:4px;top:7px;color:var(--buffett);font-weight:800}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 42px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:27px;height:27px;border-radius:50%;background:var(--buffett);color:#fff;text-align:center;line-height:27px;font-weight:800;font-size:13.5px}
+  figure{margin:22px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft)}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:13px 17px;margin:20px 0}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    header.hero h1{font-size:23px}header.hero{padding:28px 0 18px}body{font-size:16px}
+    th,td{padding:6px 7px;font-size:12px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.q,figure svg{box-shadow:none}}
+</style>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 15道题完整解答</summary>
+    <a href="#a">A组 · 地基（1–3）</a>
+    <a href="#b">B组 · 看懂生意（4–7）</a>
+    <a href="#c">C组 · 估值（8–10）</a>
+    <a href="#d">D组 · 组合与仓位（11–13）</a>
+    <a href="#e">E组 · 实操（14–15）</a>
+    <a href="#end">怎么用这份材料</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">15道诊断题 · 完整解答
+      <small>补齐"怎么算"那一层<br>每个生概念都配通俗解释</small>
+    </div>
+    <div class="grp">A组 · 地基</div>
+    <a href="#q1">1 · 回报到底从哪来</a>
+    <a href="#q2">2 · 风险是什么（波动≠风险）</a>
+    <a href="#q3">3 · 打折还是陷阱</a>
+    <div class="grp">B组 · 看懂生意</div>
+    <a href="#q4">4 · 三张表与勾稽关系</a>
+    <a href="#q5">5 · 有利润却没现金</a>
+    <a href="#q6">6 · 自由现金流</a>
+    <a href="#q7">7 · ROIC 与 WACC</a>
+    <div class="grp">C组 · 估值</div>
+    <a href="#q8">8 · DCF 在干什么</a>
+    <a href="#q9">9 · PE 为什么不能单看</a>
+    <a href="#q10">10 · 利率与"久期"</a>
+    <div class="grp">D组 · 组合与仓位</div>
+    <a href="#q11">11 · 该投多少（仓位）</a>
+    <a href="#q12">12 · 分散 vs 集中</a>
+    <a href="#q13">13 · 现金是一个仓位</a>
+    <div class="grp">E组 · 实操</div>
+    <a href="#q14">14 · 一手资料去哪拿</a>
+    <a href="#q15">15 · 记账与基准</a>
+    <div class="grp">收束</div>
+    <a href="#end">怎么用这份材料</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">DIAGNOSTIC · FULL ANSWERS</span>
+    <h1>15 道诊断题 · 完整解答<br><span style="font-size:.62em;color:var(--ink-soft);font-weight:600">把"为什么"补上"怎么算"</span></h1>
+    <p class="sub">你的诊断结果是：<b>世界观很强，仪器为零</b>——你懂航海原理，但没用过六分仪。这份材料专门补那些仪器。每道题都给出：你的原答案 → 完整解答 → 生概念的通俗解释 → 一句话记忆点。</p>
+    <div class="pillrow">
+      <span class="pill g">🟢 答对3题</span>
+      <span class="pill">🟡 半对5题</span>
+      <span class="pill b">🔴 空白/答错7题</span>
+      <span class="pill">阶段1开课前的地基材料</span>
+    </div>
+    <div class="disclaimer"><b>说明：</b>本文是<b>投资知识的教学材料</b>，不构成任何投资建议或买卖推荐。文中公司仅作概念举例，不代表对其的任何评价。</div>
+  </header>
+
+  <!-- ========== A组 ========== -->
+  <section id="a">
+    <span class="chapnum">A 组</span>
+    <h2>地基：回报、风险、便宜</h2>
+    <p class="lead">这三题决定你看市场的整个坐标系。第 2 题你答"不会"，而它其实是全卷最重要的一题。</p>
+
+    <div class="q green" id="q1">
+      <div class="qh"><span class="qn">1</span>你买入一只股票，回报最终从哪里来？</div>
+      <div class="yours"><b>你的答案：</b>有分红则分红最确定；没分红则主要靠股价上涨，依赖经营业绩提升，同时受市场预期影响。<br><b>评价：</b>🟢 三个来源你说对了两个半，方向完全正确，但漏了"回购"，也没把它写成可拆解的公式。</div>
+
+      <h4>完整答案：一个可以拆开的公式</h4>
+      <div class="oneline">总回报 ≈ 股息收益率 ＋ 盈利增长率 ＋ 估值倍数变化（＋ 回购贡献）</div>
+      <ul class="clean">
+        <li><b>① 分红（股息）</b>：公司把赚到的钱分一部分给你。真金白银，确定性最高。</li>
+        <li><b>② 盈利增长</b>：公司赚的钱变多了。就算估值倍数原地不动，股价也会随利润同比例上涨。<b>这是长期回报的主要来源</b>，也是唯一被"创造"出来的价值。</li>
+        <li><b>③ 估值倍数变化</b>：同样的利润，市场愿意给 10 倍还是 30 倍。<b>这部分不创造任何价值</b>——它只是把钱从后来的买家转移给早期的卖家。</li>
+        <li><b>④ 股份回购</b>：公司拿现金买回自己的股票并注销，你的持股比例被动上升。相当于"不用交税的分红"。段永平特别看重这一项。</li>
+      </ul>
+
+      <div class="key"><div class="tt">最关键的一层理解</div><b>前两项（分红＋盈利增长）来自"生意"，第三项来自"别人"。</b>价值投资的本质就是：<b>主要去赚前两项的钱，把第三项当成不可预测的奖金或惩罚。</b>而绝大多数散户的收益，其实全部来自第三项——所以牛市里人人是股神，潮水退去一无所有。</div>
+
+      <div class="eg"><div class="tt">举个例子</div>某公司 10 年间利润从 1 亿涨到 3 亿（<b>×3</b>），同期 PE 从 20 倍降到 15 倍（<b>×0.75</b>），累计分红 10%。<br>总回报 ≈ 3 × 0.75 = <b>2.25 倍</b>，再加分红。<br>→ 生意实实在在变好了 3 倍，但<b>估值下降吃掉了其中 25%</b>。这就是为什么"公司变好"和"你赚钱"不是一回事。</div>
+
+      <div class="oneline">你赚的钱，要么来自公司变好，要么来自别人变乐观。前者可持续，后者不可预测。</div>
+    </div>
+
+    <div class="q red" id="q2">
+      <div class="qh"><span class="qn">2</span>"风险"到底指什么？波动算不算风险？</div>
+      <div class="yours"><b>你的答案：</b>不会，想不清楚。<br><b>评价：</b>🔴 空白。而这是<b>全卷最致命的一处</b>——不知道风险是什么，会让你做错每一个决定：买什么、买多少、跌了怎么办、什么时候该走。</div>
+
+      <div class="oneline">风险 = 本金永久性损失的可能性。波动 ≠ 风险。</div>
+
+      <h4>先把两个词分开</h4>
+      <div class="tablewrap"><table>
+        <thead><tr><th></th><th>波动（Volatility）</th><th>风险（Risk）</th></tr></thead>
+        <tbody>
+          <tr><td><b>是什么</b></td><td>价格上下抖动</td><td>你永远拿不回来的可能</td></tr>
+          <tr><td><b>性质</b></td><td><b>过程</b></td><td><b>结果</b></td></tr>
+          <tr><td><b>可逆吗</b></td><td>可逆（跌了会涨回来）</td><td>不可逆</td></tr>
+          <tr><td><b>对你好还是坏</b></td><td class="pos">往往是<b>好事</b>（创造买入机会）</td><td class="neg">纯粹的坏事</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="term">
+        <div class="tt">为什么全世界都把波动当风险？</div>
+        因为学术界和金融行业用<b>波动率（标准差）</b>作为风险的替代指标——原因是它<b>容易被测量</b>，而不是因为它正确。这是典型的"<b>在路灯下找钥匙</b>"：不是钥匙掉在那儿，而是只有那儿有光。你去银行做风险测评、看基金的"风险等级"，用的几乎都是这套。<b>知道它是个近似值，你就不会被它误导。</b></div>
+
+      <div class="eg"><div class="tt">同样的波动，对不同的人是不同的风险</div>
+      • 你买了一套房<b>自住</b>：房价每天涨跌你根本不看，也不影响你。<b>波动很大，风险很小</b>——因为你不会被迫卖。<br>
+      • 你<b>借钱</b>炒股：跌 30% 就被强制平仓。同样的波动，对你就是<b>真实的、永久的损失</b>。<br>
+      → <b>风险的真正定义是：波动会不会逼你在错误的时候卖出。</b></div>
+
+      <h4>永久性损失只有三个来源（记住这三个就够了）</h4>
+      <ol class="steps">
+        <li><b>买了会死的生意</b>——基本面永久恶化。柯达、诺基亚、被时代抛下的行业。公司没了，价格再也回不来。</li>
+        <li><b>买得太贵</b>——好公司、烂价格。公司一直活得好好的，但你可能十年不回本（1999 年的思科、2021 年的白酒）。<b>这是最容易被忽视的一种永久损失。</b></li>
+        <li><b>被迫卖出</b>——杠杆爆仓、急需用钱、心理崩溃在底部割肉。<b>这是最常见、也最完全可控的一种。</b></li>
+      </ol>
+
+      <div class="key"><div class="tt">三条直接推论（对你）</div>
+      ① <b>波动不是敌人，是价值投资者的朋友</b>——它创造买入机会。这就是"市场先生"寓言的全部意义。<br>
+      ② <b>你的卖出规则不该基于"跌了多少"，而该基于"买入逻辑是否被证伪"。</b><br>
+      ③ <b>你的仓位大小，应该由"最坏情况下会不会被迫卖出"来决定</b>，而不是由"我有多看好"决定。</div>
+
+      <div class="oneline">别问"它会不会跌"，要问"如果它跌了，我会不会被迫卖出"。</div>
+    </div>
+
+    <div class="q green" id="q3">
+      <div class="qh"><span class="qn">3</span>股价从 100 跌到 50，怎么判断是打折还是陷阱？</div>
+      <div class="yours"><b>你的答案：</b>看基本面有没有变化；50 和 100 是价格，要看公司底层价值是否根本性改变（赚钱能力、生命周期现金流折现）。<br><b>评价：</b>🟢 <b>概念完全正确</b>，你已经装上了"价格≠价值"这个最重要的坐标系。缺的只是执行工具。</div>
+
+      <h4>核心问法</h4>
+      <div class="oneline">价格跌了 50%，价值跌了多少？</div>
+      <div class="tablewrap"><table>
+        <thead><tr><th>情形</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td>价格跌 50%，价值没变</td><td class="pos"><b>打折</b>——安全边际扩大了</td></tr>
+          <tr><td>价格跌 50%，价值跌 70%</td><td class="neg"><b>陷阱</b>——越跌越贵</td></tr>
+          <tr><td>价格跌 50%，价值<b>不可知</b></td><td><b>不是你的菜</b>——回到能力圈，放弃</td></tr>
+        </tbody>
+      </table></div>
+
+      <h4>可操作的四步检查</h4>
+      <ol class="steps">
+        <li><b>为什么跌？</b>必须能说出 <b>1–3 条具体的、可查证的原因</b>，而不是"情绪不好"。<b>说不出来 = 你不知道发生了什么 = 不能买。</b></li>
+        <li><b>这个原因影响的是"一年"还是"十年"？</b>——这是最关键的一刀。<br>· <b>一次性的</b>（疫情停业、一笔罚款、短期成本上升）→ 影响当期利润，不影响长期价值 → <b>可能是打折</b><br>· <b>结构性的</b>（技术被颠覆、护城河被打破、需求永久萎缩）→ 影响的是十年 → <b>大概率是陷阱</b></li>
+        <li><b>"赚钱能力"变了吗（不是"利润"）？</b>看毛利率、ROIC、市占率、客户留存这些<b>能力指标</b>，而不是当期净利润。利润会因为一次性因素波动，能力不会。</li>
+        <li><b>举证责任在你。</b>市场是由一群紧盯着它的人定价的。你要买，就必须回答：<b>"他们错在哪一点？"</b> 说不出他们错在哪，就默认他们是对的。</li>
+      </ol>
+
+      <div class="warn"><div class="tt">价值陷阱的四个典型特征</div>
+      ① 便宜的原因是"生意在慢慢死掉"，而不是"市场情绪不好"<br>
+      ② 每次财报都比上一次差一点<br>
+      ③ 管理层反复解释"这只是暂时的"<br>
+      ④ <b>PE 越跌越低，因为 E（利润）掉得比 P（价格）还快</b></div>
+
+      <div class="eg"><div class="tt">用你自己的例子：万科</div>下跌途中它看起来非常便宜（低 PE、低 PB），但那是因为<b>资产在减值、债务在到期、商业模式被永久改变</b>——<b>价值跌得比价格更快</b>，所以越跌越贵。这就是教科书级的价值陷阱。</div>
+
+      <div class="oneline">下跌本身不提供任何信息。提供信息的是"为什么跌"，以及"它影响一年还是十年"。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ========== B组 ========== -->
+  <section id="b">
+    <span class="chapnum">B 组</span>
+    <h2>看懂生意：财报的硬功夫</h2>
+    <p class="lead">这一组是你最大的缺口，也是整份路线图的 P0。<b>不会读财报，"看懂生意"就永远停留在听故事。</b>下面我用"开一家奶茶店"贯穿全组，把会计讲成人话。</p>
+
+    <div class="q amber" id="q4">
+      <div class="qh"><span class="qn">4</span>三张财务报表是什么？它们怎么互相勾稽印证？</div>
+      <div class="yours"><b>你的答案：</b>资产负债表、利润表、现金流量表；资产负债表和利润表基本能看懂，现金流量表不熟，勾稽关系不懂。<br><b>评价：</b>🟡 名字全对，能读两张。<b>但"勾稽关系"才是精华</b>——它是识别造假和真正读懂一家公司的钥匙。</div>
+
+      <h4>先用奶茶店把三张表讲明白</h4>
+      <div class="tablewrap"><table>
+        <thead><tr><th>报表</th><th>回答什么问题</th><th>存量/流量</th><th>奶茶店版本</th></tr></thead>
+        <tbody>
+          <tr><td><b>资产负债表</b><br><span style="color:var(--ink-soft);font-size:12px">家底快照</span></td><td>"<b>在某一天这个时点</b>，我有什么、欠什么、净剩多少？"<br>公式：<b>资产 = 负债 + 所有者权益</b></td><td><b>存量</b><br>（一张照片）</td><td>店里的设备、原料、现金＝资产；欠供应商货款和银行贷款＝负债；剩下的才是你的</td></tr>
+          <tr><td><b>利润表</b><br><span style="color:var(--ink-soft);font-size:12px">成绩单</span></td><td>"<b>这一年</b>我赚了多少？"<br>公式：<b>收入 − 成本 − 费用 − 税 = 净利润</b></td><td><b>流量</b><br>（一段录像）</td><td>卖了 100 万，原料+房租+人工 80 万，赚了 20 万</td></tr>
+          <tr><td><b>现金流量表</b><br><span style="color:var(--ink-soft);font-size:12px">钱包进出账</span></td><td>"<b>这一年</b>实际有多少钱进出我的口袋？"<br>分三块：<b>经营</b>／<b>投资</b>／<b>筹资</b></td><td><b>流量</b></td><td>经营＝卖奶茶收付的钱；投资＝买制冰机花的钱；筹资＝借钱、还钱、分红</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="key"><div class="tt">为什么需要三张，少一张都会被骗</div>它们回答三个完全不同的问题：<b>我有多少家底</b>（资产负债表）／<b>我赚了多少</b>（利润表）／<b>我手上真有多少钱</b>（现金流量表）。<br>只看利润表 → 会被"纸面利润"骗；只看资产负债表 → 看不出赚钱能力；只看现金流 → 分不清是借来的还是赚来的。</div>
+
+      <h4>勾稽关系：三张表是咬合在一起的三个齿轮</h4>
+      <figure>
+        <svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="三张财务报表勾稽关系图">
+          <rect x="0" y="0" width="760" height="400" fill="#fff"/>
+          <!-- 利润表 -->
+          <rect x="430" y="26" width="290" height="104" rx="12" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/>
+          <text x="575" y="52" text-anchor="middle" font-size="16" font-weight="700" fill="#1f5f8b">利润表（一段时间）</text>
+          <text x="575" y="76" text-anchor="middle" font-size="13" fill="#23272b">收入 − 成本 − 费用 − 税</text>
+          <text x="575" y="102" text-anchor="middle" font-size="15" font-weight="700" fill="#23272b">= 净利润</text>
+          <text x="575" y="120" text-anchor="middle" font-size="11.5" fill="#5f6772">权责发生制：签了合同就算数</text>
+          <!-- 现金流量表 -->
+          <rect x="430" y="264" width="290" height="112" rx="12" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2"/>
+          <text x="575" y="290" text-anchor="middle" font-size="16" font-weight="700" fill="#2f7d57">现金流量表（一段时间）</text>
+          <text x="575" y="313" text-anchor="middle" font-size="13" fill="#23272b">经营 + 投资 + 筹资</text>
+          <text x="575" y="338" text-anchor="middle" font-size="15" font-weight="700" fill="#23272b">= 现金净增加额</text>
+          <text x="575" y="358" text-anchor="middle" font-size="11.5" fill="#5f6772">收付实现制：钱到手才算数</text>
+          <!-- 资产负债表 -->
+          <rect x="34" y="120" width="250" height="180" rx="12" fill="#fdf3e7" stroke="#b8860b" stroke-width="2"/>
+          <text x="159" y="148" text-anchor="middle" font-size="16" font-weight="700" fill="#b8860b">资产负债表</text>
+          <text x="159" y="168" text-anchor="middle" font-size="11.5" fill="#5f6772">（某一时点的快照）</text>
+          <line x1="52" y1="182" x2="266" y2="182" stroke="#e6b873" stroke-width="1.5"/>
+          <text x="159" y="205" text-anchor="middle" font-size="13.5" fill="#23272b">资产 = 负债 + 所有者权益</text>
+          <rect x="52" y="220" width="214" height="30" rx="6" fill="#fff" stroke="#e6b873"/>
+          <text x="159" y="240" text-anchor="middle" font-size="12.5" font-weight="700" fill="#b8860b">货币资金</text>
+          <rect x="52" y="256" width="214" height="30" rx="6" fill="#fff" stroke="#e6b873"/>
+          <text x="159" y="276" text-anchor="middle" font-size="12.5" font-weight="700" fill="#b8860b">未分配利润</text>
+          <!-- 箭头1 净利润→未分配利润 -->
+          <path d="M430 96 C 350 96, 330 250, 272 268" fill="none" stroke="#1f5f8b" stroke-width="2.4" marker-end="url(#ar1)"/>
+          <rect x="286" y="150" width="132" height="38" rx="7" fill="#fff" stroke="#1f5f8b"/>
+          <text x="352" y="166" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1f5f8b">①赚的钱不分掉</text>
+          <text x="352" y="181" text-anchor="middle" font-size="11.5" fill="#1f5f8b">就变成家底</text>
+          <!-- 箭头2 现金净增加→货币资金 -->
+          <path d="M430 320 C 360 320, 330 250, 272 238" fill="none" stroke="#2f7d57" stroke-width="2.4" marker-end="url(#ar2)"/>
+          <rect x="286" y="292" width="140" height="38" rx="7" fill="#fff" stroke="#2f7d57"/>
+          <text x="356" y="308" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2f7d57">②钱包净进出</text>
+          <text x="356" y="323" text-anchor="middle" font-size="11.5" fill="#2f7d57">＝现金项的变化</text>
+          <!-- 箭头3 净利润→经营现金流 -->
+          <path d="M575 134 L 575 258" fill="none" stroke="#c0392b" stroke-width="2.8" marker-end="url(#ar3)"/>
+          <rect x="470" y="166" width="212" height="62" rx="8" fill="#fbecea" stroke="#c0392b"/>
+          <text x="576" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">③净利润 →（调整）→ 经营现金流</text>
+          <text x="576" y="203" text-anchor="middle" font-size="11" fill="#c0392b">＋折旧摊销　−应收增加　−存货增加</text>
+          <text x="576" y="219" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">这条最重要：造假都藏在这里</text>
+          <defs>
+            <marker id="ar1" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1f5f8b"/></marker>
+            <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2f7d57"/></marker>
+            <marker id="ar3" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c0392b"/></marker>
+          </defs>
+        </svg>
+        <figcaption>三张表的三条核心勾稽。红色那条（净利润 → 经营现金流）是识别财务造假的主战场。</figcaption>
+      </figure>
+
+      <h4>三条核心勾稽，逐条讲</h4>
+      <ul class="clean">
+        <li><b>① 利润表 → 资产负债表</b><br><b>期末所有者权益 = 期初权益 + 本期净利润 − 分红（＋增发等）</b><br>通俗：<b>你今年赚的钱，如果不分掉，就沉淀成你的家底。</b></li>
+        <li><b>② 现金流量表 → 资产负债表</b><br><b>现金流量表的"现金净增加额" = 资产负债表"货币资金"期末数 − 期初数</b><br>通俗：<b>钱包这一年净进出了多少，必须等于家底里"现金"这一项的变化。</b>对不上就是有问题。</li>
+        <li><b>③ 利润表 → 现金流量表（最重要）</b><br>净利润要经过一串调整，才变成经营活动现金流：<br>· <b>加回不花钱的费用</b>（折旧、摊销）——账上扣了但钱没出去<br>· <b>减去赚了钱却没收到现金</b>（应收账款增加）<br>· <b>减去花了钱但还没变成成本</b>（存货增加）<br>· <b>加上占用了别人的钱</b>（应付账款增加）</li>
+      </ul>
+
+      <div class="oneline">三张表是三个咬合的齿轮。任何一张单独看都会骗人，只有互相印证才能看见真相。</div>
+    </div>
+
+    <div class="q red" id="q5">
+      <div class="qh"><span class="qn">5</span>净利润 10 亿，经营现金流却是负的。这说明什么？</div>
+      <div class="yours"><b>你的答案：</b>可能是扣非和不扣非的差别，即有非经常性支出没算进利润表。<br><b>评价：</b>🔴 答错了。这题考的是<b>权责发生制</b>——整个会计的地基。你答的"扣非"是<b>另一个维度</b>的问题（见下）。</div>
+
+      <h4>先补最底层的概念：两种记账方式</h4>
+      <div class="term">
+        <div class="tt">权责发生制（Accrual Basis）——利润表用的</div>
+        <b>"权利和责任发生时"就记账，不管钱有没有到。</b><br>
+        · 你卖了一批货、签了合同、发了货，<b>哪怕对方一分钱没付</b>，你也确认这笔收入。<br>
+        · 你一次性付了 12 万年租，<b>每个月只记 1 万费用</b>，不是第一个月记 12 万。</div>
+      <div class="term">
+        <div class="tt">收付实现制（Cash Basis）——现金流量表用的</div>
+        <b>钱真的进出口袋时才记账。</b>你个人记账、家庭账本用的都是这个，最直观。</div>
+      <div class="key"><div class="tt">打架的根源</div><b>利润表用权责发生制，现金流量表用收付实现制。</b>所以"账上赚钱"和"手里有钱"完全可以是两回事——<b>而这个缝隙，就是绝大多数财务造假藏身的地方。</b></div>
+
+      <h4>那么，利润为正、经营现金流为负，最常见的原因是：</h4>
+      <ol class="steps">
+        <li><b>应收账款大幅增加（最常见、最危险）</b><br>东西卖出去了、收入确认了，但<b>钱没收回来</b>。极端情况是为了做高业绩把货压给经销商（"渠道压货"），甚至卖给关联方。<br><b>危险信号：应收账款增速 ≫ 收入增速。</b></li>
+        <li><b>存货大幅增加</b><br>东西造出来了、钱花出去了，但<b>没卖掉</b>。存货堆在仓库里，在资产负债表上仍算"资产"，但可能早已卖不掉（等着计提减值）。</li>
+        <li><b>激进的收入确认</b><br>把未来几年的收入一次性确认；把还没完成的合同算成当期收入。</li>
+        <li><b>利润里含大量"非现金收益"</b><br>比如资产重估增值、公允价值变动收益——<b>账面赚了，但一分钱没进来</b>。</li>
+        <li><b>良性原因（不是所有情况都是坏事）</b><br>高速扩张期需要大量铺货备货；或明显的季节性。<b>但你必须能证明它是这一类，而不是默认它是。</b></li>
+      </ol>
+
+      <div class="warn"><div class="tt">"扣非"是什么？为什么不是这题的答案</div><b>扣非（扣除非经常性损益）</b>是把"卖了栋楼、拿了政府补贴、收了一笔赔偿"这类不可持续的收益，从净利润里剔除，得到"扣非净利润"。<br>它解决的是「<b>利润可不可持续</b>」的问题；而这道题问的是「<b>利润和现金为什么对不上</b>」。<b>两个不同维度，别混。</b></div>
+
+      <div class="key"><div class="tt">可操作的检查方法</div>
+      · 算这个比值：<b>经营活动现金流 ÷ 净利润</b>。健康的公司应该长期 <b>≥ 1</b>。<br>
+      · <b>连续 3 年 &lt; 0.7</b>，就要高度警惕。<br>
+      · 同时对比：<b>应收账款增速 vs 收入增速</b>；<b>存货增速 vs 收入增速</b>。</div>
+
+      <div class="oneline">利润是会计师的观点，现金是银行的事实。当两者长期背离，永远相信现金。</div>
+    </div>
+
+    <div class="q red" id="q6">
+      <div class="qh"><span class="qn">6</span>自由现金流怎么算？为什么巴菲特更看重它？</div>
+      <div class="yours"><b>你的答案：</b>不知道，粗浅理解是"账上可支配的现金"。<br><b>评价：</b>🔴 而且这里有个<b>值得单独指出的概念错误</b>：你把"流量"当成了"存量"。</div>
+
+      <div class="term">
+        <div class="tt">先纠正：存量 vs 流量</div>
+        <b>存量</b>＝某个<b>时点</b>的数量（水库里现在有多少水）→ 你说的"账上可支配的现金"是<b>现金余额</b>，在资产负债表上。<br>
+        <b>流量</b>＝某段<b>时间</b>里的变化量（这个月流进来多少水）→ <b>自由现金流是流量</b>，在现金流量表上。<br>
+        <b>存量/流量混淆，是财务思维里最常见的基础错误。</b>以后看到任何财务指标，先问自己一句："这是照片，还是录像？"</div>
+
+      <h4>计算公式（最常用的简化版）</h4>
+      <div class="oneline">自由现金流 FCF = 经营活动现金流 − 资本开支</div>
+      <ul class="clean">
+        <li><b>经营活动现金流</b>：做生意实际收到的净现金。在现金流量表第一部分的合计行。</li>
+        <li><b>资本开支（CapEx）</b>：为维持和扩张生意，买设备、盖厂房花的钱。在现金流量表"投资活动"里，中文财报通常叫「<b>购建固定资产、无形资产和其他长期资产支付的现金</b>」。</li>
+      </ul>
+
+      <div class="eg"><div class="tt">奶茶店版本</div>今年收到现金 50 万；但空调坏了要换、还要再开一家分店，买设备花了 20 万。<br><b>真正能拿走的只有 30 万。</b><br>这 30 万就是自由现金流——<b>"这门生意一年下来，真正能装进老板口袋、又不影响它继续运转的钱"</b>。</div>
+
+      <h4>为什么巴菲特看它而不是净利润</h4>
+      <ol class="steps">
+        <li><b>净利润里塞满了会计假设。</b>折旧年限定几年？存货怎么计价？坏账计提多少？——<b>每一个都可以在合法范围内调节利润。</b></li>
+        <li><b>净利润没有扣掉"维持生意所必需的投入"。</b>一家公司可能账面赚 10 亿，但每年必须投 12 亿更新设备才能维持运转——<b>它实际上在烧钱，账上却在赚钱。</b>这是重资产行业最经典的陷阱。</li>
+        <li><b>FCF 逼近"股东真正能拿到手的钱"</b>，而这才是 DCF 里该被折现的东西。</li>
+      </ol>
+
+      <div class="term">
+        <div class="tt">股东盈余（Owner Earnings）——巴菲特自己的说法</div>
+        大致 ＝ <b>净利润 ＋ 折旧摊销等非现金费用 − 维持竞争力所必需的资本开支</b>。<br>内核和 FCF 完全一致，只回答一个问题：<b>"这门生意，一年真正能给我多少钱？"</b></div>
+
+      <div class="warn"><div class="tt">一个重要的细节</div>资本开支要区分<b>维持性</b>（不投就活不下去）和<b>扩张性</b>（为了增长）。严格算 FCF 只该扣维持性的那部分，但财报通常不分开列。<b>实践中用总资本开支来算，会得到一个偏保守的结果——对投资者来说，保守是好事。</b></div>
+
+      <div class="oneline">净利润是"我说我赚了多少"，自由现金流是"我真的能拿走多少"。</div>
+    </div>
+
+    <div class="q red" id="q7">
+      <div class="qh"><span class="qn">7</span>什么是 ROIC？为什么 ROIC &gt; WACC 才叫创造价值？</div>
+      <div class="yours"><b>你的答案：</b>不知道。<br><b>评价：</b>🔴 空白。而这是<b>判断"好生意"最本质的一把尺子</b>——比看利润多少重要得多。</div>
+
+      <div class="term">
+        <div class="tt">ROIC（投入资本回报率）</div>
+        <b>= 税后经营利润 ÷ 投入的资本</b>（股东的钱 ＋ 借来的有息负债）<br>
+        通俗：<b>你往这门生意里投 100 块，一年能赚回多少？</b> ROIC = 20%，就是投 100 赚 20。</div>
+
+      <div class="key"><div class="tt">ROIC 和 ROE 的关键区别（很多人栽在这）</div>
+      <b>ROE（净资产收益率）</b>只看"股东的钱"赚了多少，<b>可以靠借钱加杠杆做高</b>——一家公司大举借债，ROE 会很好看，但风险也同步放大。<br>
+      <b>ROIC</b> 把借来的钱也放进分母，<b>衡量的是生意本身的赚钱效率，不受财务杠杆美化</b>。<br>
+      → <b>所以看"生意好不好"，用 ROIC；ROE 高但 ROIC 平庸，说明漂亮数字是借来的。</b></div>
+
+      <div class="term">
+        <div class="tt">WACC（加权平均资本成本）</div>
+        <b>= 你使用这些钱的平均成本。</b>借款要付利息；股东的钱也有成本（他们本可以拿去投别处，这叫机会成本）。<br>
+        通俗：借钱年息 5%，股东要求回报 10%，加权平均下来比如 8%——<b>这 8% 就是这门生意的"及格线"。</b><br>
+        <b>核心观念：你的钱不是免费的。</b></div>
+
+      <h4>为什么必须 ROIC &gt; WACC</h4>
+      <div class="tablewrap"><table>
+        <thead><tr><th>情形</th><th>含义</th><th>该怎么做</th></tr></thead>
+        <tbody>
+          <tr><td class="pos"><b>ROIC 15% &gt; WACC 8%</b></td><td>每投入 100 块，<b>创造 7 块超额价值</b></td><td class="pos">生意越做越大越好，<b>应该不断再投入</b></td></tr>
+          <tr><td class="neg"><b>ROIC 5% &lt; WACC 8%</b></td><td>每投入 100 块，<b>毁灭 3 块价值</b></td><td class="neg">做得越大股东越亏，<b>钱不如还给股东</b></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="eg"><div class="tt">两家店的对比</div>
+      · 开<b>奶茶店</b>：投 100 万，一年净赚 20 万（ROIC 20%），资金成本 8%。→ <b>每多开一家，就多创造 12% 的价值</b>。你应该疯狂扩张。<br>
+      · 开<b>钢铁厂</b>：投 100 万，一年净赚 4 万（ROIC 4%），资金成本 8%。→ <b>每多开一家，都在毁灭价值</b>。<br>
+      这就解释了一个常见现象：<b>为什么有些公司规模巨大、营收惊人，但股票长期不涨——因为它在"忙着毁灭价值"。</b></div>
+
+      <div class="key"><div class="tt">和"护城河"的关系（关键联结）</div>高 ROIC 必然会吸引竞争者涌入，把回报打下来。所以<b>一家公司能长期维持高 ROIC，一定是因为有东西挡住了竞争者</b>。于是我们得到护城河最精确的定义：<br><b>护城河 = 能让 ROIC 长期高于 WACC 的那个东西。</b><br>这也接回我们讲过的"涨价测试"：能涨价而不流失客户 → 有定价权 → 高 ROIC 可持续。</div>
+
+      <div class="oneline">利润告诉你赚了多少，ROIC 告诉你这门生意值不值得继续投钱。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ========== C组 ========== -->
+  <section id="c">
+    <span class="chapnum">C 组</span>
+    <h2>估值：把"理解"变成"价格"</h2>
+    <p class="lead">这一组你的直觉不错（8、10 题基本答对），缺的是机制。估值的目的不是算出一个精确数字，而是<b>逼你把假设摊在桌面上</b>。</p>
+
+    <div class="q green" id="q8">
+      <div class="qh"><span class="qn">8</span>DCF 在干什么？最敏感的输入是什么？</div>
+      <div class="yours"><b>你的答案：</b>生命周期内的现金流折现；敏感输入是通胀率/无风险利率、企业增长率；还想到"当前现金流基线"算不算。<br><b>评价：</b>🟢 <b>定义对、两个敏感输入答对，还自己想到了第三个</b>——这题答得相当好。</div>
+
+      <div class="oneline">一家公司今天的价值 = 它未来能产生的所有自由现金流，按一个折现率折算回今天的总和。</div>
+
+      <div class="term">
+        <div class="tt">为什么要"折现"？</div>
+        因为<b>今天的 1 块钱，比明年的 1 块钱值钱</b>。三个原因：<br>
+        ① 今天的钱可以拿去投资生息（<b>机会成本</b>）<br>
+        ② 通货膨胀会让钱变毛<br>
+        ③ 未来有不确定性，可能根本拿不到<br>
+        所以未来的钱必须"<b>打个折</b>"，才能和今天的钱放在一起比较。</div>
+
+      <div class="eg"><div class="tt">折现怎么算（一看就懂）</div>假设折现率 10%：<br>
+      · 1 年后的 <b>110 块</b>，今天只值 <b>100 块</b>（110 ÷ 1.1）<br>
+      · 2 年后的 <b>121 块</b>，今天也只值 <b>100 块</b>（121 ÷ 1.1²）<br>
+      → <b>时间越远，打的折越狠</b>，而且是指数级的。记住这一点，第 10 题就迎刃而解。</div>
+
+      <h4>三个关键输入</h4>
+      <ol class="steps">
+        <li><b>起点的现金流（基线）</b>——你想到的第三个，<b>而且它确实是三者之一</b>。基线错了后面全错（garbage in, garbage out）。</li>
+        <li><b>增长率</b>——未来能长多快、能长多久。</li>
+        <li><b>折现率</b>——用什么利率来折。通常和无风险利率＋风险溢价有关。</li>
+      </ol>
+
+      <div class="warn"><div class="tt">最敏感的是后两个，而且敏感到离谱</div>
+      · 折现率从 8% 改成 10% → 估值可能<b>砍掉 30% 以上</b><br>
+      · 永续增长率从 3% 改成 4% → 估值可能<b>暴涨 30% 以上</b><br>
+      → 这就是 DCF 被戏称为"<b>输入什么假设，就输出什么结论</b>"的原因。任何人都能通过微调假设，把同一家公司算成"便宜一倍"或"贵一倍"。</div>
+
+      <div class="key"><div class="tt">所以 DCF 真正的用法（重点）</div>
+      <b>它的价值不是"算出一个精确数字"，而是"逼你把假设写下来"。</b><br>
+      因此实践中更好用的是<b>反向 DCF</b>（你已经会用了）：不去预测未来，而是问——<b>"当前这个价格，隐含了什么样的增长假设？这个假设合理吗？"</b><br>
+      这把一个<b>预测问题</b>变成了一个<b>判断问题</b>，而后者容易得多。</div>
+
+      <blockquote>巴菲特其实很少真的去建 DCF 模型。他的说法大意是：<b>如果一家公司需要用精确的模型才能算出它便宜，那它就不够便宜。</b>真正的机会，是一眼就能看出很便宜的那种。<span class="who">— 转述其公开表述的大意</span></blockquote>
+
+      <div class="oneline">DCF 不是计算器，是一张"假设清单"。它最大的作用，是让你看清自己在赌什么。</div>
+    </div>
+
+    <div class="q amber" id="q9">
+      <div class="qh"><span class="qn">9</span>PE=10 和 PE=50，哪个更便宜？为什么这问题问得不对？</div>
+      <div class="yours"><b>你的答案：</b>不完全清楚，但知道所属行业不同、公司逻辑不同，不能只看 PE。<br><b>评价：</b>🟡 <b>结论对，但只知其然</b>。下面给你"为什么"。</div>
+
+      <div class="term">
+        <div class="tt">PE（市盈率）</div>
+        <b>= 股价 ÷ 每股收益 = 市值 ÷ 净利润</b><br>
+        通俗：<b>按当前的盈利水平，你要多少年才能回本。</b>PE = 10 就是 10 年回本，PE = 50 就是 50 年。</div>
+
+      <h4>单看 PE 会错得离谱的五个原因</h4>
+      <ol class="steps">
+        <li><b>PE 只看"一年"的利润，而价值来自"未来所有年"。</b><br>PE=50 的公司若每年增长 40%，两年后利润翻倍、PE 就变成 25 → <b>它可能比 PE=10 却零增长的公司更便宜。</b></li>
+        <li><b>E（利润）的质量可能天差地别。</b><br>一家的利润是收到现金的真钱，另一家是应收账款堆出来的（回到第 5 题）；一家可持续，另一家是卖了栋楼的一次性收益。<b>分母都叫"利润"，含金量完全不同。</b></li>
+        <li><b>PE 完全无视资产负债表。</b><br>同样 PE=10，一家账上净现金 50 亿，另一家净负债 200 亿——<b>实际估值和风险差着天壤之别</b>。<br>→ 所以专业上更常用 <b>EV/EBIT</b> 或 <b>EV/FCF</b>。<b>EV（企业价值）= 市值 + 净负债</b>，它把债务算了进来，更公平。</li>
+        <li><b>周期股的 PE 是反的（最经典的陷阱）。</b><br>周期股在<b>盈利高峰</b>时 PE 最低（看起来最便宜），恰恰是<b>最危险</b>的时候；在<b>亏损或微利</b>时 PE 极高甚至为负（看起来最贵），反而可能是机会。<br>典型：钢铁、煤炭、航运、猪肉、化工。</li>
+        <li><b>资本开支需求不同。</b><br>一家赚 10 亿不用再投入，另一家赚 10 亿必须再投 12 亿才能维持——同样的 PE，价值完全不同（回到第 6 题）。</li>
+      </ol>
+
+      <div class="key"><div class="tt">所以正确的问法是</div>
+      ❌ "哪个 PE 更低？"<br>
+      ✅ "<b>这个价格隐含了什么样的未来假设？这个假设有多大概率兑现？</b>"<br>
+      —— 又回到了反向估值。<b>你会发现，所有估值方法最后都收敛到同一个问题上。</b></div>
+
+      <div class="oneline">PE 是一个"提问的起点"，不是"回答的终点"。用它筛选可以，用它决策会死。</div>
+    </div>
+
+    <div class="q green" id="q10">
+      <div class="qh"><span class="qn">10</span>无风险利率 2%→5%，对高成长公司还是稳定分红公司打击更大？</div>
+      <div class="yours"><b>你的答案：</b>猜是对高成长公司打击更大，因为高成长伴随高风险，资金要考虑无风险的机会成本。<br><b>评价：</b>🟢 <b>结论正确</b>，理由沾边但不是核心机制。真正的原因是「久期」。</div>
+
+      <div class="term">
+        <div class="tt">久期（Duration）</div>
+        原本是债券术语，指"<b>你的钱平均要等多久才能收回来</b>"。用在股票上，它问的是：<br>
+        <b>这家公司的价值，主要来自多远的未来？</b><br>
+        · <b>稳定分红公司</b>（公用事业、成熟消费）：价值大部分来自未来 5–10 年 → <b>久期短</b><br>
+        · <b>高成长公司</b>（早期科技）：现在几乎不赚钱，价值几乎全部来自 10–30 年后 → <b>久期极长</b></div>
+
+      <h4>为什么久期长就更怕加息：因为折现是指数级的</h4>
+      <p>以折现率从 <b>5% 升到 8%</b> 为例：</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>这笔钱在</th><th class="num">折现率5%时的现值</th><th class="num">折现率8%时的现值</th><th class="num">缩水幅度</th></tr></thead>
+        <tbody>
+          <tr><td><b>2 年后</b>的 100 块</td><td class="num">90.7</td><td class="num">85.7</td><td class="num">约 <b>−5.5%</b></td></tr>
+          <tr><td><b>20 年后</b>的 100 块</td><td class="num">37.7</td><td class="num">21.5</td><td class="num neg">约 <b>−43%</b></td></tr>
+        </tbody>
+      </table></div>
+      <div class="oneline">同样加 3 个点，远期现金流被砍掉的比例，是近期的近 8 倍。</div>
+
+      <div class="key"><div class="tt">这一条能解释很多真实现象</div>
+      · <b>2022 年美联储激进加息，成长股（纳斯达克）跌幅远大于价值股</b>——不是因为成长股"风险高"，而是因为它们<b>久期长</b>。<br>
+      · <b>为什么低利率环境里，"故事股""概念股"特别容易涨到离谱</b>——折现率低的时候，<b>遥远未来的画饼在今天值很多钱</b>。<br>
+      · <b>MiniMax 那种"现在亏钱、赌十年后"的公司，是久期最长、对利率最敏感的一类。</b></div>
+
+      <blockquote>"利率之于资产价格，就像地心引力之于万物。"——利率一变，<b>所有</b>资产的价格都要重新计算。<span class="who">— 巴菲特（大意）</span></blockquote>
+
+      <div class="oneline">判断一家公司对利率有多敏感，只需问一句：它的价值有多少来自遥远的未来？</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ========== D组 ========== -->
+  <section id="d">
+    <span class="chapnum">D 组</span>
+    <h2>组合与仓位：决定你会不会出局</h2>
+    <p class="lead">这一组你三题全空。而<b>这恰恰是"知道"和"活下来"之间的那道墙</b>——绝大多数人不是死于选错股票，是死于仓位下错。</p>
+
+    <div class="q red" id="q11">
+      <div class="qh"><span class="qn">11</span>有 100 万，找到一个非常有信心的机会，投多少？</div>
+      <div class="yours"><b>你的答案：</b>不知道，目前没有一套决策逻辑。<br><b>评价：</b>🔴 空白。诚实是好事——<b>因为"凭感觉定仓位"比"没有逻辑"更危险。</b></div>
+
+      <div class="oneline">仓位不由"我有多看好"决定，而由"如果我错了会怎样"决定。</div>
+
+      <h4>三步决策法</h4>
+      <ol class="steps">
+        <li><b>第一步：先算最坏情况（生存优先）</b><br>问："如果这笔<b>完全看错</b>，最坏亏多少？"（不是"会不会亏"，是"<b>最坏</b>亏多少"）<br>再问三个问题：这个亏损会不会——<br>① 让我被迫卖出其他仓位？② 让我睡不着、开始乱操作？③ 改变我的生活？<br><b>只要有一个"是"，注码就已经太大了。</b></li>
+        <li><b>第二步：按认知优势和赔率调整</b><br>· <b>确定性有多高</b>（真懂 vs 以为懂）<br>· <b>赔率是否不对称</b>（下有限、上不封顶 → 可以大；下无限、上有限 → 必须极小）<br>· <b>与已有持仓的相关性</b>——如果你已持有 3 家同行业公司，第 4 家<b>不是"新仓位"，是加倍下注</b></li>
+        <li><b>第三步：反过来做压力测试</b><br>问自己："<b>如果这笔跌 50%，我会加仓、持有，还是恐慌卖出？</b>"<br><b>如果答案是"恐慌卖出"，说明仓位下重了。</b>正确的仓位，应该让你在下跌时仍然保持理性。</li>
+      </ol>
+
+      <div class="term">
+        <div class="tt">凯利公式（Kelly Criterion）——只讲思想，不用会算</div>
+        它是数学上"<b>让长期复利增长最快</b>"的下注比例公式。你只需记住它的两条核心结论：<br>
+        ① <b>优势越大、赔率越好，下注应该越重</b>；<br>
+        ② <b>当你无法准确估计胜率时，正确的注码趋近于零</b>——因为下注过重导致的"破产"是<b>不可逆</b>的。<br>
+        实践中大家普遍用"<b>半凯利</b>"甚至更少，因为<b>人总是系统性地高估自己的胜率</b>。</div>
+
+      <div class="tablewrap"><table>
+        <thead><tr><th>类型</th><th>特征</th><th>仓位思路</th></tr></thead>
+        <tbody>
+          <tr><td><b>核心</b></td><td>指数、或你极度理解的公司；看得懂、长期、几乎不会归零</td><td>可以较大</td></tr>
+          <tr><td><b>卫星</b></td><td>深度研究过、有安全边际的个股</td><td>中等，且单只必须有上限</td></tr>
+          <tr><td><b>彩票</b></td><td>不确定性下注，可能归零，赔率不对称</td><td class="neg">极小（≤1–2%），且绝不摊平</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="warn"><div class="tt">一个反直觉的提醒</div><b>"我非常有信心"这句话本身，就是一个警报。</b>过度自信是最普遍的偏误，而且<b>信心和正确率之间的相关性很弱</b>。真正的高手，往往在最有把握的时候仍然给自己留犯错的余地。</div>
+
+      <div class="oneline">先想"错了会怎样"，再想"对了能赚多少"。顺序反了，迟早出局。</div>
+    </div>
+
+    <div class="q red" id="q12">
+      <div class="qh"><span class="qn">12</span>分散持有 20 只 vs 集中持有 3 只，各自的代价是什么？</div>
+      <div class="yours"><b>你的答案：</b>不知道。<br><b>评价：</b>🔴 空白。这是个<b>权衡问题，没有标准答案</b>，但两边的代价是明确的。</div>
+
+      <h4>分散（20 只）的代价</h4>
+      <ul class="clean">
+        <li><b>稀释了你最好的想法。</b>你最懂的那家只占 5%，就算它涨 10 倍，也只给组合贡献 50%。</li>
+        <li><b>超出了你的研究能力（对你尤其致命）。</b>20 家 × 每家每季度跟踪 2 小时 = <b>160 小时/年</b>，而你一年只有约 100–260 小时的总预算。结果是<b>"名义分散、实质无知"</b>——你其实一家都不懂。</li>
+        <li><b>收益趋近指数，但你付出了主动管理的时间和成本。</b>那还不如直接买指数——<b>至少省下时间和手续费。</b></li>
+        <li><b>"伪分散"陷阱。</b>买 20 只白酒股不叫分散，叫<b>用 20 倍的钱下注同一个逻辑</b>。</li>
+      </ul>
+
+      <div class="term">
+        <div class="tt">相关性（Correlation）</div>
+        指两个资产是不是"<b>同涨同跌</b>"。<b>分散的效果，完全来自"低相关性"。</b><br>
+        持有 20 只同行业股票，相关性接近 1 —— <b>数学上等于只持有 1 只，但你付了 20 份的研究成本。</b></div>
+
+      <h4>集中（3 只）的代价</h4>
+      <ul class="clean">
+        <li><b>单一错误被放大。</b>一只归零，组合直接损失 1/3。</li>
+        <li><b>对研究深度要求极高。</b>集中的前提是<b>你真的比市场更懂</b>；否则集中只是<b>放大了你的无知</b>。</li>
+        <li><b>心理压力大得多</b>，更容易在剧烈波动中做出错误决定。</li>
+      </ul>
+
+      <div class="key"><div class="tt">怎么选？取决于两个问题</div>
+      ① <b>你有多大的认知优势？</b>（优势越大越该集中；<b>没有优势就该分散，甚至只买指数</b>）<br>
+      ② <b>你能承受多大的波动而不做错事？</b><br>
+      芒格的立场大意是：<b>"分散是对无知的保护。如果你确实知道自己在做什么，分散就没什么意义。"</b>——注意后半句的前提有多重。</div>
+
+      <div class="warn"><div class="tt">对你的具体推论</div>
+      · 你的时间预算只支撑得起 <b>3–5 家</b>深度跟踪；<br>
+      · 但你的<b>认知优势尚未被任何证据证明</b>；<br>
+      → 所以<b>核心-卫星是唯一解</b>：<b>核心用指数解决"分散"，卫星用极少数解决"深度"。</b><br>
+      <b>千万不要自己去搭一个 20 只的分散组合</b>——那是两头不靠：既没有指数的省心，也没有集中的深度。</div>
+
+      <div class="oneline">分散保护你不懂的部分，集中回报你真懂的部分。关键是你得诚实地知道自己属于哪一边。</div>
+    </div>
+
+    <div class="q amber" id="q13">
+      <div class="qh"><span class="qn">13</span>什么情况下"持有现金"是一个仓位决策，而不是"没在投资"？</div>
+      <div class="yours"><b>你的答案：</b>不完全清楚，可能市场风险太大的时候？<br><b>评价：</b>🟡 直觉对了一半，但少了最重要的那层。</div>
+
+      <div class="oneline">现金永远是一个仓位，只是大多数人没意识到自己已经做了这个决定。</div>
+
+      <h4>为什么现金是"决策"而不是"闲置"</h4>
+      <ol class="steps">
+        <li><b>持有现金 ＝ 你在明确表达"我认为现在没有值得买的东西"。</b>这是一个判断，不是没有判断。</li>
+        <li><b>现金是一个"永不过期的看涨期权"。</b>它给了你在<b>未来任何时候、任何价格</b>出手的权利。当市场恐慌、好公司打折时，<b>现金是唯一能让你行动的东西</b>——没有现金，再好的机会都与你无关。</li>
+        <li><b>这是个人相对机构的核心优势之一。</b>基金经理必须几乎满仓（否则客户会问"我付管理费是让你拿现金？"），<b>而你可以空仓等三年</b>。</li>
+      </ol>
+
+      <h4>什么时候现金应该增加</h4>
+      <ul class="clean">
+        <li><b>找不到符合你标准的机会时</b>——这是最重要、也最常被忽略的一条</li>
+        <li>市场整体估值处于历史极端高位时</li>
+        <li>你能力圈内的所有标的都很贵时</li>
+      </ul>
+
+      <div class="warn"><div class="tt">现金的代价（也要诚实）</div>
+      · <b>通胀侵蚀</b>：长期大量持有现金，购买力会被通胀慢慢吃掉<br>
+      · <b>踏空成本</b>：市场持续上涨时你会跑输<br>
+      · <b>"等待完美"的陷阱</b>：有人用"再等更便宜"来掩饰"我不敢做决定"——<b>这是拖延，不是纪律</b></div>
+
+      <div class="key"><div class="tt">平衡的说法</div>现金的作用<b>不是"赚钱"</b>，而是<b>保留选择权 ＋ 保证你不会被迫卖出</b>。它的全部价值，在你需要它的那一天集中兑现。<br>巴菲特长期让伯克希尔持有巨额现金，称之为"<b>随时可以扣动扳机的枪</b>"。他愿意为此承受多年的低收益，因为<b>一次在恐慌中的重击，能赚回所有等待的成本</b>。</div>
+
+      <div class="key"><div class="tt">对你的直接推论</div>既然你的策略里有"卫星"部分，那么<b>"卫星仓位没有投满"就是正常状态</b>。那部分没投出去的钱不叫闲置，叫<b>"在等好球"</b>。</div>
+
+      <div class="oneline">满仓不代表勤奋，空仓不代表懒惰。真正重要的是：你能不能说清为什么。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ========== E组 ========== -->
+  <section id="e">
+    <span class="chapnum">E 组</span>
+    <h2>实操：找资料、做记录</h2>
+    <p class="lead">这两题看着最"低级"，却是<b>最容易补、见效最快</b>的两件事。第 14 题两小时就能补上；第 15 题决定了你未来十年能不能从经验里学到东西。</p>
+
+    <div class="q red" id="q14">
+      <div class="qh"><span class="qn">14</span>研究一家港股公司，第一手资料去哪里拿？</div>
+      <div class="yours"><b>你的答案：</b>不知道。<br><b>评价：</b>🔴 空白，<b>但这是全卷最容易补的一题——两小时就够。</b></div>
+
+      <h4>三个市场的官方渠道（全部免费）</h4>
+      <div class="tablewrap"><table>
+        <thead><tr><th>市场</th><th>官方网站</th><th>关键文件</th></tr></thead>
+        <tbody>
+          <tr><td><b>港股</b></td><td><b>披露易 hkexnews.hk</b><br><span style="color:var(--ink-soft);font-size:12px">香港交易所官方披露平台</span></td><td><b>年报</b>（Annual Report）、<b>中期报告</b>（Interim Report）、<b>公告</b>（配售、解禁、股权变动、盈利警告）</td></tr>
+          <tr><td><b>美股</b></td><td><b>SEC EDGAR sec.gov/edgar</b><br><span style="color:var(--ink-soft);font-size:12px">美国证监会官方数据库</span></td><td><b>10-K</b>（年报）、<b>10-Q</b>（季报）、<b>20-F</b>（外国公司年报，中概股用这个）、<b>8-K</b>（重大事件）、<b>S-1/F-1</b>（招股书）</td></tr>
+          <tr><td><b>A股</b></td><td><b>巨潮资讯网 cninfo.com.cn</b><br><span style="color:var(--ink-soft);font-size:12px">证监会指定披露网站</span></td><td><b>年度报告</b>、<b>季度报告</b>、<b>招股说明书</b>、各类临时公告</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="key"><div class="tt">为什么必须看一手资料（这条最重要）</div>
+      ① <b>研报和自媒体都是"二手转述"</b>，每转一手都会丢失信息、掺入立场。<b>我们查 MiniMax 的 ARR 就是活生生的例子</b>——那个"4 亿美元"经过了「管理层口头 → 券商研报 → 媒体转述」三道手，传到你这里时，原始口径已经不可辨认了。<br>
+      ② <b>公司自己披露的"风险因素"章节，是全篇最诚实的部分</b>——因为写错了要负法律责任。这一章往往比任何看空报告都狠。<br>
+      ③ <b>只有年报里有完整的三张表和附注。</b>而<b>附注（Notes）才是精华</b>：收入怎么确认的、应收账款账龄多长、有哪些关联交易——全藏在附注里。</div>
+
+      <h4>读年报的顺序（给新手的建议路径）</h4>
+      <ol class="steps">
+        <li>先读<b>主席报告 / 管理层讨论与分析（MD&amp;A）</b>——了解这门生意在讲什么故事</li>
+        <li>再读<b>风险因素</b>——了解它<b>自己承认</b>的问题</li>
+        <li>再读<b>三张表</b>——看数字本身</li>
+        <li>最后读<b>附注</b>——验证数字的质量（这一步最花时间，也最值钱）</li>
+        <li><b>连着读三年。</b>一年的数字看不出问题，<b>三年的趋势藏不住</b>。</li>
+      </ol>
+
+      <div class="oneline">别人嚼过的信息只能用来找线索，不能用来做决定。决定必须建立在原始文件上。</div>
+    </div>
+
+    <div class="q red" id="q15">
+      <div class="qh"><span class="qn">15</span>你过去一年的收益率是多少？跑赢还是跑输基准？</div>
+      <div class="yours"><b>你的答案：</b>过去一年没投资；两段经历都在牛市期（疫情行情、地产利好），细节记不清，整体亏损。<br><b>评价：</b>🔴 无记录。<b>但这一题的答案，是整份诊断里信息量最大的一个。</b></div>
+
+      <h4>这题真正考的不是收益率，是"你有没有在测量"</h4>
+      <ol class="steps">
+        <li><b>不记账 = 永远无法区分运气和能力。</b>这正是我们前面争论的核心。你赚了 20% 很开心，但如果同期指数涨了 30%，<b>你实际上跑输了 10 个点</b>——付出了全部时间和风险，换来一个比躺平更差的结果。</li>
+        <li><b>不设基准，"跑赢市场"这个目标就无法被证伪。</b>而<b>一个无法被证伪的目标，等于没有目标。</b></li>
+        <li><b>样本量问题。</b>你需要<b>足够多、且未被结果污染的决策记录</b>，才能对自己的能力做统计判断。<b>n=2 什么也说明不了。</b></li>
+      </ol>
+
+      <h4>你要建立的最小记录系统（三张表就够）</h4>
+      <p><b>① 决策日志</b>（每笔买入<b>之前</b>填 —— 这是最重要的一张）</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>日期</th><th>标的</th><th>买入理由（论点）</th><th>证伪条件</th><th>预期持有期</th><th>买入价</th></tr></thead>
+        <tbody><tr><td style="color:var(--ink-soft)">…</td><td style="color:var(--ink-soft)">…</td><td style="color:var(--ink-soft)">我认为它值钱，因为……</td><td style="color:var(--ink-soft)">出现…我就承认错了</td><td style="color:var(--ink-soft)">…年</td><td style="color:var(--ink-soft)">…</td></tr></tbody>
+      </table></div>
+      <p><b>② 收益记录</b>（每季度）</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>期间</th><th class="num">期初</th><th class="num">期末</th><th class="num">我的收益率</th><th class="num">沪深300</th><th class="num">标普500</th><th class="num">超额</th></tr></thead>
+        <tbody><tr><td style="color:var(--ink-soft)">…</td><td class="num" style="color:var(--ink-soft)">…</td><td class="num" style="color:var(--ink-soft)">…</td><td class="num" style="color:var(--ink-soft)">…</td><td class="num" style="color:var(--ink-soft)">…</td><td class="num" style="color:var(--ink-soft)">…</td><td class="num" style="color:var(--ink-soft)">…</td></tr></tbody>
+      </table></div>
+      <p><b>③ 季度复盘三问</b></p>
+      <ul class="clean">
+        <li>赚的那几笔里，<b>有多少是运气</b>？（我的论点真的兑现了吗，还是因为完全无关的原因涨的？）</li>
+        <li>亏的那几笔里，<b>有多少是我的责任</b>？（论点错了 vs 单纯运气差）</li>
+        <li><b>我有没有违反自己写下的规则？</b>（这一条比前两条加起来还重要）</li>
+      </ul>
+
+      <div class="warn"><div class="tt">关于"两次都在牛市期入场"——这是个重要发现</div>
+      它说明你的<b>入场触发器是"市场热度"，而不是"价格便宜"</b>。在行为金融学里这就是 <b>FOMO ＋ 羊群效应</b>，也是散户亏损最主要的单一原因。<br><br>
+      <b>结构性的解药（不能靠意志力）：</b><br>
+      ① 买入理由<b>必须写进日志</b>，且<b>"市场很热 / 大家都在赚钱 / 再不买就来不及了"不是合法理由</b>；<br>
+      ② 市场情绪极端时（涨停潮、成交天量、身边人都在聊股票）<b>自动进入冷静期</b>；<br>
+      ③ 用<b>定投</b>把择时决策拆散——这正是定投对你价值特别大的原因。</div>
+
+      <div class="oneline">没有记录，你不是在投资，只是在下注并遗忘。测量是学习的前提。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 收束 -->
+  <section id="end">
+    <span class="chapnum">收束</span>
+    <h2>怎么用这份材料</h2>
+
+    <div class="key"><div class="tt">这份材料补的是哪一层</div>
+    你的诊断结论是：<b>🟢 世界观很强（第 1、3、8、10 题）／🔴 仪器为零（第 2、5、6、7、11、12、14 题）</b>。<br>
+    这份材料专门补"仪器"那一层。但注意——<b>读懂了不等于会用</b>。真正的掌握发生在你第一次<b>自己打开一份年报、自己算出一个 FCF、自己写下一条证伪条件</b>的时候。</div>
+
+    <h3>三条使用建议</h3>
+    <ol class="steps">
+      <li><b>不要一次读完。</b>按组读，每组读完隔几天再回看一遍"一句话记住"那些黑条——那是压缩后的核心。</li>
+      <li><b>第 4、5、6、7 题要反复读。</b>它们是一条完整的链：<b>三张表 → 权责发生制 → 自由现金流 → ROIC</b>。这条链打通，你就有了看懂任何一家公司的基本工具。</li>
+      <li><b>第 15 题今天就可以做。</b>建记录系统不需要任何知识门槛，而<b>它越早开始越值钱</b>——因为它记录的是时间。</li>
+    </ol>
+
+    <h3>接下来的顺序</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>阶段</th><th>做什么</th><th>对应本文</th></tr></thead>
+      <tbody>
+        <tr><td><b>本周</b></td><td>建决策日志 + 收益记录表；把三个官网收藏起来</td><td>第 14、15 题</td></tr>
+        <tr><td><b>阶段 1</b></td><td><b>权责发生制 + 三张表勾稽</b>（正式开课）</td><td>第 4、5 题的展开</td></tr>
+        <tr><td><b>阶段 2</b></td><td>自由现金流、ROIC、数字质量与造假信号</td><td>第 6、7 题的展开</td></tr>
+        <tr><td><b>阶段 3</b></td><td>估值三把尺子、久期与利率</td><td>第 8、9、10 题的展开</td></tr>
+        <tr><td><b>阶段 4</b></td><td>仓位、分散与集中、现金管理</td><td>第 11、12、13 题的展开</td></tr>
+      </tbody>
+    </table></div>
+
+    <blockquote>这 15 题里你答"不知道"了 12 次。<b>这不是坏消息，是好消息——因为你现在知道自己不知道什么了。</b>投资里最贵的不是无知，是<b>把无知当成了知识</b>。<span class="who">— 本份诊断的结论</span></blockquote>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+  var map = {};
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if(el) map[id] = a;
+  });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(l){ l.classList.remove('active'); });
+        var a = map[e.target.id];
+        if(a) a.classList.add('active');
+      }
+    });
+  }, {rootMargin:'-10% 0px -75% 0px', threshold:0});
+  Object.keys(map).forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) obs.observe(el);
+  });
+})();
+</script>

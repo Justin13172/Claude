@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赌场论与市场的猎手们（通俗版）· 巴菲特2026访谈解读 + 投机生态全盘点</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --purple:#6a4c93;--purple-bg:#efe9f5;--teal:#0e7c7b;--teal-bg:#e6f2f2;--casino:#8e2f4f;--casino-bg:#f7ebef;
+    --term:#1666a5;--term-bg:#e8f3fc;
+    --radius:14px;--maxw:840px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.9;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1220px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:286px;flex:0 0 286px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.4px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--casino);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:54px 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:29px;line-height:1.32;margin:0 0 14px;letter-spacing:.3px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.c{border-color:#dbb3c2;color:var(--casino);background:var(--casino-bg)}
+  .pill.t{border-color:#a9cdea;color:var(--term);background:var(--term-bg)}
+  section{padding:36px 0 8px;scroll-margin-top:18px}
+  h2{font-size:25px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:19px;margin:26px 0 6px;line-height:1.4}
+  p{margin:12px 0}
+  .lead{font-size:18px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  /* 术语卡 */
+  .term{background:var(--term-bg);border:1px solid #b5d4ec;border-left:5px solid var(--term);border-radius:12px;padding:13px 18px;margin:16px 0;font-size:15px}
+  .term .tt{font-weight:800;color:var(--term);font-size:15.5px;margin-bottom:4px}
+  .term .tt::before{content:"📖 ";font-size:14px}
+  .term .an{margin-top:6px;padding-top:6px;border-top:1px dashed #b5d4ec;color:var(--ink-soft);font-size:14.3px}
+  .term .an b{color:var(--term)}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px;color:var(--ink)}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft);font-style:normal}
+  blockquote.c{border-left-color:var(--casino);background:var(--casino-bg)}
+  figure{margin:22px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  .tablewrap{overflow-x:auto;margin:16px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.4px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#f3eee2;font-size:12.4px;color:var(--ink);font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  .neg{color:var(--danger);font-weight:700}.pos{color:var(--duan);font-weight:700}
+  .famhead{border-radius:var(--radius);padding:15px 20px;margin:24px 0 14px;color:#fff;box-shadow:var(--shadow)}
+  .famhead .ft{font-size:18px;font-weight:800}
+  .famhead .fr{font-size:14px;margin-top:5px;opacity:.95;line-height:1.7}
+  .play{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:15px 20px;margin:14px 0;box-shadow:var(--shadow);border-left:5px solid var(--line)}
+  .play .ph{font-size:16.5px;font-weight:800;margin-bottom:6px}
+  .prow{padding:8px 0;border-bottom:1px dashed var(--line);font-size:14.8px}
+  .prow:last-child{border-bottom:none}
+  .prow .pl{display:inline-block;font-size:11.5px;font-weight:800;padding:1px 9px;border-radius:6px;margin-right:8px;vertical-align:1px;white-space:nowrap}
+  .pl.story{background:#f3eee2;color:#8a6d1a}
+  .pl.how{background:var(--buffett-bg);color:var(--buffett)}
+  .pl.moat{background:var(--purple-bg);color:var(--purple)}
+  .pl.death{background:var(--danger-bg);color:var(--danger)}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  .danger{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .danger .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 44px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--buffett);color:#fff;text-align:center;line-height:28px;font-weight:800;font-size:14px}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:18px 0;color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:14px 18px;margin:24px 0}
+  .sources{font-size:12.8px;color:var(--ink-soft)}.sources li{margin:6px 0;word-break:break-all}.sources a{color:var(--buffett)}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .gloss .row{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:14px;background:#fff}
+  .gloss{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .gloss .row:last-child{border-bottom:none}
+  .gloss .t{font-weight:700;color:var(--term)}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    header.hero h1{font-size:23px}header.hero{padding:28px 0 18px}body{font-size:16px}
+    th,td{padding:6px 7px;font-size:11.6px}
+    .gloss .row{grid-template-columns:1fr}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.play,figure svg{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 赌场论与市场的猎手们（通俗版）</summary>
+    <a href="#howto">先读我 · 怎么读本文</a>
+    <a href="#market101">预备课 · 市场是个菜市场</a>
+    <a href="#part1">上篇 · 巴菲特"赌场论"</a>
+    <a href="#part2">下篇 · 市场的猎手们</a>
+    <a href="#f1">家族① 荷官（做市商）</a>
+    <a href="#f2">家族② 搬运工（套利）</a>
+    <a href="#f3">家族③ 捡"被迫卖单"的人</a>
+    <a href="#f4">家族④ 保险生意</a>
+    <a href="#f5">家族⑤ 侦探与庄家</a>
+    <a href="#eco">谁在赚谁的钱（地图）</a>
+    <a href="#truth">五个诚实的结论</a>
+    <a href="#gloss">附录 · 术语速查表</a>
+    <a href="#sources">参考来源</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">赌场论与市场的猎手们
+      <small>通俗版 · 每个专业词都单独讲明白<br>上篇：巴菲特访谈解读 / 下篇：猎手盘点</small>
+    </div>
+    <div class="grp">开始之前</div>
+    <a href="#howto">先读我 · 怎么读本文</a>
+    <a href="#market101">预备课 · 市场是个菜市场</a>
+    <div class="grp">上篇 · 赌场论</div>
+    <a href="#part1">§1 他到底说了什么</a>
+    <a href="#p1-fp">§2 掰开揉碎讲透它</a>
+    <a href="#p1-half">§3 另一半真相</a>
+    <div class="grp">下篇 · 猎手盘点</div>
+    <a href="#part2">§4 总回答：三种钱</a>
+    <a href="#f1">§5 家族① 荷官</a>
+    <a href="#f2">§6 家族② 搬运工</a>
+    <a href="#f3">§7 家族③ 捡被迫卖单的</a>
+    <a href="#f4">§8 家族④ 保险生意</a>
+    <a href="#f5">§9 家族⑤ 侦探与庄家</a>
+    <a href="#eco">§10 谁在赚谁的钱</a>
+    <a href="#truth">§11 五个诚实的结论</a>
+    <div class="grp">附录</div>
+    <a href="#gloss">术语速查表</a>
+    <a href="#sources">参考来源</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">CASINO &amp; HUNTERS · 通俗版</span>
+    <h1>赌场论与市场的猎手们<span style="font-size:.62em;color:var(--ink-soft);font-weight:600">（掰开揉碎版）</span><br><span style="font-size:.62em;color:var(--ink-soft);font-weight:600">巴菲特说市场成了赌场；那靠"规则"赚钱的都是谁？</span></h1>
+    <p class="sub">上篇讲清楚：95岁的巴菲特说"市场已成赌场、价值难找"，到底什么意思、对不对、跟你有什么关系。下篇讲清楚：那些"深谙市场潜规则"的机构真的在稳定赚钱吗——都是谁、赚的什么钱、怎么死的。<b>所有专业词，都会在第一次出现时用大白话+生活例子单独讲明白。</b></p>
+    <div class="pillrow">
+      <span class="pill c">访谈已核实（2026/7）</span>
+      <span class="pill t">📖 蓝色卡片 = 术语讲解</span>
+      <span class="pill">文末有术语速查表</span>
+    </div>
+    <div class="disclaimer"><b>说明：</b>本文为投资认知学习材料，<b>不是投资建议，更不是操作指南</b>。巴菲特访谈经多家主流媒体交叉核实（2026年7月15-16日）；案例数字来自公开报道/文件，标"约/据报道"者为媒体转述。<b>下篇有些行为已被法院认定违法（会明确标出）——讲它们是为了看懂市场生态，不是教你模仿。</b></div>
+  </header>
+
+  <!-- 先读我 -->
+  <section id="howto">
+    <span class="chapnum">先读我</span>
+    <h2>怎么读本文</h2>
+    <ul class="clean">
+      <li>遇到<b>蓝色的 📖 术语卡</b>，先停下来把那个词读懂再往下走——每张卡都有"一句话定义 + 生活类比"。</li>
+      <li>每个案例都按"<b>先讲故事 → 再拆机制 → 最后说教训</b>"展开，看不懂机制时，记住故事就够了。</li>
+      <li>忘了某个词，翻到<a href="#gloss" style="color:var(--buffett)">文末速查表</a>。</li>
+    </ul>
+  </section>
+
+  <!-- 预备课 -->
+  <section id="market101">
+    <span class="chapnum">预备课</span>
+    <h2>先把"市场"想象成一个巨大的菜市场</h2>
+    <p class="lead">后面所有内容都建立在这幅图上，花两分钟记住它：</p>
+    <ul class="clean">
+      <li><b>交易所</b> = 菜市场的<b>管理处</b>：提供场地、撮合买卖、按成交量收管理费。它不卖菜，但每笔生意它都抽一点。</li>
+      <li><b>券商</b> = 帮你进场买菜的<b>中介</b>：你下的每一单都经它的手，它赚佣金。</li>
+      <li><b>做市商</b> = 市场里的<b>常驻批发商</b>：随时又收又卖，赚一进一出的差价（下篇主角之一，后面细讲）。</li>
+      <li><b>散户</b> = 赶集的<b>普通人</b>；<b>机构/基金</b> = 开着卡车来的<b>大采购商</b>。</li>
+      <li><b>股票</b> = 摊位上的"公司所有权凭证"——这是整个市场唯一真正"产出"价值的东西（公司会赚钱、分红）。其他所有人赚的钱，本质都是从"别的赶集人"口袋里来的。</li>
+    </ul>
+    <div class="fp"><div class="lab">记住一句话</div><p style="margin:6px 0">菜市场里，<b>菜贩子（公司）种出来的菜是新增的财富；而场内互相倒手赚差价的钱，是零和的——你赚的就是别人亏的，而且管理处每笔都抽水。</b>这一句想通了，上下两篇就都通了。</p></div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ================= 上篇 ================= -->
+  <section id="part1">
+    <span class="chapnum">上篇 · §1</span>
+    <h2>巴菲特到底说了什么（已核实原话）</h2>
+    <p>这个访谈是真的：2026年7月15-16日，新浪财经、证券时报、21财经等多家主流媒体报道了95岁巴菲特（已卸任CEO、仍任伯克希尔董事长）的专访。三个要点：</p>
+    <blockquote class="c">"如今的市场就像<b>教堂旁边开了一家赌场</b>。"——他点名"每日到期期权"交易就是赌博，并说：对交易场所而言，<b>"吸引投机客带来的收入，远多于培养真正的长期投资者。"</b><span class="who">— 巴菲特，2026年7月专访（多家媒体交叉报道，译文）</span></blockquote>
+
+    <div class="term">
+      <div class="tt">期权 / 每日到期期权（0DTE）——他说的"赌具"是什么？</div>
+      <b>期权</b>：花一小笔钱买一张"合约"，赌某只股票在某个日期前涨到（或跌到）某个价。赌对了，赚很多倍；赌错了，这笔钱整个归零。<b>0DTE（零日到期期权）</b>：当天买、当天开奖、当天作废的期权。
+      <div class="an"><b>类比：</b>期权像"给股票买的彩票"——2元一注，猜中开奖号码赚一万，猜不中2元作废。0DTE就是<b>"当天开奖的刮刮乐"</b>：从买到作废只有几个小时。它和"这家公司未来十年赚不赚钱"<b>没有任何关系</b>——这就是巴菲特叫它赌博的原因。近年美股0DTE的交易量爆炸式增长，大量散户在玩。</div>
+    </div>
+
+    <blockquote class="c">"有些时期机会多得难以置信；但大多数时候，你可能<b>好几年都找不到一个合适的标的</b>，能找到一个就是巨大的幸运。<b>市场的常态永远是后者。</b>"<span class="who">— 同上</span></blockquote>
+    <ul class="clean">
+      <li><b>谷歌"买晚了"：</b>他披露重仓Alphabet（谷歌母公司）是<b>他本人</b>的决定。他早年通过旗下保险公司GEICO在谷歌投广告，亲眼见过谷歌广告"每次点击"多能赚钱，但当年因为拿不准科技公司的领先能保持多久，没买。现在95岁补上了这一课。</li>
+      <li><b>苹果优先级下降：</b>伯克希尔2024年以来把苹果持股从约9.05亿股减到约3亿股（公开文件可查）——不是说苹果不好了，是仓位和价格纪律。</li>
+      <li><b>"赌场论"不是新话：</b>2023年度致股东信里他就写过："如今的市场比我年轻时呈现出远为浓重的赌场气质——而且<b>这座赌场如今住进了千家万户，天天诱惑着住户</b>。"（指手机炒股App。）</li>
+    </ul>
+    <div class="fp">
+      <div class="lab">先钉住三个事实，再谈观点</div>
+      <p style="margin:6px 0">① 他说的是价值"<b>难找</b>"，不是价值投资"<b>失效</b>"；② 他把"几年找不到标的"称为<b>常态</b>；③ 他一边抱怨赌场，一边刚重仓了谷歌——<b>抱怨和出手同时存在</b>。这三点是后面解读的地基。</p>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <section id="p1-fp">
+    <span class="chapnum">上篇 · §2</span>
+    <h2>掰开揉碎讲透"赌场论"</h2>
+
+    <h3>第一层：同一张股票，有两种完全不同的玩法</h3>
+    <p>用房子打比方。一套房子可以有两种用法：<b>①住进去或租出去</b>——它的价值来自"住"和"租金"，这是房子<b>本身</b>产生的；<b>②把房产证当筹码来回倒手</b>——赚的是"下一个人肯出更高价"的钱，房子本身产出什么无所谓。股票一模一样：<b>①它是公司的一小块所有权</b>（价值=公司未来赚的钱）；<b>②它是一枚可以随时转手的筹码</b>。"赌场化"的意思就是：<b>市场里越来越多的钱在玩第②种</b>，玩到极致就是0DTE——赌几个小时的价格波动，跟公司彻底无关。"教堂旁边开赌场"这个比喻的精妙在于：<b>两拨人用同一栋楼、看同一个报价屏，干的却是完全不同的两件事。</b></p>
+
+    <h3>第二层：为什么赌场会越开越大？——因为"场子"喜欢赌客</h3>
+    <p>回到菜市场：管理处按<b>成交量</b>收费。一个买了菜就回家吃半年的人（长期投资者），一年只贡献一次管理费；一个每天来倒腾八回的人（投机客），天天贡献。所以巴菲特那句"吸引投机客的收入远多于培养长期投资者"是在说：<b>交易所、券商、炒股App的商业模式，天然为赌博优化</b>——它们会把界面做得像游戏、推送做得像战报、开发出0DTE这种"当天开奖的刮刮乐"。这不是谁道德败坏，是<b>激励结构决定的</b>，所以它只会加深，不会自愈。</p>
+
+    <h3>第三层：核心问题——"人人赌博时，为什么价值反而难找？"</h3>
+    <p>这是你最疑惑的地方，拆成三步讲：</p>
+    <ol class="steps">
+      <li><b>赌博的钱把价格整体推贵了。</b>赌客喜欢"有故事、会动"的股票，追着买 → 这些股票被抬到远超其真实价值的价格。注意：这时<b>错误定价其实变多了</b>——但错误几乎都集中在"<b>贵得离谱</b>"这一侧。</li>
+      <li><b>而价值投资者只能赚"便宜"那一侧的钱。</b>巴菲特的方法是"用五毛买一块"——他需要市场上存在<b>被低估</b>的东西。人人抢购时，货架上全是"两块钱标价的一块钱商品"，没有"五毛钱的一块钱商品"。<b>这就是"难上加难"的精确含义：不是市场没有错价，而是错价的方向对他没用。</b></li>
+      <li><b>赌场还偷走你的耐心。</b>"赌场住进了手机"意味着：即使你想做长期投资者，每天几十次推送、红绿闪烁、别人晒单，都在诱惑你下场玩两把。价值投资最稀缺的资源不是钱，是<b>耐心</b>——而整个环境在系统性地消耗它。（这就是《偏误全景图》里那些偏误被环境放大的过程。）</li>
+    </ol>
+    <p>接回我们前面的《市场有效性的三个漏洞》：巴菲特说的"赌场"，就是那篇里"<b>大量资金根本不在估值</b>"（漏洞③）的极端版；"价值难找"，就是"<b>价格由边际情绪定</b>"（漏洞②）在狂热期的必然结果——边际买家是赌徒时，价格被顶在天上。<b>他等于用60年实战替我们那套框架签了字。</b></p>
+
+    <h3>第四层：全访谈最重的一句话——"几年找不到标的，是常态"</h3>
+    <p>大多数人把这句听成抱怨，其实它是<b>价值投资的工作说明书</b>。想一想：一个"便宜的好公司"需要两件事同时发生——公司很好（本来就少）+ 市场恰好在恐慌错杀它（更少）。两个小概率事件撞在一起，<b>本来就是几年一遇</b>。所以"等待"不是价值投资的中断，而是它的<b>主体工作</b>；出手只是等待的结算瞬间。对照你自己的交易复盘：你4.5年里买入29次，而巴菲特说常态是"几年一个"——<b>出手频率本身就暴露了立场：频繁出手，等于默认"机会遍地都是"，而这个默认与市场的真实结构相反。</b></p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <section id="p1-half">
+    <span class="chapnum">上篇 · §3</span>
+    <h2>另一半真相：赌场论不是悲观论</h2>
+    <ul class="clean">
+      <li><b>他一边说"难找"，一边刚重仓了谷歌。</b>难找≠没有。抱怨市况和继续翻石头，从来同时进行。而且这是对自己20年前"错过"的公开修正——<b>95岁还在扩大能力圈</b>。</li>
+      <li><b>"买晚了"的完整教训：错过不亏钱，做错才亏钱。</b>他当年"看懂了一半"（谷歌广告很赚钱）但卡在另一半（科技领先能否持续），所以不出手；今天补齐了理解才出手。<b>"看懂到什么程度才下手"的标准，从不因市况或年龄而松动。</b></li>
+      <li><b>减持苹果=纪律的示范。</b>再伟大的公司，占仓位的比重和价格都要服从纪律。"永远持有"指的是<b>意愿</b>，不是义务。</li>
+      <li><b>辩证的另一面：赌客越多，极端越多；极端越多，"几年一遇"的机会反而越肥。</b>2022年3月的腾讯198港元、10月的中概大底，都是赌场情绪制造的黄金坑。<b>市场越赌场化：短期越难受（贵），长期越慷慨（极端错价）。</b></li>
+    </ul>
+    <div class="fp">
+      <div class="lab">上篇收束 · 三句话</div>
+      <p style="margin:6px 0">① 赌场论是<b>机制诊断</b>（场子为赌博优化），不是价值投资的讣告；② "几年找不到标的"是<b>职业节奏</b>——把等待当工作，出手频率自然降到正确量级；③ 在赌场里你唯一不该做的事是坐上赌桌——<b>但赌场旁边那座教堂，一直开着门。</b></p>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- ================= 下篇 ================= -->
+  <section id="part2">
+    <span class="chapnum">下篇 · §4</span>
+    <h2>你的问题："深谙规则的投机者真能稳定赚钱吗？"——能，但真相比你想的更冷</h2>
+    <p class="lead">直接回答：<b>是的，真实存在，规模巨大。</b>但盘点完你会发现三件事：他们赚的<b>不是"预测涨跌"的钱</b>；他们的位置<b>几乎全部对普通人关闭</b>；而最像"潜规则"的那部分，<b>相当比例是违法的</b>。</p>
+    <div class="fp">
+      <div class="lab">总框架 · 他们赚的其实只有三种钱</div>
+      <p style="margin:6px 0">剥掉所有花哨名词，这些玩家的收入本质只有三类：</p>
+      <p style="margin:6px 0"><b>① 服务费</b>——像开店和开保险公司：为市场提供"随时能成交"的服务（做市）或"愿意承担你的风险"的服务（保险），收差价和保费。<br>
+      <b>② 结构租金</b>——像在必经之路上开收费站：市场规则会制造大量"<b>不得不做的交易</b>"（基金必须调仓、爆仓必须卖出），他们站在对面接单，赚"你被迫、我不被迫"的钱。<br>
+      <b>③ 技术/信息租金</b>——跑得比别人快（快0.001秒也是快）、算得比别人多、比别人早知道真相。</p>
+      <p style="margin:6px 0"><b>注意：没有一种是"看对了未来"。</b>这是他们与赌客的根本区别；也是与价值投资者的根本区别——价值投资者赚的是第四种钱：<b>公司种出来的菜（企业创造的现金流）</b>。</p>
+    </div>
+  </section>
+
+  <!-- 家族1 -->
+  <section id="f1">
+    <span class="chapnum">§5 · 家族①</span>
+    <h2>荷官：做市商——不赌方向，每笔交易收"过路费"</h2>
+    <div class="term">
+      <div class="tt">做市商 / 买卖价差——这家族的饭碗</div>
+      <b>做市商</b>：随时同时挂出两个价格——一个收购价、一个卖出价——谁来都做生意的"专业二道贩子"。<b>买卖价差</b>：这两个价之间的差额，就是它每笔生意的利润。
+      <div class="an"><b>类比：</b>二手手机贩子：同时喊"这款手机我<b>350收</b>、<b>400卖</b>"。有人卖给他350，转头有人400买走，他赚50——<b>他从头到尾不赌手机会涨价还是跌价</b>，只赚一进一出的差价。股市里的做市商就是这样，只不过每天做几百万笔、每笔赚几分钱。</div>
+    </div>
+    <div class="play" style="border-left-color:var(--casino)">
+      <div class="ph">案例：Virtu——1,238个交易日，只有1天亏钱</div>
+      <div class="prow"><span class="pl story">故事</span>2014年，高频做市公司Virtu申请上市，招股文件里自曝了一个惊人数字：过去<b>1,238个交易日里只亏过1天</b>（胜率99.92%）。很多人惊呼"股神"，其实恰恰相反——</div>
+      <div class="prow"><span class="pl how">机制</span>它不预测任何东西。它同时在全球几万种证券上做"350收/400卖"的小生意，每笔赚一点点、每天做海量笔。就像一家全城连锁的手机贩子：某一部手机可能砸手里，但<b>一万部手机同时做，每天总账几乎必然是赚的</b>——这叫大数定律，不叫神预测。</div>
+      <div class="prow"><span class="pl moat">门槛</span>要做到这一点需要：比别人快百万分之一秒的设备（服务器直接架在交易所机房里）、海量资金、专业牌照。<b>这是重资产的技术生意，跟"盘感"没有任何关系。</b></div>
+      <div class="prow"><span class="pl death">软肋</span>同行竞争把差价越压越薄（这个行业的利润比2009年的巅峰已大幅缩水）；为了快0.003秒，有公司花约3亿美元专门修了一条芝加哥到纽约的直线光缆（《Flash Boys》记录的真事）——军备竞赛没有终点。</div>
+    </div>
+
+    <div class="term">
+      <div class="tt">订单流付费（PFOF）——"零佣金"炒股的真相</div>
+      美国的Robinhood等App宣称"免佣金炒股"。它们的收入从哪来？——<b>把你的买卖订单打包卖给做市商</b>，做市商付钱买。
+      <div class="an"><b>类比：</b>旅行团购物店免门票，因为<b>导游把你带来，商店付钱给导游</b>——你不是没付钱，<b>你本身就是被卖的商品</b>。做市商为什么愿意花钱买散户订单？因为散户的单子是"随机盲注"（没有内幕、没有信息），跟散户做对手方<b>稳赚差价</b>；跟专业机构做对手方反而容易被咬伤。这正是巴菲特"吸引投机客更赚钱"的微观注脚。</div>
+    </div>
+
+    <div class="play" style="border-left-color:var(--casino)">
+      <div class="ph">案例：Jane Street——收费站巨头的"越界"警示（2025年印度案）</div>
+      <div class="prow"><span class="pl story">故事</span>Jane Street是全球最大的做市/套利公司之一（2024年营收据报道约200亿美元）。2025年7月，印度证监会指控它在<b>18个期权到期日</b>操纵市场，责令上缴约<b>5.5亿美元</b>"非法所得"并暂禁交易。它已交钱、但抗辩说自己只是"套利"。</div>
+      <div class="prow"><span class="pl how">机制（简化）</span>印度银行股指数的<b>期权</b>市场极其巨大，而对应的<b>股票现货</b>市场相对小——某个到期日，期权名义成交额是现货的<b>350倍</b>。这意味着：<b>花较小的钱拉抬现货股价，就能撬动大得多的期权头寸的盈亏</b>。监管指控它在到期日"用小钱推现货、让大头寸的期权赚钱"。</div>
+      <div class="prow"><span class="pl death">警示</span>"聪明地利用规则"和"操纵市场"之间隔着一条<b>监管随时会重画的线</b>——连最顶级的玩家也会踩上去。这不是值得羡慕的生意，是需要敬畏的边界。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 家族2 -->
+  <section id="f2">
+    <span class="chapnum">§6 · 家族②</span>
+    <h2>搬运工：套利者——同一件东西的两个价格</h2>
+    <div class="term">
+      <div class="tt">套利——最接近"无风险"的钱</div>
+      同一件东西在两个地方出现<b>两个价格</b>时，低买高卖，赚必然的差价。
+      <div class="an"><b>类比：</b>同一瓶可乐，A超市卖3元、B超市卖3.5元——你从A搬到B，每瓶稳赚0.5元。<b>不需要判断可乐"值多少"，只需要看见两个价。</b>市场里这样的机会真实存在，但每一分套利利润背后都有门槛：要么要巨额资金、要么要极快速度、要么要普通人进不去的通道。</div>
+    </div>
+    <div class="play" style="border-left-color:var(--buffett)">
+      <div class="ph">玩法1：埋伏"指数基金的必买清单"</div>
+      <div class="prow"><span class="pl story">故事</span>2020年12月特斯拉被宣布纳入标普500指数。从宣布到正式生效的几周里，股价涨了约70%。谁在买？——先是套利者抢跑，最后是指数基金<b>被迫</b>在生效日买入约800亿美元。</div>
+      <div class="prow"><span class="pl how">机制</span>指数基金的规则写死了："名单变了我就必须照买，不管多贵。"（《三个漏洞》讲过的"不估值的资金"。）套利者提前买好，等这群"必须买的人"来接盘。<b>赚的是别人"被迫"的钱。</b></div>
+      <div class="prow"><span class="pl death">软肋</span>抢跑的人多了，差价就被抢没了——近年这个效应已明显衰减。<b>所有拥挤的套利都在自我消灭。</b></div>
+    </div>
+    <div class="play" style="border-left-color:var(--buffett)">
+      <div class="ph">玩法2：教科书级的荒谬定价——3Com与Palm（2000年）</div>
+      <div class="prow"><span class="pl story">故事</span>2000年3月，公司3Com把子公司Palm分拆上市，自己还持有Palm约95%的股份。开盘后疯狂的散户把Palm炒上天——结果出现荒谬一幕：<b>3Com手里攥着的Palm股份的市值，超过了3Com自己的总市值。</b></div>
+      <div class="prow"><span class="pl how">机制</span>翻译一下：妈妈口袋里装着价值100元的儿子股票，可市场给妈妈整个人的定价只有80元——<b>等于说"妈妈除了儿子之外的全部身家值负20元"</b>。荒谬，但真实发生了，还持续了数月。这证明：狂热期的市场连"加减法"都会算错（学术论文标题就叫《市场会做加减法吗？》）。</div>
+    </div>
+    <div class="term">
+      <div class="tt">统计套利——"51%硬币"的生意</div>
+      不找"确定"的差价，找"<b>大概率</b>"的微弱规律：单次只有51%的胜率，但用电脑每天下注几万次。
+      <div class="an"><b>类比：</b>一枚<b>51%概率正面</b>的硬币，掷一次毫无意义；掷一百万次，你几乎必然赚钱。统计套利就是用数学在海量数据里找出几千枚这样的"歪硬币"，同时全部下注。</div>
+    </div>
+    <div class="play" style="border-left-color:var(--buffett)">
+      <div class="ph">案例：文艺复兴"大奖章"基金——人类最强赚钱机器，但与你无关</div>
+      <div class="prow"><span class="pl story">故事</span>数学家西蒙斯创立的大奖章基金，1988–2018年年化收益<b>费前约66%、费后约39%</b>（《征服市场的人》一书记录）——比巴菲特的约20%还高一倍，是有记录以来最好的长期业绩。</div>
+      <div class="prow"><span class="pl moat">但注意三点</span>①它<b>1993年起就不收外部客户的钱</b>，只让自家员工投；②规模<b>刻意控制在约100亿美元</b>——因为"歪硬币"的容量有限，钱一多优势就没了；③团队全是数学家、物理学家、密码学家。<b>它的存在恰恰证明：这类钱做不大（容量天花板），也轮不到你（大门焊死）。</b></div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 家族3 -->
+  <section id="f3">
+    <span class="chapnum">§7 · 家族③</span>
+    <h2>捡"被迫卖单"的人：别人必须动，我不必</h2>
+    <p class="lead">市场里有大量规则会制造"<b>不计价格、不得不做</b>"的买卖（《三个漏洞》的核心）。这一家族专门站在这些"被迫者"的对面。先补三个关键术语：</p>
+    <div class="term">
+      <div class="tt">做空 / 回补 / 轧空——GME故事的钥匙</div>
+      <b>做空</b>：赌下跌的方法——先<b>借来</b>股票卖掉，等跌了低价买回来还，赚差价。<b>回补</b>：把借的股票买回来还上。<b>轧空</b>：股价不跌反涨，做空者巨亏、被迫不计价格地抢着买回——他们的买入又把价格推得更高，像滚雪球。
+      <div class="an"><b>类比：</b>你向邻居<b>借了一瓶市价10元的酱油</b>，立刻10元卖掉，赌它降价。若跌到6元，你6元买回还给邻居，赚4元。<b>但若涨到30元，你也必须30元买回来还</b>——理论上亏损没有上限。"轧空"就是：全小区借酱油的人被逼着<b>同一天</b>回购还债，酱油被抢到天价。</div>
+    </div>
+    <div class="play" style="border-left-color:var(--purple)">
+      <div class="ph">案例：GameStop轧空（2021/1）——散户反向收割机构的"必须"</div>
+      <div class="prow"><span class="pl story">故事</span>游戏零售商GameStop被机构疯狂做空——做空量竟超过了流通股票总数。Reddit论坛的散户们发现了这一点，集体买入股票和看涨期权，几天内把股价从约20美元推到<b>盘中483美元</b>。</div>
+      <div class="prow"><span class="pl how">机制</span>两条"必须"被同时点燃：①空头亏疯了，<b>必须</b>回补（不计价格地买）；②卖期权给散户的做市商，按风控规则<b>必须</b>买入正股对冲（散户买的看涨彩票越多，彩票店就被迫囤越多股票备兑）——两股"被迫的买入"叠加，把价格射上天。</div>
+      <div class="prow"><span class="pl death">结局</span>一个月内股价跌回40美元。<b>最早识破机制的人赚了；后来追进去"信仰接力"的散户，成了新的被收割者。</b>看懂规则是一回事，全身而退是另一回事。</div>
+    </div>
+
+    <div class="term">
+      <div class="tt">杠杆 / 强平；雪球产品 / 敲入；量化中性 / DMA——2024年2月惨案的三块拼图</div>
+      <b>杠杆/强平</b>：借钱炒股放大收益与亏损；亏到警戒线，券商<b>强制卖出</b>你的持仓收回借款（《偏误全景图》讲过）。<br>
+      <b>雪球产品</b>：银行券商卖的一种理财——"只要指数一年内不大跌超20%，就给你年化约15%的利息；<b>但若大跌破线（叫'敲入'），亏损全归你</b>。"
+      <div class="an"><b>类比：</b>雪球=<b>你在不知情中当了保险公司</b>：平时收保费（利息）挺美，地震那天（大跌敲入）要赔穿。而产品背后的对冲盘意味着：<b>一旦大跌开始，会触发机械性的集中卖出，把跌势放大。</b></div>
+      <div class="an" style="border-top:1px dashed #b5d4ec;margin-top:6px"><b>量化中性</b>：电脑选出一篮子"算出来更强"的股票买入，同时用工具对冲掉大盘涨跌——大盘涨跌都不赚不亏，只赚"我选的股比大盘强"那一点点。<b>DMA</b>：把这个"稳"策略<b>借4倍的钱</b>来做——稳×4，也意味着一旦不稳，痛×4。</div>
+    </div>
+    <div class="play" style="border-left-color:var(--purple)">
+      <div class="ph">案例：2024年2月A股"量化地震"——收割者互相踩踏的完整标本</div>
+      <div class="prow"><span class="pl story">故事</span>2021–2023年，量化基金靠小微盘股赚得盆满钵满（本质：收割散户的行为噪音），并用DMA加4倍杠杆放大。2024年2月5日前后，市场下跌引爆连环雷：<b>雪球批量敲入</b>（机械卖出）→ 指数急跌、千股跌停 → <b>DMA杠杆强平</b>（更多机械卖出）→ 小微盘股互相踩踏。明星量化公募单月回撤近30%（几乎吐光两年收益），多家百亿私募产品亏超20%，监管随后禁止DMA新增。</div>
+      <div class="prow"><span class="pl death">教训</span><b>收割"被迫流"的人，自己也活在规则里。</b>杠杆+拥挤，让猎手一夜变成猎物。"稳定赚小钱"的策略死法，从来都是"偶尔亏一次大的"。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 家族4 -->
+  <section id="f4">
+    <span class="chapnum">§8 · 家族④</span>
+    <h2>保险生意：卖保险的与买保险的，都是职业玩家</h2>
+    <div class="term">
+      <div class="tt">期权的另一面：它同时也是"保险单"；VIX：保险的价格指数</div>
+      前面说期权像彩票（买方视角）。换个视角它就是<b>保险</b>：花保费买"跌到某价以下有人赔我"的保障。那么<b>卖期权的人=保险公司</b>：平时白收保费，出事要赔付。<b>VIX（恐慌指数）</b>：市场保险费的整体价格——大家越恐慌，保费越贵，VIX越高。
+      <div class="an"><b>类比：</b>车险。车主（期权买方）年年交保费求安心；保险公司（期权卖方）平时躺赚保费，大车祸年要赔穿。<b>两边都可以是职业赢家——真正的输家，是既不知道自己在交保费、也不知道自己在卖保险的人</b>（大多数玩期权的散户两样都占）。</div>
+    </div>
+    <div class="play" style="border-left-color:var(--teal)">
+      <div class="ph">卖保险的死法：XIV一夜归零（2018/2/5"波动率末日"）</div>
+      <div class="prow"><span class="pl story">故事</span>XIV是一只"做空恐慌指数"的产品——本质是<b>常年卖保险收保费</b>。市场平静的每一天它都涨一点，连年大涨，被无数散户当成"稳赚神器"。2018年2月5日，美股一天暴跌、恐慌指数一天翻倍——XIV<b>一夜暴跌九成多，直接清盘</b>。多年"捡钢镚"的收益，连本金一起没收。</div>
+      <div class="prow"><span class="pl how">机制</span>这就是"火鸡问题"：一只火鸡被农夫喂了1000天，它的数据模型显示"农夫爱我"的置信度一天比一天高——直到感恩节。<b>卖保险的收益曲线天生就是：长期平滑向上，然后一根线砸到零。</b></div>
+    </div>
+    <div class="play" style="border-left-color:var(--teal)">
+      <div class="ph">买保险的赢法：Universa灾难日暴富（2020/3）</div>
+      <div class="prow"><span class="pl story">故事</span>《黑天鹅》作者塔勒布担任顾问的Universa基金反着做：<b>天天花小钱买"深度灾难险"</b>（赌市场暴跌的期权），平时年年小亏（保费打水漂），专等几年一次的崩盘。2020年3月新冠崩盘，其对冲组合据投资者信披露单季回报<b>约+3600%（据报道）</b>——一次赔付覆盖多年保费还大赚。</div>
+      <div class="prow"><span class="pl how">机制</span>把家族④两个案例合起来看：<b>保险的买卖双方都能是职业赢家，前提是清楚知道自己在哪一边、能扛住自己那一边的煎熬</b>（卖方扛灾难日，买方扛漫长的流血等待）。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 家族5 -->
+  <section id="f5">
+    <span class="chapnum">§9 · 家族⑤</span>
+    <h2>侦探与庄家：信息的白色与黑色</h2>
+    <div class="play" style="border-left-color:var(--danger)">
+      <div class="ph">白色端：做空侦探——浑水 vs 瑞幸（2020）</div>
+      <div class="prow"><span class="pl story">故事</span>2020年1月31日，做空机构浑水发布一份匿名调查报告，指控瑞幸咖啡夸大销售——调查者<b>雇人蹲守门店数客流、收集上万张小票</b>核对真实收入。4月2日，瑞幸自曝<b>伪造交易约22亿元</b>；6月从纳斯达克退市。</div>
+      <div class="prow"><span class="pl how">机制</span>做空侦探先建立做空仓位（借股卖出），再公开真相；股价崩塌=真相兑现=获利。这是<b>合法且对市场有益</b>的生意——他们赚的是"比市场早知道真相"的钱，顺便替所有人清除了造假者。</div>
+    </div>
+    <div class="term">
+      <div class="tt">"坐庄/操纵市场"和正常买卖的区别在哪？</div>
+      正常交易：你<b>判断</b>价格会涨而买入——判断对错自负。<b>操纵市场（违法）</b>：你<b>亲手制造</b>价格上涨——用大量账户自买自卖做出"很抢手"的假象，或与上市公司串通配合发利好，引诱别人接盘后出货。
+      <div class="an"><b>类比：</b>赌马时，押注你看好的马=正常；<b>给别的马下药</b>=操纵。前者是观点，后者是犯罪。</div>
+    </div>
+    <div class="play" style="border-left-color:var(--danger)">
+      <div class="ph">黑色端：徐翔案——散户崇拜的"盘口潜规则"，司法档案里的样子</div>
+      <div class="prow"><span class="pl story">故事</span>徐翔，昔日"私募一哥""涨停板敢死队总舵主"，无数散户研究"跟徐翔买"。2017年法院判决揭开了真相：2010–2015年，他<b>控制139个证券账户，与13家上市公司的老板/高管串通</b>——公司配合择时发利好、控制消息节奏，他的资金提前埋伏、拉高、出货——<b>非法获利约93.38亿元</b>。判刑5年6个月、罚金110亿元；2021年出狱，终身禁入基金业。</div>
+      <div class="prow"><span class="pl death">教训</span>散户眼里神话般的"盘感"和"潜规则"，很大一部分其实是<b>你看不见的合谋</b>。模仿者最惨的地方在于：<b>你只继承了他们的风险（追高接盘、违法边缘），没有继承他们的信息网络</b>。同类案例：美国帆船基金内幕交易案，创始人2011年获刑11年。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 生态位地图 -->
+  <section id="eco">
+    <span class="chapnum">§10</span>
+    <h2>一张图：菜市场里，谁在赚谁的钱</h2>
+    <figure>
+      <svg viewBox="0 0 740 420" role="img" aria-label="市场生态位资金流向图">
+        <text x="370" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">市场食物链：四条真实的资金流（箭头 = 钱的流向）</text>
+        <defs><marker id="flow" markerWidth="11" markerHeight="11" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8e2f4f"/></marker></defs>
+        <rect x="40" y="60" width="180" height="64" rx="12" fill="#fbecea" stroke="#c0392b" stroke-width="2"/>
+        <text x="130" y="86" text-anchor="middle" font-size="14" font-weight="800" fill="#c0392b">散户 / 赌客</text>
+        <text x="130" y="108" text-anchor="middle" font-size="11" fill="#7d2f26">频繁买卖 · 情绪单 · 期权彩票</text>
+        <rect x="300" y="60" width="180" height="64" rx="12" fill="#f7ebef" stroke="#8e2f4f" stroke-width="2"/>
+        <text x="390" y="82" text-anchor="middle" font-size="13.5" font-weight="800" fill="#8e2f4f">场子与荷官</text>
+        <text x="390" y="100" text-anchor="middle" font-size="10.5" fill="#5d2337">交易所 · 券商 · 做市商</text>
+        <text x="390" y="115" text-anchor="middle" font-size="10.5" fill="#5d2337">按流量收费，旱涝保收</text>
+        <path d="M222,92 L297,92" stroke="#8e2f4f" stroke-width="3" marker-end="url(#flow)"/>
+        <text x="258" y="82" text-anchor="middle" font-size="10.5" fill="#8e2f4f">差价·佣金</text>
+        <rect x="40" y="180" width="180" height="64" rx="12" fill="#efe9f5" stroke="#6a4c93" stroke-width="2"/>
+        <text x="130" y="203" text-anchor="middle" font-size="13.5" font-weight="800" fill="#6a4c93">被规则逼着交易的钱</text>
+        <text x="130" y="222" text-anchor="middle" font-size="10.5" fill="#4a3568">指数基金必买单 · 爆仓强平</text>
+        <text x="130" y="236" text-anchor="middle" font-size="10.5" fill="#4a3568">雪球敲入 · 不问价格</text>
+        <rect x="300" y="180" width="180" height="64" rx="12" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/>
+        <text x="390" y="203" text-anchor="middle" font-size="13.5" font-weight="800" fill="#1f5f8b">搬运工与埋伏者</text>
+        <text x="390" y="222" text-anchor="middle" font-size="10.5" fill="#173F5F">套利 · 指数前置 · 量化</text>
+        <text x="390" y="236" text-anchor="middle" font-size="10.5" fill="#173F5F">(2024/2也曾互相踩踏)</text>
+        <path d="M222,212 L297,212" stroke="#8e2f4f" stroke-width="3" marker-end="url(#flow)"/>
+        <text x="258" y="202" text-anchor="middle" font-size="10.5" fill="#8e2f4f">被迫的差价</text>
+        <rect x="40" y="300" width="180" height="64" rx="12" fill="#e6f2f2" stroke="#0e7c7b" stroke-width="2"/>
+        <text x="130" y="323" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e7c7b">恐慌与贪婪</text>
+        <text x="130" y="342" text-anchor="middle" font-size="10.5" fill="#0b5f5e">平时交的保费 / 灾难日的踩踏</text>
+        <rect x="300" y="300" width="180" height="64" rx="12" fill="#e6f2f2" stroke="#0e7c7b" stroke-width="2"/>
+        <text x="390" y="320" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0e7c7b">保险商人</text>
+        <text x="390" y="338" text-anchor="middle" font-size="10.5" fill="#0b5f5e">卖方平时赢(XIV式死法)</text>
+        <text x="390" y="352" text-anchor="middle" font-size="10.5" fill="#0b5f5e">买方灾难日赢(Universa)</text>
+        <path d="M222,332 L297,332" stroke="#8e2f4f" stroke-width="3" marker-end="url(#flow)"/>
+        <text x="258" y="322" text-anchor="middle" font-size="10.5" fill="#8e2f4f">保费</text>
+        <rect x="540" y="130" width="170" height="180" rx="12" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2.5"/>
+        <text x="625" y="160" text-anchor="middle" font-size="14" font-weight="800" fill="#2f7d57">长期股东</text>
+        <text x="625" y="185" text-anchor="middle" font-size="11" fill="#26603f">唯一不从"其他人口袋"</text>
+        <text x="625" y="203" text-anchor="middle" font-size="11" fill="#26603f">里赚钱的位置：</text>
+        <text x="625" y="228" text-anchor="middle" font-size="12" font-weight="800" fill="#2f7d57">收入来自公司</text>
+        <text x="625" y="246" text-anchor="middle" font-size="12" font-weight="800" fill="#2f7d57">种出来的"菜"</text>
+        <text x="625" y="272" text-anchor="middle" font-size="11" fill="#26603f">门槛不是资本和速度</text>
+        <text x="625" y="290" text-anchor="middle" font-size="11" font-weight="700" fill="#2f7d57">是耐心 + 看懂</text>
+        <path d="M625,335 L625,312" stroke="#2f7d57" stroke-width="3" marker-end="url(#flow)"/>
+        <text x="625" y="358" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2f7d57">公司的利润与分红</text>
+        <text x="370" y="400" text-anchor="middle" font-size="12" fill="#666">左边三条流全是"零和"（钱只在人之间转移，场子每笔抽水）；只有右边绿框是"正和"——这就是巴菲特说的"教堂"</text>
+      </svg>
+      <figcaption>散户想学"猎手"，最常见的结局是<b>坐错位置</b>：以为自己在开收费站，其实在交过路费。唯一不查资本、不比速度、且长期正和的位置，是右边那个绿框。</figcaption>
+    </figure>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 结论 -->
+  <section id="truth">
+    <span class="chapnum">§11</span>
+    <h2>五个诚实的结论</h2>
+    <ol class="steps">
+      <li><b>这些钱是真的。</b>Virtu的1,238天、大奖章的39%净年化、做市巨头的千亿营收——"深谙规则者稳定赚钱"不是幻觉。但看清他们赚钱的<b>来源</b>：开店的服务费、收费站的过路费、跑得快的技术钱——<b>没有一个是靠"预测市场"。</b></li>
+      <li><b>但这些位置几乎全部对普通人关门。</b>大奖章不收外面的钱、容量自己封顶；做市要纳秒设备和牌照；套利吃资金成本和通道。<b>看懂收费站的生意模式，不等于你能在高速上开一个收费站。</b></li>
+      <li><b>"稳定"是有保质期的。</b>拥挤会杀死策略（2024年2月量化互相踩踏）；尾部会一次没收多年利润（XIV一夜清盘；1998年LTCM——两位诺贝尔奖得主管理的基金爆仓约46亿美元，惊动美联储组织救助）。<b>杠杆下的"稳定"，只是尾部风险的分期付款。</b></li>
+      <li><b>"潜规则"里相当一部分是犯罪，而模仿者只继承风险。</b>徐翔的139个账户和13家上市公司的合谋，散户看到的只是"龙虎榜大神"；连Jane Street这样的巨头也在印度交了5.5亿美元。<b>跟庄、打听消息、模仿"神操作"——你学到的是罪名的散户版，还没配律师。</b></li>
+      <li><b>赌场论与猎手们是同一枚硬币。</b>市场越赌场化→赌客越多→场子和猎手越肥→而赌客整体必然亏损（零和+抽水，是数学不是观点）。你真正的选择从来不是"做价值投资者还是做猎手"——<b>猎手的门票不卖给你；你的选择只是"做赌客，还是去教堂"</b>：把收入来源从"其他赶集人的口袋"换成"公司种出来的菜"。这就是整个系列绕了一大圈后，落回的同一个地方。</li>
+    </ol>
+    <blockquote>"当所有人都热衷于赌博博弈时，想要找到具备安全边际的价值标的，实在难上加难。"——现在可以完整地读这句话了：他不是劝你离开市场，而是告诉你——<b>赌场越喧嚣，教堂越安静；而教堂的门票一直免费，只收耐心。</b><span class="who">— 本篇收束</span></blockquote>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 术语表 -->
+  <section id="gloss">
+    <span class="chapnum">附录</span>
+    <h2>术语速查表（忘了就回来翻）</h2>
+    <div class="gloss">
+      <div class="row"><div class="t">期权</div><div>给股票买的"彩票/保险"：花小钱赌某日前到某价，对了翻倍、错了归零。</div></div>
+      <div class="row"><div class="t">0DTE期权</div><div>当天开奖、当天作废的期权——"当天开奖的刮刮乐"。</div></div>
+      <div class="row"><div class="t">做市商</div><div>专业二道贩子：同时报收购价和卖出价，赚差价，不赌方向。</div></div>
+      <div class="row"><div class="t">买卖价差</div><div>做市商"收350/卖400"之间的50，就是它每笔的利润。</div></div>
+      <div class="row"><div class="t">订单流付费(PFOF)</div><div>券商把你的订单卖给做市商赚钱——"免佣金"时你就是商品。</div></div>
+      <div class="row"><div class="t">套利</div><div>同一件东西两个价，低买高卖赚必然差价（A超市3元的可乐搬到B超市卖3.5）。</div></div>
+      <div class="row"><div class="t">统计套利</div><div>找"51%概率的歪硬币"，用电脑掷一百万次。</div></div>
+      <div class="row"><div class="t">做空</div><div>借股票先卖、跌了买回来还——借邻居的酱油卖掉赌降价；涨了亏损无上限。</div></div>
+      <div class="row"><div class="t">回补/轧空</div><div>做空者被迫买回还债；全体同时被迫回购=轧空，价格被抢上天（GME）。</div></div>
+      <div class="row"><div class="t">杠杆/强平</div><div>借钱炒股放大盈亏；亏到警戒线被券商强制卖出。</div></div>
+      <div class="row"><div class="t">雪球产品</div><div>"不大跌就给你利息，大跌亏损归你"——你在不知情中当了保险公司。</div></div>
+      <div class="row"><div class="t">敲入</div><div>雪球的"大跌破线"时刻=保险被触发理赔，机械性卖出随之而来。</div></div>
+      <div class="row"><div class="t">量化中性</div><div>买一篮子"算出来更强"的股票+对冲掉大盘，只赚选股超额那一点点。</div></div>
+      <div class="row"><div class="t">DMA</div><div>借约4倍的钱做量化中性——稳×4，崩的时候痛×4（2024年2月主角）。</div></div>
+      <div class="row"><div class="t">VIX恐慌指数</div><div>市场"保险费"的整体价格：越恐慌越贵。</div></div>
+      <div class="row"><div class="t">期权卖方</div><div>保险公司：平时白收保费，灾难日可能赔穿（XIV式死法）。</div></div>
+      <div class="row"><div class="t">尾部风险</div><div>极小概率、极大伤害的事件——火鸡的感恩节。</div></div>
+      <div class="row"><div class="t">操纵市场</div><div>不是"判断价格会动"，而是"亲手把价格推过去"（给别的马下药）——违法。</div></div>
+      <div class="row"><div class="t">内幕交易</div><div>用未公开的内部消息买卖——违法（帆船基金创始人获刑11年）。</div></div>
+      <div class="row"><div class="t">13F文件</div><div>美国大机构每季度必须公开的持仓报告——我们查伯克希尔买了什么的依据。</div></div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 来源 -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考来源</h2>
+    <ol class="sources">
+      <li>巴菲特2026年7月专访（"教堂旁的赌场"、每日期权=赌博、"几年找不到标的是常态"、Alphabet为其本人决定、经GEICO早见谷歌广告盈利、苹果优先级下降）：新浪财经（2026-07-15/16）、证券时报、21财经、网易财经等多家交叉报道。</li>
+      <li>巴菲特2023年度致股东信（2024年2月）："市场呈现远比我年轻时浓重的赌场气质，赌场如今住进了千家万户"（译文）。</li>
+      <li>伯克希尔减持苹果（2023年约9.05亿股→2024年末约3亿股）、2025年起建仓Alphabet：公司13F文件与公开报道。</li>
+      <li>Virtu Financial IPO文件：1,238个交易日仅1日亏损：Virtu S-1、Wikipedia、Wyatt Research。</li>
+      <li>Spread Networks芝加哥—纽约光缆约3亿美元省约3-4毫秒：Michael Lewis《Flash Boys》。</li>
+      <li>Jane Street：2024年营收约200亿美元级（据报道）；印度SEBI 2025年7月指控（18个到期日、期权/现货名义额350:1、责令存入约5.5亿美元、其抗辩为套利）：Oxford Law Blogs、FTI Consulting、Globe and Mail、印度DD News。</li>
+      <li>特斯拉纳入标普500（2020/12，指数基金被迫买入约800亿美元、宣布至生效+70%）：见本系列《市场有效性的三个漏洞》来源。</li>
+      <li>3Com/Palm负存根（2000）：Lamont &amp; Thaler (2003) "Can the Market Add and Subtract?"。</li>
+      <li>文艺复兴大奖章基金1988–2018年化费前约66%/费后约39%、拒收外部资金、容量自限约100亿美元：Gregory Zuckerman《The Man Who Solved the Market》。</li>
+      <li>GameStop轧空（2021/1，$20→盘中$483，空头回补+做市商对冲）：见本系列前篇来源。</li>
+      <li>2024年2月A股量化危机（雪球敲入→DMA约4倍杠杆强平→微盘踩踏；明星量化公募单月回撤近30%；百亿私募产品亏超20%；DMA禁新增）：第一财经、每日经济新闻（2024-02-07）、新浪财经、经济观察网。</li>
+      <li>XIV做空波动率产品2018/2/5夜间暴跌逾九成后清盘（"Volmageddon"）：公开市场史料。</li>
+      <li>Universa 2020年3月尾部对冲组合据投资者信约+3600%（据报道口径）：媒体报道，标注为转述。</li>
+      <li>LTCM 1998年爆仓（亏损约46亿美元、美联储协调救助、两位诺奖得主）：Roger Lowenstein《When Genius Failed》。</li>
+      <li>浑水做空瑞幸：2020/1/31报告→4/2自曝伪造交易约22亿元→6月退市：公开报道。</li>
+      <li>徐翔案：2010–2015控制139个账户、与13家上市公司实控人/高管合谋、非法获利约93.38亿元，判5年6个月、罚金110亿元：证券之星案件全记录、央广网、上交所《徐翔操纵市场案中的法律与证据》。</li>
+      <li>帆船基金Rajaratnam内幕交易案（2011年判11年）：公开司法记录。</li>
+      <li>本系列前篇：《市场有效性的三个漏洞》《投资者偏误全景图》《腾讯与拼多多十年复盘》《我的交易深度复盘》。</li>
+    </ol>
+    <p style="font-size:12.5px;color:#8a8170;margin-top:10px">注：本文为市场生态认知科普；违法案例仅作警示；数字以原始文件/判决书/公司披露为准。</p>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>

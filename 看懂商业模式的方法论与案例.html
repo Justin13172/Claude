@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>看懂商业模式的方法论与案例 · 商业模式解剖七步法（写给初学者）</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --purple:#6a4c93;--purple-bg:#efe9f5;
+    --radius:14px;--maxw:780px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.85;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1200px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:280px;flex:0 0 280px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;letter-spacing:.4px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--buffett);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:64px 0 28px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:33px;line-height:1.32;margin:0 0 14px;letter-spacing:.3px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.b{border-color:#bcd6e8;color:var(--buffett);background:var(--buffett-bg)}
+  .pill.d{border-color:#bfe0cd;color:var(--duan);background:var(--duan-bg)}
+  section{padding:40px 0 8px;scroll-margin-top:18px}
+  h2{font-size:26px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:20px;margin:34px 0 8px;line-height:1.4}
+  h4{font-size:16.5px;margin:20px 0 6px;color:var(--ink)}
+  p{margin:12px 0}
+  a.ref{color:var(--buffett);text-decoration:none;font-size:11px;vertical-align:super;padding:0 1px}
+  a.ref:hover{text-decoration:underline}
+  .lead{font-size:18.5px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  /* 步骤卡 */
+  .step{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px 18px 22px;margin:20px 0;box-shadow:var(--shadow);position:relative;border-left:5px solid var(--buffett)}
+  .step .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--buffett);color:#fff;font-weight:800;font-size:15px;margin-right:10px;vertical-align:middle}
+  .step h4{display:inline;font-size:18px;vertical-align:middle}
+  .step .ask{margin-top:10px;padding:10px 14px;background:var(--buffett-bg);border-radius:8px;font-size:14.5px}
+  .step .ask b{color:var(--buffett)}
+  .step .tool{margin-top:10px;font-size:14px;color:var(--ink-soft)}
+  .step .tool .tg{display:inline-block;background:#f3eee2;border-radius:6px;padding:1px 8px;font-size:12px;font-weight:700;color:var(--gold);margin-right:6px}
+  /* 概念框 */
+  .concept{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;margin:20px 0;box-shadow:var(--shadow)}
+  .concept .ctag{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--gold);padding:2px 11px;border-radius:999px;margin-bottom:8px}
+  .memo{margin-top:12px;padding:11px 14px;background:var(--gold-bg);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;font-size:15px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px;color:var(--ink)}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft);font-style:normal}
+  blockquote.b{border-left-color:var(--buffett)}
+  blockquote.d{border-left-color:var(--duan)}
+  .tablewrap{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#f3eee2;font-size:13.5px;color:var(--ink)}
+  tbody tr:last-child td{border-bottom:none}
+  td.b{color:var(--buffett);font-weight:600}
+  td.d{color:var(--duan);font-weight:600}
+  figure{margin:24px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  /* 案例盒 */
+  .case{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:28px 0;box-shadow:var(--shadow);background:#fff}
+  .case .top{padding:16px 22px;color:#fff;background:var(--buffett)}
+  .case.green .top{background:var(--duan)}
+  .case.gold .top{background:#a9760a}
+  .case.purple .top{background:var(--purple)}
+  .case .top h4{margin:0;color:#fff;font-size:20px}
+  .case .top .arch{font-size:13px;opacity:.92;margin-top:3px}
+  .case .body{padding:18px 24px}
+  .kpis{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 14px}
+  .kpi{flex:1 1 120px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:center}
+  .kpi .n{display:block;font-size:19px;font-weight:800;color:var(--buffett)}
+  .case.green .kpi .n{color:var(--duan)}.case.gold .kpi .n{color:#a9760a}.case.purple .kpi .n{color:var(--purple)}
+  .kpi .l{font-size:12px;color:var(--ink-soft)}
+  .dissect{margin:14px 0;border-top:1px dashed var(--line)}
+  .dissect .row{display:grid;grid-template-columns:128px 1fr;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14.8px}
+  .dissect .row .k{font-weight:700;color:var(--ink)}
+  .takeaway{margin-top:14px;padding:12px 14px;background:#f4f8e9;border-left:4px solid #8aa84b;border-radius:0 8px 8px 0;font-size:14.5px}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  .danger{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .danger .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  ul.cross li::before{content:"✕";color:var(--danger)}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 44px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--buffett);color:#fff;text-align:center;line-height:28px;font-weight:800;font-size:14px}
+  .sources{font-size:13px;color:var(--ink-soft)}
+  .sources li{margin:6px 0;word-break:break-all}
+  .sources a{color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:14px 18px;margin:24px 0}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:18px 0;color:var(--buffett)}
+  .backtop{display:inline-block;margin-top:10px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .mobilebar{display:none}
+  @media (max-width:940px){
+    nav.toc{display:none}
+    main{padding:0 18px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}
+    .mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    .dissect .row{grid-template-columns:1fr}
+    header.hero h1{font-size:26px}header.hero{padding:34px 0 22px}body{font-size:16px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.step,.concept,.case,figure svg{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · 看懂商业模式的方法论与案例</summary>
+    <a href="#ch0">序章 · 从"难"到"可操作"</a>
+    <a href="#ch1">第一章 · 商业模式解剖七步法</a>
+    <a href="#ch2">第二章 · 四个深度案例</a>
+    <a href="#case-costco">案例① Costco</a>
+    <a href="#case-moutai">案例② 贵州茅台</a>
+    <a href="#case-visa">案例③ Visa / 万事达</a>
+    <a href="#case-apple">案例④ 苹果</a>
+    <a href="#ch3">第三章 · 陷阱与实操清单</a>
+    <a href="#sources">参考来源</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">看懂商业模式的方法论与案例
+      <small>商业模式解剖七步法 + 4 个深度拆解<br>写给投资初学者</small>
+    </div>
+    <div class="grp">正文</div>
+    <a href="#ch0">序章 · 从"难"到"可操作"</a>
+    <a href="#ch1">第一章 · 解剖七步法</a>
+    <a href="#s1" class="sub">① 一句话讲清怎么赚钱</a>
+    <a href="#s2" class="sub">② 拆单位经济模型</a>
+    <a href="#s3" class="sub">③ 看现金怎么流动</a>
+    <a href="#s4" class="sub">④ 定位护城河+财务验证</a>
+    <a href="#s5" class="sub">⑤ 反向：什么会杀死它</a>
+    <a href="#s6" class="sub">⑥ 判断未来的确定性</a>
+    <a href="#s7" class="sub">⑦ 汇成现金流折现</a>
+    <a href="#ch2">第二章 · 四个深度案例</a>
+    <a href="#case-costco" class="sub">① Costco · 成本+会员</a>
+    <a href="#case-moutai" class="sub">② 茅台 · 品牌定价权</a>
+    <a href="#case-visa" class="sub">③ Visa · 网络收费站</a>
+    <a href="#case-apple" class="sub">④ 苹果 · 生态转换成本</a>
+    <a href="#ch3">第三章 · 陷阱与实操清单</a>
+    <div class="grp">参考</div>
+    <a href="#sources">参考来源</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">A PRACTICAL METHODOLOGY</span>
+    <h1>看懂商业模式的方法论与案例<br><span style="font-size:.6em;color:var(--ink-soft);font-weight:600">商业模式解剖七步法 + 4 个深度拆解</span></h1>
+    <p class="sub">上一篇讲了"看懂公司为什么难"。这一篇给你一套真正能上手的解剖方法，并用四家公司带你走一遍。</p>
+    <div class="pillrow">
+      <span class="pill">系列第三篇 · 进阶实操</span>
+      <span class="pill b">一套可复用的方法论</span>
+      <span class="pill d">4 个深度案例（含真实财务）</span>
+    </div>
+    <div class="crosslink">📎 本篇是系列第三篇，承接《价值投资入门指南》与《价值投资真正的难点》。前两篇建立了"能力圈 / 护城河 / 内在价值 / 现金流折现"的概念，本篇把"如何看懂商业模式"落成一套可操作的步骤。</div>
+    <div class="disclaimer"><b>重要提示：</b>本文仅为投资<b>方法论的学习与科普</b>，<b>不构成任何投资建议或个股推荐</b>。文中公司与财务数据来自公开资料（见文末来源），用于演示分析方法，数字为近似值并随时间变化，请以最新财报为准。投资有风险，独立判断、量力而行。</div>
+  </header>
+
+  <!-- 序章 -->
+  <section id="ch0">
+    <span class="chapnum">序章</span>
+    <h2>从"难"到"可操作"：把模糊的直觉，变成有步骤的解剖</h2>
+    <p class="lead">"看懂商业模式"听起来很玄。但其实它可以被拆成一串具体、可回答的问题。回答得越清楚，你就越接近"真懂"。</p>
+    <div class="fp">
+      <div class="lab">第一性原理 · "看懂商业模式"到底要回答什么</div>
+      <p>抛开所有术语，看懂一门生意，本质是把三个终极问题想透：</p>
+      <p style="margin:8px 0"><b>① 它靠什么赚钱？</b>（钱从谁口袋来、为什么人家愿意付）<br>
+      <b>② 这种赚钱方式能不能持续？</b>（护城河，对手为什么抢不走）<br>
+      <b>③ 它未来能赚多少"真金白银"，确定性多高？</b>（未来现金流 + 可预测性）</p>
+      <p>段永平把这归纳成一句话："所谓看懂公司，就是看懂它<b>未来现金流的折现</b>。"<a href="#sources" class="ref">[6]</a> 本篇的七步法，就是把这三个问题、这一句话，拆成可以一步步动手做的流程。</p>
+    </div>
+    <p>下面这张图是全篇的骨架——七个步骤层层递进，从"它怎么赚钱"一直推到"它今天值多少钱"。</p>
+    <figure>
+      <svg viewBox="0 0 700 360" role="img" aria-label="商业模式解剖七步法流程图">
+        <text x="350" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">商业模式解剖七步法</text>
+        <defs><marker id="dn" markerWidth="10" markerHeight="10" refX="5" refY="8" orient="auto"><path d="M1,1 L5,8 L9,1" fill="none" stroke="#9aa" stroke-width="1.6"/></marker></defs>
+        <g font-size="13.5">
+          <rect x="120" y="42" width="460" height="36" rx="9" fill="#eaf2f8" stroke="#1f5f8b"/><text x="350" y="65" text-anchor="middle" fill="#1f5f8b" font-weight="700">① 一句话讲清它怎么赚钱（价值主张 + 收入来源）</text>
+          <line x1="350" y1="80" x2="350" y2="92" stroke="#9aa" stroke-width="1.6" marker-end="url(#dn)"/>
+          <rect x="120" y="94" width="460" height="36" rx="9" fill="#eaf2f8" stroke="#1f5f8b"/><text x="350" y="117" text-anchor="middle" fill="#1f5f8b" font-weight="700">② 拆单位经济模型（一笔生意赚多少、成本结构）</text>
+          <line x1="350" y1="132" x2="350" y2="144" stroke="#9aa" stroke-width="1.6" marker-end="url(#dn)"/>
+          <rect x="120" y="146" width="460" height="36" rx="9" fill="#eaf2f8" stroke="#1f5f8b"/><text x="350" y="169" text-anchor="middle" fill="#1f5f8b" font-weight="700">③ 看现金怎么流动（营运资本、资本开支、股东盈余）</text>
+          <line x1="350" y1="184" x2="350" y2="196" stroke="#9aa" stroke-width="1.6" marker-end="url(#dn)"/>
+          <rect x="120" y="198" width="460" height="36" rx="9" fill="#e9f4ee" stroke="#2f7d57"/><text x="350" y="221" text-anchor="middle" fill="#2f7d57" font-weight="700">④ 定位护城河类型 + 用财务数字交叉验证</text>
+          <line x1="350" y1="236" x2="350" y2="248" stroke="#9aa" stroke-width="1.6" marker-end="url(#dn)"/>
+          <rect x="120" y="250" width="460" height="36" rx="9" fill="#fbecea" stroke="#c0392b"/><text x="350" y="273" text-anchor="middle" fill="#c0392b" font-weight="700">⑤ 反向思考：什么会杀死它（破坏性测试）</text>
+          <line x1="350" y1="288" x2="350" y2="300" stroke="#9aa" stroke-width="1.6" marker-end="url(#dn)"/>
+          <rect x="120" y="302" width="225" height="36" rx="9" fill="#fdf3e7" stroke="#b9770f"/><text x="232" y="325" text-anchor="middle" fill="#b9770f" font-weight="700">⑥ 未来现金流的确定性</text>
+          <rect x="355" y="302" width="225" height="36" rx="9" fill="#efe9f5" stroke="#6a4c93"/><text x="467" y="325" text-anchor="middle" fill="#6a4c93" font-weight="700">⑦ 汇成现金流折现</text>
+        </g>
+      </svg>
+      <figcaption>前三步看清"怎么赚钱"，第四五步判断"能不能持续"，第六七步推向"未来值多少钱"。下面逐步展开。</figcaption>
+    </figure>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第一章 方法论 -->
+  <section id="ch1">
+    <span class="chapnum">第一章 · 方法论</span>
+    <h2>商业模式解剖七步法</h2>
+    <p class="lead">每一步都给你"要回答的核心问题"和"用什么工具"。先把方法看一遍，第二章会用真实公司带你走完整流程。</p>
+
+    <div class="step" id="s1">
+      <span class="num">1</span><h4>一句话讲清它到底怎么赚钱</h4>
+      <p>如果你没法用一两句话说清"<b>谁、为了什么、付钱给它</b>"，那就是还没看懂的信号。先锁定三件事：它给谁创造了什么价值（价值主张）、向谁收钱、靠卖什么收钱（收入来源）。</p>
+      <div class="ask"><b>核心提问：</b>它的客户是谁？客户用它解决了什么问题、为什么非它不可？钱具体是怎么收进来的（一次性买断 / 持续订阅 / 抽成 / 会员费 / 广告）？</div>
+      <div class="tool"><span class="tg">工具</span>"商业模式一句话"模板：<b>「它帮【某类客户】解决【某个问题】，通过【某种方式】收钱。」</b></div>
+    </div>
+
+    <div class="step" id="s2">
+      <span class="num">2</span><h4>拆开"单位经济模型"——一笔生意到底赚多少</h4>
+      <p>把公司缩小到"一笔最小的生意"来看：卖出一件商品 / 服务一个客户，收入是多少、成本是多少、最后净赚多少。这能让你看穿"营收很大但其实不赚钱"的伪命题。重点看<b>毛利率</b>（卖一块钱货扣掉直接成本剩多少）和<b>成本结构</b>（钱主要花在哪）。</p>
+      <div class="ask"><b>核心提问：</b>每多做一笔生意，增加的成本（边际成本）有多大？毛利率高不高、稳不稳？是"规模越大越赚钱"，还是"规模越大越累"？</div>
+      <div class="tool"><span class="tg">工具</span>单位经济（Unit Economics）：单客收入 − 单客成本 = 单客利润；以及毛利率、边际成本。</div>
+    </div>
+
+    <div class="step" id="s3">
+      <span class="num">3</span><h4>看"现金"怎么流动——利润不等于现金</h4>
+      <p>一家公司可以"账面盈利却没现金"。要看清真实的赚钱能力，得追三样东西：</p>
+      <ul class="clean" style="margin:8px 0">
+        <li><b>营运资本</b>：它是先收钱后供货（客户/经销商先打款，<b>负营运资本</b>，等于免费占用别人的钱），还是先垫钱后收款（被上下游拖欠）？</li>
+        <li><b>资本开支强度</b>：维持竞争力每年要砸多少钱买设备/扩产？砸得越少、赚得越多的生意越好（如喜诗糖果）。</li>
+        <li><b>股东盈余（Owner Earnings）</b>：巴菲特 1986 年提出的概念——真正能装进股东口袋的现金。</li>
+      </ul>
+      <div class="ask"><b>核心提问：</b>赚到的利润，有多少能变成自由现金落袋？它是"现金奶牛"还是"碎钞机"？</div>
+      <div class="tool"><span class="tg">工具</span>股东盈余 ≈ 净利润 + 折旧摊销等非现金费用 − <b>维持性</b>资本开支 − 必要的营运资本增量<a href="#sources" class="ref">[5]</a></div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 700 230" role="img" aria-label="从净利润到股东盈余的桥形图">
+        <text x="350" y="24" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">从"账面净利润"到"真正落袋的股东盈余"</text>
+        <line x1="60" y1="185" x2="660" y2="185" stroke="#999"/>
+        <!-- bars -->
+        <rect x="80" y="80" width="90" height="105" fill="#eaf2f8" stroke="#1f5f8b"/><text x="125" y="200" text-anchor="middle" font-size="11.5" fill="#666">净利润</text>
+        <rect x="200" y="62" width="70" height="18" fill="#cfe7d6" stroke="#2f7d57"/><text x="235" y="200" text-anchor="middle" font-size="11" fill="#2f7d57">+折旧摊销</text>
+        <rect x="300" y="80" width="70" height="40" fill="#f6dcd7" stroke="#c0392b"/><text x="335" y="200" text-anchor="middle" font-size="11" fill="#c0392b">−维持资本开支</text>
+        <rect x="400" y="80" width="70" height="22" fill="#f6dcd7" stroke="#c0392b"/><text x="435" y="200" text-anchor="middle" font-size="11" fill="#c0392b">−营运资本增量</text>
+        <rect x="510" y="100" width="110" height="85" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2"/><text x="565" y="200" text-anchor="middle" font-size="12" font-weight="700" fill="#2f7d57">股东盈余</text>
+        <text x="565" y="148" text-anchor="middle" font-size="12" font-weight="800" fill="#2f7d57">真·现金</text>
+        <line x1="170" y1="80" x2="200" y2="80" stroke="#999" stroke-dasharray="3 3"/>
+        <line x1="270" y1="62" x2="300" y2="80" stroke="#999" stroke-dasharray="3 3"/>
+        <line x1="470" y1="102" x2="510" y2="102" stroke="#999" stroke-dasharray="3 3"/>
+      </svg>
+      <figcaption>会计利润里有"水分"（非现金的折旧要加回，维持生意的资本开支和营运资本要扣掉）。股东盈余才是估值真正该用的"现金"口径。</figcaption>
+    </figure>
+
+    <div class="step" id="s4">
+      <span class="num">4</span><h4>定位护城河类型，并用财务数字交叉验证</h4>
+      <p>第①②③步看清了"怎么赚钱"，第④步判断"能不能<b>持续</b>赚"。先定性判断它属于哪类护城河（品牌、网络效应、转换成本、成本优势），再用<b>财务数字反向验证</b>——真护城河一定会在数字上留下痕迹。</p>
+      <div class="ask"><b>核心提问：</b>它的护城河是哪一类？有没有"长期且稳定的高回报"来证明这条河真的存在？</div>
+      <div class="tool"><span class="tg">验证</span>持续多年的<b>高毛利率</b>、<b>高 ROIC（资本回报率）</b>、强<b>定价权</b>（能涨价而不丢客户）、高<b>客户留存/复购率</b>。</div>
+      <div class="memo">🧠 <b>最关键的一把尺子：ROIC vs 资本成本。</b>当公司投入资本的回报率（ROIC）长期高于它的资金成本（WACC），它每投一块钱都在<b>创造</b>价值；若 ROIC 低于资金成本，则越扩张越<b>毁灭</b>价值。<a href="#sources" class="ref">[7]</a> 芒格说过：长期来看，一只股票的回报，很难超过它背后生意本身的资本回报率。</div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 700 210" role="img" aria-label="ROIC 与资本成本决定价值创造">
+        <text x="350" y="24" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2328">护城河的财务铁证：ROIC 是否长期跑赢资金成本</text>
+        <line x1="80" y1="170" x2="660" y2="170" stroke="#999"/><line x1="80" y1="50" x2="80" y2="170" stroke="#999"/>
+        <!-- WACC line -->
+        <line x1="80" y1="130" x2="660" y2="130" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="600" y="124" font-size="11" fill="#c0392b">资金成本 WACC</text>
+        <!-- 创造价值 -->
+        <rect x="120" y="70" width="80" height="60" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2"/><text x="160" y="62" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2f7d57">ROIC 高</text>
+        <text x="160" y="150" text-anchor="middle" font-size="11" fill="#2f7d57">✓ 创造价值</text>
+        <!-- 不毁不创 -->
+        <rect x="320" y="120" width="80" height="10" fill="#f3eee2" stroke="#b9770f"/><text x="360" y="110" text-anchor="middle" font-size="11" fill="#b9770f">≈ 不创不毁</text>
+        <!-- 毁灭价值 -->
+        <rect x="520" y="130" width="80" height="30" fill="#fbecea" stroke="#c0392b" stroke-width="2"/><text x="560" y="118" text-anchor="middle" font-size="11.5" font-weight="700" fill="#c0392b">ROIC 低</text>
+        <text x="560" y="178" text-anchor="middle" font-size="11" fill="#c0392b">✕ 毁灭价值</text>
+      </svg>
+      <figcaption>只有"ROIC 长期且明显高于资金成本"的公司，才值得它把利润留下来再投资——增长才有意义。这是区分"真好生意"和"看着大却不赚钱"的关键。</figcaption>
+    </figure>
+
+    <div class="step" id="s5">
+      <span class="num">5</span><h4>反向思考：什么会杀死它？</h4>
+      <p>芒格的名言："反过来想，总是反过来想。"判断护城河牢不牢，最好的办法不是夸它多强，而是<b>认真设想：什么情况会摧毁它？</b>技术换代（柯达）、习惯改变、强敌进入、监管打击、关键人物离开……把这些"杀手"一个个列出来，再看它们发生的概率有多大。</p>
+      <div class="ask"><b>核心提问：</b>如果我是它最强的竞争对手 / 一项颠覆性新技术，我会从哪里攻破它？这种攻击，五年内可能发生吗？</div>
+      <div class="tool"><span class="tg">工具</span>逆向法（Invert）+ 波特五力（看新进入者、替代品、上下游议价、行业竞争）。这正是段永平说的"想清楚什么会摧毁它的护城河"。</div>
+    </div>
+
+    <div class="step" id="s6">
+      <span class="num">6</span><h4>判断未来现金流的"确定性"</h4>
+      <p>价值取决于未来现金流，而未来不可知——所以你要专门评估它的<b>可预测性</b>。现金流的确定性，来自这些"锁定"机制：</p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>确定性来源</th><th>含义</th><th>例子</th></tr></thead>
+        <tbody>
+          <tr><td class="b">重复消费</td><td>产品被反复购买，需求稳定</td><td>可乐、酱油、白酒</td></tr>
+          <tr><td class="b">合约/订阅</td><td>收入被合同锁定，可见度高</td><td>会员费、SaaS 订阅</td></tr>
+          <tr><td class="b">转换成本</td><td>换掉它太麻烦，客户被黏住</td><td>操作系统、银行系统</td></tr>
+          <tr><td class="b">品牌惯性</td><td>认牌子，不假思索地复购</td><td>茅台、苹果</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="ask"><b>核心提问：</b>它明年、五年后的收入，我能不能比较有把握地估出来？还是全凭运气和风口？<b>看不清的，就老实承认不在能力圈内。</b></div>
+    </div>
+
+    <div class="step" id="s7">
+      <span class="num">7</span><h4>汇成一件事：未来现金流的折现</h4>
+      <p>前六步的所有努力，最终都服务于一个判断——<b>它未来能产生多少股东盈余（第③步）× 这些现金有多持久和确定（第④⑤⑥步），再折算回今天值多少钱。</b>初学者不必追求精确公式，记住这个方向性框架即可：</p>
+      <div class="concept">
+        <span class="ctag">直觉公式</span>
+        <p style="margin-top:6px;font-size:16px"><b>今天的内在价值</b> ≈ <span style="color:var(--duan)">未来每年的股东盈余</span> × <span style="color:var(--buffett)">可持续的年数</span> × <span style="color:var(--gold)">确定性（折现：越不确定、越远，折得越狠）</span></p>
+        <div class="memo">🧠 这就是为什么"好生意 + 看得懂 + 高确定性"如此值钱：三个乘数同时变大。也是为什么巴菲特宁愿要"模糊的正确"——大方向对了，不必纠结小数点。最后，别忘了用<b>安全边际</b>覆盖你估值的误差。</div>
+      </div>
+    </div>
+
+    <div class="warn">
+      <div class="lab">✅ 怎么知道自己"真的走完了七步、真的看懂了"？</div>
+      <ul class="clean">
+        <li>你能不看资料，向一个外行用三五分钟讲清它怎么赚钱、护城河是什么、什么会摧毁它。</li>
+        <li>你能说出它未来 3–5 年大致的现金流区间，并说清你的假设。</li>
+        <li>面对"如果买了十年不能卖，你还买吗"，你能坦然回答"愿意"，且理由来自生意本身，而非股价。</li>
+      </ul>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第二章 案例 -->
+  <section id="ch2">
+    <span class="chapnum">第二章 · 深度案例</span>
+    <h2>四个深度案例：用方法论走一遍</h2>
+    <p class="lead">下面四家公司，各自代表一种最经典的护城河原型。每个都用七步法精简版拆开，并配真实财务数字与图解。注意看：同样是"好生意"，赚钱的机理完全不同。</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>案例</th><th>护城河原型</th><th>它教会你的核心机理</th></tr></thead>
+      <tbody>
+        <tr><td class="b">Costco</td><td>成本优势 + 客户黏性</td><td>"会员费=利润"的飞轮；低毛利反而是护城河</td></tr>
+        <tr><td class="d">贵州茅台</td><td>品牌 / 无形资产 + 定价权</td><td>负营运资本 + 极低资本开支 = 印钞机</td></tr>
+        <tr><td class="b">Visa / 万事达</td><td>网络效应</td><td>轻资产"收费站"，随经济自然增长</td></tr>
+        <tr><td class="d">苹果</td><td>转换成本 + 生态</td><td>安装基数驱动高毛利服务复利</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <!-- 案例 1 Costco -->
+    <div class="case" id="case-costco">
+      <div class="top"><h4>案例 ① Costco（开市客）</h4><div class="arch">护城河原型：成本优势 + 会员黏性</div></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">~11%</span><span class="l">商品毛利率（极低）<a href="#sources" class="ref">[1]</a></span></div>
+          <div class="kpi"><span class="n">~90.5%</span><span class="l">全球会员续费率<a href="#sources" class="ref">[1]</a></span></div>
+          <div class="kpi"><span class="n">近全部</span><span class="l">营业利润来自会员费<a href="#sources" class="ref">[1]</a></span></div>
+          <div class="kpi"><span class="n">$65/$130</span><span class="l">年费（2024 七年首涨）<a href="#sources" class="ref">[2]</a></span></div>
+        </div>
+        <div class="dissect">
+          <div class="row"><div class="k">① 怎么赚钱</div><div>表面看是卖货的超市，<b>真相是卖"会员资格"</b>。它帮会员解决"用最低价买到优质大包装商品"的问题，靠每年的<b>会员费</b>赚钱。</div></div>
+          <div class="row"><div class="k">② 单位经济</div><div>商品几乎<b>平价卖</b>（加价率被刻意压到极低，毛利率仅约 11%），扣掉门店运营后商品本身几乎不赚钱。利润几乎<b>全部来自会员费</b>——而会员费几乎没有边际成本，利润率近 75–80%。<a href="#sources" class="ref">[1]</a></div></div>
+          <div class="row"><div class="k">③ 现金流</div><div>会员费是<b>一年期预收</b>（先收钱、后服务，负营运资本）；门店周转极快，现金流强劲。</div></div>
+          <div class="row"><div class="k">④ 护城河+验证</div><div>成本优势（巨量采购+极致效率→全网最低价）叠加客户黏性。铁证：<b>约 90% 的会员年年续费</b>——这是"客户用脚投票"的护城河证明。<a href="#sources" class="ref">[1]</a></div></div>
+          <div class="row"><div class="k">⑤ 什么杀死它</div><div>电商极致低价的冲击；会员费涨太多导致续费率下滑。但其"低价心智+仓储体验"多年被验证极难复制。</div></div>
+          <div class="row"><div class="k">⑥/⑦ 未来现金流</div><div>确定性来自<b>合约式的会员费 + 极高续费率</b>——明年的会员费收入高度可预测，因此现金流可见度极高。</div></div>
+        </div>
+        <p>它的精髓是一个自我强化的<b>飞轮</b>：</p>
+        <figure>
+          <svg viewBox="0 0 460 300" role="img" aria-label="Costco 低价飞轮">
+            <text x="230" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">Costco 的低价飞轮</text>
+            <defs><marker id="fw" markerWidth="12" markerHeight="12" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1f5f8b"/></marker></defs>
+            <g font-size="12.5" fill="#1f5f8b" font-weight="700">
+              <rect x="160" y="40" width="140" height="40" rx="20" fill="#eaf2f8" stroke="#1f5f8b"/><text x="230" y="65" text-anchor="middle">把价格压到最低</text>
+              <rect x="300" y="120" width="140" height="40" rx="20" fill="#eaf2f8" stroke="#1f5f8b"/><text x="370" y="145" text-anchor="middle">吸引更多会员</text>
+              <rect x="160" y="200" width="140" height="40" rx="20" fill="#eaf2f8" stroke="#1f5f8b"/><text x="230" y="225" text-anchor="middle">采购量更大</text>
+              <rect x="20" y="120" width="140" height="40" rx="20" fill="#eaf2f8" stroke="#1f5f8b"/><text x="90" y="139" text-anchor="middle">向供应商</text><text x="90" y="153" text-anchor="middle">压更低成本</text>
+            </g>
+            <path d="M295,62 Q380,75 375,118" fill="none" stroke="#1f5f8b" stroke-width="2" marker-end="url(#fw)"/>
+            <path d="M360,162 Q330,200 300,212" fill="none" stroke="#1f5f8b" stroke-width="2" marker-end="url(#fw)"/>
+            <path d="M165,222 Q100,200 92,162" fill="none" stroke="#1f5f8b" stroke-width="2" marker-end="url(#fw)"/>
+            <path d="M95,118 Q120,75 165,63" fill="none" stroke="#1f5f8b" stroke-width="2" marker-end="url(#fw)"/>
+            <text x="230" y="150" text-anchor="middle" font-size="11" fill="#888">越转越强</text>
+          </svg>
+          <figcaption>低价→更多会员→更大采购量→更低进货成本→更低价。会员费则把这套"几乎不赚差价"的生意，变成稳定的高利润。</figcaption>
+        </figure>
+        <div class="takeaway">🎯 <b>它教会你：</b>别被"毛利率低"吓退——要看清<b>利润到底从哪来</b>。Costco 故意不靠卖货赚钱，把低价当成获取和留住会员的"鱼饵"，真正的利润藏在会员费里。看不透收入结构，就会完全误判这门生意。</div>
+      </div>
+    </div>
+
+    <!-- 案例 2 茅台 -->
+    <div class="case green" id="case-moutai">
+      <div class="top"><h4>案例 ② 贵州茅台</h4><div class="arch">护城河原型：品牌 / 无形资产 + 定价权</div></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">~92%</span><span class="l">毛利率<a href="#sources" class="ref">[3]</a></span></div>
+          <div class="kpi"><span class="n">~52%</span><span class="l">净利率（2024）<a href="#sources" class="ref">[3]</a></span></div>
+          <div class="kpi"><span class="n">~36%</span><span class="l">ROE（2024）<a href="#sources" class="ref">[3]</a></span></div>
+          <div class="kpi"><span class="n">862亿 vs 47亿</span><span class="l">净利润 vs 资本开支<a href="#sources" class="ref">[3]</a></span></div>
+        </div>
+        <div class="dissect">
+          <div class="row"><div class="k">① 怎么赚钱</div><div>卖高端白酒。但本质上卖的是<b>品牌、社交货币与稀缺心智</b>——人们为"茅台"这两个字、为面子和信任付溢价。</div></div>
+          <div class="row"><div class="k">② 单位经济</div><div>毛利率约 <b>92%</b>——卖 100 元的酒，直接成本不到 10 元。这是极致定价权的体现：成本和售价几乎无关，售价由品牌决定。<a href="#sources" class="ref">[3]</a></div></div>
+          <div class="row"><div class="k">③ 现金流</div><div>两大"印钞"特征：<b>(a) 负营运资本</b>——经销商要先打款才能拿货，合同负债（预收款）长年超百亿，等于<b>无息占用别人的钱</b>来经营<a href="#sources" class="ref">[4]</a>；<b>(b) 极低资本开支</b>——2024 年净利润约 862 亿，资本开支仅约 47 亿。<a href="#sources" class="ref">[3]</a> 赚的几乎全是真金白银，所以能大手笔分红。</div></div>
+          <div class="row"><div class="k">④ 护城河+验证</div><div>无形资产（品牌+地理/工艺稀缺）。铁证：<b>常年 ~90% 毛利、~36% ROE、强定价权</b>（多年提价仍供不应求）——只有真护城河才撑得起这种数字。<a href="#sources" class="ref">[3]</a></div></div>
+          <div class="row"><div class="k">⑤ 什么杀死它</div><div>消费习惯代际变迁、政策（三公消费/反腐曾冲击）、品牌透支或过度商业化损害稀缺性。短期价格波动 ≠ 生意变坏（参见上一篇）。</div></div>
+          <div class="row"><div class="k">⑥/⑦ 未来现金流</div><div>确定性来自<b>品牌惯性 + 重复消费 + 稀缺供给</b>，未来现金流可预测性在消费品里属顶级。</div></div>
+        </div>
+        <figure>
+          <svg viewBox="0 0 680 200" role="img" aria-label="茅台负营运资本现金循环">
+            <text x="340" y="24" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">负营运资本：用经销商的钱做生意</text>
+            <defs><marker id="mt" markerWidth="11" markerHeight="11" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2f7d57"/></marker></defs>
+            <rect x="40" y="80" width="150" height="50" rx="10" fill="#e9f4ee" stroke="#2f7d57" stroke-width="2"/><text x="115" y="100" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2f7d57">经销商</text><text x="115" y="118" text-anchor="middle" font-size="11" fill="#2f7d57">排队先打款</text>
+            <rect x="265" y="80" width="150" height="50" rx="10" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/><text x="340" y="100" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1f5f8b">茅台</text><text x="340" y="118" text-anchor="middle" font-size="11" fill="#1f5f8b">先收钱·后发货</text>
+            <rect x="490" y="80" width="150" height="50" rx="10" fill="#fdf3e7" stroke="#b9770f" stroke-width="2"/><text x="565" y="100" text-anchor="middle" font-size="12.5" font-weight="700" fill="#b9770f">合同负债</text><text x="565" y="118" text-anchor="middle" font-size="11" fill="#b9770f">长年超百亿</text>
+            <path d="M190,95 L262,95" stroke="#2f7d57" stroke-width="2" marker-end="url(#mt)"/><text x="226" y="88" text-anchor="middle" font-size="10.5" fill="#2f7d57">现金</text>
+            <path d="M415,112 L487,112" stroke="#b9770f" stroke-width="2" marker-end="url(#mt)"/><text x="451" y="128" text-anchor="middle" font-size="10.5" fill="#b9770f">沉淀</text>
+            <text x="340" y="170" text-anchor="middle" font-size="11.5" fill="#666">普通公司要垫钱备货；茅台反过来——客户抢着先付钱，相当于一笔巨额无息贷款</text>
+          </svg>
+          <figcaption>"先收钱后发货"是顶级生意的标志之一。它说明产品太抢手，议价权完全在公司这边。</figcaption>
+        </figure>
+        <div class="takeaway">🎯 <b>它教会你：</b>真正的定价权，会同时体现在<b>超高毛利</b>和<b>负营运资本</b>上。学会看资产负债表里的"合同负债/预收款"，你就能识别哪些公司是"求着别人买"，哪些是"别人求着买"。</div>
+      </div>
+    </div>
+
+    <!-- 案例 3 Visa -->
+    <div class="case" id="case-visa">
+      <div class="top"><h4>案例 ③ Visa / 万事达（Mastercard）</h4><div class="arch">护城河原型：网络效应（双边网络）</div></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">~67%</span><span class="l">Visa 营业利润率<a href="#sources" class="ref">[8]</a></span></div>
+          <div class="kpi"><span class="n">~50%</span><span class="l">Visa 净利率<a href="#sources" class="ref">[8]</a></span></div>
+          <div class="kpi"><span class="n">~90%</span><span class="l">两家占中国外支付处理份额<a href="#sources" class="ref">[8]</a></span></div>
+          <div class="kpi"><span class="n">2575亿笔</span><span class="l">Visa 年处理交易（近期）<a href="#sources" class="ref">[8]</a></span></div>
+        </div>
+        <div class="dissect">
+          <div class="row"><div class="k">① 怎么赚钱</div><div>它<b>不是发卡的银行，也不承担信贷风险</b>。它是连接"持卡人←→商户"的清算网络，每笔交易抽极小一点手续费（take rate）。本质是一座<b>收费站</b>。</div></div>
+          <div class="row"><div class="k">② 单位经济</div><div>多处理一笔交易，几乎不增加成本（边际成本趋近于零）。所以交易量越大，利润率越夸张——营业利润率高达约 <b>67%</b>、净利率约 <b>50%</b>。<a href="#sources" class="ref">[8]</a></div></div>
+          <div class="row"><div class="k">③ 现金流</div><div><b>极致轻资产</b>：不需要重资本投入即可扩张，利润几乎等于现金，是教科书级的"现金机器"。</div></div>
+          <div class="row"><div class="k">④ 护城河+验证</div><div>双边网络效应——持卡人越多，商户越想接入；接入的商户越多，卡越好用。形成自我加固的闭环，Visa+万事达两家把住了中国以外约 <b>90%</b> 的处理量。<a href="#sources" class="ref">[8]</a> 铁证：长期惊人的高利润率和高 ROIC。</div></div>
+          <div class="row"><div class="k">⑤ 什么杀死它</div><div>新支付方式绕过卡组织（如部分地区的实时支付/钱包）、监管压低手续费、反垄断。这是它真正需要持续跟踪的风险。</div></div>
+          <div class="row"><div class="k">⑥/⑦ 未来现金流</div><div>确定性来自<b>"现金→电子支付"长期趋势 + 网络锁定</b>，收入随全球消费总额自然增长，可预测性高。</div></div>
+        </div>
+        <figure>
+          <svg viewBox="0 0 680 220" role="img" aria-label="Visa 双边网络收费站">
+            <text x="340" y="24" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">双边网络：站在中间的"收费站"</text>
+            <defs><marker id="vs" markerWidth="11" markerHeight="11" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1f5f8b"/></marker></defs>
+            <rect x="40" y="80" width="150" height="56" rx="10" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/><text x="115" y="104" text-anchor="middle" font-size="13" font-weight="700" fill="#1f5f8b">数亿持卡人</text><text x="115" y="123" text-anchor="middle" font-size="11" fill="#1f5f8b">人越多越好用</text>
+            <circle cx="340" cy="108" r="48" fill="#1f5f8b"/><text x="340" y="104" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">Visa</text><text x="340" y="122" text-anchor="middle" font-size="10.5" fill="#fff">每笔抽成</text>
+            <rect x="490" y="80" width="150" height="56" rx="10" fill="#eaf2f8" stroke="#1f5f8b" stroke-width="2"/><text x="565" y="104" text-anchor="middle" font-size="13" font-weight="700" fill="#1f5f8b">数千万商户</text><text x="565" y="123" text-anchor="middle" font-size="11" fill="#1f5f8b">店越多越想接</text>
+            <path d="M192,100 L290,104" stroke="#1f5f8b" stroke-width="2" marker-end="url(#vs)"/>
+            <path d="M388,104 L488,100" stroke="#1f5f8b" stroke-width="2" marker-end="url(#vs)"/>
+            <path d="M488,124 Q340,180 192,124" fill="none" stroke="#9aa" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#vs)"/>
+            <text x="340" y="172" text-anchor="middle" font-size="11" fill="#888">两边互相吸引，网络越大越难被取代</text>
+          </svg>
+          <figcaption>网络效应的威力：价值随用户数<b>非线性</b>增长，且形成"赢家通吃"的格局。新对手即使技术更好，也很难同时说服两边一起迁移。</figcaption>
+        </figure>
+        <div class="takeaway">🎯 <b>它教会你：</b>最好的生意之一是当"<b>收费站</b>"——不承担风险、轻资产、随着大趋势自然增长。识别网络效应的关键，是问"<b>用户越多，对其他用户是否越有价值？</b>"以及"新对手要颠覆它，需要同时搞定几边？"</div>
+      </div>
+    </div>
+
+    <!-- 案例 4 苹果 -->
+    <div class="case green" id="case-apple">
+      <div class="top"><h4>案例 ④ 苹果（Apple）</h4><div class="arch">护城河原型：转换成本 + 生态系统</div></div>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span class="n">~22→25亿</span><span class="l">活跃设备安装基数<a href="#sources" class="ref">[9]</a></span></div>
+          <div class="kpi"><span class="n">~960亿</span><span class="l">服务年收入（美元）<a href="#sources" class="ref">[9]</a></span></div>
+          <div class="kpi"><span class="n">~76%</span><span class="l">服务毛利率<a href="#sources" class="ref">[9]</a></span></div>
+          <div class="kpi"><span class="n">~36%</span><span class="l">硬件毛利率（对比）<a href="#sources" class="ref">[9]</a></span></div>
+        </div>
+        <div class="dissect">
+          <div class="row"><div class="k">① 怎么赚钱</div><div>两层：先靠 iPhone 等<b>硬件</b>建立庞大的"<b>安装基数</b>"（活跃设备），再在这个基数上卖<b>高毛利的服务</b>（App Store、iCloud、订阅等）持续收钱。</div></div>
+          <div class="row"><div class="k">② 单位经济</div><div>硬件毛利率约 36%，而<b>服务毛利率高达约 76%</b>。<a href="#sources" class="ref">[9]</a> 每多一个活跃设备，未来就多一份几乎纯利的服务收入——这是关键的"复利"来源。</div></div>
+          <div class="row"><div class="k">③ 现金流</div><div>巨额自由现金流 + 持续大额回购。服务收入<b>经常性、可预测</b>，现金流质量极高。</div></div>
+          <div class="row"><div class="k">④ 护城河+验证</div><div>转换成本（照片、聊天记录、App、配件、Apple 生态全家桶，换走代价高）+ 品牌。铁证：约 <b>22–25 亿</b>活跃设备且持续增长、服务收入复利式增长、用户忠诚度极高。<a href="#sources" class="ref">[9]</a></div></div>
+          <div class="row"><div class="k">⑤ 什么杀死它</div><div>颠覆性的新计算平台（如某种 AI/可穿戴范式）削弱手机中心地位；监管打击 App Store 抽成；创新乏力导致换机意愿下降。</div></div>
+          <div class="row"><div class="k">⑥/⑦ 未来现金流</div><div>确定性来自<b>庞大安装基数 + 高转换成本 + 服务的经常性收入</b>，把"一次性卖硬件"变成了"长期收服务费"。</div></div>
+        </div>
+        <figure>
+          <svg viewBox="0 0 460 290" role="img" aria-label="苹果安装基数飞轮">
+            <text x="230" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#1f2328">苹果的"安装基数→服务"飞轮</text>
+            <defs><marker id="aw" markerWidth="12" markerHeight="12" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2f7d57"/></marker></defs>
+            <g font-size="12.5" fill="#2f7d57" font-weight="700">
+              <rect x="150" y="38" width="160" height="40" rx="20" fill="#e9f4ee" stroke="#2f7d57"/><text x="230" y="63" text-anchor="middle">卖出更多设备</text>
+              <rect x="300" y="118" width="150" height="44" rx="20" fill="#e9f4ee" stroke="#2f7d57"/><text x="375" y="137" text-anchor="middle">安装基数</text><text x="375" y="152" text-anchor="middle">越来越大</text>
+              <rect x="150" y="205" width="160" height="44" rx="20" fill="#e9f4ee" stroke="#2f7d57"/><text x="230" y="224" text-anchor="middle">高毛利服务</text><text x="230" y="239" text-anchor="middle">收入复利增长</text>
+              <rect x="10" y="118" width="150" height="44" rx="20" fill="#e9f4ee" stroke="#2f7d57"/><text x="85" y="137" text-anchor="middle">体验+黏性</text><text x="85" y="152" text-anchor="middle">更强→更难离开</text>
+            </g>
+            <path d="M305,60 Q380,75 378,116" fill="none" stroke="#2f7d57" stroke-width="2" marker-end="url(#aw)"/>
+            <path d="M368,164 Q330,205 300,216" fill="none" stroke="#2f7d57" stroke-width="2" marker-end="url(#aw)"/>
+            <path d="M155,227 Q95,205 86,164" fill="none" stroke="#2f7d57" stroke-width="2" marker-end="url(#aw)"/>
+            <path d="M90,116 Q120,75 168,62" fill="none" stroke="#2f7d57" stroke-width="2" marker-end="url(#aw)"/>
+          </svg>
+          <figcaption>硬件不只是利润来源，更是"获客入口"。装机量越大→服务收入越多、转换成本越高→用户越离不开→越愿意买下一台。</figcaption>
+        </figure>
+        <div class="takeaway">🎯 <b>它教会你：</b>看懂苹果，关键不是看单季 iPhone 卖了多少，而是看<b>安装基数</b>和<b>服务收入</b>这两个"复利变量"。这也呼应了第一篇——巴菲特把苹果当"消费品+生态"而非"科技股"来理解。</div>
+      </div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 第三章 陷阱+清单 -->
+  <section id="ch3">
+    <span class="chapnum">第三章</span>
+    <h2>常见陷阱 & 给初学者的实操清单</h2>
+    <p class="lead">方法论再好，用错了也会"看走眼"。下面是初学者最容易踩的坑，以及一份可以照着做的检查清单。</p>
+
+    <div class="danger">
+      <div class="lab">⚠️ 五个最常见的"以为看懂"陷阱</div>
+      <ul class="clean cross">
+        <li><b>把"好产品"当成"好生意"。</b>产品很棒 ≠ 商业模式赚钱（很多叫好不叫座、或被对手轻易复制）。</li>
+        <li><b>只看营收增长，不看赚不赚现金。</b>烧钱换增长的"伪成长"，ROIC 长期低于资金成本，越大越毁灭价值。</li>
+        <li><b>把"风口/周期红利"误当"护城河"。</b>潮水退了才知道谁在裸泳——要区分是能力还是运气（见上一篇）。</li>
+        <li><b>用过去外推未来。</b>护城河会被技术和习惯改变摧毁（柯达、诺基亚）。务必做第⑤步"什么会杀死它"。</li>
+        <li><b>看了几篇研报就觉得懂了。</b>真懂的标准是能讲清机理、能估出现金流区间，而不是记住几个名词。</li>
+      </ul>
+    </div>
+
+    <h3>一页纸：商业模式解剖检查清单</h3>
+    <p>研究任何一家公司时，照着这 7 问逐条作答。答不上来的地方，就是你"还没看懂"的地方。</p>
+    <ol class="steps">
+      <li><b>一句话：</b>它帮谁、解决什么问题、靠什么方式收钱？</li>
+      <li><b>单位经济：</b>做一笔生意赚多少？毛利率高不高、稳不稳？边际成本大吗？</li>
+      <li><b>现金：</b>利润能变成现金吗？营运资本是正是负？资本开支重不重？股东盈余大约多少？</li>
+      <li><b>护城河：</b>属于哪一类（品牌/网络/转换成本/成本优势）？ROIC 是否长期跑赢资金成本？</li>
+      <li><b>杀手：</b>什么会摧毁它的护城河？这些事五年内发生的概率多大？</li>
+      <li><b>确定性：</b>未来 3–5 年的现金流，我能不能比较有把握地估出来？凭什么？</li>
+      <li><b>折现与边际：</b>综合起来它大概值多少？现在的价格留出足够的安全边际了吗？</li>
+    </ol>
+
+    <div class="warn">
+      <div class="lab">🧭 给初学者的三条心法</div>
+      <ul class="clean">
+        <li><b>从你熟悉的生意练起。</b>先拆你天天用、最了解的公司（你的手机、常逛的超市、爱喝的饮料），把七步法走熟，再扩大能力圈。</li>
+        <li><b>先求"看懂"，再谈"买卖"。</b>本篇只解决"看懂商业模式"。是否值得买，还要叠加价格与安全边际（见第一篇）。</li>
+        <li><b>看不懂就放过，绝不丢人。</b>段永平、巴菲特一辈子也只重仓极少数看懂的公司。能用这套方法每年真正看懂一两家，已经非常了不起。</li>
+      </ul>
+    </div>
+
+    <blockquote class="d">"投资很简单，但不容易。你一定要看公司、看懂生意、看懂未来的现金流。"<span class="who">— 段永平<a href="#sources" class="ref">[6]</a></span></blockquote>
+    <p>这套七步法，就是把这句话变成你每天能动手做的事。<b>看懂一家公司，不是天赋，而是一套可以反复练习的手艺。</b>拿真实公司多走几遍，你会发现自己的"能力圈"在悄悄变大、变清晰。</p>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 来源 -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考来源</h2>
+    <p style="font-size:14px;color:var(--ink-soft)">财务数据来自公开资料，为近似值且随时间变化，请以公司最新财报为准。本文为方法论科普，非投资建议；引语为公开表达的常见中文译法或大意转述。</p>
+    <ol class="sources">
+      <li>[1] Costco 续费率（美加约 92.9%、全球约 90.5%）、商品毛利率约 11%、会员费贡献近乎全部营业利润且利润率约 75–80%：longyield、The Motley Fool、Costco FY2024 8-K — <a href="https://longyield.substack.com/p/costco-the-70b-quarter-922-renewal">longyield.substack.com</a>；<a href="https://www.sec.gov/Archives/edgar/data/0000909832/000090983224000043/costex9928-k92624.htm">sec.gov（Costco 8-K）</a></li>
+      <li>[2] Costco 2024 年会员费上调（高级会员由 $120 升至 $130，7 年来首次）：The Motley Fool、Yahoo Finance — <a href="https://www.fool.com/investing/2026/04/12/costco-raised-membership-fees-for-the-first-time-i/">fool.com</a></li>
+      <li>[3] 贵州茅台毛利率约 92%、净利率约 50%+、2024 年 ROE 约 36%、净利润约 862 亿 vs 资本开支约 47 亿：gurufocus.cn、凤凰网年报解读 — <a href="https://www.gurufocus.cn/stock/SHSE:600519/term/gross_margin">gurufocus.cn</a>；<a href="https://i.ifeng.com/c/8iM0XK4m7Wy">ifeng.com</a></li>
+      <li>[4] 贵州茅台预收款 / 合同负债长年超百亿（负营运资本）：新浪财经、证券时报 — <a href="https://finance.sina.com.cn/chanjing/jync/zxxx/2024-08-08/doc-inchxvaz8342672.shtml">finance.sina.com.cn</a></li>
+      <li>[5] 巴菲特"股东盈余（Owner Earnings）"定义（1986 年致股东信）：Wikipedia、StableBread — <a href="https://en.wikipedia.org/wiki/Owner_earnings">en.wikipedia.org</a></li>
+      <li>[6] 段永平："投资很简单但不容易""看懂公司就是看懂未来现金流的折现"：新浪财经、母婴行业观察整理 — <a href="https://finance.sina.com.cn/stock/marketresearch/2025-11-12/doc-infxcywv3347992.shtml">finance.sina.com.cn</a>；<a href="http://www.myguancha.com/post/24797.html">myguancha.com</a></li>
+      <li>[7] ROIC 与资本成本（WACC）决定价值创造；芒格论长期回报≈生意资本回报率：Morgan Stanley Counterpoint Global、wallstreetprep — <a href="https://www.morganstanley.com/im/publication/insights/articles/article_roicandtheinvestmentprocess.pdf">morganstanley.com</a></li>
+      <li>[8] Visa / 万事达商业模式、营业利润率约 67%（Visa）/约 57%（MA）、净利率约 50%、两家占中国外支付处理约 90%、年处理交易量：Quartr、ainvest、macrotrends — <a href="https://quartr.com/insights/edge/visa-and-mastercard-the-global-payment-duopoly">quartr.com</a>；<a href="https://www.macrotrends.net/stocks/charts/V/visa/profit-margins">macrotrends.net</a></li>
+      <li>[9] 苹果活跃设备约 22–25 亿、服务年收入约 960 亿美元、服务毛利率约 76% vs 硬件约 36%：Apple 8-K、Statista、thetradable — <a href="https://www.sec.gov/Archives/edgar/data/0000320193/000032019324000005/a8-kex991q1202412302023.htm">sec.gov（Apple 8-K）</a>；<a href="https://www.statista.com/chart/35762/apple-installed-base-of-active-devices/">statista.com</a></li>
+    </ol>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>

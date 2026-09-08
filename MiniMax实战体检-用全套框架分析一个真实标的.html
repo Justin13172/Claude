@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniMax 实战体检 · 用本系列全套框架分析一个真实标的（讨论底稿）</title>
+<style>
+  :root{
+    --ink:#1f2328;--ink-soft:#4a5159;--paper:#fbf8f1;--paper-2:#ffffff;
+    --line:#e6e1d6;--buffett:#1f5f8b;--buffett-bg:#eaf2f8;--duan:#2f7d57;--duan-bg:#e9f4ee;
+    --gold:#b8860b;--gold-bg:#fdf3e7;--warn-line:#e6b873;--danger:#c0392b;--danger-bg:#fbecea;
+    --purple:#6a4c93;--purple-bg:#efe9f5;--teal:#0e7c7b;--teal-bg:#e6f2f2;--mm:#d13438;--mm-bg:#fdecec;
+    --term:#1666a5;--term-bg:#e8f3fc;
+    --radius:14px;--maxw:840px;--shadow:0 1px 2px rgba(0,0,0,.04),0 6px 24px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif;
+    line-height:1.88;font-size:17px;-webkit-font-smoothing:antialiased;}
+  .layout{display:flex;align-items:flex-start;max-width:1220px;margin:0 auto;}
+  nav.toc{position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;width:284px;flex:0 0 284px;
+    padding:26px 14px 60px 22px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fbf8f1,#f6f1e6);}
+  nav.toc .brand{font-weight:800;font-size:15px;color:var(--ink);margin-bottom:4px}
+  nav.toc .brand small{display:block;font-weight:500;color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+  nav.toc a{display:block;color:var(--ink-soft);text-decoration:none;padding:5px 10px;border-radius:8px;font-size:13.5px;line-height:1.5}
+  nav.toc a:hover{background:#efe9da;color:var(--ink)}
+  nav.toc a.active{background:#fff;color:var(--mm);font-weight:700;box-shadow:var(--shadow)}
+  nav.toc a.sub{padding-left:22px;font-size:13px;color:#7a818a}
+  nav.toc .grp{margin-top:14px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#a39b86;padding:0 10px}
+  main{flex:1 1 auto;min-width:0;padding:0 26px 120px;}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header.hero{padding:54px 0 26px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  header.hero h1{font-size:29px;line-height:1.32;margin:0 0 14px}
+  header.hero .sub{font-size:18px;color:var(--ink-soft);margin:0 0 22px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .pill{font-size:12.5px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink-soft)}
+  .pill.m{border-color:#eebabb;color:var(--mm);background:var(--mm-bg)}
+  .pill.b{border-color:#bcd6e8;color:var(--buffett);background:var(--buffett-bg)}
+  section{padding:36px 0 8px;scroll-margin-top:18px}
+  h2{font-size:25px;margin:8px 0 6px;line-height:1.35;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  h3{font-size:19px;margin:26px 0 6px;line-height:1.4}
+  p{margin:11px 0}
+  .lead{font-size:18px;color:var(--ink-soft)}
+  .chapnum{display:inline-block;font-size:13px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:2px}
+  .fp{background:#fffdf6;border:1px dashed var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .fp .lab{font-weight:800;color:var(--gold);font-size:13px;letter-spacing:1px;margin-bottom:4px}
+  .term{background:var(--term-bg);border:1px solid #b5d4ec;border-left:5px solid var(--term);border-radius:12px;padding:13px 18px;margin:16px 0;font-size:15px}
+  .term .tt{font-weight:800;color:var(--term);font-size:15.5px;margin-bottom:4px}
+  .term .tt::before{content:"📖 "}
+  blockquote{margin:18px 0;padding:14px 20px;border-left:4px solid var(--gold);background:#fffdf3;border-radius:0 8px 8px 0;font-size:16px}
+  blockquote .who{display:block;margin-top:6px;font-size:13px;color:var(--ink-soft)}
+  figure{margin:22px 0;text-align:center}
+  figure svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  figcaption{font-size:13px;color:var(--ink-soft);margin-top:8px}
+  .tablewrap{overflow-x:auto;margin:16px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.4px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:8px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#f3eee2;font-size:12.4px;font-weight:700}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.hl td{background:#fbf6ea;font-weight:700}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .neg{color:var(--danger);font-weight:700}.pos{color:var(--duan);font-weight:700}
+  /* 体检卡 */
+  .check{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:15px 20px;margin:14px 0;box-shadow:var(--shadow);border-left:5px solid var(--line)}
+  .check .vh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .check .vn{font-size:16.5px;font-weight:800}
+  .verdict{font-size:11.5px;font-weight:800;padding:2px 10px;border-radius:6px;white-space:nowrap}
+  .v-ok{background:var(--duan-bg);color:var(--duan)}
+  .v-part{background:var(--gold-bg);color:#a9760a}
+  .v-no{background:var(--danger-bg);color:var(--danger)}
+  .crow{padding:7px 0;border-bottom:1px dashed var(--line);font-size:14.6px}
+  .crow:last-child{border-bottom:none}
+  .crow .cl{display:inline-block;font-size:11px;font-weight:800;padding:1px 8px;border-radius:6px;margin-right:8px;white-space:nowrap}
+  .cl.fact{background:#f3eee2;color:#8a6d1a}
+  .cl.logic{background:var(--buffett-bg);color:var(--buffett)}
+  .cl.bias{background:var(--danger-bg);color:var(--danger)}
+  .cl.keep{background:var(--duan-bg);color:var(--duan)}
+  .warn{background:var(--gold-bg);border:1px solid var(--warn-line);border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .warn .lab{font-weight:800;color:#b9770f;margin-bottom:4px}
+  .danger{background:var(--danger-bg);border:1px solid #e6a99f;border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .danger .lab{font-weight:800;color:var(--danger);margin-bottom:4px}
+  .good{background:var(--duan-bg);border:1px solid #bfe0cd;border-radius:var(--radius);padding:16px 20px;margin:20px 0}
+  .good .lab{font-weight:800;color:var(--duan);margin-bottom:4px}
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"✓";position:absolute;left:0;top:8px;color:var(--duan);font-weight:800}
+  ul.cross li::before{content:"✕";color:var(--danger)}
+  ol.steps{counter-reset:s;list-style:none;padding:0}
+  ol.steps li{position:relative;padding:8px 0 8px 44px;margin:6px 0}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--buffett);color:#fff;text-align:center;line-height:28px;font-weight:800;font-size:14px}
+  .crosslink{font-size:13.5px;background:#eaf2f8;border:1px solid #bcd6e8;border-radius:10px;padding:10px 14px;margin:16px 0;color:var(--buffett)}
+  .disclaimer{font-size:13px;color:#8a8170;background:#f3eee2;border-radius:10px;padding:13px 17px;margin:20px 0}
+  .sources{font-size:12.8px;color:var(--ink-soft)}.sources li{margin:6px 0;word-break:break-all}.sources a{color:var(--buffett)}
+  .backtop{display:inline-block;margin-top:8px;font-size:13px;color:var(--buffett);text-decoration:none}
+  .mobilebar{display:none}
+  @media (max-width:960px){
+    nav.toc{display:none}main{padding:0 16px 90px}
+    .mobilebar{display:block;position:sticky;top:0;z-index:20;background:rgba(251,248,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px}
+    .mobilebar details summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none}
+    .mobilebar details summary::-webkit-details-marker{display:none}
+    .mobilebar details[open] summary::after{content:" ▲"}.mobilebar details summary::after{content:" ▼";color:var(--ink-soft);font-size:12px}
+    .mobilebar a{display:block;padding:6px 4px;color:var(--ink-soft);text-decoration:none;font-size:14px;border-bottom:1px solid var(--line)}
+    header.hero h1{font-size:23px}header.hero{padding:28px 0 18px}body{font-size:16px}
+    th,td{padding:6px 7px;font-size:11.6px}
+  }
+  @media print{nav.toc,.mobilebar,.backtop{display:none}body{background:#fff}.check,figure svg{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="mobilebar">
+  <details>
+    <summary>📖 目录 · MiniMax 实战体检</summary>
+    <a href="#tldr">先说结论 · 三个判断</a>
+    <a href="#facts">§1 事实底座</a>
+    <a href="#anatomy">§2 解剖那条K线</a>
+    <a href="#audit">§3 你的思考链路逐条体检</a>
+    <a href="#value">§4 商业模式与反向估值</a>
+    <a href="#dividend">§5 AI红利到底怎么吃</a>
+    <a href="#end">§6 诚实的收束 + 待讨论清单</a>
+    <a href="#selfcheck">§7 对本报告自己也唱反调</a>
+    <a href="#lottery">§8 详解彩票候选 + 问题④作答</a>
+    <a href="#sources">参考来源</a>
+  </details>
+</div>
+
+<div class="layout">
+  <nav class="toc" id="toc">
+    <div class="brand">MiniMax 实战体检
+      <small>用本系列全套框架分析一个真实标的<br>数据截至 2026-07-17 收盘 · 讨论底稿</small>
+    </div>
+    <div class="grp">正文</div>
+    <a href="#tldr">先说结论 · 三个判断</a>
+    <a href="#facts">§1 事实底座</a>
+    <a href="#f-co" class="sub">公司档案与融资史</a>
+    <a href="#f-fin" class="sub">财务与收入结构</a>
+    <a href="#f-px" class="sub">股价全时间线</a>
+    <a href="#anatomy">§2 解剖那条K线</a>
+    <a href="#audit">§3 思考链路逐条体检（7条）</a>
+    <a href="#value">§4 商业模式与反向估值</a>
+    <a href="#entryprice" class="sub">介入价格怎么判断（现金底/期权区间）</a>
+    <a href="#dividend">§5 AI红利到底怎么吃</a>
+    <a href="#end">§6 收束 + 待讨论清单</a>
+    <a href="#selfcheck">§7 对本报告自己也唱反调</a>
+    <a href="#lottery">§8 彩票候选详解 + 问题④作答</a>
+    <div class="grp">参考</div>
+    <a href="#sources">参考来源</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+  <header class="hero" id="top">
+    <span class="chapnum">CASE STUDY · LIVE AUDIT</span>
+    <h1>MiniMax（00100.HK）实战体检<br><span style="font-size:.6em;color:var(--ink-soft);font-weight:600">用我们建立的全套框架，分析一个正在剧烈波动的真实标的</span></h1>
+    <p class="sub">这是一份"讨论底稿"而非结论书：先把事实钉牢（信息收集截至2026年7月19日，最后交易日为7月17日），再用三漏洞、偏误全景、赌场论、反向估值把你的七步思考链路逐条过一遍——该表扬的表扬，该打脸的打脸。</p>
+    <div class="pillrow">
+      <span class="pill m">发行165 → 峰值1,330 → 现约216港元</span>
+      <span class="pill b">仅讨论方法论 · 非投资建议</span>
+      <span class="pill">文末附待讨论问题清单</span>
+    </div>
+    <div class="crosslink">📎 本篇是整个系列的"期末实战"：引用的模型卡编号来自《个人思维模型库》v2.0（如卡14=价格是成交出来的），分析框架来自《商业模式七步法》《三个漏洞》《赌场论与猎手们》《AI公司估值提示词》等前篇。</div>
+    <div class="disclaimer"><b>重要声明：</b>本文是<b>投资方法论的教学讨论</b>，绝不构成任何投资建议或买卖推荐。MiniMax为上市仅半年、极高波动、尚在大额亏损的AI公司，叠加中概/港股/行业剧变风险。所有数据来自公开报道与公司公告（文末列来源），为<b>近似值</b>且变化极快，请以最新披露为准。</div>
+  </header>
+
+  <!-- 结论 -->
+  <section id="tldr">
+    <span class="chapnum">先说结论</span>
+    <h2>三个判断，先摆在桌面上</h2>
+    <ol class="steps">
+      <li><b>你的市场观察大部分是对的，而且比你自己以为的还要对。</b>智谱116→2980→暴跌，确实是三漏洞机制的教科书演出；MiniMax 的暴涨暴跌同样如此——而且我们找到了比"情绪"更硬的结构性解释（筹码结构、解禁、再融资，见§2）。</li>
+      <li><b>真正的硬伤在第⑤步；第④步是我读错了你、需要重判。</b>你说的"谁SOTA谁被短期带动、王冠轮动"其实<b>成立</b>——7/17（Kimi赢、MiniMax跌−15.63%）正是这套轮动的印证，而非反例；我此前误读成"一家赢大家一起涨"并错误"证伪"了它，已更正并致歉（见§3④）。而⑤"基本跌回发行价"与事实不符：现价216仍比发行价165高31%，你锚定的是1330峰值（卡6锚定效应）。<b>关键在叫对名字：④描述的是一个投机（SOTA动量轮动）机会，不是价值机会——两者要用完全不同的纪律。</b></li>
+      <li><b>把这笔交易放进生态位地图，它的真实名字不是"捡漏"，是"买彩票"。</b>捡漏的前提是"价值>价格且你能论证"——而模型层公司的价值当前不可知（连高盛860和摩根大通400的目标价都差一倍多）。这不自动等于"不能做"，但它属于彩票逻辑（小注、可归零、买的是不确定性），需要的纪律与价值投资完全不同。混淆两者，才是最大的风险。</li>
+    </ol>
+  </section>
+
+  <!-- 事实底座 -->
+  <section id="facts">
+    <span class="chapnum">§1</span>
+    <h2>事实底座：先把已核实的事实钉牢</h2>
+
+    <h3 id="f-co">1.1 公司档案与融资史</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>维度</th><th>已核实事实</th></tr></thead>
+      <tbody>
+        <tr><td>成立</td><td>2022年初，上海；创始人闫俊杰（约35岁），东南大学数学本科→中科院自动化所博士→商汤科技副总裁/智慧城市事业群CTO/研究院副院长，2021年12月（商汤上市前夕）离职创业</td></tr>
+        <tr><td>上市前融资</td><td>4年7轮、累计约15亿美元；估值从天使轮约1.7亿美元（12亿元人民币）→ 2025年8月 Pre-B++轮后超42亿美元。2024年3月阿里领投6亿美元B轮</td></tr>
+        <tr><td>股东阵容</td><td>战略：米哈游、阿里、腾讯、小红书、小米、金山、正大；财务：红杉中国（其大模型领域最大手笔之一）、高瓴创投、IDG、经纬、云启、明势、基石资本</td></tr>
+        <tr><td>产品线</td><td>基础模型（abab系列→MoE架构，官方口径"以头部模型约1%成本实现约5%性能差距"）；C端：Talkie（海外AI陪伴，曾占收入63.7%）、海螺AI（视频生成，收入占比升至32.6%）；B端：开放平台API与企业服务</td></tr>
+        <tr><td>创始人近期动作</td><td>2026年7月完成160亿港元再融资后发全员信：<b>本人停领薪酬</b>，并<b>拿出个人所持公司股份的5%</b>用于团队激励与开源支持</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3 id="f-fin">1.2 财务与收入结构（美元）</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>年度</th><th class="num">收入</th><th class="num">同比</th><th class="num">毛利率</th><th class="num">经调整净亏损</th><th class="num">年末现金</th></tr></thead>
+      <tbody>
+        <tr><td>2023</td><td class="num">$350万</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><td>2024</td><td class="num">$3,050万</td><td class="num pos">+782%</td><td class="num">12.2%</td><td class="num neg">−$2.44亿</td><td class="num">$8.8亿</td></tr>
+        <tr class="hl"><td>2025</td><td class="num">$7,904万</td><td class="num pos">+158.9%</td><td class="num">25.4%</td><td class="num neg">−$2.51亿</td><td class="num">$10.5亿</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <ul class="clean">
+      <li><b>收入结构（2025）</b>：AI原生产品（Talkie+海螺等）$5,310万（+143%）；开放平台/企业服务 $2,600万（+198%）。<b>海外收入占比超七成</b>——它更像一家"用中国成本做全球生意"的公司。</li>
+      <li><b>报表亏损 vs 真实亏损</b>：2025年账面巨亏约19亿美元，但其中约16亿是<b>优先股公允价值变动</b>（上市前融资的会计处理，IPO后消失）——真实经营口径看<b>经调整净亏损约2.5亿美元/年</b>，且两年基本持平（收入涨了1.6倍、亏损没扩大=烧钱效率在改善）。</li>
+      <li><b>关键的前瞻口径</b>：美银引述，2026年4月 <b>ARR已达约4亿美元</b>；管理层在高盛电话会上表示对<b>2026年底ARR达10亿美元</b>有信心。这与2025全年收入$0.79亿之间的巨大落差，是理解多空分歧的核心（术语卡见§4）。</li>
+      <li><b>弹药</b>：现金$10.5亿 + 2026年7月新募约160亿港元（≈$20亿）→ 账上约$30亿，按当前烧钱率够烧约十年——<b>"活下去"短期无虞，这是它与多数AI创业公司的本质区别</b>。</li>
+    </ul>
+
+    <h3 id="f-px">1.3 股价全时间线（发行至2026-07-17）</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>时间</th><th>事件</th><th>价格/市值（约）</th></tr></thead>
+      <tbody>
+        <tr><td>2026/1/9</td><td>港交所上市（代码00100），发行价<b>165港元</b>（顶价定价），募资约48亿港元，公开发售<b>超购1,837倍</b>；基石14家（阿里、ADIA、易方达等）认购27.2亿、锁定至7/9</td><td>IPO估值约461亿港元；首日开盘+42%、收涨约60%（据报道）</td></tr>
+        <tr><td>1月–6月</td><td>与智谱等"AI六小龙"上市潮共振，中国AI叙事发酵，股价一路走高</td><td>峰值<b>1,330港元</b>（≈发行价8倍），市值一度超4,000亿港元</td></tr>
+        <tr><td>7/2前后</td><td>市场对比："智谱市值能买下七个MiniMax"</td><td>—</td></tr>
+        <tr><td><b>7/9</b></td><td><b>基石+首发前股份解禁，占总股本44.85%</b>；解禁首日暴跌17.98%，两天−27%</td><td>市值跌破千亿关口</td></tr>
+        <tr><td>7/11–14</td><td>趁势<b>再融资160亿港元</b>：配售95.4亿@<b>268港元/股</b>+可转债；闫俊杰全员信（停薪+捐5%股份）；股价创上市新低209.2</td><td>较峰值蒸发约3,330亿港元</td></tr>
+        <tr><td>7/15–16</td><td>高盛(买入,目标860)、瑞银、中金等集体唱多+新模型预期，单日+13%~15%</td><td>7/16收256港元</td></tr>
+        <tr class="hl"><td><b>7/17</b></td><td><b>月之暗面发布Kimi K3</b>（2.8万亿参数、开源、Code Arena登顶超越Claude）→ 智谱<b>−28.49%</b>（收1107），<b>MiniMax −15.63%</b>，恒生科技−5%，全球AI/算力股齐挫</td><td><b>收约216港元</b>；市值约700亿港元（≈$90亿）</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <figure>
+      <svg viewBox="0 0 720 300" role="img" aria-label="MiniMax股价时间线示意">
+        <text x="360" y="24" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1f2328">MiniMax 上市六个月：165 → 1,330 → 216（港元，示意）</text>
+        <line x1="55" y1="255" x2="700" y2="255" stroke="#999"/>
+        <line x1="55" y1="40" x2="55" y2="255" stroke="#999"/>
+        <polyline points="80,225 150,180 260,60 340,75 420,90 470,180 500,205 540,215 585,178 615,185 655,222" fill="none" stroke="#d13438" stroke-width="2.5"/>
+        <circle cx="80" cy="225" r="4.5" fill="#888"/><text x="80" y="243" text-anchor="middle" font-size="10">1/9 发行165</text>
+        <circle cx="260" cy="60" r="5" fill="#c0392b"/><text x="260" y="50" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c0392b">峰值 1,330（≈8倍）</text>
+        <circle cx="470" cy="180" r="5" fill="#6a4c93"/><text x="468" y="168" text-anchor="middle" font-size="10" fill="#6a4c93">7/9 解禁44.85%</text>
+        <circle cx="540" cy="215" r="5" fill="#b9770f"/><text x="533" y="238" text-anchor="middle" font-size="10" fill="#b9770f">配售268+可转债·新低209</text>
+        <circle cx="585" cy="178" r="4.5" fill="#2f7d57"/><text x="585" y="166" text-anchor="middle" font-size="10" fill="#2f7d57">大行唱多+15%</text>
+        <circle cx="655" cy="222" r="5" fill="#c0392b"/><text x="648" y="210" text-anchor="middle" font-size="10.5" font-weight="700" fill="#c0392b">7/17 Kimi K3 −15.63%→216</text>
+      </svg>
+      <figcaption>六个月走完一轮完整的"泡沫—出清"：暴涨（小流通盘+叙事）→ 解禁（供给洪水）→ 高位再融资 → 竞争冲击。每一段都能在我们的框架里找到名字。</figcaption>
+    </figure>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 解剖 -->
+  <section id="anatomy">
+    <span class="chapnum">§2</span>
+    <h2>解剖那条K线：8倍与−84%，各自的真实成因</h2>
+    <p class="lead">你直觉"智谱的暴涨极不正常，是市场有效性问题"——完全正确。但机制值得拆细，因为MiniMax走的是同一条流水线，而且<b>下跌的主因不是情绪，是供给</b>。</p>
+
+    <div class="term">
+      <div class="tt">流通盘 / 解禁 / 配售——读懂这半年的三个钥匙词</div>
+      <b>流通盘</b>：实际能在市场上买卖的股份。MiniMax IPO只发行了很小一部分股份（募48亿/估值461亿≈10%），其余被创始人、老股东、基石投资者<b>锁定</b>。<b>解禁</b>：锁定期（通常6个月）到期，这些股份突然可以卖了——7月9日一天解锁了<b>44.85%的总股本</b>。<b>配售</b>：公司向机构增发新股融资（268港元/股募95.4亿）——市场上的股票供给进一步增加。<b>价格=供需，这半年的暴涨与暴跌，一半以上是"可交易筹码从极稀缺到突然泛滥"的供给故事。</b></div>
+
+    <h3>上涨的三漏洞解剖（为什么能涨8倍）</h3>
+    <ol class="steps">
+      <li><b>极小流通盘 × 边际定价（模型卡14）</b>：前6个月里，90%的股份被锁定，价格由剩下~10%筹码上"最兴奋的边际买家"决定——1,837倍超购意味着大量没中签的热钱在二级市场追买。<b>4,000亿的"市值"从来不是4,000亿的共识，只是小盘子上最后一笔成交的外推</b>。</li>
+      <li><b>叙事引擎（漏洞①相关误差）</b>："中国AI六小龙上市潮"+"中国的OpenAI/Anthropic"——所有人读同一个故事，误差同向叠加。智谱2980与MiniMax 1330是同一台叙事机器的两个输出。</li>
+      <li><b>指数与被动流（漏洞③）</b>：新股纳入指数、南向资金、主题ETF的机械买入，都不问估值。</li>
+    </ol>
+
+    <h3>下跌的解剖（为什么−84%，且未必是"错杀"）</h3>
+    <ol class="steps">
+      <li><b>7/9解禁：供给洪水</b>。44.85%的股本一夜可售，早期投资者成本低至现价的零头（天使轮估值12亿人民币 vs 峰值4,000亿港元）——<b>他们卖出是理性纪律，不是看空阴谋</b>。价格从"稀缺筹码定价"回归"全体股东定价"。</li>
+      <li><b>公司自己在高位卖股票（利益攸关卡13的反向信号）</b>：解禁周内火速配售+可转债募160亿。对公司这是漂亮的资本运作（十年弹药到手）；但对二级买家，这句话要翻译成：<b>最了解公司的人认为268港元是"值得大量出售股票"的价格</b>——这是全场信息含量最高的一笔"成交"。</li>
+      <li><b>7/17 Kimi K3：行业级重定价</b>。开源+登顶的K3重定的不是某一家，而是"<b>模型层的'领先'能换来多久的定价权</b>"这个整体预期——由于同行全员开源，SOTA能力一发布即扩散，"最强"连一天的溢价都锁不住，于是智谱、MiniMax、全球算力股一起跌。<b>这是基本面信息，不是情绪噪音</b>（呼应《十年复盘》：区分"情绪错杀"与"基本面真变"是胜负手）。</li>
+    </ol>
+    <div class="fp"><div class="lab">一句话收束§2</div><p style="margin:6px 0">这条K线不是"市场发疯又清醒"的简单故事，而是：<b>制度设计（小流通盘+锁定期）先制造了必然的高估，再由解禁与再融资执行必然的出清，Kimi K3只是压垮情绪的最后一根梁。</b>——理解这一点后你会发现：−84%里有相当部分不是"跌出来的便宜"，而是"本来就不存在的市值"的消失。</p></div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 体检 -->
+  <section id="audit">
+    <span class="chapnum">§3</span>
+    <h2>你的七步思考链路，逐条体检</h2>
+
+    <div class="check" style="border-left-color:var(--duan)">
+      <div class="vh"><span class="vn">① 先关注智谱（"中国的Anthropic"，此前国内领先）</span><span class="verdict v-ok">站得住 · 但注意措辞</span></div>
+      <div class="crow"><span class="cl fact">核实</span>智谱02513.HK，发行价约116、峰值2,980，此前确在第一梯队——事实无误。</div>
+      <div class="crow"><span class="cl logic">提醒</span>"号称中国的Anthropic"是<b>叙事</b>不是属性（模型卡：叙事谬误）。对标本身是营销语言：Anthropic的收入体量、客户结构、技术路线与智谱差着数量级。用对标来"锚定想象空间"，正是新股炒作的标准燃料。</div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--duan)">
+      <div class="vh"><span class="vn">② 智谱116→2980极不正常，是市场有效性问题</span><span class="verdict v-ok">站得住 · 机制比你想的更具体</span></div>
+      <div class="crow"><span class="cl keep">表扬</span>这是全链路里最好的一步：你把《三个漏洞》用在了真实市场上，方向完全正确——2980→1107的验证也来了。</div>
+      <div class="crow"><span class="cl logic">深化</span>补上§2的供给视角：暴涨主要不是"傻钱太多"，而是<b>制度性稀缺</b>（小流通盘+锁定）遇上叙事热钱；这意味着暴跌也主要不是"情绪修复"，而是<b>供给回归</b>。两边都比"情绪"更机械、更可预测——解禁日历是公开信息。</div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--duan)">
+      <div class="vh"><span class="vn">③ 大模型竞争激烈多变，远未定局</span><span class="verdict v-ok">站得住 · 且有刚发生的铁证</span></div>
+      <div class="crow"><span class="cl fact">核实</span>Kimi K3（7/16发布，2.8万亿参数、开源）在Code Arena登顶、超越此前排名第二的GLM-5.2——智谱次日−28.49%。判断正确。</div>
+      <div class="crow"><span class="cl logic">深化</span>往下再挖一层：这说明模型层的"领先"是一种<b>折旧极快的资产</b>（红皇后卡3）——每3-6个月就要用几亿美元重新购买一次。护城河七步法问的"十年后它凭什么还在赚钱"，在模型层目前<b>没有任何一家给得出答案</b>——包括领先者。</div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--gold)">
+      <div class="vh"><span class="vn">④ 谁做出更强的模型，谁就（哪怕只是短期）引领趋势与股价——SOTA王冠在牌桌上轮动，市场短视、投机情绪重</span><span class="verdict v-part">重判 · 我此前读错并误"证伪"了你</span></div>
+      <div class="crow"><span class="cl bias">先认错</span>我此前把你的④压成了"<b>一家赢→大家一起涨</b>"，再用"MiniMax在7/17反跌15.63%"去证伪它。<b>这是我读错了。</b>你的原意是<b>王冠轮动</b>：谁当下SOTA谁被带动、同时挤压别家（GLM-5.2→智谱涨；K3→Kimi估值涨+同行跌；下次可能轮到MiniMax）。那么7/17（Kimi赢、MiniMax跌）<b>恰恰印证</b>你的机制，而不是推翻它。向你道歉。</div>
+      <div class="crow"><span class="cl keep">机制成立</span>市场当前确实短视、由情绪与轮动定价——这与§2的筹码结构、《三个漏洞》完全一致。"某家做出SOTA、其估值/股价被短期带动、同时压制同行"作为一个<b>观察</b>，成立。</div>
+      <div class="crow"><span class="cl fact">同时纠正我一处硬伤</span>我原文写"K3开源→动摇<b>闭源</b>收费定价权"是<b>错的</b>：中国这几家（月之暗面Kimi、智谱GLM、MiniMax、DeepSeek、通义Qwen）<b>基本全是开源/开放权重</b>，彼此之间不存在"闭源收费 vs 开源"的对立。纠正后你的点反而更锋利——<b>全员开源＝SOTA王冠零锁定</b>：能力一发布就扩散给同行和客户，"领先"连一天的持久定价权都换不来。（变现不在模型权重、而在闭源产品与付费API：Talkie/海螺/企业服务——赚钱的地方不在"谁最强"这条轴上。）</div>
+      <div class="crow"><span class="cl logic">但要害在此</span>你是对的——只是它证明的是一个<b>投机机会</b>（SOTA轮动的动量交易），不是<b>价值机会</b>。它属于§8的彩票盒子。作为投机命题，它要过三关（都不是"有没有机会"，而是"能不能系统性变成钱"）：<b>①时机</b>——你能预测谁下一个SOTA、且抢在市场反应前吗？<b>②错配</b>——王冠可能戴在买不到的未上市者头上（Kimi/DeepSeek），钱直接离场；能买的（智谱/MiniMax）恰在它SOTA那刻已经涨完。<b>③接盘</b>——王冠轮走后有回吐，追SOTA者系统性买在顶部（绞肉机）。最危险的变体："MiniMax被打趴、我买它等它轮到"——那是押它在你持有期内做出SOTA且市场照旧奖励，同时你拿着−84%、带解禁/稀释供给的下跌标的。</div>
+      <div class="crow"><span class="cl bias">保留原有一条</span><b>公司的机会</b>（做出更好的模型）≠<b>股东的机会</b>（价格已把多少预期定价进去）——二阶思维（卡22）的标准考题。<b>叫对名字才用对纪律</b>：这不是"价值捡漏"，是"SOTA轮动的动量投机"，该配彩票纪律，不该配价值仓位。</div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--danger)">
+      <div class="vh"><span class="vn">⑤ MiniMax被远远甩开、"基本跌回发行价"，所以可能有捡漏机会</span><span class="verdict v-no">事实错误 + 双重锚定</span></div>
+      <div class="crow"><span class="cl fact">纠错</span>现价约216 vs 发行价165：<b>仍高出约31%</b>，并未"跌回发行价"（7/13最低209也高出27%）。你记住的是"从1330跌下来"——锚在峰值上了（锚定卡6：1330是小流通盘时代的幻影价，不是价值参照）。</div>
+      <div class="crow"><span class="cl bias">更深的坑</span>就算真跌回165，"回到发行价=便宜"也是第二重锚定——<b>发行价同样不是价值</b>（顶价定价+1837倍超购的发行价，本身就是热潮的产物）。便宜只能相对内在价值成立，而§4会展示：当前价格仍隐含着激进的增长假设。</div>
+      <div class="crow"><span class="cl logic">举证责任（卡27）</span>7月的下跌有三个<b>具体、公开、非情绪</b>的原因（解禁44.85%、公司自己268配售、K3行业冲击）。说"错杀"之前必须回答：<b>这三个原因里，哪一个是市场搞错了？</b>——目前一个都指不出来。</div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--gold)">
+      <div class="vh"><span class="vn">⑥ 看过闫俊杰访谈，觉得老板和企业文化没问题</span><span class="verdict v-part">部分站得住 · 你自己标注的怀疑是对的</span></div>
+      <div class="crow"><span class="cl keep">支持证据</span>背景扎实（商汤核心技术高管出身）；7月的两个动作有真实信号价值：<b>停薪+拿出个人5%股份激励团队</b>——这是利益攸关（卡13）的正面样本，比任何访谈金句都硬。</div>
+      <div class="crow"><span class="cl bias">但要诚实</span>(a) "看了访谈觉得不错"=<b>叙事采样</b>：访谈是公司最好的一面（幸存者偏差的个体版）；(b) 判断AI公司创始人的技术判断力，大概率在你我的能力圈外——这项打分的置信度应该标低；(c) 可证伪的检查项还没做：股权集中度与同股不同权安排、Talkie的合规/版权风险（招股书自己披露的"烧钱换量、版权难题"）、高管稳定性。<b>"人没问题"暂记为"未发现问题"，两者差一个尽调。</b></div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--gold)">
+      <div class="vh"><span class="vn">⑦ 结论：长期看有"捡漏或投机"的机会</span><span class="verdict v-part">用词里藏着全部答案</span></div>
+      <div class="crow"><span class="cl logic">关键区分</span>你把"捡漏"和"投机"并列——但它们是两种完全不同的操作：<b>捡漏（价值投资）要求"价值>价格"可论证</b>——MiniMax当前做不到（价值本身不可知，见§4）；<b>投机（彩票逻辑）承认买的是不确定性</b>——这在逻辑上自洽，但需要彩票的纪律：注码小到可归零、不摊平、不恋战、明确的下车条件。<b>最危险的不是投机，是用投机的标的做着价值投资的仓位和心态</b>——你的交割单（腾讯585、万科）已经演示过这个组合的下场。</div>
+    </div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 估值 -->
+  <section id="value">
+    <span class="chapnum">§4</span>
+    <h2>商业模式速览与反向估值：216港元在假设什么？</h2>
+
+    <h3>七步法速览（模型层公司的体检）</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>七步法</th><th>MiniMax现状</th><th>评注</th></tr></thead>
+      <tbody>
+        <tr><td>①怎么赚钱</td><td>C端订阅（Talkie/海螺，海外为主）+ B端API/企业服务</td><td>收入是真的、增速是真的（+159%）——这点比多数同行强</td></tr>
+        <tr><td>②单位经济</td><td>毛利率12%→25%</td><td class="neg">远低于软件业60-80%；每一块钱收入背后是算力真金白银——目前更像"半导体成本结构卖软件价格"</td></tr>
+        <tr><td>③现金流</td><td>年烧约$2.5亿；账上约$30亿</td><td class="pos">跑道约十年，"活下去"无虞——这是它最硬的资产</td></tr>
+        <tr><td>④护城河</td><td>成本效率（1%成本论）、海外C端场景、数据飞轮（待证）</td><td class="neg">尚无一项通过"涨价测试"；开源大潮在把模型本身商品化</td></tr>
+        <tr><td>⑤什么杀死它</td><td>开源追平（K3已演示）、巨头挤压（字节/阿里）、Talkie合规、烧钱竞赛升级</td><td>全部真实且高概率持续</td></tr>
+        <tr><td>⑥现金流可预测性</td><td>极低</td><td>收入结构一年内剧变（Talkie 64%→海螺32%↑），三年后长什么样无人知道</td></tr>
+        <tr><td>⑦估值</td><td>DCF不适用（负现金流+不可预测）</td><td>只能反向：见下</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="term">
+      <div class="tt">ARR（年化经常性收入）——多空分歧的核心口径</div>
+      ARR = 把<b>当前月度收入×12</b>得到的"年化跑速"。美银口径：MiniMax 2026年4月ARR约<b>4亿美元</b>——而2025全年确认收入只有0.79亿。两者不矛盾：说明2026年头几个月收入在<b>爆发式加速</b>（海螺AI出圈+API放量）。但注意ARR的三个坑：①未经审计；②月度高点年化会夸大（含促销/一次性）；③<b>能否持续</b>正是全部争议所在。管理层目标：2026年底ARR达10亿美元。</div>
+
+    <h3>反向估值：一道算术题</h3>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>口径</th><th class="num">数值（约）</th><th>含义</th></tr></thead>
+      <tbody>
+        <tr><td>当前市值（7/17收盘）</td><td class="num">700亿港元 ≈ $90亿</td><td>较峰值−84%后</td></tr>
+        <tr><td>÷ 2025年实际收入 $0.79亿</td><td class="num neg">P/S ≈ 110倍</td><td>贵到无法用"便宜"形容</td></tr>
+        <tr><td>÷ 4月ARR $4亿</td><td class="num">P/ARR ≈ 22倍</td><td>若ARR为真且可持续，进入"贵但可讨论"区间</td></tr>
+        <tr><td>扣净现金$30亿后 EV≈$60亿 ÷ ARR</td><td class="num">EV/ARR ≈ 15倍</td><td>接近高增长SaaS的定价——<b>前提是把它当SaaS</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p><b>216港元隐含的信念清单</b>（买入=同时签收以下全部）：①4亿ARR真实且年内翻倍至10亿；②此后数年继续高速增长；③毛利率从25%爬向软件业水平（即算力成本相对收入大幅下降）；④在开源+巨头+同行的绞杀中活到那一天且份额不失。<b>四个条件是相乘关系（卡17）——任何一项为零，故事归零。</b>这就是为什么高盛敢给860而摩根大通只给400（"模型能力仍在追赶"）：他们对③④的概率打分不同。分歧本身就是结论：<b>这是一道没人算得清的题</b>。</p>
+    <div class="fp"><div class="lab">与智谱的对照（你的出发点）</div><p style="margin:6px 0">7/2时"智谱市值≈7个MiniMax"，而两者收入同量级——<b>你直觉智谱贵得离谱，方向对了</b>；但由此推出"MiniMax相对便宜"犯了参照系错误：<b>贵的七分之一仍然可以很贵</b>。便宜的参照系只能是自身的现金流前景，不是更贵的邻居（锚定卡6的变体："比智谱便宜"和"从1330跌下来"是同一种锚）。</p></div>
+
+    <h3 id="entryprice">介入价格怎么判断：现金底、期权区间与"稀释棘轮"</h3>
+    <p class="lead">如果你把④想清楚了——不赌时点，只赌"活着的幸存者长周期里总会冒出脉冲"——那么整笔下注的胜负手，就<b>几乎全压在"进场价"这一个变量上</b>。这一节给一把可复用的尺子：不再锚K线数字，而是锚"现金底"和"期权贵不贵"。</p>
+
+    <div class="danger">
+      <div class="lab">⚠ 先拆穿一个偷换："总会拉升股价" ≠ "拉升到你赚钱的位置"</div>
+      <p style="margin:6px 0">你既然承认脉冲一定会来，那"脉冲存在"就不再是变量、而是<b>已假设的前提</b>。于是你赚不赚钱只剩三件事决定：<b>①在什么价格进；②等待脉冲时被消耗多少；③脉冲来时有没有下车。</b>脉冲从一个更低的基数冲上来，救不了一个太高的进场价——<b>进场价在做全部的功</b>。</p>
+    </div>
+
+    <div class="term">
+      <div class="tt">稀释棘轮（dilution ratchet）——"回到原价"最大的敌人</div>
+      股价是<b>每股</b>价格。只要公司在情绪高点不断增发融资，<b>总股本变大</b>，未来同样一条好消息就要托起一个<b>更大的市值</b>才能回到同样的每股价。这不是假设：MiniMax <b>7月14日刚配售约3,560万股新A股（约HK$268）</b>，此前还有可转债。每一次都在往分母里加东西。<b>结果——生意可以越做越好、情绪可以周期性回来，每股价却可能永远回不到旧高。</b>互联网泡沫后大量"业务创新高、股价永不回前高"的公司，死因正是这个棘轮。所以"能不能回到某价"，答案的一半不在生意，在<b>股本</b>。</div>
+
+    <h4 style="font-size:16.5px;margin:20px 0 6px">用今天的数字搭尺子（193.1港元，均为近似，务必自核最新披露）</h4>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>项</th><th class="num">数值（约）</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>总股本</td><td class="num">≈ 3.14 亿股</td><td>7月配售后；完全稀释口径需再加未行权期权/可转债</td></tr>
+        <tr><td>现价 193.1 → 市值</td><td class="num">≈ HK$605亿 ≈ $78亿</td><td>3.14亿股 × 193.1</td></tr>
+        <tr><td>净现金</td><td class="num">≈ $30–50亿</td><td>FY2025约$30亿 + 7月配售/CB约$20亿 − 烧钱；<b>区间大、且在变，是最该核实的数</b></td></tr>
+        <tr><td>企业价值 EV = 市值 − 净现金</td><td class="num">≈ $30–48亿</td><td>市场真正为"生意本身"付的钱</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p><b>由此得到几个有依据的价格带</b>（净现金取中值约$40亿）——注意这不是预测，是"你在为什么付费"的刻度：</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>价格带（约）</th><th>你在为什么付费</th><th>期权贵不贵</th></tr></thead>
+      <tbody>
+        <tr><td class="pos"><b>纯现金硬底 ≈ HK$100 上下</b></td><td>几乎只为账上的钱付费，生意+团队+模型+C端白送</td><td>理论地板（被每年烧钱缓慢侵蚀）</td></tr>
+        <tr><td class="pos"><b>期权接近白送区 ≈ HK$130–150</b><br><span style="color:var(--ink-soft);font-size:12px">市值≈1.3–1.5×净现金</span></td><td>为整个生意只付一点点溢价：下有现金垫、上留全部想象空间</td><td class="pos"><b>期权型下注该出手的不对称区间</b></td></tr>
+        <tr><td class="neg"><b>现价 193.1</b><br><span style="color:var(--ink-soft);font-size:12px">市值≈2.0×净现金</span></td><td>EV/ARR ≈ 8–11倍（未审计$4亿ARR）、P/S ≈ 90–110倍（审计$0.79亿）</td><td class="neg">不是便宜期权，是"仍为相当程度的成功预付了钱"的中等偏贵期权</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="check" style="border-left-color:var(--teal)">
+      <div class="vh"><span class="vn">怎么判断介入价：一个动作，不是一个数字</span></div>
+      <div class="crow"><span class="cl fact">先核两个数</span>去<b>最新财报</b>核当前<b>净现金</b>与<b>完全稀释后股本</b>——它俩决定一切、且都在变，报价页给不了你。第一步永远是这个，不是看K线。</div>
+      <div class="crow"><span class="cl logic">再算贵不贵</span>在候选价上算 <b>EV 与 EV/ARR</b>。对一个<b>无持久护城河、全员开源、还在烧钱</b>的模型层公司，你愿意给几倍ARR？（3–5倍已很给面子。）这个倍数对应的价格，才算"期权便宜"。</div>
+      <div class="crow"><span class="cl keep">只在期权接近白送时出手</span>越靠近现金底越好；并且<b>仓位≤1–2%、绝不摊平、脉冲里下车</b>——§8那套彩票纪律一个字不能松。</div>
+    </div>
+
+    <h4 style="font-size:16.5px;margin:20px 0 6px">直接回答："还能不能重新超过193，还是从此回不来？"</h4>
+    <p>必须把它拆成<b>两个答案相反</b>的问题：</p>
+    <div class="check" style="border-left-color:var(--duan)">
+      <div class="vh"><span class="vn">Q1 · 股价（每股）未来还有没有可能站上193？</span><span class="verdict v-ok">"回不来"几乎肯定太悲观</span></div>
+      <div class="crow"><span class="cl logic">结构</span>高beta + 期权型 + 长窗口：只要<b>活着</b>且AI叙事不熄，多年里靠一次C端爆款或一次SOTA脉冲、从更低的基数冲上193以上，概率并不低——它毕竟走过165→1330。<b>193不是天花板。</b></div>
+    </div>
+    <div class="check" style="border-left-color:var(--danger)">
+      <div class="vh"><span class="vn">Q2 · 你在193买入、靠它回到193以上赚到钱？</span><span class="verdict v-no">弱得多、且是另一个问题</span></div>
+      <div class="crow"><span class="cl bias">要害</span>它要<b>同时</b>满足：你熬过了等待期的drag、公司没在中途大幅稀释你、你在脉冲顶部真的下了车。<b>"股票某天摸到193以上" ≠ "你193的仓位在你需要时是绿的"。</b></div>
+    </div>
+    <div class="danger">
+      <div class="lab">⚠ 最诚实的结论</div>
+      <p style="margin:6px 0">真正的风险<b>不是"永久归零回不来"，而是"它回来了、但你在等待中被稀释和消耗，或没在脉冲里跑掉，最后坐了一趟过山车回到原点甚至更低"（round-trip）</b>。你交割单里的腾讯585、万科，死的正是这个"回来了我却没赚到"。<br><br><b>净结论</b>：新思路把赌注押对了地方（幸存者期权），但也因此让<b>进场价成为唯一胜负手</b>。193 在结构上不算安全——约2×净现金、EV/ARR约8–11倍，是"中等偏贵的期权"；真正值得介入的不对称区间，是更靠近<b>净现金底（HK$100–150一带）</b>、且你能核实<b>稀释没有失控</b>的地方。<b>能不能回到193——大概率能（作为股价）；你能不能因此赚钱——取决于你买得多便宜、熬得住、跑得掉。</b></p>
+    </div>
+    <div class="disclaimer"><b>再次声明：</b>以上是<b>"如何判断介入价格"的方法论刻度</b>，不是买卖推荐，也不是价位预测。所有市值/净现金/股本均为近似且快速变化，价格带随净现金与股本实时移动，务必以最新披露自行重算。</div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- AI红利 -->
+  <section id="dividend">
+    <span class="chapnum">§5</span>
+    <h2>AI红利到底怎么吃：分层框架 + "是否已错过"</h2>
+    <p class="lead">把《赌场论》的生态位地图套在AI上，"吃红利"至少有五个不同座位，风险剖面完全不同：</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>座位</th><th>逻辑</th><th>代表</th><th>风险剖面</th></tr></thead>
+      <tbody>
+        <tr><td><b>①卖铲人（算力/电力/设备）</b></td><td>荷官逻辑：不管谁赢模型战争，都要买铲子</td><td>芯片、云、电力、光模块</td><td>已是全球最拥挤的交易；且K3这类"高效开源"事件同样会砸它（7/17全球算力股齐挫）——铲子销量取决于"暴力堆算力"范式不变</td></tr>
+        <tr><td><b>②模型层（本文主角）</b></td><td>押注终局赢家或阶段轮动</td><td>MiniMax、智谱、（未上市的Kimi/DeepSeek）</td><td class="neg">红皇后赛道：领先易手、开源商品化、烧钱竞赛——<b>价值创造巨大≠价值沉淀在这层</b>（互联网泡沫时代的电信运营商教训）</td></tr>
+        <tr><td><b>③应用与场景层</b></td><td>用AI降本增收的"用户"，模型商品化反而是它们的红利</td><td>有分发/数据/场景的现有巨头与垂直应用</td><td>更接近"教堂"：可用现金流验证，七步法可用</td></tr>
+        <tr><td><b>④指数/巨头</b></td><td>不猜赢家，买下整个牌桌</td><td>宽基/科技指数、平台巨头</td><td>方差最低，吃"平均红利"</td></tr>
+        <tr><td><b>⑤一级市场</b></td><td>最大弹性所在</td><td>VC轮次</td><td>对散户关闭（猎手门票问题）</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <h3>"是否已错过？"——分层回答</h3>
+    <ul class="clean">
+      <li><b>错过的是什么</b>：模型层新股的"小流通盘×叙事"暴涨段（165→1330）确实过去了，而且那一段本质是<b>筹码游戏的红利，不是AI的红利</b>——它的对手盘正是7月追高被套的人。错过一场绞肉机循环，不叫错过。</li>
+      <li><b>没有错过的是什么</b>：AI若真兑现产业革命，<b>价值沉淀期还没开始</b>——正如互联网的真正红利不在1999年的门户股，而在2003年后的亚马逊/谷歌和用互联网重构的传统行业。届时七步法、安全边际这些工具会重新有用武之地；现在的功课是研究"谁在积累通过涨价测试的护城河"，而不是急着上桌。</li>
+      <li><b>诚实的对照</b>：巴菲特的谷歌案例——他"错过"了二十年，看懂后95岁补票，照样是好交易。<b>红利属于看懂的人，不属于先到的人。</b></li>
+    </ul>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 收束 -->
+  <section id="end">
+    <span class="chapnum">§6</span>
+    <h2>诚实的收束 + 待讨论问题清单</h2>
+    <div class="good">
+      <div class="lab">✅ 这次练习你做对的</div>
+      <p style="margin:6px 0">①识别出智谱暴涨的市场机制（三漏洞实战应用成功）；②"竞争未定局"的行业判断被K3事件验证；③主动把自己的链路交出来体检、并预标了"可能片面"——这正是唱反调测试的正确姿势。</p>
+    </div>
+    <div class="danger">
+      <div class="lab">⚠️ 需要修正的</div>
+      <p style="margin:6px 0">①"跌回发行价"与事实不符（现价仍高31%），且发行价/峰值/智谱都不是合法的价值锚；②关于"谁SOTA谁被带动"：机制本身<b>成立</b>（我此前误读成"一起涨"并错误证伪，已在§3④重判、致歉）——但它是<b>投机（SOTA动量轮动）</b>机会而非价值机会；且这几家<b>全员开源</b>、王冠零锁定，"领先"换不来持久定价权，价值更难沉淀在模型层；③"捡漏"一词不成立：价值不可知的东西谈不上捡漏，只有"买彩票"——若做，必须用彩票纪律（小注、可归零、写下下车条件），而不是价值投资的仓位与持有逻辑。</p>
+    </div>
+    <blockquote>把整个系列压成对这个案例的一句话：<b>MiniMax是一家"活得下去、收入是真的、但价值暂不可知"的公司，此刻站在一条刚经历完供给出清、仍由叙事与轮动定价的K线上——它是绝佳的观察样本、合格的彩票候选、但（还）不是价值投资的标的。</b><span class="who">— 本篇讨论底稿的中间结论，欢迎推翻</span></blockquote>
+
+    <h3>待讨论问题清单（挑感兴趣的继续）</h3>
+    <ol class="steps">
+      <li><b>ARR之谜</b>：0.79亿年收入 vs 4亿ARR——你倾向于信哪个口径？我们可以深挖海螺AI的出圈是否可持续（下载/收入数据源核对）。</li>
+      <li><b>供给日历</b>：MiniMax后续还有哪些解禁/可转债转股节点？"解禁日历"能否做成一个可复用的检查项？</li>
+      <li><b>开源的终局推演</b>：如果K3式开源持续成为常态，全员开源的模型层公司靠什么把"最强"变成持久收入？（付费API的便利性/规模？闭源产品如海螺·Talkie？企业私有化部署？还是归零？）——这直接决定②号座位有没有长期价值。</li>
+      <li><b>假如非要下注</b>：用"彩票纪律"设计一笔方法论上自洽的MiniMax投机（注码上限、下车条件、证伪信号），和你的交易规则v1.0对照，看它能否通过。</li>
+      <li><b>替代路径</b>：在③应用层里，用七步法找1-2家"AI是红利而非赌注"的公司做对照分析——检验"红利属于看懂的人"这句话。</li>
+      <li><b>闫俊杰尽调清单</b>：把"人没问题"从印象升级为核查——股权结构、投票权、关联交易、高管流动，列一张可执行的清单。</li>
+      <li><b>反方练习</b>：写一篇"为什么216港元的MiniMax其实被低估"的最强多头论证（唱反调测试反向用）——如果连我们都写不出有力版本，说明什么？</li>
+    </ol>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 自检 -->
+  <section id="selfcheck">
+    <span class="chapnum">§7</span>
+    <h2>对本报告自己也唱反调：逐条核验</h2>
+    <p class="lead">前面§3把你的思考链路上了刑架。公平起见，这一节把<b>同一套工具反过来对准本报告自己</b>——先过"唱反调测试"的每一问，再拿"23偏误七道防线"逐条自评。结论如果经不起自己的审问，就没资格审问你。</p>
+
+    <div class="term">
+      <div class="tt">先分清两把刀：唱反调测试 ≠ 证伪测试</div>
+      <b>唱反调测试（魔鬼代言人）</b>：强迫自己把<b>相反结论的最强版本</b>说到对方点头为止——查的是"我有没有认真理解反方"。<b>证伪测试</b>：预先写下"什么事实出现，我就承认自己错了"——查的是"我的结论可不可被现实推翻"。前者防傲慢，后者防狡辩。芒格版：<b>"如果我不能比最聪明的反对者更有力地说出他的立场，我就没资格持有我的观点。"</b>下面两把刀各过一遍。</div>
+
+    <h3>7A · 唱反调测试的六问，逐一作答（审问对象＝本报告的结论）</h3>
+    <p>本报告的结论是：<b>"MiniMax是合格的彩票候选、但（还）不是价值投资的标的。"</b>现在用测试的六个问题拷问这句话本身。</p>
+
+    <div class="check" style="border-left-color:var(--buffett)">
+      <div class="vh"><span class="vn">问1 · 复述：把"216港元被低估、这是价值捡漏"的最强版本说到对方点头</span><span class="verdict v-part">能写出，但仍有致命缺口</span></div>
+      <div class="crow"><span class="cl logic">最强多头（我替反方写）</span>MiniMax账上$30亿现金、跑道十年，不会死；4月ARR已$4亿、管理层指向年底$10亿——若兑现，现价EV/ARR仅约15倍，比多数美股AI应用便宜；创始人技术出身、停薪让股，治理信号为正；港股稀缺的纯AI标的，一旦板块情绪回暖，稀缺性溢价会自己回来。<b>把这些串起来，"现价是恐慌与解禁错杀"是一个自洽的故事。</b></div>
+      <div class="crow"><span class="cl bias">但复述完就暴露了缺口</span>这个最强版本的每一环都挂在<b>一个未经审计、可能含促销水分的ARR数字</b>上，且默认"毛利率会爬向软件业"——而这恰恰是全篇最不可知的两点。<b>我能把多头说圆，说明我没有稻草人化反方（测试通过）；但说圆之后它依然依赖不可验证的前提（结论站得住）。</b></div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--danger)">
+      <div class="vh"><span class="vn">问2 · 唱反调：本报告最可能错在哪一句？</span><span class="verdict v-no">找到两处自己的软肋</span></div>
+      <div class="crow"><span class="cl bias">软肋一</span><b>"价值不可知"可能是我偷懒的挡箭牌。</b>高盛能给860、摩根大通能给400，说明专业机构认为它<b>可被估、只是分歧大</b>。把"分歧大"说成"不可知"，有把自己能力圈的边界，冒充成世界的边界之嫌（这本身就是一种傲慢）。</div>
+      <div class="crow"><span class="cl bias">软肋二</span><b>"彩票候选"这个标签可能让我显得比实际更客观。</b>它听起来中立、克制，但也可能是一种<b>时髦的悲观</b>——用"纪律""证伪"这些正确的词，包装"我不敢下判断"。对唱空同样要唱反调。</div>
+      <div class="crow"><span class="cl keep">但软肋不改主结论</span>两处软肋都指向"该更谦逊地表述"，而非"结论反了"：即便它可被估，<b>15倍EV/ARR的定价里已不含安全边际</b>——价值投资要的不是"能估"，是"估出来还有折扣"。这道折扣，现价没有。</div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--gold)">
+      <div class="vh"><span class="vn">问3 · 证伪：什么事实出现，我就承认"它其实是价值标的"？</span><span class="verdict v-ok">敢写下，就合格</span></div>
+      <div class="crow"><span class="cl fact">我的翻案条件（白纸黑字）</span>满足<b>任意两条</b>即撤回"非价值标的"判断：①连续2–3个季度经审计财报证实ARR＄4亿真实且未大幅回撤；②毛利率稳定站上40%以上（证明算力成本可被收入摊薄）；③出现一个通过"涨价测试"的护城河证据（涨价而客户不流失）；④价格跌到"即便②③不兑现也不亏大钱"的水平（例如接近净现金$30亿附近）。</div>
+      <div class="crow"><span class="cl logic">这一栏的意义</span>写得出证伪条件，说明我的结论<b>不是信仰而是判断</b>——它挂在可观测的事实上，会被现实修正。<b>写不出证伪条件的看空，和写不出证伪条件的看多，是同一种病。</b></div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--buffett)">
+      <div class="vh"><span class="vn">问4 · 未来现金流：我的结论依赖哪些关于未来的假设？</span><span class="verdict v-ok">依赖极少，这是它的强处</span></div>
+      <div class="crow"><span class="cl logic">拆开看</span>"非价值标的"这个判断<b>几乎不依赖对未来的预测</b>——它只依赖两个当下就成立的事实：(a)现价对应的P/S≈110倍、EV/ARR≈15倍，账术层面没有折扣；(b)未来现金流的<b>可预测性</b>极低（收入结构一年剧变、毛利结构未定）。<b>我不需要预测它会失败，只需要指出"此刻无法以安全边际买入"。</b></div>
+      <div class="crow"><span class="cl bias">对照：反方的负担重得多</span>看多则必须<b>同时</b>押中ARR为真、增速延续、毛利爬升、竞争中存活四件事（§4的相乘清单）。<b>谁的结论依赖的未来假设少，谁的结论更稳。</b>这一问明显对本报告有利。</div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--danger)">
+      <div class="vh"><span class="vn">问5 · 关键变量：哪一个变量错了，本报告的结论就翻？</span><span class="verdict v-part">锁定唯一命门</span></div>
+      <div class="crow"><span class="cl logic">命门只有一个</span><b>价格。</b>本报告不是在说"MiniMax是坏公司"（恰恰相反，§4承认它活得下去、收入是真的），而是在说"<b>在216港元这个价格</b>它不是价值标的"。所以能推翻结论的不是"它变好"，而是"<b>价格跌到内在价值有折扣的位置</b>"——那时同一家公司会从"彩票候选"变成"值得用七步法认真估"的对象。</div>
+      <div class="crow"><span class="cl keep">这句话也是给你的提醒</span>看空一个价格 ≠ 看空一家公司。<b>把"现在太贵"误听成"永远别碰"，是另一种锚定。</b>好公司+坏价格，耐心等的是价格。</div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--gold)">
+      <div class="vh"><span class="vn">问6 · 意外频率：如果十年后回看我错了，最可能是怎么错的？</span><span class="verdict v-part">两种失败模式，都已标注</span></div>
+      <div class="crow"><span class="cl bias">错法A（假阴性）</span>MiniMax真成了中国AI应用层赢家，股价十倍——我因"价值不可知"劝退，<b>错过一只伟大公司</b>。但注意：即便如此，本报告也没让你"卖出/做空"，只说"现价无安全边际、别当价值仓位买"——<b>踏空不亏钱，这正是价值投资容忍的错误类型</b>（宁可错过，不可套牢）。</div>
+      <div class="crow"><span class="cl bias">错法B（假阳性）</span>它真的归零/长期低迷，而我用"合格的彩票候选"给了它一层体面——万一你只记住"合格"两字、忘了"彩票"两字，仓位下重了。<b>这是本报告最危险的副作用，§8就是来上保险的。</b></div>
+    </div>
+
+    <h3>7B · 23偏误的七道防线，逐条自评（这份报告自己做到了吗）</h3>
+    <p>《偏误全景图》给出的不是"别犯错"的口号，而是七道<b>流程防线</b>。逐条检查本报告有没有真的架上这些防线——做到打✓，欠账打⚠。</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>防线（对应偏误族）</th><th>本报告的具体做法</th><th>自评</th></tr></thead>
+      <tbody>
+        <tr><td><b>①投资笔记 / 留痕</b><br><span style="color:var(--ink-soft);font-size:12px">对抗事后归因、记忆篡改</span></td><td>结论、证伪条件（7A问3）、翻案价格全部白纸黑字写下，可被未来的事实打脸——本报告本身就是一份留痕。</td><td class="pos">✓</td></tr>
+        <tr><td><b>②预先承诺规则</b><br><span style="color:var(--ink-soft);font-size:12px">对抗临场情绪、处置效应</span></td><td>没有停留在"看法"，而是把它转成§8的可执行规则（注码上限/下车条件/证伪信号），在冲动之前就设好闸。</td><td class="pos">✓</td></tr>
+        <tr><td><b>③降低看盘频率</b><br><span style="color:var(--ink-soft);font-size:12px">对抗噪音交易、损失厌恶</span></td><td>全篇刻意用"十年后凭什么赚钱"的尺子，而非K线日内波动——把注意力从价格搬到价值。</td><td class="pos">✓</td></tr>
+        <tr><td><b>④制度化异议</b><br><span style="color:var(--ink-soft);font-size:12px">对抗确认偏误、群体思维</span></td><td>7A就是自建的魔鬼代言人；§6问题⑦要求"写最强多头论证"。<b>但异议来自我一个人，缺少真正的外部反对者。</b></td><td class="v-part" style="color:#a9760a;font-weight:800">⚠ 半做到</td></tr>
+        <tr><td><b>⑤外部视角 / 基准率</b><br><span style="color:var(--ink-soft);font-size:12px">对抗过度自信、叙事谬误</span></td><td>用"互联网泡沫电信运营商""1999门户股 vs 2003亚马逊"作基准率参照，提醒"价值创造≠价值沉淀在这层"。</td><td class="pos">✓</td></tr>
+        <tr><td><b>⑥检查清单</b><br><span style="color:var(--ink-soft);font-size:12px">对抗遗漏、能力圈幻觉</span></td><td>七步法逐格过、"216隐含信念清单"四条相乘、§8的下车清单——三张清单都在。</td><td class="pos">✓</td></tr>
+        <tr><td><b>⑦结构性谦逊</b><br><span style="color:var(--ink-soft);font-size:12px">对抗傲慢、把边界当真理</span></td><td>7A问2主动承认"价值不可知可能是我的挡箭牌"、给多头置信度、承认闫俊杰技术判断在能力圈外。<b>但"不可知"一词仍可能被我用来偷懒（已自我标注）。</b></td><td class="v-part" style="color:#a9760a;font-weight:800">⚠ 持续留意</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="check" style="border-left-color:var(--mm)">
+      <div class="vh"><span class="vn">再点名三个最容易缠上"看空方"的偏误</span><span class="verdict v-part">自查存档</span></div>
+      <div class="crow"><span class="cl bias">近期偏误（卡）</span>7/17刚发生的Kimi K3暴跌离我写作太近，可能<b>把一次事件当成永恒规律</b>。防线：真正的依据是<b>机制推理</b>（§2、§3④：全员开源→SOTA能力即时扩散→"领先"锁不住持久定价权）而非仅凭一天的跌幅，机制若成立则不因日期褪色。<b>另一个自查</b>：也别把7/17反过来当成"MiniMax永远起不来"——它只是印证了"轮动+无锁定"，不预言哪一家的下一次SOTA。</div>
+      <div class="crow"><span class="cl bias">逆火/立场固化</span>我在§3"打脸"过你的⑤（并已重判④、纠正自己把它误读成"一起涨"的错），人一旦开了空头，容易为了自洽继续唱空。防线：7A问2、问6主动写自己的错法，问3写翻案条件——<b>给结论装上了"认输开关"。</b></div>
+      <div class="crow"><span class="cl bias">悲观也会显得聪明</span>金融世界里唱空常被误当"深刻"。防线：本报告反复声明"非价值标的≠不能碰、更≠做空"，并在§8正面设计"如何合规地下注"——<b>克制不等于否定。</b></div>
+    </div>
+    <div class="fp"><div class="lab">7节小结</div><p style="margin:6px 0">两把刀过完：<b>唱反调测试——通过</b>（能写出最强多头且未稻草人化）；<b>证伪测试——通过</b>（翻案条件已白纸黑字）；七道防线 5条✓、2条⚠（缺真正的外部反对者、警惕"不可知"变懒惰）。<b>主结论维持，但措辞上从"价值不可知"收敛为"此刻无法以安全边际买入、且可预测性极低"——这更准确，也更少傲慢。</b></p></div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 彩票候选 + 问题4 -->
+  <section id="lottery">
+    <span class="chapnum">§8</span>
+    <h2>详解"彩票候选"，并完整作答问题④</h2>
+    <p class="lead">§6反复用了"合格的彩票候选"这个词，也把问题④留成了作业。这一节把它讲透：<b>先定义什么叫"合格的彩票"，再手把手设计一笔方法论自洽的MiniMax投机，最后拿它和你的《交易规则v1.0》逐条对照</b>——看它到底能不能通过。</p>
+
+    <h3>8A · 三种东西别混为一谈：价值标的 / 彩票候选 / 纯赌博</h3>
+    <p>它们的差别不在"涨还是跌"，在<b>你买的到底是什么，以及你有没有算清赔率</b>。</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>类型</th><th>你买的是</th><th>凭什么赚钱</th><th>正确的仓位/心态</th><th>MiniMax现状</th></tr></thead>
+      <tbody>
+        <tr><td><b>价值标的</b></td><td>企业未来现金流的折现</td><td>价值&gt;价格，且你能<b>论证</b>这个差</td><td>可重仓、长持、越跌越买（若逻辑未破）</td><td class="neg">不符合：价值不可知、现价无折扣</td></tr>
+        <tr><td><b>合格的彩票候选</b></td><td><b>一个不确定结果的入场券</b></td><td>赔率不对称：<b>可归零，但万一成真回报是数倍/数十倍</b>；且你<b>承认</b>自己算不准概率</td><td>极小注、可全损、绝不摊平、有明确下车条件</td><td class="pos">符合：跑道长不会立刻死、上限想象空间大、你清楚自己在赌</td></tr>
+        <tr><td><b>纯赌博</b></td><td>价格的短期跳动</td><td>没算过赔率，靠"感觉会涨"</td><td>（没有正确姿势，本质是给别人送钱）</td><td>——你若"跌回发行价就抄底、套了就摊平"，就滑进这一格</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="term">
+      <div class="tt">"合格的彩票"的三个硬条件（缺一即降级为赌博）</div>
+      <b>①正的不对称（凸性）：</b>下有底（最多亏本金）、上无盖（成真了是数倍）。买彩票的唯一理由是这个不对称，不是"我看它会涨"。<br>
+      <b>②输得起（可生存）：</b>注码小到<b>归零也不影响你的生活和主仓位</b>——因为你事先知道大概率归零。若一笔亏损会逼你离场或睡不着，注下大了。<br>
+      <b>③认知诚实（承认不可知）：</b>你买的是"不确定性本身"，不是"我算准了它值多少"。<b>一旦你开始说服自己"其实它很便宜、这是价值投资"，你就同时失去了彩票的纪律和价值的安全边际——两头落空，正是§3⑦警告的"用投机的标的做价值投资的仓位"。</b></div>
+    <p><b>为什么MiniMax是"候选"而不是"标的"</b>：它满足彩票的①②③（凸性有、跑道长输得起、价值确实不可知），却过不了价值投资的门槛（无法论证价值&gt;价格）。所以诚实的归类是——<b>如果你非做不可，它是一张设计得还算干净的彩票；但它永远不该占据你为"看懂的好公司"准备的那种仓位。</b></p>
+
+    <h3>8B · 问题④完整作答：设计一笔"方法论自洽"的MiniMax投机</h3>
+    <p>要求是自洽，不是推荐。下面是一套<b>若非下注不可、至少不自欺</b>的设计。四要素：注码上限、下车条件、证伪信号、以及和v1.0的关系。</p>
+
+    <div class="check" style="border-left-color:var(--teal)">
+      <div class="vh"><span class="vn">要素一 · 注码上限（先把"输得起"钉死）</span></div>
+      <div class="crow"><span class="cl logic">规则</span>单笔彩票 <b>≤ 总资产的1%–2%</b>，且<b>所有彩票合计 ≤ 5%</b>，从一个专设的"<b>娱乐/学习账户</b>"出，与价值主仓<b>物理隔离</b>（不同账户，眼不见）。这笔钱的心理定价：<b>买入当天就当它已经花掉了</b>（像买了张电影票）。</div>
+      <div class="crow"><span class="cl bias">为什么这么小</span>因为你<b>无法给它算概率</b>（连高盛摩根大通都差一倍）。凯利公式在概率不可知时的唯一安全解是"下注趋近于零"——所以1%不是胆小，是唯一诚实的注码。</div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--teal)">
+      <div class="vh"><span class="vn">要素二 · 下车条件（进场前就写好，两个方向都写）</span></div>
+      <div class="crow"><span class="cl keep">向上下车（止盈）</span>预设一个荒诞乐观的目标价或市值（例如ARR兑现$10亿、市值重回某位置），<b>触及即卖出至少一半，落袋成本、剩下的用利润裸奔</b>。彩票的钱赚到了要下桌，不然就变回了"看它还能涨"的赌博。</div>
+      <div class="crow"><span class="cl bias">向下下车（认赌服输）</span>预设一个<b>时间止损</b>而非价格止损：例如"持有12个月，若届时证伪信号出现≥1个 → 无条件清仓"。<b>绝不摊平</b>——摊平是把"一张小彩票"偷偷变成"一个大仓位"，是彩票纪律的头号杀手。</div>
+      <div class="crow"><span class="cl logic">关键分野</span>价值投资"越跌越买"（因为便宜了）；彩票"跌破证伪就走"（因为赌的前提没了）。<b>用错脚本是灾难：对彩票越跌越买＝往归零里加注。</b></div>
+    </div>
+
+    <div class="check" style="border-left-color:var(--teal)">
+      <div class="vh"><span class="vn">要素三 · 证伪信号（什么出现＝这张彩票的故事已破）</span></div>
+      <div class="crow"><span class="cl fact">写死这几条，命中任意一条即触发下车</span>①经审计财报显示ARR大幅缩水或此前数字被证伪；②毛利率长期停在25%下方、算力成本吃掉增长（单位经济证伪）；③开源同行持续免费追平（如K3之后再来一个），SOTA换不来任何持久溢价、"领先"定价权坍塌；④字节/阿里直接下场用同类产品免费碾压其C端场景；⑤又一次大额稀释性再融资（继268配售+CB后）；⑥核心创始团队出走。</div>
+      <div class="crow"><span class="cl logic">用途</span>这张清单在<b>买之前</b>就写好、和注码一起封存。它的作用不是预测，是<b>在你被套牢、开始给自己编理由时，替过去清醒的你执行判断</b>。</div>
+    </div>
+
+    <h3>它能通过你的《交易规则v1.0》吗？逐条对照</h3>
+    <p>这是问题④的核心。诚实的答案是：<b>用v1.0原样去套，这笔投机会被否掉大半——因为v1.0是为"价值投资"量身定做的，而彩票是另一种游戏。</b>这不是v1.0的漏洞，恰恰是它在正确地履职。</p>
+    <div class="tablewrap">
+    <table>
+      <thead><tr><th>v1.0 规则</th><th>这笔MiniMax投机</th><th>裁决</th></tr></thead>
+      <tbody>
+        <tr><td>①买入前检查清单一票否决：能否三句话说清怎么赚钱、凭什么持续？</td><td>说不清"凭什么持续"（护城河待证）</td><td class="neg">✕ 被一票否决</td></tr>
+        <tr><td>①之④：情绪极值则冷却48h</td><td>标的正处解禁+暴跌+行业冲击的情绪风暴中心</td><td class="neg">✕ 触发冷却</td></tr>
+        <tr><td>②禁止开盘下单，只在11:00–14:00</td><td>可遵守</td><td class="pos">✓ 通过</td></tr>
+        <tr><td>③持有期下限90天</td><td>与彩票"跌破证伪立刻走"直接冲突</td><td class="neg">✕ 规则打架</td></tr>
+        <tr><td>④卖出白名单（仅证伪触发/显著高于估值/更好标的）</td><td>彩票没有"估值区间"可依，"止盈下车"不在白名单里</td><td class="v-part" style="color:#a9760a">△ 需另立</td></tr>
+        <tr><td>⑤仓位纪律：单一标的≤25%</td><td>彩票要求≤1%——比规则严得多</td><td class="pos">✓ 远超标准</td></tr>
+        <tr><td>⑥投资笔记强制化（论点/证伪/预期持有期）</td><td>本设计三要素正好逐条对应</td><td class="pos">✓ 完美契合</td></tr>
+        <tr><td>⑦年度交易配额≤6笔</td><td>一笔彩票占一个配额，可接受</td><td class="pos">✓ 通过</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="danger">
+      <div class="lab">⚠ 对照后的真正结论（问题④的答案）</div>
+      <p style="margin:6px 0"><b>用v1.0原样审，这笔投机过不了——①③被否、④打架。</b>这说明一个深层事实：<b>价值投资的规则和彩票的规则不能混用</b>。v1.0的"90天持有""越跌越买的耐心""估值锚"全是为"好公司+安全边际"设计的，直接套到彩票上会<b>把小赌注养成大套牢</b>（正是你交割单里腾讯585、万科的死法）。<br><br>所以正确的做法不是"改宽v1.0去容纳彩票"，而是<b>另立一套物理隔离的《彩票专用规则》</b>，并让它继承v1.0里唯一通用的两条——<b>⑤仓位纪律（但收紧到≤1%）和⑥买入前写三行（论点/证伪/下车条件）</b>。其余的价值投资条款，对彩票<b>关闭</b>。</p>
+    </div>
+    <div class="good">
+      <div class="lab">✅ 一页纸《彩票专用军规》（若你真要留一格给不确定性）</div>
+      <p style="margin:6px 0">1. 彩票的钱走独立账户，合计≤总资产5%、单笔≤1%，买入当天就当它花光了。<br>2. 买之前写三行：<b>我在赌什么 / 什么信号出现我就走 / 上限价到了我卖一半</b>。写不出＝不许买。<br>3. <b>永不摊平</b>。跌破证伪信号只有一个动作：清仓。跌而未破：不动，也不加。<br>4. 赚到目标：卖一半落袋，剩下用利润裸奔——彩票赚了要下桌。<br>5. 这一格永远是"娱乐+学习"，不是"致富路径"。真正让我变富的，是另一个账户里那两笔"合理价买白马然后拿着"。</p>
+    </div>
+    <blockquote>问题④真正教会的，不是"怎么赌MiniMax"，而是<b>怎么把"赌"和"投"关进两个不会串门的房间</b>。承认自己偶尔想买张彩票，不丢人；把彩票当养老金买，才丢人。<span class="who">— §8 对问题④的作答</span></blockquote>
+    <div class="crosslink">📎 想继续的话，§6清单里还剩问题①（ARR之谜）、③（开源终局）、⑤（在应用层用七步法找"AI是红利而非赌注"的对照标的）、⑦（写最强多头论证）没展开——它们分别通向"财报核实""行业推演""正面选股练习"三个方向。</div>
+    <a class="backtop" href="#top">↑ 回到顶部</a>
+  </section>
+
+  <!-- 来源 -->
+  <section id="sources">
+    <span class="chapnum">参考</span>
+    <h2>参考来源（关键事实核实）</h2>
+    <ol class="sources">
+      <li>IPO与基石：发行价165港元、募资约48亿、超购1,837倍、代码00100、2026/1/9上市、14家基石（阿里/ADIA/易方达等）认购27.2亿、锁定至2026/7/9：东方财富新股分析、量子位（2025/12）、动点科技、证券时报stcn（首日开盘+42%、市值719亿；首日收涨超60%）。</li>
+      <li>股价区间与近况：52周区间209.20–1,330港元、较高点−84%、7/16收256、7/17收约216（−15.63%）：Yahoo/Investing/富途行情页、华盛通（7/15大行齐推+15%）。</li>
+      <li>解禁与再融资：7/9解禁44.85%股本、首日−17.98%、两天−27%；配售95.4亿@268港元+可转债合计约160亿港元、股价创新低209.2、市值较峰值蒸发约3,330亿：虎嗅、新浪财经（7/10、7/13）、中华网财经（7/15，含闫俊杰停薪、捐5%股份全员信；另见网易）。</li>
+      <li>财务：2023收入$350万→2024 $3,050万(+782%)→2025 $7,904万(+158.9%)；毛利率12.2%→25.4%；经调整净亏$2.44亿→$2.51亿；账面巨亏主因优先股公允价值变动约$16亿；现金$8.8亿→$10.5亿；Talkie占比63.7%→海螺升至32.6%；海外收入超七成：MiniMax 2025年报官方新闻稿、一财、Beancount分析、新浪/qbitai招股书解析、东吴证券新股报告。</li>
+      <li>公司与融资史：闫俊杰背景（商汤副总裁/CTO）、7轮融资约$15亿、天使估值$1.7亿→Pre-B++后$42亿+、阿里2024/3领投$6亿、股东名单：证券时报、知乎/创业邦《创业仅4年》、华尔街见闻《4年7轮》、21经济网。</li>
+      <li>智谱对照与Kimi K3事件：智谱02513、52周区间116.1–2,980；2026/7/17收1,107（−28.49%）、单日蒸发超2,000亿；Kimi K3（7/16发布、2.8万亿参数、开源、Code Arena登顶超越Claude Fable 5，GLM-5.2此前第二）；当日MiniMax−15.63%、恒生科技−5%、全球算力股齐挫；"智谱市值能买下七个MiniMax"（7/2）；月之暗面拟6个月内港股上市：腾讯新闻/ZAKER（7/18）、新浪财经/科技（7/18）、网易（7/17）。</li>
+      <li>机构观点：高盛买入·目标860（7/3，ARR 10亿目标信心）；美银（4月ARR约$4亿、结构转向B端）；花旗买入·目标下调至533；瑞银/中金（7/13）/华鑫买入；摩根大通降级中性·目标400（"模型能力仍在追赶"）：华盛通汇编（7/15）等。</li>
+      <li>方法论：本系列《商业模式七步法》《市场有效性的三个漏洞》《投资者偏误全景图》《赌场论与市场的猎手们》《个人思维模型库》v2.0（文中卡号）。</li>
+    </ol>
+    <p style="font-size:12.5px;color:#8a8170;margin-top:10px">注：所有数字为公开报道口径的近似值；ARR等前瞻指标未经审计；本文为方法论教学讨论，非投资建议。</p>
+  </section>
+
+  </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var map = {}, targets = [];
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if(el){ map[id] = a; targets.push(el); }
+  });
+  if(!('IntersectionObserver' in window) || targets.length===0) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var a = map[e.target.id];
+        if(a){ a.classList.add('active'); current = a; }
+      }
+    });
+  }, {rootMargin:'0px 0px -75% 0px', threshold:0});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>
